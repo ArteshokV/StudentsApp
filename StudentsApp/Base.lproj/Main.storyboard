@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Задания-->
         <scene sceneID="zkx-GN-tOj">
             <objects>
                 <viewController id="8Gb-dM-rGE" sceneMemberID="viewController">
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Igor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLd-Y1-abs">
-                                <rect key="frame" x="147" y="196" width="90" height="56"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран Задания Саверский" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvB-tR-v2k">
+                                <rect key="frame" x="96" y="246" width="182" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -28,13 +28,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="wub-ai-uLH"/>
+                    <tabBarItem key="tabBarItem" title="Задания" id="wub-ai-uLH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HRv-oR-HxN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="572" y="639.13043478260875"/>
+            <point key="canvasLocation" x="630" y="1069"/>
         </scene>
-        <!--Item-->
+        <!--Дополнительно-->
         <scene sceneID="3Yb-AH-JFA">
             <objects>
                 <viewController id="5fy-0V-GQ7" sceneMemberID="viewController">
@@ -42,8 +42,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SaverЬукпу2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QC8-CO-ycy">
-                                <rect key="frame" x="147" y="251" width="100" height="57"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран дополнительно Группа" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QC8-CO-ycy">
+                                <rect key="frame" x="98" y="253" width="178" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -53,13 +53,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="BFM-K7-6HR"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="cfn-VT-01P"/>
+                    <tabBarItem key="tabBarItem" title="Дополнительно" id="cfn-VT-01P"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLJ-D7-Ikb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-423.19999999999999" y="1310.1949025487258"/>
+            <point key="canvasLocation" x="-380" y="-448.42578710644682"/>
         </scene>
-        <!--Item-->
+        <!--Сегодня-->
         <scene sceneID="eon-Ms-HWu">
             <objects>
                 <viewController id="qKy-tB-uo7" sceneMemberID="viewController">
@@ -67,22 +67,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3M-8G-3D8">
-                                <rect key="frame" x="110" y="129" width="151" height="83"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран сегодня Группа" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibc-gj-dct">
+                                <rect key="frame" x="96" y="246" width="182" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="ivanGalkin"/>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="9YO-oV-SOa"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="S2T-j9-4nk"/>
+                    <tabBarItem key="tabBarItem" title="Сегодня" id="S2T-j9-4nk"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tue-Et-Fhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="464.80000000000001" y="1459.52023988006"/>
+            <point key="canvasLocation" x="629.60000000000002" y="306.29685157421289"/>
         </scene>
-        <!--Item-->
+        <!--Расписание-->
         <scene sceneID="2Dl-YV-qCl">
             <objects>
                 <viewController id="rUT-mW-xIp" sceneMemberID="viewController">
@@ -90,7 +92,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-qB-w9K">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран Расписание Игорь" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-qB-w9K">
                                 <rect key="frame" x="97" y="233" width="181" height="201"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -101,13 +103,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="4VK-7e-ef9"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="09d-OM-ppP"/>
+                    <tabBarItem key="tabBarItem" title="Расписание" id="09d-OM-ppP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFl-n7-NeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-281" y="-515"/>
+            <point key="canvasLocation" x="630" y="-448"/>
         </scene>
-        <!--Item 1-->
+        <!--Предмет-->
         <scene sceneID="hLv-Ne-gH8">
             <objects>
                 <viewController id="5St-Aj-6Jv" customClass="ViewController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,8 +117,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zakharov Vlad commit 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH9-OB-CTh">
-                                <rect key="frame" x="71" y="302" width="233" height="63"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран Предметы Захаров" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuT-lp-hgF">
+                                <rect key="frame" x="96" y="246" width="182" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -126,14 +128,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="wz4-HE-GR9"/>
-                    <connections>
-                        <outlet property="someLabel" destination="bH9-OB-CTh" id="BOe-oI-FlJ"/>
-                    </connections>
+                    <tabBarItem key="tabBarItem" title="Предмет" id="wz4-HE-GR9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EX-5x-FMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="572" y="-24.7376311844078"/>
+            <point key="canvasLocation" x="-380" y="1068"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MXE-NH-j1W">
