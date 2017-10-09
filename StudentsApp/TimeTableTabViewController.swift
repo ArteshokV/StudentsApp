@@ -36,10 +36,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
     @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
     
-    @IBOutlet weak var ClassroomLabel: UILabel!
-    @IBOutlet weak var TimeClassLabel: UILabel!
-    @IBOutlet weak var TeacherLabel: UILabel!
-    @IBOutlet weak var SubjectLabel: UILabel!
+    
     // функция получения номера текущего дня в неделе
     func GetTodayDayNumber (CurrentDate: Date) -> Int {
         WeekdayComponent = GregorianCalendar.components(.weekday, from: CurrentDate as Date) as NSDateComponents
