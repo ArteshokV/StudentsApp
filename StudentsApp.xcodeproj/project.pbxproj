@@ -78,6 +78,7 @@
 				4E7C53931F86CEC10012329E /* Assets.xcassets */,
 				4E7C53951F86CEC10012329E /* LaunchScreen.storyboard */,
 				4E7C53981F86CEC10012329E /* Info.plist */,
+				84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */,
 			);
 			path = StudentsApp;
 			sourceTree = "<group>";
