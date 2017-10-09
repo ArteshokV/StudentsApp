@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeTableTabViewController: UIViewController {
+class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var TodayDate = Date() // Переменная для текущей даты
     private var WeekBeginDate = Date() // Переменная для даты начала недели
@@ -22,6 +22,10 @@ class TimeTableTabViewController: UIViewController {
     private var SemesterBeginDate = Date () // дата начала семестра
     private var SemesterBeginString: String = "September 1, 2017" // строка начала семестра
     private var NumberOfWeek: Int = 1 //счетчик недель
+    private var CurrentTimeTable: Array<TimetableModel> = Array() //массив занятий в расписании текущего дня
+    
+    private var swiftBlogs = ["Ray Wenderlich", "NSHipster", "iOS Developer Tips", "Jameson Quave", "Natasha The Robot", "Coding Explorer", "That Thing In Swift", "Andrew Bancroft", "iAchieved.it", "Airspeed Velocity"]
+
 
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
@@ -30,7 +34,12 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
+    @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
     
+    @IBOutlet weak var ClassroomLabel: UILabel!
+    @IBOutlet weak var TimeClassLabel: UILabel!
+    @IBOutlet weak var TeacherLabel: UILabel!
+    @IBOutlet weak var SubjectLabel: UILabel!
     // функция получения номера текущего дня в неделе
     func GetTodayDayNumber (CurrentDate: Date) -> Int {
         WeekdayComponent = GregorianCalendar.components(.weekday, from: CurrentDate as Date) as NSDateComponents
@@ -84,6 +93,25 @@ class TimeTableTabViewController: UIViewController {
         WeekNumberLabel.text = String(GetWeekNumber(CurrentDate: TodayDate))
     }
     
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return swiftBlogs.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath)
+        
+        let row = indexPath.row
+        cell.textLabel?.text = swiftBlogs[row]
+        
+        return cell
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     // нажатие кнопки перехода на предыдущую неделю
     @IBAction func SwapPreviousWeek(_ sender: Any) {
         TodayDate = TodayDate.addingTimeInterval(-60*60*24*7)
@@ -98,12 +126,18 @@ class TimeTableTabViewController: UIViewController {
     }
     
     
-    
     override func viewDidLoad() {
+        TimeTableView.delegate = self
+        TimeTableView.dataSource = self
+        
         super.viewDidLoad()
         dateFormatter.dateStyle = .long
         DayLabel.text = GetCurrentDay(CurrentDate: TodayDate)
         ShowDates(CurrentDate: TodayDate)
+        //получаем расписание на текущий день
+        CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
+        
+        
         // Do any additional setup after loading the view.
     }
 

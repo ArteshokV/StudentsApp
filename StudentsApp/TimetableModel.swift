@@ -10,7 +10,7 @@ import UIKit
 
 class TimetableModel: NSObject {
     var classId: Int?
-    var classDate: Int?
+    var classDate: String?
     var classStartTime: Int?
     var classEndTime: Int?
     var classSubject: String?
@@ -18,32 +18,48 @@ class TimetableModel: NSObject {
     var classPlace: String?
     var classType: String?
     
-    static func getTimetable() -> Array<TimetableModel>{
+    static func getTimetable(Date: String) -> Array<TimetableModel>{
         //Получаем расписание
+        var currentArray: Array<TimetableModel> = Array()
         var returnArray: Array<TimetableModel> = Array()
         //var dfk: Date?
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = 1
-        firstClass.classStartTime = 1
-        firstClass.classEndTime = 1
+        firstClass.classDate = "October 10, 2017"
+        firstClass.classStartTime = 1015
+        firstClass.classEndTime = 1150
         firstClass.classSubject = "Информатика"
-        firstClass.classTeacher = "Ялдакова"
+        firstClass.classTeacher = "Петров"
         firstClass.classPlace = "515ю"
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
-        secondClass.classDate = 1
+        secondClass.classDate = "October 17, 2017"
         secondClass.classStartTime = 1
         secondClass.classEndTime = 1
         secondClass.classSubject = "Математика"
-        secondClass.classTeacher = "Хуеплетов"
+        secondClass.classTeacher = "Хартов"
         secondClass.classPlace = "315л"
         secondClass.classType = "Семинар"
+        let thirdClass: TimetableModel = TimetableModel()
+        thirdClass.classId = 3
+        thirdClass.classDate = "October 10, 2017"
+        thirdClass.classStartTime = 1200
+        thirdClass.classEndTime = 1335
+        thirdClass.classSubject = "Английский"
+        thirdClass.classTeacher = "Каримова"
+        thirdClass.classPlace = "433л"
+        thirdClass.classType = "Семинар"
         
-        returnArray.append(firstClass)
-        returnArray.append(secondClass)
+        currentArray.append(firstClass)
+        currentArray.append(secondClass)
+        
+        for currentClass in currentArray {
+            if (currentClass.classDate == Date) {
+                returnArray.append(currentClass)
+            }
+        }
         
         return returnArray
     }
