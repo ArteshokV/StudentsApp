@@ -112,16 +112,41 @@
         <!--Предмет-->
         <scene sceneID="hLv-Ne-gH8">
             <objects>
-                <viewController id="5St-Aj-6Jv" customClass="ViewController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5St-Aj-6Jv" customClass="SubjectsTabViewController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Fw-UN-HvY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Экран Предметы Захаров" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuT-lp-hgF">
-                                <rect key="frame" x="96" y="246" width="182" height="174"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
+                                <rect key="frame" x="0.0" y="110" width="375" height="508"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ddq-yV-Pek" customClass="SubjectsTabBackgroundImageLayout" customModule="StudentsApp" customModuleProvider="target">
+                                    <size key="itemSize" width="139" height="179"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="subjectCollectionCell" id="grg-hy-23c" customClass="SubjectTabCollectionViewCell" customModule="StudentsApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="139" height="179"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="139" height="179"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="5St-Aj-6Jv" id="kFi-4B-VdL"/>
+                                    <outlet property="delegate" destination="5St-Aj-6Jv" id="fos-c9-8Z8"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
+                                <rect key="frame" x="197" y="34" width="156" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <color key="textColor" red="0.20852898316062174" green="0.20852898316062174" blue="0.20852898316062174" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -129,10 +154,13 @@
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Предмет" id="wz4-HE-GR9"/>
+                    <connections>
+                        <outlet property="SubjectTabCollectionView" destination="PMi-2o-irx" id="KoC-SO-Ehj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EX-5x-FMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-380" y="1068"/>
+            <point key="canvasLocation" x="-380" y="1067.3163418290856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MXE-NH-j1W">
