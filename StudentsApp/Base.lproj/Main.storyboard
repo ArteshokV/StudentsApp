@@ -152,6 +152,36 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sdW-Y2-Xi1" id="S8b-nx-cuy">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="77.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Предмет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWc-rZ-LcE">
+                                                    <rect key="frame" x="30" y="8" width="134" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Преподаватель" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2o-O6-g13">
+                                                    <rect key="frame" x="30" y="37" width="141" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Время" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIy-6l-clx">
+                                                    <rect key="frame" x="204" y="8" width="122" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Аудитория" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8IU-Fs-3Ex">
+                                                    <rect key="frame" x="225" y="37" width="101" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -170,18 +200,22 @@
                     <tabBarItem key="tabBarItem" title="Расписание" id="09d-OM-ppP"/>
                     <connections>
                         <outlet property="BeginOfWeekLabel" destination="vwW-m1-yXF" id="fp6-wV-G3f"/>
+                        <outlet property="ClassTimeLabel" destination="wIy-6l-clx" id="l68-SU-YEP"/>
+                        <outlet property="ClassroomLabel" destination="8IU-Fs-3Ex" id="2Zi-WB-svs"/>
                         <outlet property="CurrentDayLabel" destination="HQB-lU-idQ" id="uYn-1P-i6j"/>
                         <outlet property="DayLabel" destination="wnH-KJ-im1" id="Uyo-pd-xtZ"/>
                         <outlet property="EndOfWeekLabel" destination="eWx-bl-XX4" id="Q5g-qF-5vx"/>
                         <outlet property="NextWeekButton" destination="b3d-G0-e3j" id="JHV-iD-srH"/>
                         <outlet property="PreviousWeekButton" destination="lR4-ck-G2D" id="sGR-4P-non"/>
+                        <outlet property="SubjectLabel" destination="eWc-rZ-LcE" id="vUs-lv-oru"/>
+                        <outlet property="TeacherLabel" destination="t2o-O6-g13" id="MKU-xn-pCC"/>
                         <outlet property="TimeTableView" destination="Xtz-kc-JM9" id="G8e-aC-cvo"/>
                         <outlet property="WeekNumberLabel" destination="peV-6b-Pcl" id="bhK-jT-QY4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFl-n7-NeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="-448"/>
+            <point key="canvasLocation" x="629.60000000000002" y="-448.42578710644682"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="hLv-Ne-gH8">
