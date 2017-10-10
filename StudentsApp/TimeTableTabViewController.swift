@@ -93,15 +93,15 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return swiftBlogs.count
+        return CurrentTimeTable.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimeTableViewCell
         
         let row = indexPath.row
-        
+        cell.SubjectLabel.text = CurrentTimeTable[row].classSubject
         
         
         return cell
