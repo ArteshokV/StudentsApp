@@ -50,16 +50,18 @@ class TasksTabViewController: UIViewController{
         super.viewDidLoad()
         
         taskTable.estimatedRowHeight = 85
-        taskTable.rowHeight = UITableViewAutomaticDimension
+        //taskTable.rowHeight = UITableViewAutomaticDimension
         
-        var taskArray: Array<TaskModel> = TaskModel.getTasks()
+        var taskArray: Array<TaskModel> = TaskModel.getTasks() // получение данных из модели
         
+        
+        //реализация сортировки по дате
         var ttt: Array<TaskModel> = Array()
         
         var tasksAtDayZero: Array<TaskModel> = Array()
         tasksAtDayZero.append(taskArray[0])
         
-       tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[0].taskDate, sectionObjects: tasksAtDayZero))
+        tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[0].taskDate, sectionObjects: tasksAtDayZero))
         
         var count: Int!
         
@@ -83,7 +85,7 @@ class TasksTabViewController: UIViewController{
         
         parametr = "time"
         
-        
+        //реализация сортировки по Предметам
         var sss: Array<TaskModel> = Array()
         
         var tasksAtSubjectZero: Array<TaskModel> = Array()
@@ -110,14 +112,11 @@ class TasksTabViewController: UIViewController{
             }
         }
         
-    
+    //Реализация сортировки по приоритету
         var ppp: Array<TaskModel> = Array()
         
         var tasksAtPriorityZero: Array<TaskModel> = Array()
-        /* tasksAtPriorityZero.append(taskArray[0])
         
-        tasksAtPriorityArray.append(tasksAtPriority(sectionName: taskArray[0].taskPriority, sectionObjects: tasksAtPriorityZero)) */
-       
         tasksAtPriorityArray.append(tasksAtPriority(sectionName: 2, sectionObjects: tasksAtPriorityZero))
         tasksAtPriorityArray.append(tasksAtPriority(sectionName: 1, sectionObjects: tasksAtPriorityZero))
         tasksAtPriorityArray.append(tasksAtPriority(sectionName: 0, sectionObjects: tasksAtPriorityZero))
@@ -142,21 +141,21 @@ class TasksTabViewController: UIViewController{
     }
         
    
-    @IBAction func setTime(_ sender: Any) {
+    @IBAction func setTime(_ sender: Any) { //сортировка по дате
         
        parametr = "time"
         taskTable.reloadData()
         
     }
     
-    @IBAction func setSubjects(_ sender: Any) {
+    @IBAction func setSubjects(_ sender: Any) { // сортировка по предмету
        
         
         parametr = "subject"
         taskTable.reloadData()
     }
     
-    @IBAction func setPriority(_ sender: Any) {
+    @IBAction func setPriority(_ sender: Any) { // сортировка по приоритету
         parametr = "priority"
         taskTable.reloadData()
     }
@@ -166,16 +165,6 @@ class TasksTabViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -242,8 +231,6 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! taskTableViewCell
         
-        // Configure the cell...
-        /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
         if parametr == "time" {
         cell.dateLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
         cell.subjectLabel.text = ""
