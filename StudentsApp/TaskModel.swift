@@ -62,7 +62,7 @@ class TaskModel: NSObject {
         fifthClass.taskDescription = "Нужно сдать еще один гребаный рк"
         fifthClass.taskStatus = 0
         let sixthClass: TaskModel = TaskModel()
-        sixthClass.taskId = 3
+        sixthClass.taskId = 5
         sixthClass.taskDate = "14.11.17"
         sixthClass.taskNameShort = "ДЗ2"
         sixthClass.taskSubject = "ЭВМ"
@@ -70,7 +70,7 @@ class TaskModel: NSObject {
         sixthClass.taskDescription = "Нужно сдать этот гребаный рк"
         sixthClass.taskStatus = 0
         let seventhClass: TaskModel = TaskModel()
-        seventhClass.taskId = 3
+        seventhClass.taskId = 6
         seventhClass.taskDate = "14.09.17"
         seventhClass.taskNameShort = "Сдать лаб №1"
         seventhClass.taskSubject = "ЭВМ"
