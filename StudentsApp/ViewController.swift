@@ -26,3 +26,15 @@ class ViewController: UIViewController {
 
 }
 
+//Класс для того, чтобы в Storiboard Выбрать initial Tab у Tab controller
+class BaseTabBarController: UITabBarController {
+    
+    @IBInspectable var defaultIndex: Int = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        selectedIndex = defaultIndex
+    }
+    
+}
+
