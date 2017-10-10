@@ -77,7 +77,10 @@ extension TodayTabViewController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
         if (indexPath.section == 0) { //Берем расписание
-            cell.textLabel?.text = timeTableArray[indexPath.item].classSubject
+            
+            
+            
+            //cell.textLabel?.text = "\(day) -- \(month) -- \(year)"//timeTableArray[indexPath.item].classSubject
         }else{
             cell.textLabel?.text = tasksArray[indexPath.item].taskNameShort
         }
