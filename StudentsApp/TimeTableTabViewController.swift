@@ -20,7 +20,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     private var WeekEndString = String () //строка даты конца недели
     private var WeekdayComponent = NSDateComponents() // объект для определения дня недели
     private var SemesterBeginDate = Date () // дата начала семестра
-    private var SemesterBeginString: String = "09/01/2017" // строка начала семестра
+    private var SemesterBeginString: String = "01.09.2017" // строка начала семестра
     private var NumberOfWeek: Int = 1 //счетчик недель
     private var CurrentTimeTable: Array<TimetableModel> = Array() //массив занятий в расписании текущего дня
     
@@ -47,6 +47,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     // функция определения номера недели
     func GetWeekNumber (CurrentDate: Date) -> Int {
         NumberOfWeek = 1
+        
         let DaysToBegin = GetTodayDayNumber(CurrentDate: CurrentDate)
         let fDate = CurrentDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToBegin))
         SemesterBeginDate = dateFormatter.date(from: SemesterBeginString)!
@@ -128,7 +129,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
         TimeTableView.dataSource = self
         
         super.viewDidLoad()
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateFormat = "dd.MM.yyyy"
         DayLabel.text = GetCurrentDay(CurrentDate: TodayDate)
         ShowDates(CurrentDate: TodayDate)
         //получаем расписание на текущий день
