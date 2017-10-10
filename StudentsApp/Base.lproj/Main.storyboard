@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -269,12 +268,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PMi-2o-irx" firstAttribute="bottom" secondItem="qa4-2t-oEP" secondAttribute="bottom" id="HLv-yt-iTJ"/>
-                            <constraint firstItem="PMi-2o-irx" firstAttribute="top" secondItem="fYO-tL-D1M" secondAttribute="bottom" constant="22" id="Kgr-8l-JWU"/>
-                            <constraint firstItem="PMi-2o-irx" firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="NUw-6H-X7r"/>
-                            <constraint firstItem="qa4-2t-oEP" firstAttribute="trailing" secondItem="fYO-tL-D1M" secondAttribute="trailing" constant="22" id="Qvn-v9-2zA"/>
-                            <constraint firstItem="PMi-2o-irx" firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="Zgy-In-Qyx"/>
-                            <constraint firstItem="fYO-tL-D1M" firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="14" id="gmJ-cY-qb5"/>
+                            <constraint firstAttribute="bottom" secondItem="qa4-2t-oEP" secondAttribute="bottom" id="HLv-yt-iTJ"/>
+                            <constraint firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="NUw-6H-X7r"/>
+                            <constraint firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="Zgy-In-Qyx"/>
+                            <constraint firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="14" id="gmJ-cY-qb5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
