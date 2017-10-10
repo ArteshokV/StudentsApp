@@ -174,7 +174,7 @@ extension TimeTableTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! TimeTableViewCell
         
-        let row = indexPath.count
+        let row = indexPath.row
         // Configure the cell...
         /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
         cell.SubjectLabel?.text = CurrentTimeTable[row].classSubject
