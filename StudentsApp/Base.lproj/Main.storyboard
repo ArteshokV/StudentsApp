@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -115,9 +116,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
                                 <rect key="frame" x="0.0" y="110" width="375" height="508"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ddq-yV-Pek" customClass="SubjectsTabBackgroundImageLayout" customModule="StudentsApp" customModuleProvider="target">
                                     <size key="itemSize" width="136" height="133"/>
@@ -140,15 +140,25 @@
                                     <outlet property="delegate" destination="5St-Aj-6Jv" id="fos-c9-8Z8"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
-                                <rect key="frame" x="197" y="34" width="156" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
+                                <rect key="frame" x="229" y="34" width="124" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fYO-tL-D1M" secondAttribute="height" multiplier="39:17" id="a05-dt-DC7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <color key="textColor" red="0.20852898316062174" green="0.20852898316062174" blue="0.20852898316062174" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="bottom" secondItem="qa4-2t-oEP" secondAttribute="bottom" id="HLv-yt-iTJ"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="top" secondItem="fYO-tL-D1M" secondAttribute="bottom" constant="22" id="Kgr-8l-JWU"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="NUw-6H-X7r"/>
+                            <constraint firstItem="qa4-2t-oEP" firstAttribute="trailing" secondItem="fYO-tL-D1M" secondAttribute="trailing" constant="22" id="Qvn-v9-2zA"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="Zgy-In-Qyx"/>
+                            <constraint firstItem="fYO-tL-D1M" firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="14" id="gmJ-cY-qb5"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Предмет" id="wz4-HE-GR9"/>
