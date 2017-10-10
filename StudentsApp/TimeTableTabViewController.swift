@@ -129,7 +129,8 @@ class TimeTableTabViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        
+        TimeTableView.estimatedRowHeight = 85
+        TimeTableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         DayLabel.text = GetCurrentDay(CurrentDate: TodayDate)
@@ -172,7 +173,7 @@ extension TimeTableTabViewController: UITableViewDataSource {
     
     // Получим данные для использования в ячейке
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! TimeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimeTableViewCell
         
         let row = indexPath.row
         // Configure the cell...
