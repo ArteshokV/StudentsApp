@@ -137,7 +137,6 @@ class TimeTableTabViewController: UIViewController {
         ShowDates(CurrentDate: TodayDate)
         //получаем расписание на текущий день
         CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
-        print (CurrentTimeTable[0].classSubject)
         
         // Do any additional setup after loading the view.
     }
@@ -179,6 +178,9 @@ extension TimeTableTabViewController: UITableViewDataSource {
         // Configure the cell...
         /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
         cell.SubjectLabel?.text = CurrentTimeTable[row].classSubject
+        cell.ClassroomLabel?.text = CurrentTimeTable[row].classPlace
+        cell.ClassTImeLabel?.text = CurrentTimeTable[row].classStartTime! + "-" + CurrentTimeTable[row].classEndTime!
+        cell.TeacherLabel?.text = CurrentTimeTable[row].classTeacher
         
         return cell
     }
