@@ -17,9 +17,15 @@ class TodayTabViewController: UIViewController {
     let TimetableCellIdentifier = "TimetableCell"
     let TasksCellIdentifier = "TaskCell"
     
+    var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
+    var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Полуение массива предметов
+        timeTableArray = TimetableModel.getTimetable()
+        tasksArray = TaskModel.getTasks()
 
         ProgressViewOutlet.transform = ProgressViewOutlet.transform.scaledBy(x: 1, y: 20)
 
@@ -56,7 +62,13 @@ extension TodayTabViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        let numberOfRows = (section == 0) ? timeTableArray.count : tasksArray.count ;
+        return numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionTitle = (section == 0) ? "Расписание" : "Задания" ;
+        return sectionTitle
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,8 +76,12 @@ extension TodayTabViewController: UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
-        //let row = indexPath.row
-        //cell.textLabel?.text = swiftBlogs[row]
+        if (indexPath.section == 0) { //Берем расписание
+            cell.textLabel?.text = timeTableArray[indexPath.item].classSubject
+        }else{
+            cell.textLabel?.text = tasksArray[indexPath.item].taskNameShort
+        }
+        
         
         return cell
     }
