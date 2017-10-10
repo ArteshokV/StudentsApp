@@ -35,10 +35,6 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
     @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
-    @IBOutlet weak var SubjectLabel: UILabel!
-    @IBOutlet weak var TeacherLabel: UILabel!
-    @IBOutlet weak var ClassTimeLabel: UILabel!
-    @IBOutlet weak var ClassroomLabel: UILabel!
     
     
     // функция получения номера текущего дня в неделе
@@ -105,7 +101,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath)
         
         let row = indexPath.row
-        SubjectLabel.text = CurrentTimeTable[row].classSubject
+        
         
         
         return cell

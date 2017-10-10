@@ -146,7 +146,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentCell" rowHeight="78" id="sdW-Y2-Xi1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IdentCell" rowHeight="78" id="sdW-Y2-Xi1" customClass="TimeTableViewCell" customModule="StudentsApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="358" height="78"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sdW-Y2-Xi1" id="S8b-nx-cuy">
@@ -183,6 +183,12 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ClassTImeLabel" destination="wIy-6l-clx" id="djW-Tx-hvS"/>
+                                            <outlet property="ClassroomLabel" destination="8IU-Fs-3Ex" id="yu0-Kb-cBD"/>
+                                            <outlet property="SubjectLabel" destination="eWc-rZ-LcE" id="o0m-Jy-lkg"/>
+                                            <outlet property="TeacherLabel" destination="t2o-O6-g13" id="l7g-Zt-YVc"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -200,15 +206,11 @@
                     <tabBarItem key="tabBarItem" title="Расписание" id="09d-OM-ppP"/>
                     <connections>
                         <outlet property="BeginOfWeekLabel" destination="vwW-m1-yXF" id="fp6-wV-G3f"/>
-                        <outlet property="ClassTimeLabel" destination="wIy-6l-clx" id="l68-SU-YEP"/>
-                        <outlet property="ClassroomLabel" destination="8IU-Fs-3Ex" id="2Zi-WB-svs"/>
                         <outlet property="CurrentDayLabel" destination="HQB-lU-idQ" id="uYn-1P-i6j"/>
                         <outlet property="DayLabel" destination="wnH-KJ-im1" id="Uyo-pd-xtZ"/>
                         <outlet property="EndOfWeekLabel" destination="eWx-bl-XX4" id="Q5g-qF-5vx"/>
                         <outlet property="NextWeekButton" destination="b3d-G0-e3j" id="JHV-iD-srH"/>
                         <outlet property="PreviousWeekButton" destination="lR4-ck-G2D" id="sGR-4P-non"/>
-                        <outlet property="SubjectLabel" destination="eWc-rZ-LcE" id="vUs-lv-oru"/>
-                        <outlet property="TeacherLabel" destination="t2o-O6-g13" id="MKU-xn-pCC"/>
                         <outlet property="TimeTableView" destination="Xtz-kc-JM9" id="G8e-aC-cvo"/>
                         <outlet property="WeekNumberLabel" destination="peV-6b-Pcl" id="bhK-jT-QY4"/>
                     </connections>
