@@ -11,8 +11,8 @@ import UIKit
 class TimetableModel: NSObject {
     var classId: Int?
     var classDate: String?
-    var classStartTime: Int?
-    var classEndTime: Int?
+    var classStartTime: String?
+    var classEndTime: String?
     var classSubject: String?
     var classTeacher: String?
     var classPlace: String?
@@ -26,27 +26,27 @@ class TimetableModel: NSObject {
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = "October 10, 2017"
-        firstClass.classStartTime = 1015
-        firstClass.classEndTime = 1150
+        firstClass.classDate = "10.10.2017"
+        firstClass.classStartTime = "10:15"
+        firstClass.classEndTime = "11:50"
         firstClass.classSubject = "Информатика"
         firstClass.classTeacher = "Петров"
         firstClass.classPlace = "515ю"
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
-        secondClass.classDate = "October 17, 2017"
-        secondClass.classStartTime = 1
-        secondClass.classEndTime = 1
+        secondClass.classDate = "17.10.2017"
+        secondClass.classStartTime = "10:15"
+        secondClass.classEndTime = "11:50"
         secondClass.classSubject = "Математика"
         secondClass.classTeacher = "Хартов"
         secondClass.classPlace = "315л"
         secondClass.classType = "Семинар"
         let thirdClass: TimetableModel = TimetableModel()
         thirdClass.classId = 3
-        thirdClass.classDate = "October 10, 2017"
-        thirdClass.classStartTime = 1200
-        thirdClass.classEndTime = 1335
+        thirdClass.classDate = "10.10.2017"
+        thirdClass.classStartTime = "12:00"
+        thirdClass.classEndTime = "13:35"
         thirdClass.classSubject = "Английский"
         thirdClass.classTeacher = "Каримова"
         thirdClass.classPlace = "433л"
@@ -54,11 +54,15 @@ class TimetableModel: NSObject {
         
         currentArray.append(firstClass)
         currentArray.append(secondClass)
+        currentArray.append(thirdClass)
         
-        for currentClass in currentArray {
-            if (currentClass.classDate == Date) {
-                returnArray.append(currentClass)
+        var i = 0
+        
+        while i != currentArray.count {
+            if currentArray[i].classDate == Date {
+                returnArray.append(currentArray[i])
             }
+            i = i + 1
         }
         
         return returnArray

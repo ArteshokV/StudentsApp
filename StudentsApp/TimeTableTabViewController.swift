@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TimeTableTabViewController: UIViewController {
     
     private var TodayDate = Date() // Переменная для текущей даты
     private var WeekBeginDate = Date() // Переменная для даты начала недели
@@ -92,7 +92,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CurrentTimeTable.count
     }
     
@@ -109,7 +109,10 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
-    }
+    }*/
+    
+    
+
     
     // нажатие кнопки перехода на предыдущую неделю
     @IBAction func SwapPreviousWeek(_ sender: Any) {
@@ -126,8 +129,6 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
     
     
     override func viewDidLoad() {
-        TimeTableView.delegate = self
-        TimeTableView.dataSource = self
         
         super.viewDidLoad()
         dateFormatter.dateFormat = "dd.MM.yyyy"
@@ -135,7 +136,7 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
         ShowDates(CurrentDate: TodayDate)
         //получаем расписание на текущий день
         CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
-        
+        print (CurrentTimeTable[0].classSubject)
         
         // Do any additional setup after loading the view.
     }
@@ -147,4 +148,37 @@ class TimeTableTabViewController: UIViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
+}
+
+
+extension TimeTableTabViewController: UITableViewDelegate {
+    
+}
+
+extension TimeTableTabViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return CurrentTimeTable.count
+    }
+    
+    // Получим количество строк для конкретной секции
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CurrentTimeTable.count
+    }
+    
+    // Получим заголовок для секции
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return ""
+    }
+    
+    // Получим данные для использования в ячейке
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! TimeTableViewCell
+        
+        let row = indexPath.count
+        // Configure the cell...
+        /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
+        cell.SubjectLabel?.text = CurrentTimeTable[row].classSubject
+        
+        return cell
+    }
 }
