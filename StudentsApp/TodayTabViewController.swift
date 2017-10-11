@@ -23,11 +23,14 @@ class TodayTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Получение сегодняшней даты
+        TodayDateLabel.text = CustomDateClass.todaysDateString()
+        
         //Полуение массива предметов
         timeTableArray = TimetableModel.getTimetable()
         tasksArray = TaskModel.getTasks()
 
-        ProgressViewOutlet.transform = ProgressViewOutlet.transform.scaledBy(x: 1, y: 20)
+        ProgressViewOutlet.transform = ProgressViewOutlet.transform.scaledBy(x: 1, y: 10)
 
         // Do any additional setup after loading the view.
     }
