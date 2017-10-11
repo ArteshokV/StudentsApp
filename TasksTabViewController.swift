@@ -9,7 +9,7 @@
 import UIKit
 
 class TasksTabViewController: UIViewController{
-    
+    // MARK: - Variables
     var parametr: String! // переменная для выбота типа сортировки
     var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
     
@@ -87,6 +87,7 @@ class TasksTabViewController: UIViewController{
         
         taskTable.estimatedRowHeight = 85 // пытаемся выставить высоту ячейки
         //taskTable.rowHeight = UITableViewAutomaticDimension
+        
         
         var taskArray: Array<TaskModel> = TaskModel.getTasks() // получение данных из модели заданий
         var activitiesArray: Array<ActivitiesModel> = ActivitiesModel.getActivities() // получение данных из модели контрольных мероприятий
@@ -222,7 +223,8 @@ class TasksTabViewController: UIViewController{
             priorityButton.tintColor = UIColor.gray
         }
         taskTable.reloadData()
-        
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        taskTable.scrollToRow(at: index, at: .top, animated: true)
     }
     
     @IBAction func setSubjects(_ sender: Any) { //выбор сортировки по предмету
@@ -234,7 +236,12 @@ class TasksTabViewController: UIViewController{
         if taskOrActivity == "task" {
             priorityButton.tintColor = UIColor.gray
         }
+        
         taskTable.reloadData()
+        
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        taskTable.scrollToRow(at: index, at: .top, animated: true)
+        
     }
     
     @IBAction func setPriority(_ sender: Any) { //выбор сортировки по приоритету
@@ -244,6 +251,8 @@ class TasksTabViewController: UIViewController{
         timeButton.tintColor = UIColor.gray
         priorityButton.tintColor = UIColor.blue
         taskTable.reloadData()
+            let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+            taskTable.scrollToRow(at: index, at: .top, animated: true)
     }
     }
     
@@ -253,6 +262,8 @@ class TasksTabViewController: UIViewController{
         priorityButton.tintColor = UIColor.gray
         taskOrActivity = "task"
         taskTable.reloadData()
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        taskTable.scrollToRow(at: index, at: .top, animated: true)
     }
     
     
@@ -267,6 +278,9 @@ class TasksTabViewController: UIViewController{
         }
         priorityButton.tintColor = UIColor.white //делаем кнопку невидимой
         taskTable.reloadData()
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        taskTable.scrollToRow(at: index, at: .top, animated: true)
+        
     }
     
     
@@ -287,6 +301,7 @@ extension TasksTabViewController: UITableViewDelegate {
 
 extension TasksTabViewController: UITableViewDataSource {
     
+
     
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
         if taskOrActivity == "task" { // для вывода заданий
@@ -320,6 +335,9 @@ extension TasksTabViewController: UITableViewDataSource {
     }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
      if taskOrActivity == "task" {  // для вывода заданий
@@ -355,6 +373,8 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { // Получим заголовок для секции
+        
+        tableView.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
@@ -399,18 +419,25 @@ extension TasksTabViewController: UITableViewDataSource {
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате
+            if tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 2 { cell.backgroundColor = UIColor.init(red: 15, green: 0, blue: 0, alpha: 0.1) }
+            if tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 1 { cell.backgroundColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.2) }
+            if tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 0 { cell.backgroundColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.1) }
         cell.dateLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
         cell.subjectLabel.text = ""
         cell.shortNameLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
         }
         
         if parametr == "subject" { // Вывод данных для сортировки заданий по предметам
+            if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 2 { cell.backgroundColor = UIColor.init(red: 15, green: 0, blue: 0, alpha: 0.1)}
+            if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 1 { cell.backgroundColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.2) }
+            if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 0 { cell.backgroundColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.1) }
             cell.dateLabel.text = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskDate
             cell.subjectLabel.text = ""
             cell.shortNameLabel.text = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
         }
         
         if parametr == "priority" { // Вывод данных для сортировки заданий по приоритету
+            cell.backgroundColor = UIColor.clear
             cell.dateLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskDate
             cell.subjectLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
             cell.shortNameLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
@@ -418,12 +445,14 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         else {
             if parametr == "time" { // Вывод данных для сортировки мероприятий по дате
+               cell.backgroundColor = UIColor.init(red: 0, green: 3, blue: 0, alpha: 0.01)
                 cell.dateLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activitySubject
                 cell.subjectLabel.text = ""
                 cell.shortNameLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
             }
             
             if parametr == "subject" { // Вывод данных для сортировки мероприятий по предметам
+               cell.backgroundColor = UIColor.clear
                 cell.dateLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityDate
                 cell.subjectLabel.text = ""
                 cell.shortNameLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
