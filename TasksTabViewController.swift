@@ -91,29 +91,30 @@ class TasksTabViewController: UIViewController{
         var taskArray: Array<TaskModel> = TaskModel.getTasks() // получение данных из модели заданий
         var activitiesArray: Array<ActivitiesModel> = ActivitiesModel.getActivities() // получение данных из модели контрольных мероприятий
         
-        //реализация сортировки заданий по дате
-        var ttt: Array<TaskModel> = Array()
         
+        
+        //********СОРТИРОВКИ ДЛЯ ЗАДАНИЙ**********
+        //реализация сортировки заданий по дате
+        
+        var tasksEmptyArray: Array<TaskModel> = Array() //пустой массив для инициализации нового блока
         var tasksAtDayZero: Array<TaskModel> = Array()
         tasksAtDayZero.append(taskArray[0])
         
         tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[0].taskDate, sectionObjects: tasksAtDayZero))
         
-        var count: Int!
+        var count: Int! // счетчик для цикла
         
-        
-        for i in 1...(taskArray.count - 1) {
+        for i in 1...(taskArray.count - 1) { //проходим по всем мероприятиям
             count = 0
-            for j in 0...(tasksAtDayArray.count - 1) {
+            for j in 0...(tasksAtDayArray.count - 1) { //проходим по всем блокам (датам)
                 if (taskArray[i].taskDate == tasksAtDayArray[j].sectionName) {
                     tasksAtDayArray[j].sectionObjects.append(taskArray[i])
                 }
                 else { count = count + 1 }
                 
-                if count == tasksAtDayArray.count {
-                    ttt.append(taskArray[i])
-                    tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[i].taskDate, sectionObjects: ttt))
-                    ttt.removeAll()
+                if count == tasksAtDayArray.count { //если необходимого блока нет - создаем новый
+                    tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[i].taskDate, sectionObjects: tasksEmptyArray))
+                    tasksAtDayArray[j+1].sectionObjects.append(taskArray[i])
                 }
             }
         }
@@ -122,40 +123,32 @@ class TasksTabViewController: UIViewController{
         
         
         //реализация сортировки заданий по Предметам
-        var sss: Array<TaskModel> = Array()
         
         var tasksAtSubjectZero: Array<TaskModel> = Array()
         tasksAtSubjectZero.append(taskArray[0])
         
         tasksAtSubjectArray.append(tasksAtSubject(sectionName: taskArray[0].taskSubject, sectionObjects: tasksAtSubjectZero))
         
-       
-        
-        
-        for i in 1...(taskArray.count - 1) {
+        for i in 1...(taskArray.count - 1) { //проходим по всем мероприятиям
             count = 0
-            for j in 0...(tasksAtSubjectArray.count - 1) {
+            for j in 0...(tasksAtSubjectArray.count - 1) { //проходим по всем блокам (предметам)
                 if (taskArray[i].taskSubject == tasksAtSubjectArray[j].sectionName) {
                     tasksAtSubjectArray[j].sectionObjects.append(taskArray[i])
                 }
                 else { count = count + 1 }
                 
-                if count == tasksAtSubjectArray.count {
-                    sss.append(taskArray[i])
-                    tasksAtSubjectArray.append(tasksAtSubject(sectionName: taskArray[i].taskSubject, sectionObjects: sss))
-                    sss.removeAll()
+                if count == tasksAtSubjectArray.count { //если необходимого блока нет - создаем новый
+                    tasksAtSubjectArray.append(tasksAtSubject(sectionName: taskArray[i].taskSubject, sectionObjects: tasksEmptyArray))
+                    tasksAtSubjectArray[j+1].sectionObjects.append(taskArray[i])
                 }
             }
         }
         
     //Реализация сортировки заданий по приоритету
-        var ppp: Array<TaskModel> = Array()
         
-        var tasksAtPriorityZero: Array<TaskModel> = Array()
-        
-        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 2, sectionObjects: tasksAtPriorityZero))
-        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 1, sectionObjects: tasksAtPriorityZero))
-        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 0, sectionObjects: tasksAtPriorityZero))
+        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 2, sectionObjects: tasksEmptyArray))
+        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 1, sectionObjects: tasksEmptyArray))
+        tasksAtPriorityArray.append(tasksAtPriority(sectionName: 0, sectionObjects: tasksEmptyArray))
         
         for i in 0...(taskArray.count - 1) {
             count = 0
@@ -163,24 +156,18 @@ class TasksTabViewController: UIViewController{
                 if (taskArray[i].taskPriority == tasksAtPriorityArray[j].sectionName) {
                     tasksAtPriorityArray[j].sectionObjects.append(taskArray[i])
                 }
-                else { count = count + 1 }
-                
-                if count == tasksAtPriorityArray.count {
-                    ppp.append(taskArray[i])
-                    tasksAtPriorityArray.append(tasksAtPriority(sectionName: taskArray[i].taskPriority, sectionObjects: ppp))
-                    ppp.removeAll()
-                }
             }
         }
         
+        //********СОРТИРОВКИ ДЛЯ МЕРОПРИЯТИЙ**********
         //реализация сортировки мероприятий по дате
-        var tta: Array<ActivitiesModel> = Array()
+       
+        var activitiesEmptyArray: Array<ActivitiesModel> = Array() //пустой массив для инициализации нового блока
         
         var activitiesAtDayZero: Array<ActivitiesModel> = Array()
         activitiesAtDayZero.append(activitiesArray[0])
         
         activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[0].activityDate, sectionObjects: activitiesAtDayZero))
-        
         
         for i in 1...(activitiesArray.count - 1) {
             count = 0
@@ -191,9 +178,8 @@ class TasksTabViewController: UIViewController{
                 else { count = count + 1 }
                 
                 if count == activitiesAtDayArray.count {
-                    tta.append(activitiesArray[i])
-                    activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate, sectionObjects: tta))
-                    tta.removeAll()
+                    activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate, sectionObjects: activitiesEmptyArray))
+                    activitiesAtDayArray[j+1].sectionObjects.append(activitiesArray[i])
                 }
             }
         }
@@ -202,15 +188,11 @@ class TasksTabViewController: UIViewController{
         
         
         //реализация сортировки мероприятий по Предметам
-        var ssa: Array<ActivitiesModel> = Array()
         
         var activitiesAtSubjectZero: Array<ActivitiesModel> = Array()
         activitiesAtSubjectZero.append(activitiesArray[0])
         
         activitiesAtSubjectArray.append(activitiesAtSubject(sectionName: activitiesArray[0].activitySubject, sectionObjects: activitiesAtSubjectZero))
-        
-        
-        
         
         for i in 1...(activitiesArray.count - 1) {
             count = 0
@@ -221,39 +203,41 @@ class TasksTabViewController: UIViewController{
                 else { count = count + 1 }
                 
                 if count == activitiesAtSubjectArray.count {
-                    ssa.append(activitiesArray[i])
-                    activitiesAtSubjectArray.append(activitiesAtSubject(sectionName: activitiesArray[i].activitySubject, sectionObjects: ssa))
-                    ssa.removeAll()
+                    activitiesAtSubjectArray.append(activitiesAtSubject(sectionName: activitiesArray[i].activitySubject, sectionObjects: activitiesEmptyArray))
+                    activitiesAtSubjectArray[j+1].sectionObjects.append(activitiesArray[i])
                 }
             }
         }
         
-        //Реализация сортировки по приоритету
         // Do any additional setup after loading the view.
     }
         
    
-    @IBAction func setTime(_ sender: Any) { //сортировка по дате
+    @IBAction func setTime(_ sender: Any) { //выбор сортировки по дате
         
         parametr = "time"
         subjectButton.tintColor = UIColor.gray
         timeButton.tintColor = UIColor.blue
-        priorityButton.tintColor = UIColor.gray
+        if taskOrActivity == "task" {
+            priorityButton.tintColor = UIColor.gray
+        }
         taskTable.reloadData()
         
     }
     
-    @IBAction func setSubjects(_ sender: Any) { // сортировка по предмету
+    @IBAction func setSubjects(_ sender: Any) { //выбор сортировки по предмету
        
         
         parametr = "subject"
         subjectButton.tintColor = UIColor.blue
         timeButton.tintColor = UIColor.gray
-        priorityButton.tintColor = UIColor.gray
+        if taskOrActivity == "task" {
+            priorityButton.tintColor = UIColor.gray
+        }
         taskTable.reloadData()
     }
     
-    @IBAction func setPriority(_ sender: Any) { // сортировка по приоритету
+    @IBAction func setPriority(_ sender: Any) { //выбор сортировки по приоритету
         if taskOrActivity == "task" {
         parametr = "priority"
         subjectButton.tintColor = UIColor.gray
@@ -263,30 +247,25 @@ class TasksTabViewController: UIViewController{
     }
     }
     
-    @IBAction func taskChooseButton(_ sender: Any) {
+    @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
         priorityButton.tintColor = UIColor.gray
         taskOrActivity = "task"
-        //parametr = "time"
         taskTable.reloadData()
     }
     
     
-    @IBAction func acrivityChooseButton(_ sender: Any) {
+    @IBAction func acrivityChooseButton(_ sender: Any) {//выбор просмотра мероприятий
         taskButton.tintColor = UIColor.gray
         activityButton.tintColor = UIColor.red
         
         taskOrActivity = "activity"
-        
-        
-        //priorityButton.isEnabled = false
-        
-        
-        if parametr == "priority"  {
+     
+        if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
             setTime((Any).self)
         }
-        priorityButton.tintColor = UIColor.white
+        priorityButton.tintColor = UIColor.white //делаем кнопку невидимой
         taskTable.reloadData()
     }
     
@@ -310,25 +289,24 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
-        if taskOrActivity == "task" {
+        if taskOrActivity == "task" { // для вывода заданий
             if parametr == "time" {
             return tasksAtDayArray.count
         }
         
             else { if parametr == "subject" {
-            return tasksAtSubjectArray.count
-        }
+                return tasksAtSubjectArray.count
+            }
                   else { if parametr == "priority" {
-            return tasksAtPriorityArray.count
-        }
-        else { return 0 }
-                
+                return tasksAtPriorityArray.count
+                }
+                    else { return 0 }
                 }
                 
             }
         }
         
-        else {
+        else { //для вывода мероприятий
              if parametr == "time" {
                 return activitiesAtDayArray.count
             }
@@ -344,7 +322,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
-     if taskOrActivity == "task" {
+     if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
         return tasksAtDayArray[section].sectionObjects.count
         }
@@ -360,7 +338,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         }
         }
-     else {
+     else { //для вывода мероприятий
         if parametr == "time" {
             return activitiesAtDayArray[section].sectionObjects.count
         }
@@ -378,7 +356,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { // Получим заголовок для секции
         
-        if taskOrActivity == "task" {
+        if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
             return tasksAtDayArray[section].sectionName
         }
@@ -401,7 +379,7 @@ extension TasksTabViewController: UITableViewDataSource {
                 else {return " "}
             }
             } }
-        else {
+        else { //для вывода мероприятий
             if parametr == "time" {
                 return activitiesAtDayArray[section].sectionName
             }
@@ -419,33 +397,33 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! taskTableViewCell
         
-        if taskOrActivity == "task" {
-        if parametr == "time" { // Вывод данных для сортировки по дате
+        if taskOrActivity == "task" { // для вывода заданий
+        if parametr == "time" { // Вывод данных для сортировки заданий по дате
         cell.dateLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
         cell.subjectLabel.text = ""
         cell.shortNameLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
         }
         
-        if parametr == "subject" { // Вывод данных для сортировки по предметам
+        if parametr == "subject" { // Вывод данных для сортировки заданий по предметам
             cell.dateLabel.text = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskDate
             cell.subjectLabel.text = ""
             cell.shortNameLabel.text = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
         }
         
-        if parametr == "priority" { // Вывод данных для сортировки по приоритету
+        if parametr == "priority" { // Вывод данных для сортировки заданий по приоритету
             cell.dateLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskDate
             cell.subjectLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
             cell.shortNameLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
         }
         }
         else {
-            if parametr == "time" { // Вывод данных для сортировки по дате
+            if parametr == "time" { // Вывод данных для сортировки мероприятий по дате
                 cell.dateLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activitySubject
                 cell.subjectLabel.text = ""
                 cell.shortNameLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
             }
             
-            if parametr == "subject" { // Вывод данных для сортировки по предметам
+            if parametr == "subject" { // Вывод данных для сортировки мероприятий по предметам
                 cell.dateLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityDate
                 cell.subjectLabel.text = ""
                 cell.shortNameLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
