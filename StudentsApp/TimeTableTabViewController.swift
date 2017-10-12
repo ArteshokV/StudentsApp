@@ -20,8 +20,13 @@ class TimeTableTabViewController: UIViewController {
     private var WeekEndString = String () //строка даты конца недели
     private var WeekdayComponent = NSDateComponents() // объект для определения дня недели
     private var SemesterBeginDate = Date () // дата начала семестра
-    private var SemesterBeginString: String = "September 1, 2017" // строка начала семестра
+
+    private var SemesterBeginString: String = "01.09.2017" // строка начала семестра
     private var NumberOfWeek: Int = 1 //счетчик недель
+    private var CurrentTimeTable: Array<TimetableModel> = Array() //массив занятий в расписании текущего дня
+    
+    private var swiftBlogs = ["Ray Wenderlich", "NSHipster", "iOS Developer Tips", "Jameson Quave", "Natasha The Robot", "Coding Explorer", "That Thing In Swift", "Andrew Bancroft", "iAchieved.it", "Airspeed Velocity"]
+
 
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
@@ -30,6 +35,9 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
+
+    @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
+    
     
     // функция получения номера текущего дня в неделе
     func GetTodayDayNumber (CurrentDate: Date) -> Int {
@@ -41,8 +49,9 @@ class TimeTableTabViewController: UIViewController {
     // функция определения номера недели
     func GetWeekNumber (CurrentDate: Date) -> Int {
         NumberOfWeek = 1
-        let DaysToDegin = GetTodayDayNumber(CurrentDate: CurrentDate)
-        let fDate = CurrentDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToDegin))
+
+        let DaysToBegin = GetTodayDayNumber(CurrentDate: CurrentDate)
+        let fDate = CurrentDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToBegin))
         SemesterBeginDate = dateFormatter.date(from: SemesterBeginString)!
         while SemesterBeginDate < fDate {
             NumberOfWeek = NumberOfWeek + 1
@@ -53,13 +62,16 @@ class TimeTableTabViewController: UIViewController {
     
     // функция формата даты из "October 1, 2017" -> "1 October"
     func MyDateFormatt (Date: String) -> String {
-        let CutNumber = Date.index(of: ",")
+
+        /*let CutNumber = Date.index(of: ",")
         let CutDate = String(Date.prefix(upTo: CutNumber!))
         let SpaceNumber = CutDate.index(of: " ")
         let Month = String(CutDate.prefix(upTo: SpaceNumber!))
         let Day = String((CutDate.suffix(from: SpaceNumber!)).dropFirst())
-        let FinalDate = Day + " " + Month
-        return FinalDate
+
+        let FinalDate = Day + " " + Month*/
+        return Date
+
     }
     
     //функция определения названия текущего дня
@@ -74,8 +86,9 @@ class TimeTableTabViewController: UIViewController {
     func ShowDates (CurrentDate: Date) {
         TodatDateString = dateFormatter.string(from: TodayDate)
         CurrentDayLabel.text = MyDateFormatt(Date: TodatDateString)
-        let DaysToDegin = GetTodayDayNumber(CurrentDate: TodayDate)
-        WeekBeginDate = TodayDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToDegin))
+
+        let DaysToBegin = GetTodayDayNumber(CurrentDate: TodayDate)
+        WeekBeginDate = TodayDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToBegin))
         WeekBeginString = dateFormatter.string(from: WeekBeginDate)
         WeekEndDate = WeekBeginDate.addingTimeInterval(60*60*24*6)
         WeekEndString = dateFormatter.string(from: WeekEndDate)
@@ -83,6 +96,30 @@ class TimeTableTabViewController: UIViewController {
         BeginOfWeekLabel.text = MyDateFormatt(Date:WeekBeginString)
         WeekNumberLabel.text = String(GetWeekNumber(CurrentDate: TodayDate))
     }
+    
+
+    
+    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CurrentTimeTable.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimeTableViewCell
+        
+        let row = indexPath.row
+        cell.SubjectLabel.text = CurrentTimeTable[row].classSubject
+        
+        
+        return cell
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }*/
+    
+    
+
     
     // нажатие кнопки перехода на предыдущую неделю
     @IBAction func SwapPreviousWeek(_ sender: Any) {
@@ -98,12 +135,17 @@ class TimeTableTabViewController: UIViewController {
     }
     
     
-    
+
     override func viewDidLoad() {
+        TimeTableView.estimatedRowHeight = 85
+        TimeTableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateFormat = "dd.MM.yyyy"
         DayLabel.text = GetCurrentDay(CurrentDate: TodayDate)
         ShowDates(CurrentDate: TodayDate)
+        //получаем расписание на текущий день
+        CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
+     
         // Do any additional setup after loading the view.
     }
 
@@ -114,4 +156,41 @@ class TimeTableTabViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+}
+
+
+
+extension TimeTableTabViewController: UITableViewDelegate {
+    
+}
+
+extension TimeTableTabViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return CurrentTimeTable.count
+    }
+    
+    // Получим количество строк для конкретной секции
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CurrentTimeTable.count
+    }
+    
+    // Получим заголовок для секции
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return ""
+    }
+    
+    // Получим данные для использования в ячейке
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimeTableViewCell
+        
+        let row = indexPath.row
+        // Configure the cell...
+        /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
+        cell.SubjectLabel?.text = CurrentTimeTable[row].classSubject
+        cell.ClassroomLabel?.text = CurrentTimeTable[row].classPlace
+        cell.ClassTImeLabel?.text = CurrentTimeTable[row].classStartTime! + "-" + CurrentTimeTable[row].classEndTime!
+        cell.TeacherLabel?.text = CurrentTimeTable[row].classTeacher
+        
+        return cell
+    }
 }
