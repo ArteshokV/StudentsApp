@@ -42,7 +42,8 @@ class TodayTabViewController: UIViewController {
         TodayDateLabel.text = CustomDateClass.todaysDateString()
         
         //Полуение массива предметов
-        timeTableArray = TimetableModel.getTimetable()
+        let cust = CustomDateClass(withString: "12.10.2017")
+        timeTableArray = TimetableModel.getTimetable(Date: cust)
         tasksArray = TaskModel.getTasks()
 
         ProgressViewOutlet.transform = ProgressViewOutlet.transform.scaledBy(x: 1, y: 10)

@@ -490,6 +490,15 @@
                                 <color key="textColor" red="0.20852898316062174" green="0.20852898316062174" blue="0.20852898316062174" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNB-nv-Gjb">
+                                <rect key="frame" x="229" y="34" width="124" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="JNB-nv-Gjb" secondAttribute="height" multiplier="39:17" id="PEp-n0-J2c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
+                                <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -497,10 +506,14 @@
                             <constraint firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="NUw-6H-X7r"/>
                             <constraint firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="Zgy-In-Qyx"/>
                             <constraint firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="14" id="gmJ-cY-qb5"/>
+                            <constraint firstItem="JNB-nv-Gjb" firstAttribute="width" secondItem="JNB-nv-Gjb" secondAttribute="height" multiplier="39:17" id="yuk-Zn-9Vg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Предметы" id="wz4-HE-GR9"/>
+                    <connections>
+                        <outlet property="SubjectTabCollectionView" destination="PMi-2o-irx" id="Kgh-g8-p0H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EX-5x-FMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

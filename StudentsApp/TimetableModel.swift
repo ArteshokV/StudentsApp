@@ -18,7 +18,7 @@ class TimetableModel: NSObject {
     var classPlace: String?
     var classType: String?
     
-    static func getTimetable(Date: String) -> Array<TimetableModel>{
+    static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
         //Получаем расписание
         var currentArray: Array<TimetableModel> = Array()
         var returnArray: Array<TimetableModel> = Array()
@@ -26,7 +26,7 @@ class TimetableModel: NSObject {
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = CustomDateClass(withString: "14.09.17")
+        firstClass.classDate = CustomDateClass(withString: "12.10.17")
         firstClass.classStartTime = "10:15"
         firstClass.classEndTime = "11:50"
         firstClass.classSubject = "Информатика"
@@ -35,7 +35,7 @@ class TimetableModel: NSObject {
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
-        secondClass.classDate = CustomDateClass(withString: "14.09.17")
+        secondClass.classDate = CustomDateClass(withString: "12.09.17")
         secondClass.classStartTime = "10:15"
         secondClass.classEndTime = "11:50"
         secondClass.classSubject = "Математика"
@@ -45,7 +45,7 @@ class TimetableModel: NSObject {
         secondClass.classType = "Семинар"
         let thirdClass: TimetableModel = TimetableModel()
         thirdClass.classId = 3
-        thirdClass.classDate = "12.10.2017"
+        thirdClass.classDate = CustomDateClass(withString: "12.10.2017")
         thirdClass.classStartTime = "12:00"
         thirdClass.classEndTime = "13:35"
         thirdClass.classSubject = "Английский"

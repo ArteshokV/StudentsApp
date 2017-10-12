@@ -144,7 +144,7 @@ class TimeTableTabViewController: UIViewController {
         DayLabel.text = GetCurrentDay(CurrentDate: TodayDate)
         ShowDates(CurrentDate: TodayDate)
         //получаем расписание на текущий день
-        CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
+        //CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
      
         // Do any additional setup after loading the view.
     }
@@ -166,12 +166,12 @@ extension TimeTableTabViewController: UITableViewDelegate {
 
 extension TimeTableTabViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return CurrentTimeTable.count
+        return 0//CurrentTimeTable.count
     }
     
     // Получим количество строк для конкретной секции
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CurrentTimeTable.count
+        return 0//CurrentTimeTable.count
     }
     
     // Получим заголовок для секции
@@ -181,15 +181,9 @@ extension TimeTableTabViewController: UITableViewDataSource {
     
     // Получим данные для использования в ячейке
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimeTableViewCell
-        
-        let row = indexPath.row
-        // Configure the cell...
-        /* cell.textLabel?.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject! + " " + tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort! */
-        cell.SubjectLabel?.text = CurrentTimeTable[row].classSubject
-        cell.ClassroomLabel?.text = CurrentTimeTable[row].classPlace
-        cell.ClassTImeLabel?.text = CurrentTimeTable[row].classStartTime! + "-" + CurrentTimeTable[row].classEndTime!
-        cell.TeacherLabel?.text = CurrentTimeTable[row].classTeacher
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IdentCell", for: indexPath) as! TimetableTableViewCell
+
+        cell.initWithTimetable(model: CurrentTimeTable[indexPath.row])
         
         return cell
     }

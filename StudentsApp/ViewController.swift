@@ -22,6 +22,13 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
-
+//Класс для того, чтобы в Storiboard Выбрать initial Tab у Tab controller
+class BaseTabBarController: UITabBarController {
+    @IBInspectable var defaultIndex: Int = 3
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.selectedIndex = defaultIndex
+    }
 }
