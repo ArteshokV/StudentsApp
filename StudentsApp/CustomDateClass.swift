@@ -218,8 +218,8 @@ class CustomDateClass: NSObject {
         }
     }
     
-    /*
-    func printProperties(){
+    
+    /*func printProperties(){
         print(self.dayInt!)
         print(self.monthInt!)
         print(self.yearInt!)
@@ -233,5 +233,5 @@ class CustomDateClass: NSObject {
         print(self.weekNumber(fromStartDate: "01.09.2017"))
         
     }
-     */
+    */
 }

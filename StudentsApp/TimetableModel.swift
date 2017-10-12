@@ -26,7 +26,7 @@ class TimetableModel: NSObject {
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = CustomDateClass(withString: "12.10.17")
+        firstClass.classDate = CustomDateClass(withString: "12.10.2017")
         firstClass.classStartTime = "10:15"
         firstClass.classEndTime = "11:50"
         firstClass.classSubject = "Информатика"
@@ -35,7 +35,7 @@ class TimetableModel: NSObject {
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
-        secondClass.classDate = CustomDateClass(withString: "12.09.17")
+        secondClass.classDate = CustomDateClass(withString: "19.10.2017")
         secondClass.classStartTime = "10:15"
         secondClass.classEndTime = "11:50"
         secondClass.classSubject = "Математика"
@@ -60,12 +60,11 @@ class TimetableModel: NSObject {
         var i = 0
         
         while i != currentArray.count {
-            if currentArray[i].classDate == Date {
+            if currentArray[i].classDate?.currentDate == Date.currentDate {
                 returnArray.append(currentArray[i])
             }
             i = i + 1
         }
-        
         return returnArray
     }
     
