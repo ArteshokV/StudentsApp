@@ -428,7 +428,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         
         if parametr == "subject" { // Вывод данных для сортировки заданий по предметам
-            if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 2 { cell.backgroundColor = UIColor.init(red: 15, green: 0, blue: 0, alpha: 0.1)}
+            if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 2 { cell.backgroundColor = UIColor.init(red: 14, green: 0, blue: 0, alpha: 0.1)}
             if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 1 { cell.backgroundColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.2) }
             if tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskPriority == 0 { cell.backgroundColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.1) }
             cell.dateLabel.text = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].taskDate

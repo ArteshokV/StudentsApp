@@ -38,12 +38,12 @@ class ActivitiesModel: NSObject {
         thirdClass.activitySubject = "Программирование"
         let fourthClass: ActivitiesModel = ActivitiesModel()
         fourthClass.activityId = 3
-        fourthClass.activityDate = "19.10.17"
+        fourthClass.activityDate = "17.10.17"
         fourthClass.activityNameShort = "РК3"
         fourthClass.activitySubject = "Экономика"
         let fifthClass: ActivitiesModel = ActivitiesModel()
         fifthClass.activityId = 4
-        fifthClass.activityDate = "17.10.17"
+        fifthClass.activityDate = "19.10.17"
         fifthClass.activityNameShort = "РК2"
         fifthClass.activitySubject = "Экология"
         let sixthClass: ActivitiesModel = ActivitiesModel()
