@@ -26,7 +26,7 @@ class TimetableModel: NSObject {
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = "10.10.2017"
+        firstClass.classDate = "12.10.2017"
         firstClass.classStartTime = "10:15"
         firstClass.classEndTime = "11:50"
         firstClass.classSubject = "Информатика"
@@ -44,7 +44,7 @@ class TimetableModel: NSObject {
         secondClass.classType = "Семинар"
         let thirdClass: TimetableModel = TimetableModel()
         thirdClass.classId = 3
-        thirdClass.classDate = "10.10.2017"
+        thirdClass.classDate = "12.10.2017"
         thirdClass.classStartTime = "12:00"
         thirdClass.classEndTime = "13:35"
         thirdClass.classSubject = "Английский"

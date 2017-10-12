@@ -64,55 +64,10 @@
                     <view key="view" contentMode="scaleToFill" id="vbb-Sg-hWT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Пятница 2 октября" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YX9-T9-QTl">
-                                <rect key="frame" x="235" y="39" width="124" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
-                                <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7RZ-nb-IBt">
-                                <rect key="frame" x="16" y="109" width="343" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </progressView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UqD-EP-Zd0">
-                                <rect key="frame" x="16" y="126" width="343" height="492"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimetableCell" rowHeight="0.0" id="94r-2G-Ts0">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="0.0"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="94r-2G-Ts0" id="8rt-11-KyF">
-                                            <rect key="frame" x="0.0" y="-0.5" width="343" height="0.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="183" id="mav-Rr-5eN">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="183"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mav-Rr-5eN" id="FRC-Rr-wUX">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="182.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="qKy-tB-uo7" id="VdZ-6K-ZyS"/>
-                                    <outlet property="delegate" destination="qKy-tB-uo7" id="Ok9-vF-eoV"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="9YO-oV-SOa"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Сегодня" id="S2T-j9-4nk"/>
-                    <connections>
-                        <outlet property="ProgressViewOutlet" destination="7RZ-nb-IBt" id="bhH-IU-IvO"/>
-                        <outlet property="TableViewOutlet" destination="UqD-EP-Zd0" id="vUN-8w-740"/>
-                        <outlet property="TodayDateLabel" destination="YX9-T9-QTl" id="9I6-nq-vac"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tue-Et-Fhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
