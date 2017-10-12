@@ -21,7 +21,8 @@ class SubjectsTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //SubjectTabCollectionView.isPrefetchingEnabled = false
+        //SubjectTabCollectionView.collectionViewLayout.invalidateLayout()
         //Полуение массива предметов
         subjectsArray = SubjectModel.getSubjects()
         

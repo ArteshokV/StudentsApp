@@ -19,6 +19,10 @@ class SubjectsTabBackgroundImageLayout: UICollectionViewFlowLayout {
         register(SCSBCollectionReusableView.self, forDecorationViewOfKind: "sectionBackground")
     }
     
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
+    }
+    
     // MARK: layoutAttributesForElementsInRect
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
@@ -72,6 +76,7 @@ class SCSBCollectionReusableView : UICollectionReusableView {
     
     var shelfImage: UIImageView?
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        
         super.apply(layoutAttributes)
         
         if(shelfImage?.image == nil){
@@ -80,7 +85,13 @@ class SCSBCollectionReusableView : UICollectionReusableView {
             //Добавляем картинку на View
             self.addSubview(shelfImage!)
         }
-        
+    }
+    
+    override func layoutSubviews() {
+        if(shelfImage?.frame != self.bounds){
+            
+            shelfImage?.frame = self.bounds
+        }
     }
 
 }
