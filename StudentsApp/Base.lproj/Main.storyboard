@@ -5,11 +5,12 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Задания-->
         <scene sceneID="zkx-GN-tOj">
             <objects>
                 <viewController id="8Gb-dM-rGE" sceneMemberID="viewController">
@@ -175,7 +176,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="МГТУ им Баумана" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIL-uQ-abD">
                                 <rect key="frame" x="16" y="69" width="210" height="35"/>
-
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -240,7 +240,6 @@
                     <view key="view" contentMode="scaleToFill" id="vbb-Sg-hWT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пятница 2 октября" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YX9-T9-QTl">
                                 <rect key="frame" x="208" y="30" width="157" height="53"/>
@@ -295,7 +294,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9YO-oV-SOa"/>
                     </view>
-
                     <navigationItem key="navigationItem" id="PcB-Li-wKw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
@@ -304,7 +302,6 @@
                         <outlet property="TodayDateLabel" destination="YX9-T9-QTl" id="9I6-nq-vac"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTodayToTasksView" id="CYU-7Q-vF8"/>
                     </connections>
-
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tue-Et-Fhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -451,7 +448,7 @@
             </objects>
             <point key="canvasLocation" x="629.60000000000002" y="-448.42578710644682"/>
         </scene>
-        <!--Item 1-->
+        <!--Предметы-->
         <scene sceneID="hLv-Ne-gH8">
             <objects>
                 <viewController id="5St-Aj-6Jv" customClass="SubjectsTabViewController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -459,8 +456,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
                                 <rect key="frame" x="0.0" y="110" width="375" height="508"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ddq-yV-Pek" customClass="SubjectsTabBackgroundImageLayout" customModule="StudentsApp" customModuleProvider="target">
                                     <size key="itemSize" width="149" height="144"/>
@@ -483,7 +481,7 @@
                                     <outlet property="delegate" destination="5St-Aj-6Jv" id="fos-c9-8Z8"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
                                 <rect key="frame" x="229" y="34" width="124" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fYO-tL-D1M" secondAttribute="height" multiplier="39:17" id="a05-dt-DC7"/>
@@ -502,7 +500,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="wz4-HE-GR9"/>
+                    <tabBarItem key="tabBarItem" title="Предметы" id="wz4-HE-GR9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EX-5x-FMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
