@@ -20,6 +20,7 @@ class TimeTableTabViewController: UIViewController {
     private var WeekEndString = String () //строка даты конца недели
     private var WeekdayComponent = NSDateComponents() // объект для определения дня недели
     private var SemesterBeginDate = Date () // дата начала семестра
+
     private var SemesterBeginString: String = "01.09.2017" // строка начала семестра
     private var NumberOfWeek: Int = 1 //счетчик недель
     private var CurrentTimeTable: Array<TimetableModel> = Array() //массив занятий в расписании текущего дня
@@ -34,6 +35,7 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
+
     @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
     
     
@@ -47,7 +49,7 @@ class TimeTableTabViewController: UIViewController {
     // функция определения номера недели
     func GetWeekNumber (CurrentDate: Date) -> Int {
         NumberOfWeek = 1
-        
+
         let DaysToBegin = GetTodayDayNumber(CurrentDate: CurrentDate)
         let fDate = CurrentDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToBegin))
         SemesterBeginDate = dateFormatter.date(from: SemesterBeginString)!
@@ -60,13 +62,16 @@ class TimeTableTabViewController: UIViewController {
     
     // функция формата даты из "October 1, 2017" -> "1 October"
     func MyDateFormatt (Date: String) -> String {
+
         /*let CutNumber = Date.index(of: ",")
         let CutDate = String(Date.prefix(upTo: CutNumber!))
         let SpaceNumber = CutDate.index(of: " ")
         let Month = String(CutDate.prefix(upTo: SpaceNumber!))
         let Day = String((CutDate.suffix(from: SpaceNumber!)).dropFirst())
+
         let FinalDate = Day + " " + Month*/
         return Date
+
     }
     
     //функция определения названия текущего дня
@@ -81,6 +86,7 @@ class TimeTableTabViewController: UIViewController {
     func ShowDates (CurrentDate: Date) {
         TodatDateString = dateFormatter.string(from: TodayDate)
         CurrentDayLabel.text = MyDateFormatt(Date: TodatDateString)
+
         let DaysToBegin = GetTodayDayNumber(CurrentDate: TodayDate)
         WeekBeginDate = TodayDate.addingTimeInterval(TimeInterval(-60*60*24*DaysToBegin))
         WeekBeginString = dateFormatter.string(from: WeekBeginDate)
@@ -91,6 +97,7 @@ class TimeTableTabViewController: UIViewController {
         WeekNumberLabel.text = String(GetWeekNumber(CurrentDate: TodayDate))
     }
     
+
     
     /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CurrentTimeTable.count
@@ -128,6 +135,7 @@ class TimeTableTabViewController: UIViewController {
     }
     
     
+
     override func viewDidLoad() {
         TimeTableView.estimatedRowHeight = 85
         TimeTableView.rowHeight = UITableViewAutomaticDimension
@@ -137,7 +145,7 @@ class TimeTableTabViewController: UIViewController {
         ShowDates(CurrentDate: TodayDate)
         //получаем расписание на текущий день
         CurrentTimeTable = TimetableModel.getTimetable(Date:(dateFormatter.string(from: TodayDate)))
-        
+     
         // Do any additional setup after loading the view.
     }
 
@@ -149,6 +157,7 @@ class TimeTableTabViewController: UIViewController {
     }
     
 }
+
 
 
 extension TimeTableTabViewController: UITableViewDelegate {
