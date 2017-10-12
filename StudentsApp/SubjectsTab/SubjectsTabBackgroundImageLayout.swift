@@ -19,6 +19,10 @@ class SubjectsTabBackgroundImageLayout: UICollectionViewFlowLayout {
         register(SCSBCollectionReusableView.self, forDecorationViewOfKind: "sectionBackground")
     }
     
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
+    }
+    
     // MARK: layoutAttributesForElementsInRect
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
@@ -70,21 +74,24 @@ class SCSBCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes {
 
 class SCSBCollectionReusableView : UICollectionReusableView {
     
-    
+    var shelfImage: UIImageView?
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        
         super.apply(layoutAttributes)
         
-        //Стираем старые View, чтобы не забивать память, т.к. ячейки reusable
-        for view in (self.subviews){
-            view.removeFromSuperview()
+        if(shelfImage?.image == nil){
+            shelfImage = UIImageView(frame: self.bounds)
+            shelfImage?.image = UIImage(named: "ShelfForSubjects")
+            //Добавляем картинку на View
+            self.addSubview(shelfImage!)
         }
-        
-        //Создаем объект картинки заднего фона на весь размер View
-        let backgroundImage = UIImageView(frame: self.bounds)
-        backgroundImage.image = UIImage(named: "ShelfForSubjects")
-        //Добавляем картинку на View
-        self.addSubview(backgroundImage)
-        
+    }
+    
+    override func layoutSubviews() {
+        if(shelfImage?.frame != self.bounds){
+            
+            shelfImage?.frame = self.bounds
+        }
     }
 
 }
