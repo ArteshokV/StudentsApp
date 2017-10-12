@@ -153,6 +153,71 @@ class CustomDateClass: NSObject {
         weekDayInt = calendar.component(.weekday, from: currentDate!) - 1
     }
     
+    // MARK: - Static functions
+    static func todaysDateString() -> String{
+        let todayDate = Date()
+        let calendar = Calendar.current
+        
+        let tempMonthInt = calendar.component(.month, from: todayDate)
+        let tempDayInt = calendar.component(.day, from: todayDate)
+        let tempWeekDayInt = calendar.component(.weekday, from: todayDate) - 1
+        
+        let tempMonthsNamesInString = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"]
+        let tempWeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+        
+        return "\(tempWeekDaysNamesInString[tempWeekDayInt-1]) \n\(tempDayInt) \(tempMonthsNamesInString[tempMonthInt-1])"
+    }
+    
+    // MARK: - Compare functions
+    
+    static func ==(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate == right.currentDate){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func >(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! > right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func <(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! < right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func <=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! <= right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func >=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! >= right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func !=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! != right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
     /*
     func printProperties(){
         print(self.dayInt!)

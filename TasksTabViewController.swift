@@ -101,10 +101,10 @@ class TasksTabViewController: UIViewController{
         var tasksAtDayZero: Array<TaskModel> = Array()
         tasksAtDayZero.append(taskArray[0])
         
-        tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[0].taskDate, sectionObjects: tasksAtDayZero))
+      //  tasksAtDayArray.append(tasksAtDay(sectionName: taskArray[0].taskDate, sectionObjects: tasksAtDayZero))
         
         var count: Int! // счетчик для цикла
-        
+        /*
         for i in 1...(taskArray.count - 1) { //проходим по всем мероприятиям
             count = 0
             for j in 0...(tasksAtDayArray.count - 1) { //проходим по всем блокам (датам)
@@ -119,7 +119,7 @@ class TasksTabViewController: UIViewController{
                 }
             }
         }
-        
+        */
         
         
         
@@ -304,7 +304,7 @@ extension TasksTabViewController: UITableViewDataSource {
 
     
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
-        if taskOrActivity == "task" { // для вывода заданий
+       /* if taskOrActivity == "task" { // для вывода заданий
             if parametr == "time" {
             return tasksAtDayArray.count
         }
@@ -332,7 +332,8 @@ extension TasksTabViewController: UITableViewDataSource {
             else {  return 0  }
             
         }
-    }
+    } */
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -340,7 +341,7 @@ extension TasksTabViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
-     if taskOrActivity == "task" {  // для вывода заданий
+     /* if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
         return tasksAtDayArray[section].sectionObjects.count
         }
@@ -366,7 +367,8 @@ extension TasksTabViewController: UITableViewDataSource {
             }
             else {return 0}
         }
-        }
+        } */
+        return 0
         
         
     }
@@ -415,7 +417,8 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! taskTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        /* let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! TaskTableViewCell
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате
@@ -458,7 +461,7 @@ extension TasksTabViewController: UITableViewDataSource {
                 cell.shortNameLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
             }
         }
-        
+        */
         return cell
     }
     
