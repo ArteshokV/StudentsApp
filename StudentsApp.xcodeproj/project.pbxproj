@@ -16,6 +16,8 @@
 		4E7C53A11F86DD190012329E /* TimetableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C53A01F86DD190012329E /* TimetableModel.swift */; };
 		4E7C53A31F86DEB80012329E /* SubjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C53A21F86DEB80012329E /* SubjectModel.swift */; };
 		4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */; };
+		847183451F8D3BE300DA53CF /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847183441F8D3BE300DA53CF /* TimeTableViewCell.swift */; };
+		84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		4E7C53A01F86DD190012329E /* TimetableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableModel.swift; sourceTree = "<group>"; };
 		4E7C53A21F86DEB80012329E /* SubjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectModel.swift; sourceTree = "<group>"; };
 		4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesModel.swift; sourceTree = "<group>"; };
+		847183441F8D3BE300DA53CF /* TimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
+		84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +73,27 @@
 				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E7C53901F86CEC10012329E /* Main.storyboard */,
+				4E94FFCA1F8CCA1300B7C86E /* TodayTabViewController.swift */,
+				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
+				4E94FFC91F8C43CA00B7C86E /* SubjectsTab */,
 				4E7C53931F86CEC10012329E /* Assets.xcassets */,
 				4E7C53951F86CEC10012329E /* LaunchScreen.storyboard */,
 				4E7C53981F86CEC10012329E /* Info.plist */,
+				84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */,
+				847183441F8D3BE300DA53CF /* TimeTableViewCell.swift */,
 			);
 			path = StudentsApp;
+			sourceTree = "<group>";
+		};
+		4E94FFC91F8C43CA00B7C86E /* SubjectsTab */ = {
+			isa = PBXGroup;
+			children = (
+				4E94FFBB1F87B79B00B7C86E /* SubjectsTabViewController.swift */,
+				4E94FFC11F87CBC600B7C86E /* SubjectTabCollectionViewCell.swift */,
+				4E94FFC21F87CBC600B7C86E /* SubjectTabCollectionViewCell.xib */,
+				4E94FFC71F8C10B200B7C86E /* SubjectsTabBackgroundImageLayout.swift */,
+			);
+			path = SubjectsTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +157,7 @@
 			files = (
 				4E7C53971F86CEC10012329E /* LaunchScreen.storyboard in Resources */,
 				4E7C53941F86CEC10012329E /* Assets.xcassets in Resources */,
+				4E94FFC41F87CBC600B7C86E /* SubjectTabCollectionViewCell.xib in Resources */,
 				4E7C53921F86CEC10012329E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,12 +169,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */,
 				4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */,
 				4E7C539F1F86D0730012329E /* TaskModel.swift in Sources */,
 				4E7C53A31F86DEB80012329E /* SubjectModel.swift in Sources */,
+				847183451F8D3BE300DA53CF /* TimeTableViewCell.swift in Sources */,
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
+				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
 				4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */,
+				4E94FFCB1F8CCA1300B7C86E /* TodayTabViewController.swift in Sources */,
 				4E7C53A11F86DD190012329E /* TimetableModel.swift in Sources */,
+				4E94FFC31F87CBC600B7C86E /* SubjectTabCollectionViewCell.swift in Sources */,
+				4E94FFC81F8C10B200B7C86E /* SubjectsTabBackgroundImageLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
