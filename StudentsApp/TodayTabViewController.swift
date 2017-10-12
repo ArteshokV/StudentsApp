@@ -21,6 +21,9 @@ class TodayTabViewController: UIViewController {
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
     
     var chosenObject = 0
+    //
+    var date1: CustomDateClass?
+    var date2: CustomDateClass?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,7 +32,7 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        date1 = CustomDateClass()
         //self.prefersStatusBarHidden = true
         
         TableViewOutlet.rowHeight = UITableViewAutomaticDimension
@@ -82,7 +85,7 @@ class TodayTabViewController: UIViewController {
 // MARK: - UITableViewDelegate protocol
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("HERE")
+        
         if(indexPath.section == 1){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
