@@ -168,6 +168,56 @@ class CustomDateClass: NSObject {
         return "\(tempWeekDaysNamesInString[tempWeekDayInt-1]) \n\(tempDayInt) \(tempMonthsNamesInString[tempMonthInt-1])"
     }
     
+    // MARK: - Compare functions
+    
+    static func ==(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate == right.currentDate){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func >(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! > right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func <(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! < right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func <=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! <= right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func >=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! >= right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func !=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! != right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+    
     /*
     func printProperties(){
         print(self.dayInt!)

@@ -70,20 +70,16 @@ class SCSBCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes {
 
 class SCSBCollectionReusableView : UICollectionReusableView {
     
-    
+    var shelfImage: UIImageView?
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
         
-        //Стираем старые View, чтобы не забивать память, т.к. ячейки reusable
-        for view in (self.subviews){
-            view.removeFromSuperview()
+        if(shelfImage?.image == nil){
+            shelfImage = UIImageView(frame: self.bounds)
+            shelfImage?.image = UIImage(named: "ShelfForSubjects")
+            //Добавляем картинку на View
+            self.addSubview(shelfImage!)
         }
-        
-        //Создаем объект картинки заднего фона на весь размер View
-        let backgroundImage = UIImageView(frame: self.bounds)
-        backgroundImage.image = UIImage(named: "ShelfForSubjects")
-        //Добавляем картинку на View
-        self.addSubview(backgroundImage)
         
     }
 

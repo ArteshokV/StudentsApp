@@ -10,9 +10,9 @@ import UIKit
 
 class TimetableModel: NSObject {
     var classId: Int?
-    var classDate: Int?
-    var classStartTime: Int?
-    var classEndTime: Int?
+    var classDate: CustomDateClass?
+    var classStartTime: String?
+    var classEndTime: String?
     var classSubject: String?
     var classTeacher: String?
     var classPlace: String?
@@ -25,20 +25,20 @@ class TimetableModel: NSObject {
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
-        firstClass.classDate = 1
-        firstClass.classStartTime = 1
-        firstClass.classEndTime = 1
+        firstClass.classDate = CustomDateClass(withString: "14.09.17")
+        firstClass.classStartTime = "12:00"
+        firstClass.classEndTime = "13:35"
         firstClass.classSubject = "Информатика"
-        firstClass.classTeacher = "Ялдакова"
+        firstClass.classTeacher = "Булдакова"
         firstClass.classPlace = "515ю"
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
-        secondClass.classDate = 1
-        secondClass.classStartTime = 1
-        secondClass.classEndTime = 1
+        secondClass.classDate = CustomDateClass(withString: "14.09.17")
+        secondClass.classStartTime = "13:50"
+        secondClass.classEndTime = "15:25"
         secondClass.classSubject = "Математика"
-        secondClass.classTeacher = "Хуеплетов"
+        secondClass.classTeacher = "Мамаев"
         secondClass.classPlace = "315л"
         secondClass.classType = "Семинар"
         

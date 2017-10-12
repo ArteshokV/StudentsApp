@@ -10,7 +10,7 @@ import UIKit
 
 class TaskModel: NSObject {
     var taskId: Int?
-    var taskDate: String?
+    var taskDate: CustomDateClass?
     var taskNameShort: String?
     var taskSubject: String?
     var taskPriority: Int?
@@ -23,7 +23,7 @@ class TaskModel: NSObject {
         
         let firstClass: TaskModel = TaskModel()
         firstClass.taskId = 0
-        firstClass.taskDate = "15.10.17"
+        firstClass.taskDate = CustomDateClass(withString: "15.10.17")
         firstClass.taskNameShort = "ДЗ1"
         firstClass.taskSubject = "Экономика"
         firstClass.taskPriority = 1
@@ -31,7 +31,7 @@ class TaskModel: NSObject {
         firstClass.taskStatus = 0
         let secondClass: TaskModel = TaskModel()
         secondClass.taskId = 1
-        secondClass.taskDate = "17.10.17"
+        secondClass.taskDate = CustomDateClass(withString: "17.10.17")
         secondClass.taskNameShort = "ДЗ1"
         secondClass.taskSubject = "ТСиСА"
         secondClass.taskPriority = 2
@@ -39,7 +39,7 @@ class TaskModel: NSObject {
         secondClass.taskStatus = 0
         let thirdClass: TaskModel = TaskModel()
         thirdClass.taskId = 2
-        thirdClass.taskDate = "17.10.17"
+        thirdClass.taskDate = CustomDateClass(withString: "17.10.17")
         thirdClass.taskNameShort = "ДЗ1"
         thirdClass.taskSubject = "ЭВМ"
         thirdClass.taskPriority = 1
@@ -47,7 +47,7 @@ class TaskModel: NSObject {
         thirdClass.taskStatus = 0
         let fourthClass: TaskModel = TaskModel()
         fourthClass.taskId = 3
-        fourthClass.taskDate = "14.11.17"
+        fourthClass.taskDate = CustomDateClass(withString: "14.11.17")
         fourthClass.taskNameShort = "Сдать лабу №1"
         fourthClass.taskSubject = "Программирование"
         fourthClass.taskPriority = 0
@@ -55,7 +55,7 @@ class TaskModel: NSObject {
         fourthClass.taskStatus = 0
         let fifthClass: TaskModel = TaskModel()
         fifthClass.taskId = 4
-        fifthClass.taskDate = "17.10.17"
+        fifthClass.taskDate = CustomDateClass(withString: "17.10.17")
         fifthClass.taskNameShort = "ДЗ2"
         fifthClass.taskSubject = "Экономика"
         fifthClass.taskPriority = 2
@@ -63,7 +63,7 @@ class TaskModel: NSObject {
         fifthClass.taskStatus = 0
         let sixthClass: TaskModel = TaskModel()
         sixthClass.taskId = 3
-        sixthClass.taskDate = "14.11.17"
+        sixthClass.taskDate = CustomDateClass(withString: "14.11.17")
         sixthClass.taskNameShort = "ДЗ2"
         sixthClass.taskSubject = "ЭВМ"
         sixthClass.taskPriority = 0
@@ -71,7 +71,7 @@ class TaskModel: NSObject {
         sixthClass.taskStatus = 0
         let seventhClass: TaskModel = TaskModel()
         seventhClass.taskId = 3
-        seventhClass.taskDate = "14.09.17"
+        seventhClass.taskDate = CustomDateClass(withString: "14.09.17")
         seventhClass.taskNameShort = "Сдать лаб №1"
         seventhClass.taskSubject = "ЭВМ"
         seventhClass.taskPriority = 1
