@@ -168,57 +168,6 @@ class CustomDateClass: NSObject {
         return "\(tempWeekDaysNamesInString[tempWeekDayInt-1]) \n\(tempDayInt) \(tempMonthsNamesInString[tempMonthInt-1])"
     }
     
-    // MARK: - Compare functions
-    
-    static func ==(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate == right.currentDate){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    static func >(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate! > right.currentDate!){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    static func <(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate! < right.currentDate!){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    static func <=(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate! <= right.currentDate!){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    static func >=(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate! >= right.currentDate!){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    static func !=(left: CustomDateClass, right: CustomDateClass) -> Bool {
-        if(left.currentDate! != right.currentDate!){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    
     /*func printProperties(){
         print(self.dayInt!)
         print(self.monthInt!)
@@ -234,4 +183,45 @@ class CustomDateClass: NSObject {
         
     }
     */
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let obj = object as? CustomDateClass else {return false}
+        return (self.dayInt! == obj.dayInt!)&&(self.monthInt! == obj.monthInt!)&&(self.yearInt! == obj.yearInt!)
+    }
+    
 }
+
+
+// MARK: - Compare functions
+
+     func > (left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! > right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    func < (left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! < right.currentDate!){
+            return true
+        }else{
+            return false
+        }
+    }
+
+     func <= (left: CustomDateClass, right: CustomDateClass) -> Bool {
+        if(left.currentDate! < right.currentDate!)||(left.isEqual(right)){
+            return true
+        }else{
+            return false
+        }
+    }
+
+     func >=(left: CustomDateClass, right: CustomDateClass) -> Bool {
+        print("GRATER THAN")
+        if(left.currentDate! > right.currentDate!)||(left.isEqual(right)){
+            return true
+        }else{
+            return false
+        }
+    }
