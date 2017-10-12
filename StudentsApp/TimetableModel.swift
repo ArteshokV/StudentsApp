@@ -18,32 +18,53 @@ class TimetableModel: NSObject {
     var classPlace: String?
     var classType: String?
     
-    static func getTimetable() -> Array<TimetableModel>{
+    static func getTimetable(Date: String) -> Array<TimetableModel>{
         //Получаем расписание
+        var currentArray: Array<TimetableModel> = Array()
         var returnArray: Array<TimetableModel> = Array()
         //var dfk: Date?
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
         firstClass.classDate = CustomDateClass(withString: "14.09.17")
-        firstClass.classStartTime = "12:00"
-        firstClass.classEndTime = "13:35"
+        firstClass.classStartTime = "10:15"
+        firstClass.classEndTime = "11:50"
         firstClass.classSubject = "Информатика"
-        firstClass.classTeacher = "Булдакова"
+        firstClass.classTeacher = "Петров"
         firstClass.classPlace = "515ю"
         firstClass.classType = "Лекция"
         let secondClass: TimetableModel = TimetableModel()
         secondClass.classId = 2
         secondClass.classDate = CustomDateClass(withString: "14.09.17")
-        secondClass.classStartTime = "13:50"
-        secondClass.classEndTime = "15:25"
+        secondClass.classStartTime = "10:15"
+        secondClass.classEndTime = "11:50"
         secondClass.classSubject = "Математика"
-        secondClass.classTeacher = "Мамаев"
+        secondClass.classTeacher = "Хартов"
+
         secondClass.classPlace = "315л"
         secondClass.classType = "Семинар"
+        let thirdClass: TimetableModel = TimetableModel()
+        thirdClass.classId = 3
+        thirdClass.classDate = "12.10.2017"
+        thirdClass.classStartTime = "12:00"
+        thirdClass.classEndTime = "13:35"
+        thirdClass.classSubject = "Английский"
+        thirdClass.classTeacher = "Каримова"
+        thirdClass.classPlace = "433л"
+        thirdClass.classType = "Семинар"
         
-        returnArray.append(firstClass)
-        returnArray.append(secondClass)
+        currentArray.append(firstClass)
+        currentArray.append(secondClass)
+        currentArray.append(thirdClass)
+        
+        var i = 0
+        
+        while i != currentArray.count {
+            if currentArray[i].classDate == Date {
+                returnArray.append(currentArray[i])
+            }
+            i = i + 1
+        }
         
         return returnArray
     }

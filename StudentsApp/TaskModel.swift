@@ -72,6 +72,7 @@ class TaskModel: NSObject {
         let seventhClass: TaskModel = TaskModel()
         seventhClass.taskId = 3
         seventhClass.taskDate = CustomDateClass(withString: "14.09.17")
+
         seventhClass.taskNameShort = "Сдать лаб №1"
         seventhClass.taskSubject = "ЭВМ"
         seventhClass.taskPriority = 1
