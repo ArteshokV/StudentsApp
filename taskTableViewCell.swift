@@ -18,6 +18,7 @@ class taskTableViewCell: UITableViewCell {
     @IBOutlet weak var shortNameLabel: UILabel!
     
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
