@@ -137,7 +137,7 @@ extension TodayTabViewController: UITableViewDataSource{
         }else{
             let identifier = (indexPath.section == 0) ? TimetableCellIdentifier : TasksCellIdentifier ;
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
-            cell.selectionStyle = .none
+            //cell.selectionStyle = .none
             cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
             
             return cell

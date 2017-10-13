@@ -19,6 +19,7 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var BottomEdgeDateLabel: UILabel!
     
     var taskModelObject: TaskModel?
+    var activityModelObject: ActivitiesModel?
     var rounedView: UIView?
     var cellColor: UIColor?
     
@@ -77,6 +78,32 @@ class TaskTableViewCell: UITableViewCell {
         default:
             self.TopSubjectLabel.text = taskModelObject?.taskSubject
             self.BottomEdgeDateLabel.text = taskModelObject?.taskDate?.stringFromDate()
+            self.rounedView?.backgroundColor = cellColor
+            break
+        }
+        
+    }
+    
+    func initWithActivity(model: ActivitiesModel, forSortingType: String){
+        activityModelObject = model
+        
+        self.MiddleDescriptionLabel.text = activityModelObject?.activityNameShort
+        cellColor = UIColor.blue
+        
+        switch forSortingType {
+        case "Сроки":
+            self.TopSubjectLabel.text = activityModelObject?.activitySubject
+            self.BottomEdgeDateLabel.text = ""
+            self.rounedView?.backgroundColor = cellColor
+            break
+        case "Предметы":
+            self.TopSubjectLabel.text = ""
+            self.BottomEdgeDateLabel.text = activityModelObject?.activityDate?.stringFromDate()
+            self.rounedView?.backgroundColor = cellColor
+            break
+        default:
+            self.TopSubjectLabel.text = activityModelObject?.activitySubject
+            self.BottomEdgeDateLabel.text = activityModelObject?.activityDate?.stringFromDate()
             self.rounedView?.backgroundColor = cellColor
             break
         }
