@@ -13,7 +13,7 @@ class TasksTabViewController: UIViewController{
     var parametr: String! // переменная для выбота типа сортировки
     var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
     
-    
+    var chosenObject: TaskModel?
     
     struct tasksAtDay {  //Вспомогательная структура для сортировки заданий по дням
         var sectionName : String!
@@ -69,7 +69,10 @@ class TasksTabViewController: UIViewController{
     
     var TodayDate = Date()
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -291,14 +294,53 @@ class TasksTabViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "fromTasksToTasksView"){
+            let taskVC = segue.destination as! TaskViewEditViewController
+            taskVC.taskModelObject = chosenObject
+        }
+    }
+    
 }
 
 
 
 
 extension TasksTabViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if(taskOrActivity == "task"){
+            self.hidesBottomBarWhenPushed = true
+            switch parametr {
+            case "time":
+                chosenObject = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row]
+                break
+            case "subject":
+                chosenObject = tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row]
+                break
+            case "priority":
+                chosenObject = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row]
+                break
+            default:
+                chosenObject = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row]
+                break
+            }
+            self.performSegue(withIdentifier: "fromTasksToTasksView", sender: self)
+            self.hidesBottomBarWhenPushed = false
+        }
+    }
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if(taskOrActivity == "task"){
+            let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
+            selectedTaskCell.rounedView?.backgroundColor = UIColor.blue
+        }
+    }
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        if(taskOrActivity == "task"){
+            let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
+            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
+        }
+    }
 }
 
 extension TasksTabViewController: UITableViewDataSource {
@@ -383,28 +425,59 @@ extension TasksTabViewController: UITableViewDataSource {
         //tableView.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" {  // для вывода заданий
-        if parametr == "time" {
+            /* if parametr == "time" {
+             return tasksAtDayArray[section].sectionName
+             }
+             else {
+             if parametr == "subject" {
+             return tasksAtSubjectArray[section].sectionName
+             }
+             else {
+             if parametr == "priority" {
+             if tasksAtPriorityArray[section].sectionName == 2 {
+             return "Высокий приоритет"
+             }
+             else {
+             if tasksAtPriorityArray[section].sectionName == 1 {
+             return "Средний приоритет"
+             }
+             else {return "Низкий приоритет"
+             } }
+             }
+             else {return " "}
+             }
+             }
+             
+             */
+            switch parametr {
+            case "time":
             return tasksAtDayArray[section].sectionName
-        }
-        else {
-            if parametr == "subject" {
-                return tasksAtSubjectArray[section].sectionName
-            }
-            else {
-                if parametr == "priority" {
-                    if tasksAtPriorityArray[section].sectionName == 2 {
-                        return "Высокий приоритет"
-                    }
-                    else {
-                        if tasksAtPriorityArray[section].sectionName == 1 {
-                            return "Средний приоритет"
-                        }
-                        else {return "Низкий приоритет"
-                        } }
+            break
+            case "subject":
+            return tasksAtSubjectArray[section].sectionName
+            break
+            case "priority":
+                switch tasksAtPriorityArray[section].sectionName {
+                case 2:
+                    return "Высокий приоритет"
+                    break
+                case 1:
+                    return "Средний приоритет"
+                    break
+                case 0:
+                    return "Низкий приоритет"
+                    break
+                default:
+                    return " "
+                    break
                 }
-                else {return " "}
-            }
-            } }
+            break
+            default:
+            return " "
+            break
+            
+        }
+        }
         else { //для вывода мероприятий
             if parametr == "time" {
                 return activitiesAtDayArray[section].sectionName
