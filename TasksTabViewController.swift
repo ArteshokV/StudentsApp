@@ -167,18 +167,18 @@ class TasksTabViewController: UIViewController{
         var activitiesAtDayZero: Array<ActivitiesModel> = Array()
         activitiesAtDayZero.append(activitiesArray[0])
         
-        activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[0].activityDate, sectionObjects: activitiesAtDayZero))
+        //activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[0].activityDate, sectionObjects: activitiesAtDayZero))
         
         for i in 1...(activitiesArray.count - 1) {
             count = 0
             for j in 0...(activitiesAtDayArray.count - 1) {
-                if (activitiesArray[i].activityDate == activitiesAtDayArray[j].sectionName) {
+               // if (activitiesArray[i].activityDate == activitiesAtDayArray[j].sectionName) {
                     activitiesAtDayArray[j].sectionObjects.append(activitiesArray[i])
-                }
-                else { count = count + 1 }
+                //}
+                //else { count = count + 1 }
                 
                 if count == activitiesAtDayArray.count {
-                    activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate, sectionObjects: activitiesEmptyArray))
+                    //activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate, sectionObjects: activitiesEmptyArray))
                     activitiesAtDayArray[j+1].sectionObjects.append(activitiesArray[i])
                 }
             }
