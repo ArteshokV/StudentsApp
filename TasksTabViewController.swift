@@ -78,7 +78,7 @@ class TasksTabViewController: UIViewController{
         parametr = "time" //выбираем сортировку по времени
         
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        TableViewOutlet.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
+        taskTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
         
         // Задаем страртове цета кнопок
         subjectButton.tintColor = UIColor.gray
@@ -87,7 +87,7 @@ class TasksTabViewController: UIViewController{
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
         
-        taskTable.estimatedRowHeight = 85 // пытаемся выставить высоту ячейки
+        //taskTable.estimatedRowHeight = 85 // пытаемся выставить высоту ячейки
         //taskTable.rowHeight = UITableViewAutomaticDimension
         
         
@@ -177,8 +177,8 @@ class TasksTabViewController: UIViewController{
             for j in 0...(activitiesAtDayArray.count - 1) {
                 if (activitiesArray[i].activityDate?.stringFromDate() == activitiesAtDayArray[j].sectionName) {
                     activitiesAtDayArray[j].sectionObjects.append(activitiesArray[i])
-                //}
-                //else { count = count + 1 }
+                }
+                else { count = count + 1 }
                 
                 if count == activitiesAtDayArray.count {
                     activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate?.stringFromDate(), sectionObjects: activitiesEmptyArray))
@@ -338,17 +338,19 @@ extension TasksTabViewController: UITableViewDataSource {
         
     }
     
-    /*  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 59
-    }*/
+      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
+      
       if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
         return tasksAtDayArray[section].sectionObjects.count
         }
        else {
         if parametr == "subject" {
+           
             return tasksAtSubjectArray[section].sectionObjects.count
         }
         else {
@@ -378,7 +380,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { // Получим заголовок для секции
         
-        tableView.backgroundColor = UIColor.clear
+        //tableView.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
@@ -420,7 +422,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
        // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! TaskTableViewCell
+         let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате
@@ -430,7 +432,8 @@ extension TasksTabViewController: UITableViewDataSource {
         cell.BottomEdgeDateLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
         cell.TopSubjectLabel.text = ""
         cell.MiddleDescriptionLabel.text = tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort*/
-             cell.initWithTask(model: tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Сроки")
+             cell.initWithTask(model: tasksAtDayArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Сроки")
+            
         }
         
         if parametr == "subject" { // Вывод данных для сортировки заданий по предметам
@@ -446,7 +449,7 @@ extension TasksTabViewController: UITableViewDataSource {
         
         if parametr == "priority" { // Вывод данных для сортировки заданий по приоритету
             //cell.backgroundColor = UIColor.clear
-            cell.initWithTask(model: tasksAtSubjectArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Приоритет")
+            cell.initWithTask(model: tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Приоритет")
             /* cell.dateLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskDate
             cell.subjectLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskSubject
             cell.shortNameLabel.text = tasksAtPriorityArray[indexPath.section].sectionObjects[indexPath.row].taskNameShort
@@ -457,16 +460,18 @@ extension TasksTabViewController: UITableViewDataSource {
         else {
             if parametr == "time" { // Вывод данных для сортировки мероприятий по дате
                //cell.backgroundColor = UIColor.init(red: 0, green: 3, blue: 0, alpha: 0.01)
-                cell.TopSubjectLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activitySubject
+                cell.initWithActivity(model: activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Сроки")
+                /*  cell.TopSubjectLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activitySubject
                 cell.BottomEdgeDateLabel.text = ""
-                cell.MiddleDescriptionLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
+                cell.MiddleDescriptionLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort*/
             }
             
             if parametr == "subject" { // Вывод данных для сортировки мероприятий по предметам
                //cell.backgroundColor = UIColor.clear
-                cell.BottomEdgeDateLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityDate?.stringFromDate()
+               /* cell.BottomEdgeDateLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityDate?.stringFromDate()
                 cell.TopSubjectLabel.text = ""
-                cell.MiddleDescriptionLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort
+                cell.MiddleDescriptionLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort*/
+                cell.initWithActivity(model: activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Предметы")
             }
         }
         
