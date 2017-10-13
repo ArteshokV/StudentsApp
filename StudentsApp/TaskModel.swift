@@ -27,7 +27,7 @@ class TaskModel: NSObject {
         firstClass.taskNameShort = "ДЗ1"
         firstClass.taskSubject = "Экономика"
         firstClass.taskPriority = 1
-        firstClass.taskDescription = "Нужно сдать этот гребаный рк"
+        firstClass.taskDescription = "Нужно сдать этот рк"
         firstClass.taskStatus = 0
         let secondClass: TaskModel = TaskModel()
         secondClass.taskId = 1
@@ -35,7 +35,7 @@ class TaskModel: NSObject {
         secondClass.taskNameShort = "ДЗ1"
         secondClass.taskSubject = "ТСиСА"
         secondClass.taskPriority = 2
-        secondClass.taskDescription = "Нужно сдать этот гребаный рк"
+        secondClass.taskDescription = "Нужно сдать этот гр*баный рк"
         secondClass.taskStatus = 0
         let thirdClass: TaskModel = TaskModel()
         thirdClass.taskId = 2
