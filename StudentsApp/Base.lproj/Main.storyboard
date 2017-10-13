@@ -97,6 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
                         <outlet property="priorityButton" destination="367-oL-K8r" id="UGv-13-6zK"/>
