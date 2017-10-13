@@ -177,8 +177,8 @@ class TasksTabViewController: UIViewController{
             for j in 0...(activitiesAtDayArray.count - 1) {
                 if (activitiesArray[i].activityDate?.stringFromDate() == activitiesAtDayArray[j].sectionName) {
                     activitiesAtDayArray[j].sectionObjects.append(activitiesArray[i])
-                }
-                else { count = count + 1 }
+                //}
+                //else { count = count + 1 }
                 
                 if count == activitiesAtDayArray.count {
                     activitiesAtDayArray.append(activitiesAtDay(sectionName: activitiesArray[i].activityDate?.stringFromDate(), sectionObjects: activitiesEmptyArray))
