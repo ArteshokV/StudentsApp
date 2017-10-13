@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="17B35a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Activities" representedClassName="Activities" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subjects" inverseName="activities" inverseEntity="Subjects" syncable="YES"/>
+    </entity>
+    <entity name="Subjects" representedClassName="Subjects" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activities" inverseName="subject" inverseEntity="Activities" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tasks" inverseName="subject" inverseEntity="Tasks" syncable="YES"/>
+        <relationship name="timeTable" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeTable" inverseName="subject" inverseEntity="TimeTable" syncable="YES"/>
+    </entity>
+    <entity name="Tasks" representedClassName="Tasks" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="descrp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subjects" inverseName="tasks" inverseEntity="Subjects" syncable="YES"/>
+    </entity>
+    <entity name="TimeTable" representedClassName="TimeTable" syncable="YES" codeGenerationType="class">
+        <attribute name="beginDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dayOfWeek" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parity" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="place" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teacher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subjects" inverseName="timeTable" inverseEntity="Subjects" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Activities" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Subjects" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Tasks" positionX="-36" positionY="9" width="128" height="135"/>
+        <element name="TimeTable" positionX="-18" positionY="27" width="128" height="210"/>
+    </elements>
+</model>
