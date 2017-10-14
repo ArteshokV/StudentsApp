@@ -23,6 +23,7 @@ class TimetableModel: NSObject {
         var currentArray: Array<TimetableModel> = Array()
         var returnArray: Array<TimetableModel> = Array()
         //var dfk: Date?
+        let checkdate = CustomDateClass(withString: CustomDateClass().stringFromDate())
         
         let firstClass: TimetableModel = TimetableModel()
         firstClass.classId = 1
@@ -60,7 +61,7 @@ class TimetableModel: NSObject {
         var i = 0
         
         while i != currentArray.count {
-            if currentArray[i].classDate?.currentDate == Date.currentDate {
+            if  checkdate.currentDate == Date.currentDate {
                 returnArray.append(currentArray[i])
             }
             i = i + 1
