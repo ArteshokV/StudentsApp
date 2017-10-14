@@ -51,6 +51,9 @@ class CustomDateClass: NSObject {
     }
     
     func weekDayString() -> String {
+        if (weekDayInt == 0) {
+            return "\(weekDaysNamesInString[6])"
+        }
         return "\(weekDaysNamesInString[weekDayInt!-1])"
     }
     
@@ -168,21 +171,21 @@ class CustomDateClass: NSObject {
         return "\(tempWeekDaysNamesInString[tempWeekDayInt-1]) \n\(tempDayInt) \(tempMonthsNamesInString[tempMonthInt-1])"
     }
     
-    /*func printProperties(){
-        print(self.dayInt!)
-        print(self.monthInt!)
-        print(self.yearInt!)
+    func printProperties(){
+        //print(self.dayInt!)
+        //print(self.monthInt!)
+        //print(self.yearInt!)
         print(self.weekDayInt!)
-        print(self.weekDayString())
-        print(self.todayStringWithoutWeekDay())
-        print(self.stringFromDate())
-        print(self.todayString())
-        print(self.weekBeginSting())
-        print(self.weekEndString())
-        print(self.weekNumber(fromStartDate: "01.09.2017"))
+        //print(self.weekDayString())
+        //print(self.todayStringWithoutWeekDay())
+        //print(self.stringFromDate())
+        //print(self.todayString())
+        //print(self.weekBeginSting())
+        //print(self.weekEndString())
+        //print(self.weekNumber(fromStartDate: "01.09.2017"))
         
     }
-    */
+    
     override func isEqual(_ object: Any?) -> Bool {
         guard let obj = object as? CustomDateClass else {return false}
         return (self.dayInt! == obj.dayInt!)&&(self.monthInt! == obj.monthInt!)&&(self.yearInt! == obj.yearInt!)
