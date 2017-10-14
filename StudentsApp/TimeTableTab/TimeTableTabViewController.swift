@@ -29,7 +29,6 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet var LeftSwipe: UISwipeGestureRecognizer!
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
-        TodayDate?.printProperties()
         DayLabel.text = TodayDate?.weekDayString()
         CurrentDayLabel.text = TodayDate?.stringFromDate()
         EndOfWeekLabel.text = TodayDate?.weekEndString()
