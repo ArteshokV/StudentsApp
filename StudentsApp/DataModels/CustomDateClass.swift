@@ -164,7 +164,10 @@ class CustomDateClass: NSObject {
         
         let tempMonthInt = calendar.component(.month, from: todayDate)
         let tempDayInt = calendar.component(.day, from: todayDate)
-        let tempWeekDayInt = calendar.component(.weekday, from: todayDate) - 1
+        var tempWeekDayInt = calendar.component(.weekday, from: todayDate) - 1
+        if tempWeekDayInt == 0 {
+            tempWeekDayInt = 7
+        }
         
         let tempMonthsNamesInString = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"]
         let tempWeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]

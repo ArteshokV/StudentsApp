@@ -45,7 +45,7 @@ class TodayTabViewController: UIViewController {
         TodayDateLabel.text = CustomDateClass.todaysDateString()
         
         //Полуение массива предметов
-        let cust = CustomDateClass(withString: "12.10.2017")
+        let cust = CustomDateClass()
         timeTableArray = TimetableModel.getTimetable(Date: cust)
         tasksArray = TaskModel.getTasks()
 
