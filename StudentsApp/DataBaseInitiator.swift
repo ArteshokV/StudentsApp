@@ -90,13 +90,14 @@ class DataBaseInitiator: NSObject {
             }
             
             //---Storing Activities
+            let activitiesDatabaseName:String = String(describing: Activities.self)
             let tasks = json["Tasks"] as! [String: [String:Any]]
             //json = json["1"] as! [String: Any]
             //print(json["Date"] as! NSNull)
             
             for record in tasks.values{
                 
-                let event:Activities = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! Activities
+                let event:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
                 
                 event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
                 event.shortName = record["nameShort"] as? String
@@ -105,13 +106,14 @@ class DataBaseInitiator: NSObject {
             }
             
             //---Storing Tasks
+            let tasksDatabaseName:String = String(describing: Tasks.self)
             let activities = json["Activities"] as! [String: [String:Any]]
             //json = json["1"] as! [String: Any]
             //print(json["Date"] as! NSNull)
             
             for record in activities.values{
                 
-                let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! Tasks
+                let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
                 
                 event.date = CustomDateClass(withString: record["edgeDate"] as! String).currentDate
                 event.shortName = record["nameShort"] as? String
@@ -130,13 +132,14 @@ class DataBaseInitiator: NSObject {
     }
     
     func getSubjectBy(Name: String) -> Subjects {
+        let subjectsDatabaseName:String = String(describing: Subjects.self)
         let SubjectFetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
         SubjectFetchRequest.predicate = NSPredicate(format: "name == %@", Name)
         var res:[Subjects]?
         do{
             res = try DatabaseController.getContext().fetch(SubjectFetchRequest)
             if(res?.count == 0){
-                let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: "Subjects", into: DatabaseController.getContext()) as! Subjects
+                let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
                 Subject.name = Name
                 res?.append(Subject)
             }
@@ -150,8 +153,9 @@ class DataBaseInitiator: NSObject {
     }
     
     func store(Subjects: [String: [String:Any]]) {
+        let subjectsDatabaseName:String = String(describing: Subjects.self)
         for record in Subjects.values{
-            let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: "Subjects", into: DatabaseController.getContext()) as! Subjects
+            let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
             Subject.name = record["Name"] as? String
         }
         DatabaseController.saveContext()
