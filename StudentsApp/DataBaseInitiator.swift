@@ -37,6 +37,10 @@ class DataBaseInitiator: NSObject {
             let data = try Data(contentsOf: url!)
             var json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
             
+            let subjectsInitalData = json["Subjects"] as! [String: [String:Any]]
+            store(Subjects: subjectsInitalData)
+            
+            //---Storing TimeTable
             let timeTableJson = json["Timetable"] as! [String: [String:Any]]
             //json = json["1"] as! [String: Any]
             //print(json["Date"] as! NSNull)
@@ -78,10 +82,42 @@ class DataBaseInitiator: NSObject {
                     event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
                 }
                 
-                event.subject?.name = record["Subject"] as? String
+                event.subject = getSubjectBy(Name: record["Subject"] as! String)
                 
             }
             
+            //---Storing Activities
+            let tasks = json["Tasks"] as! [String: [String:Any]]
+            //json = json["1"] as! [String: Any]
+            //print(json["Date"] as! NSNull)
+            
+            for record in tasks.values{
+                
+                let event:Activities = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! Activities
+                
+                event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
+                event.shortName = record["nameShort"] as? String
+                
+                event.subject = getSubjectBy(Name: record["Subject"] as! String)
+            }
+            
+            //---Storing Tasks
+            let activities = json["Activities"] as! [String: [String:Any]]
+            //json = json["1"] as! [String: Any]
+            //print(json["Date"] as! NSNull)
+            
+            for record in activities.values{
+                
+                let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! Tasks
+                
+                event.date = CustomDateClass(withString: record["edgeDate"] as! String).currentDate
+                event.shortName = record["nameShort"] as? String
+                event.descrp = record["descriptionOfTask"] as? String
+                event.priority = (record["Priority"] as? Int16)!
+                event.status = (record["Status"] as? Int16)!
+                
+                event.subject = getSubjectBy(Name: record["Subject"] as! String)
+            }
             
             DatabaseController.saveContext()
         }
@@ -90,5 +126,32 @@ class DataBaseInitiator: NSObject {
         }
     }
     
+    func getSubjectBy(Name: String) -> Subjects {
+        let SubjectFetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        SubjectFetchRequest.predicate = NSPredicate(format: "name == %@", Name)
+        var res:[Subjects]?
+        do{
+            res = try DatabaseController.getContext().fetch(SubjectFetchRequest)
+            if(res?.count == 0){
+                let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: "Subjects", into: DatabaseController.getContext()) as! Subjects
+                Subject.name = Name
+                res?.append(Subject)
+            }
+            else{
+                ///lallala
+            }
+        }catch{
+            print("error geting subjects by name \(error.localizedDescription)")
+        }
+        return (res?[0])!
+    }
+    
+    func store(Subjects: [String: [String:Any]]) {
+        for record in Subjects.values{
+            let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: "Subjects", into: DatabaseController.getContext()) as! Subjects
+            Subject.name = record["Name"] as? String
+        }
+        DatabaseController.saveContext()
+    }
 }
 
