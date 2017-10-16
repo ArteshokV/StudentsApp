@@ -10,8 +10,8 @@ import Foundation
 import CoreData
 
 class DataBaseInitiator: NSObject {
-    
-    func insertInitialData() {
+    //---if check isnot nil and is true the stored data will be dumped to console for manual verification
+    func insertInitialData(check:Bool?) {
         var numberOfSearchResults = 0
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
@@ -31,6 +31,9 @@ class DataBaseInitiator: NSObject {
         
         if(numberOfSearchResults != 0){
             print("Первичный загрузчик данных обнаружил данные в базе и завершил работу. Если вы хотели загрузить данные снуля - переустановите приложение...")
+            if check == true{
+                doCheck()
+            }
             return
         }
         
@@ -129,6 +132,10 @@ class DataBaseInitiator: NSObject {
         catch{
             print(error.localizedDescription)
         }
+        
+        if check == true{
+            doCheck()
+        }
     }
     
     func getSubjectBy(Name: String) -> Subjects {
@@ -154,11 +161,85 @@ class DataBaseInitiator: NSObject {
     
     func store(Subjects: [String: [String:Any]]) {
         let subjectsDatabaseName:String = String(describing: Subjects.self)
-        for record in Subjects.values{
+        for record in Subjects{
             let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
             Subject.name = record["Name"] as? String
         }
         DatabaseController.saveContext()
     }
+    
+    func doCheck() {
+        print("************************** Starting the data dump here ************************************")
+        
+        print("")
+        print("** Dumping Time Table entity ...")
+        let timeTableFetchRequest: NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        do{
+            let timeTableEvents = try DatabaseController.getContext().fetch(timeTableFetchRequest)
+            for ttEvent in timeTableEvents {
+                print("\(ttEvent.objectID) \(ttEvent.date ?? nil) \(ttEvent.startTime) \(ttEvent.endTime) \(ttEvent.subject?.name) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate) \(ttEvent.endDate) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
+            }
+        }catch{
+            print("** Error while dumping Time Table")
+        }
+        
+        print("")
+        print("** Dumping Task entity ...")
+        let tasksFetchRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        do{
+            let tasks = try DatabaseController.getContext().fetch(tasksFetchRequest)
+            for task in tasks {
+                print("\(task.objectID) \(task.date ?? nil) \(task.shortName) \(task.descrp) \(task.subject?.name) \(task.priority) \(task.status)")
+            }
+        }catch{
+            print("** Error while dumping Tasks")
+        }
+        
+        print("")
+        print("** Dumping Activities entity ...")
+        let activitiesFetchRequest: NSFetchRequest<Activities> = Activities.fetchRequest()
+        do{
+            let activities = try DatabaseController.getContext().fetch(activitiesFetchRequest)
+            for activity in activities {
+                print("\(activity.objectID) \(activity.date ?? nil) \(activity.shortName) \(activity.subject?.name)")
+            }
+        }catch{
+            print("** Error while dumping Activities")
+        }
+        
+        print("")
+        print("** Dumping Subjects entity ...")
+        let subjectsFetchRequest: NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        do{
+            let subjects = try DatabaseController.getContext().fetch(subjectsFetchRequest)
+            for subject in subjects {
+                print("\(subject.objectID) \(subject.name)")
+            }
+        }catch{
+            print("** Error while dumping Subjects")
+        }
+
+        print("************************** The end of data dump *******************************************")
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

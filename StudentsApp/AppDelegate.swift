@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let dbInitor: DataBaseInitiator
         dbInitor = DataBaseInitiator()
-        dbInitor.insertInitialData()
+        dbInitor.insertInitialData(check: true)
         return true
     }
 
