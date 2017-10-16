@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 class SubjectModel: NSObject {
+    var SubjectsDatabaseObject: Subjects?
     var subjectName: String?
     var subjectImage: UIImage?
     
@@ -16,33 +18,38 @@ class SubjectModel: NSObject {
         //Получаем список предметов
         var returnArray: Array<SubjectModel> = Array()
         
-        let firstClass: SubjectModel = SubjectModel()
-        firstClass.subjectName = "Экология"
-        firstClass.subjectImage = nil
-        let secondClass: SubjectModel = SubjectModel()
-        secondClass.subjectName = "Математика"
-        secondClass.subjectImage = nil
-        let thirdClass: SubjectModel = SubjectModel()
-        thirdClass.subjectName = "Экономика"
-        thirdClass.subjectImage = nil
-        let forthClass: SubjectModel = SubjectModel()
-        forthClass.subjectName = "Математический анализ и теория алгоритмов"
-        forthClass.subjectImage = nil
-        let fifthClass: SubjectModel = SubjectModel()
-        fifthClass.subjectName = "Теория систем и системный анализ"
-        fifthClass.subjectImage = nil
-        let sixClass: SubjectModel = SubjectModel()
-        sixClass.subjectName = "Программирование на C#"
-        sixClass.subjectImage = nil
+        let fetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
         
-        returnArray.append(firstClass)
-        returnArray.append(secondClass)
-        returnArray.append(thirdClass)
-        returnArray.append(forthClass)
-        returnArray.append(fifthClass)
-        returnArray.append(sixClass)
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            for result in searchResults as [Subjects]{
+                returnArray.append(SubjectModel(withDatabaseObject: result))
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
         
         return returnArray
     }
 
+    override init() {
+        super.init()
+    }
+    
+    init(withDatabaseObject: Subjects) {
+        super.init()
+        
+        self.SubjectsDatabaseObject = withDatabaseObject
+        
+        self.subjectName = SubjectsDatabaseObject?.name
+        
+        
+        if(SubjectsDatabaseObject?.image != nil){
+            self.subjectImage = nil//SubjectsDatabaseObject?.image
+        }else{
+            self.subjectImage = nil
+        }
+    }
 }

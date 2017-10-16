@@ -7,65 +7,31 @@
 //
 
 import UIKit
+import CoreData
 
 class ActivitiesModel: NSObject {
-    var activityId: Int?
+    var ActivityDatabaseObject: Activities?
     var activityDate: CustomDateClass?
     var activityNameShort: String?
     var activitySubject: String?
-    //var taskPriority: Int?  <- НУЖНЫ ЛИ ЭТИ ПОЛЯ?
-    //var taskDescription: String?
-    //var taskStatus: Int?
     
     static func getActivities() -> Array<ActivitiesModel>{
         //Получаем список мероприятий
         var returnArray: Array<ActivitiesModel> = Array()
         
-        let firstClass: ActivitiesModel = ActivitiesModel()
-        firstClass.activityId = 0
-        firstClass.activityDate = CustomDateClass(withString: "03.10.17")
-        firstClass.activityNameShort = "РК1"
-        firstClass.activitySubject = "ТСиСА"
-        let secondClass: ActivitiesModel = ActivitiesModel()
-        secondClass.activityId = 1
-        secondClass.activityDate = CustomDateClass(withString: "05.10.17")
-        secondClass.activityNameShort = "РК1"
-        secondClass.activitySubject = "Экономика"
-        let thirdClass: ActivitiesModel = ActivitiesModel()
-        thirdClass.activityId = 2
-        thirdClass.activityDate = CustomDateClass(withString: "17.10.17")
-        thirdClass.activityNameShort = "РК1"
-        thirdClass.activitySubject = "Программирование"
-        let fourthClass: ActivitiesModel = ActivitiesModel()
-        fourthClass.activityId = 3
-        fourthClass.activityDate = CustomDateClass(withString: "17.10.17")
-        fourthClass.activityNameShort = "РК3"
-        fourthClass.activitySubject = "Экономика"
-        let fifthClass: ActivitiesModel = ActivitiesModel()
-        fifthClass.activityId = 4
-        fifthClass.activityDate = CustomDateClass(withString: "19.10.17")
-        fifthClass.activityNameShort = "РК2"
-        fifthClass.activitySubject = "Экология"
-        let sixthClass: ActivitiesModel = ActivitiesModel()
-        sixthClass.activityId = 5
-        sixthClass.activityDate = CustomDateClass(withString: "14.10.17")
-        sixthClass.activityNameShort = "РК1"
-        sixthClass.activitySubject = "Экология"
-        let seventhClass: ActivitiesModel = ActivitiesModel()
-        seventhClass.activityId = 6
-        seventhClass.activityDate = CustomDateClass(withString: "11.10.17")
-        seventhClass.activityNameShort = "РК2"
-        seventhClass.activitySubject = "Экономика"
+        let fetchRequest:NSFetchRequest<Activities> = Activities.fetchRequest()
         
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            for result in searchResults as [Activities]{
+                returnArray.append(ActivitiesModel(withDatabaseObject: result))
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
         
-        
-        returnArray.append(firstClass)
-        returnArray.append(secondClass)
-        returnArray.append(thirdClass)
-        returnArray.append(fourthClass)
-        returnArray.append(fifthClass)
-        returnArray.append(sixthClass)
-        returnArray.append(seventhClass)
         return returnArray
     }
     
@@ -82,5 +48,29 @@ class ActivitiesModel: NSObject {
     func updateActivity() -> Bool {
         //Обновляем мероприятие в БД
         return false
+    }
+    
+    override init() {
+        super.init()
+    }
+    
+    init(withDatabaseObject: Activities) {
+        super.init()
+        
+        self.ActivityDatabaseObject = withDatabaseObject
+        
+        self.activityNameShort = ActivityDatabaseObject?.shortName
+        
+        if(ActivityDatabaseObject?.date != nil){
+            self.activityDate = CustomDateClass(withDate: (ActivityDatabaseObject?.date)!)
+        }else{
+            self.activityDate = nil
+        }
+        
+        if(ActivityDatabaseObject?.subject != nil){
+            self.activitySubject = ActivityDatabaseObject?.subject?.name!
+        }else{
+            self.activitySubject = "Не добавило"
+        }
     }
 }
