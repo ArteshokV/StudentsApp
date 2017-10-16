@@ -44,7 +44,13 @@ class DataBaseInitiator: NSObject {
             var json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
             
             let subjectsInitalData = json["Subjects"] as! [String: [String:Any]]
-            store(Subjects: subjectsInitalData)
+            let subjectsDatabaseName:String = String(describing: Subjects.self)
+            for record in subjectsInitalData.values{
+                print(DatabaseController.getContext())
+                let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
+                Subject.name = record["Name"] as? String
+            }
+            DatabaseController.saveContext()
             
             //---Storing TimeTable
             let timeTableJson = json["Timetable"] as! [String: [String:Any]]
@@ -91,6 +97,7 @@ class DataBaseInitiator: NSObject {
                 event.subject = getSubjectBy(Name: record["Subject"] as! String)
                 
             }
+            DatabaseController.saveContext()
             
             //---Storing Activities
             let activitiesDatabaseName:String = String(describing: Activities.self)
@@ -102,7 +109,7 @@ class DataBaseInitiator: NSObject {
                 
                 let event:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
                 
-                event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
+                event.date = CustomDateClass(withString: record["Date"] as! String).currentDate //FIXME:---crash by nil value ...fatal error: unexpectedly found nil while unwrapping an Optional value 2017-10-16 20:15:39.811986+0300 StudentsApp[2108:110376] fatal error: unexpectedly found nil while unwrapping an Optional value
                 event.shortName = record["nameShort"] as? String
                 
                 event.subject = getSubjectBy(Name: record["Subject"] as! String)
@@ -161,7 +168,8 @@ class DataBaseInitiator: NSObject {
     
     func store(Subjects: [String: [String:Any]]) {
         let subjectsDatabaseName:String = String(describing: Subjects.self)
-        for record in Subjects{
+        for record in Subjects.values{
+            print(DatabaseController.getContext())
             let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
             Subject.name = record["Name"] as? String
         }
@@ -177,7 +185,7 @@ class DataBaseInitiator: NSObject {
         do{
             let timeTableEvents = try DatabaseController.getContext().fetch(timeTableFetchRequest)
             for ttEvent in timeTableEvents {
-                print("\(ttEvent.objectID) \(ttEvent.date ?? nil) \(ttEvent.startTime) \(ttEvent.endTime) \(ttEvent.subject?.name) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate) \(ttEvent.endDate) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
+                print("\(ttEvent.date ?? nil) \(ttEvent.startTime!) \(ttEvent.endTime!) \(ttEvent.subject!.name!) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate ?? nil) \(ttEvent.endDate ?? nil) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
             }
         }catch{
             print("** Error while dumping Time Table")
@@ -213,7 +221,7 @@ class DataBaseInitiator: NSObject {
         do{
             let subjects = try DatabaseController.getContext().fetch(subjectsFetchRequest)
             for subject in subjects {
-                print("\(subject.objectID) \(subject.name)")
+                print("\(subject.name!)")
             }
         }catch{
             print("** Error while dumping Subjects")
