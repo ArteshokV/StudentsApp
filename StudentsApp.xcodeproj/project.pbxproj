@@ -98,6 +98,7 @@
 			children = (
 				4E2ADE981F943246008F89CD /* DatabaseController.swift */,
 				BE65019E1F90C24600D7B1E7 /* DataBaseInitiator.swift */,
+				BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */,
 				BE65019B1F90C04400D7B1E7 /* Database */,
 				4E94FFF81F9156D700B7C86E /* DataModels */,
 				4E7C538C1F86CEC10012329E /* AppDelegate.swift */,
@@ -162,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */,
-				BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = Database;
 			sourceTree = "<group>";
