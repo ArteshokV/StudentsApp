@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2ADE991F943246008F89CD /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ADE981F943246008F89CD /* DatabaseController.swift */; };
 		4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C538C1F86CEC10012329E /* AppDelegate.swift */; };
 		4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C538E1F86CEC10012329E /* ViewController.swift */; };
 		4E7C53921F86CEC10012329E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E7C53901F86CEC10012329E /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E2ADE981F943246008F89CD /* DatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		4E7C53891F86CEC10012329E /* StudentsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7C538C1F86CEC10012329E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E7C538E1F86CEC10012329E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		4E7C538B1F86CEC10012329E /* StudentsApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E2ADE981F943246008F89CD /* DatabaseController.swift */,
 				BE65019B1F90C04400D7B1E7 /* Database */,
 				4E94FFF81F9156D700B7C86E /* DataModels */,
 				4E7C538C1F86CEC10012329E /* AppDelegate.swift */,
@@ -249,6 +252,7 @@
 				4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */,
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
 				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
+				4E2ADE991F943246008F89CD /* DatabaseController.swift in Sources */,
 				4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */,
 				4E94FFCB1F8CCA1300B7C86E /* TodayTabViewController.swift in Sources */,
 				4E94FFD01F8E044800B7C86E /* TaskTableViewCell.swift in Sources */,
