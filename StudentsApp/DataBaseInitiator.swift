@@ -46,7 +46,7 @@ class DataBaseInitiator: NSObject {
             let subjectsInitalData = json["Subjects"] as! [String: [String:Any]]
             let subjectsDatabaseName:String = String(describing: Subjects.self)
             for record in subjectsInitalData.values{
-                print(DatabaseController.getContext())
+                //print(DatabaseController.getContext())
                 let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
                 Subject.name = record["Name"] as? String
             }
@@ -101,15 +101,18 @@ class DataBaseInitiator: NSObject {
             
             //---Storing Activities
             let activitiesDatabaseName:String = String(describing: Activities.self)
-            let tasks = json["Tasks"] as! [String: [String:Any]]
+            let activities = json["Activities"] as! [String: [String:Any]]
             //json = json["1"] as! [String: Any]
             //print(json["Date"] as! NSNull)
             
-            for record in tasks.values{
+            for record in activities.values{
                 
                 let event:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
                 
-                event.date = CustomDateClass(withString: record["Date"] as! String).currentDate //FIXME:---crash by nil value ...fatal error: unexpectedly found nil while unwrapping an Optional value 2017-10-16 20:15:39.811986+0300 StudentsApp[2108:110376] fatal error: unexpectedly found nil while unwrapping an Optional value
+                if !(record["Date"] is NSNull){
+                    event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
+                }
+                
                 event.shortName = record["nameShort"] as? String
                 
                 event.subject = getSubjectBy(Name: record["Subject"] as! String)
@@ -117,15 +120,17 @@ class DataBaseInitiator: NSObject {
             
             //---Storing Tasks
             let tasksDatabaseName:String = String(describing: Tasks.self)
-            let activities = json["Activities"] as! [String: [String:Any]]
+            let tasks = json["Tasks"] as! [String: [String:Any]]
             //json = json["1"] as! [String: Any]
             //print(json["Date"] as! NSNull)
             
-            for record in activities.values{
+            for record in tasks.values{
                 
                 let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
                 
-                event.date = CustomDateClass(withString: record["edgeDate"] as! String).currentDate
+                if !(record["edgeDate"] is NSNull){
+                    event.date = CustomDateClass(withString: record["edgeDate"] as! String).currentDate
+                }
                 event.shortName = record["nameShort"] as? String
                 event.descrp = record["descriptionOfTask"] as? String
                 event.priority = (record["Priority"] as? Int16)!
@@ -197,7 +202,7 @@ class DataBaseInitiator: NSObject {
         do{
             let tasks = try DatabaseController.getContext().fetch(tasksFetchRequest)
             for task in tasks {
-                print("\(task.objectID) \(task.date ?? nil) \(task.shortName) \(task.descrp) \(task.subject?.name) \(task.priority) \(task.status)")
+                print("\(task.date ?? nil) \(task.shortName) \(task.descrp) \(task.subject?.name) \(task.priority) \(task.status)")
             }
         }catch{
             print("** Error while dumping Tasks")
@@ -209,7 +214,7 @@ class DataBaseInitiator: NSObject {
         do{
             let activities = try DatabaseController.getContext().fetch(activitiesFetchRequest)
             for activity in activities {
-                print("\(activity.objectID) \(activity.date ?? nil) \(activity.shortName) \(activity.subject?.name)")
+                print("\(activity.date ?? nil) \(activity.shortName) \(activity.subject?.name)")
             }
         }catch{
             print("** Error while dumping Activities")
