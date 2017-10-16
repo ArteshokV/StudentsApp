@@ -29,7 +29,10 @@ class DataBaseInitiator: NSObject {
         
         
         
-        if(numberOfSearchResults != 0){return}
+        if(numberOfSearchResults != 0){
+            print("Первичный загрузчик данных обнаружил данные в базе и завершил работу. Если вы хотели загрузить данные снуля - переустановите приложение...")
+            return
+        }
         
         do{
             let timeTableDatabaseName:String = String(describing: TimeTable.self)
