@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 class TimetableModel: NSObject {
-    var classId: Int?
+    var timeTableDatabaseObject: TimeTable?
     var classDate: CustomDateClass?
     var classStartTime: String?
     var classEndTime: String?
@@ -19,53 +20,31 @@ class TimetableModel: NSObject {
     var classType: String?
     
     static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
-        //Получаем расписание
-        var currentArray: Array<TimetableModel> = Array()
         var returnArray: Array<TimetableModel> = Array()
-        //var dfk: Date?
-        let checkdate = CustomDateClass(withString: CustomDateClass().stringFromDate())
         
-        let firstClass: TimetableModel = TimetableModel()
-        firstClass.classId = 1
-        firstClass.classDate = CustomDateClass(withString: "12.10.2017")
-        firstClass.classStartTime = "10:15"
-        firstClass.classEndTime = "11:50"
-        firstClass.classSubject = "Информатика"
-        firstClass.classTeacher = "Петров"
-        firstClass.classPlace = "515ю"
-        firstClass.classType = "Лекция"
-        let secondClass: TimetableModel = TimetableModel()
-        secondClass.classId = 2
-        secondClass.classDate = CustomDateClass(withString: "19.10.2017")
-        secondClass.classStartTime = "10:15"
-        secondClass.classEndTime = "11:50"
-        secondClass.classSubject = "Математика"
-        secondClass.classTeacher = "Хартов"
-
-        secondClass.classPlace = "315л"
-        secondClass.classType = "Семинар"
-        let thirdClass: TimetableModel = TimetableModel()
-        thirdClass.classId = 3
-        thirdClass.classDate = CustomDateClass(withString: "12.10.2017")
-        thirdClass.classStartTime = "12:00"
-        thirdClass.classEndTime = "13:35"
-        thirdClass.classSubject = "Английский"
-        thirdClass.classTeacher = "Каримова"
-        thirdClass.classPlace = "433л"
-        thirdClass.classType = "Семинар"
+        let parity = Date.weekNumber(fromStartDate: "01.09.2017") % 2 //0-четная, 1 - нечетная
+        let selectionCondition: String = "dayOfWeek == \(Date.weekDayInt!)"
+        //"(dayOfWeek == \(Date.weekDayInt!)) AND ((parity == \(parity)) OR (date == \(Date.currentDate!))"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition)
         
-        currentArray.append(firstClass)
-        currentArray.append(secondClass)
-        currentArray.append(thirdClass)
+        let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        fetchRequest.predicate = predicate
         
-        var i = 0
-        
-        while i != currentArray.count {
-            if  checkdate.currentDate == Date.currentDate {
-                returnArray.append(currentArray[i])
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            //print("number of results: \(searchResults.count)")
+            
+            for result in searchResults as [TimeTable]{
+                //print("\(result.subject!.name!) \(result.place!) in \(result.startTime!) ")
+                //let obj = TimetableModel(withDatabaseObject: result)
+                returnArray.append(TimetableModel(withDatabaseObject: result))
+                //print(obj)
             }
-            i = i + 1
         }
+        catch{
+            print("Error: \(error)")
+        }
+        
         return returnArray
     }
     
@@ -83,4 +62,22 @@ class TimetableModel: NSObject {
         //Обновляем пару в БД
         return false
     }
+    
+    override init() {
+        super.init()
+    }
+    
+    init(withDatabaseObject: TimeTable) {
+        super.init()
+        self.timeTableDatabaseObject = withDatabaseObject
+        self.classStartTime = timeTableDatabaseObject?.startTime != nil ? timeTableDatabaseObject?.startTime! : nil;
+        self.classEndTime = timeTableDatabaseObject?.endTime != nil ? timeTableDatabaseObject?.endTime! : nil;
+        self.classTeacher = timeTableDatabaseObject?.teacher != nil ? timeTableDatabaseObject?.teacher! : nil;
+        self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
+        self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type! : nil;
+        
+        self.classSubject = timeTableDatabaseObject?.subject != nil ? timeTableDatabaseObject?.subject!.name! : nil;
+        self.classDate = timeTableDatabaseObject?.date != nil ? CustomDateClass(withDate: (timeTableDatabaseObject?.date)!) : nil;
+    }
 }
+
