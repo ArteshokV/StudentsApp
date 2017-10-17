@@ -59,18 +59,8 @@ class ActivitiesModel: NSObject {
         
         self.ActivityDatabaseObject = withDatabaseObject
         
-        self.activityNameShort = ActivityDatabaseObject?.shortName
-        
-        if(ActivityDatabaseObject?.date != nil){
-            self.activityDate = CustomDateClass(withDate: (ActivityDatabaseObject?.date)!)
-        }else{
-            self.activityDate = nil
-        }
-        
-        if(ActivityDatabaseObject?.subject != nil){
-            self.activitySubject = ActivityDatabaseObject?.subject?.name!
-        }else{
-            self.activitySubject = "Не добавило"
-        }
+        self.activityNameShort = ActivityDatabaseObject?.shortName != nil ? ActivityDatabaseObject?.shortName! : nil;
+        self.activitySubject = ActivityDatabaseObject?.subject != nil ? ActivityDatabaseObject?.subject!.name! : nil;
+        self.activityDate = ActivityDatabaseObject?.date != nil ? CustomDateClass(withDate: (ActivityDatabaseObject?.date)!) : nil;
     }
 }

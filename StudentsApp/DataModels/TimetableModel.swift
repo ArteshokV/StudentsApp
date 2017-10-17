@@ -32,13 +32,13 @@ class TimetableModel: NSObject {
         
         do{
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            print("number of results: \(searchResults.count)")
+            //print("number of results: \(searchResults.count)")
             
             for result in searchResults as [TimeTable]{
                 //print("\(result.subject!.name!) \(result.place!) in \(result.startTime!) ")
-                let obj = TimetableModel(withDatabaseObject: result)
-                returnArray.append(obj)
-                print(obj)
+                //let obj = TimetableModel(withDatabaseObject: result)
+                returnArray.append(TimetableModel(withDatabaseObject: result))
+                //print(obj)
             }
         }
         catch{
@@ -69,24 +69,15 @@ class TimetableModel: NSObject {
     
     init(withDatabaseObject: TimeTable) {
         super.init()
-        
         self.timeTableDatabaseObject = withDatabaseObject
-        self.classStartTime = timeTableDatabaseObject?.startTime!
-        self.classEndTime = timeTableDatabaseObject?.endTime!
-        self.classTeacher = timeTableDatabaseObject?.teacher!
-        self.classPlace = timeTableDatabaseObject?.place!
-        self.classType = timeTableDatabaseObject?.type!
-        if(timeTableDatabaseObject?.subject != nil){
-            self.classSubject = timeTableDatabaseObject?.subject?.name!
-        }else{
-            self.classSubject = "Не добавило"
-        }
+        self.classStartTime = timeTableDatabaseObject?.startTime != nil ? timeTableDatabaseObject?.startTime! : nil;
+        self.classEndTime = timeTableDatabaseObject?.endTime != nil ? timeTableDatabaseObject?.endTime! : nil;
+        self.classTeacher = timeTableDatabaseObject?.teacher != nil ? timeTableDatabaseObject?.teacher! : nil;
+        self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
+        self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type! : nil;
         
-        if(timeTableDatabaseObject?.date != nil){
-            self.classDate = CustomDateClass(withDate: (timeTableDatabaseObject?.date)!)
-        }else{
-            self.classDate = nil
-        }
+        self.classSubject = timeTableDatabaseObject?.subject != nil ? timeTableDatabaseObject?.subject!.name! : nil;
+        self.classDate = timeTableDatabaseObject?.date != nil ? CustomDateClass(withDate: (timeTableDatabaseObject?.date)!) : nil;
     }
 }
 

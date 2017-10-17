@@ -43,13 +43,7 @@ class SubjectModel: NSObject {
         
         self.SubjectsDatabaseObject = withDatabaseObject
         
-        self.subjectName = SubjectsDatabaseObject?.name
-        
-        
-        if(SubjectsDatabaseObject?.image != nil){
-            self.subjectImage = nil//SubjectsDatabaseObject?.image
-        }else{
-            self.subjectImage = nil
-        }
+        self.subjectName = SubjectsDatabaseObject?.name != nil ? SubjectsDatabaseObject?.name! : nil;
+        self.subjectImage = SubjectsDatabaseObject?.image != nil ? UIImage(data:(SubjectsDatabaseObject?.image!)!,scale:1.0) : nil;
     }
 }

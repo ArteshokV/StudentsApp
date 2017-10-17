@@ -26,12 +26,13 @@ class TimetableTableViewCell: UITableViewCell {
     
     func initWithTimetable(model: TimetableModel){
         timetableModelObject = model
-        self.ClassTypeLabel.text = timetableModelObject?.classType
-        self.StartTimeLabel.text = timetableModelObject?.classStartTime
-        self.EndTimeLabel.text = timetableModelObject?.classEndTime
-        self.SubjectNameLabel.text = timetableModelObject?.classSubject
-        self.TeacherLabel.text = timetableModelObject?.classTeacher
-        self.PlaceLabel.text = timetableModelObject?.classPlace
+
+        self.ClassTypeLabel.text = timetableModelObject?.classType != nil ? timetableModelObject?.classType! : "(Не указано)";
+        self.StartTimeLabel.text = timetableModelObject?.classStartTime != nil ? timetableModelObject?.classStartTime! : "-:-";
+        self.EndTimeLabel.text = timetableModelObject?.classEndTime != nil ? timetableModelObject?.classEndTime! : "-:-";
+        self.SubjectNameLabel.text = timetableModelObject?.classSubject != nil ? timetableModelObject?.classSubject! : "(Не указано)";
+        self.TeacherLabel.text = timetableModelObject?.classTeacher != nil ? timetableModelObject?.classTeacher! : nil;
+        self.PlaceLabel.text = timetableModelObject?.classPlace != nil ? timetableModelObject?.classPlace! : nil;
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

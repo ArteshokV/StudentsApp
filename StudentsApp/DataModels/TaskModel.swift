@@ -61,23 +61,13 @@ class TaskModel: NSObject {
         super.init()
         
         self.TasksDatabaseObject = withDatabaseObject
-        self.taskDate = CustomDateClass(withString: "15.10.17")
-        self.taskNameShort = TasksDatabaseObject?.shortName
-        self.taskPriority = Int(TasksDatabaseObject!.priority)
-        self.taskDescription = TasksDatabaseObject?.descrp
-        self.taskStatus = Int(TasksDatabaseObject!.status)
         
-        if(TasksDatabaseObject?.subject != nil){
-            self.taskSubject = TasksDatabaseObject?.subject?.name!
-        }else{
-            self.taskSubject = "Не добавило"
-        }
-        
-        if(TasksDatabaseObject?.date != nil){
-            self.taskDate = CustomDateClass(withDate: (TasksDatabaseObject?.date)!)
-        }else{
-            self.taskDate = nil
-        }
+        self.taskNameShort = TasksDatabaseObject?.shortName != nil ? TasksDatabaseObject?.shortName! : nil;
+        self.taskPriority = TasksDatabaseObject?.priority != nil ? Int(TasksDatabaseObject!.priority) : nil;
+        self.taskDescription = TasksDatabaseObject?.descrp != nil ? TasksDatabaseObject?.descrp! : nil;
+        self.taskStatus = TasksDatabaseObject?.status != nil ? Int(TasksDatabaseObject!.status) : nil;
+        self.taskSubject = TasksDatabaseObject?.subject != nil ? TasksDatabaseObject?.subject!.name! : nil;
+        self.taskDate = TasksDatabaseObject?.date != nil ? CustomDateClass(withDate: (TasksDatabaseObject?.date)!) : nil;
     }
 
 }
