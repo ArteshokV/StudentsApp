@@ -26,8 +26,10 @@ class TimetableModel: NSObject {
         let selectionCondition: String = "dayOfWeek == \(Date.weekDayInt!)"
         //"(dayOfWeek == \(Date.weekDayInt!)) AND ((parity == \(parity)) OR (date == \(Date.currentDate!))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.startTime), ascending: true)
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
         
         do{
@@ -70,8 +72,8 @@ class TimetableModel: NSObject {
     init(withDatabaseObject: TimeTable) {
         super.init()
         self.timeTableDatabaseObject = withDatabaseObject
-        self.classStartTime = timeTableDatabaseObject?.startTime != nil ? timeTableDatabaseObject?.startTime! : nil;
-        self.classEndTime = timeTableDatabaseObject?.endTime != nil ? timeTableDatabaseObject?.endTime! : nil;
+        self.classStartTime = timeTableDatabaseObject?.startTime != nil ? DatabaseController.timeToStringForm(Int: (timeTableDatabaseObject?.startTime)!) : nil;
+        self.classEndTime = timeTableDatabaseObject?.endTime != nil ? DatabaseController.timeToStringForm(Int: (timeTableDatabaseObject?.endTime)!) : nil;
         self.classTeacher = timeTableDatabaseObject?.teacher != nil ? timeTableDatabaseObject?.teacher! : nil;
         self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
         self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type : nil;
