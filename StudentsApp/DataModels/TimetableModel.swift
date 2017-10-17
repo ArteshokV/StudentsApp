@@ -74,7 +74,7 @@ class TimetableModel: NSObject {
         self.classEndTime = timeTableDatabaseObject?.endTime != nil ? timeTableDatabaseObject?.endTime! : nil;
         self.classTeacher = timeTableDatabaseObject?.teacher != nil ? timeTableDatabaseObject?.teacher! : nil;
         self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
-        self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type! : nil;
+        self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type : nil;
         
         self.classSubject = timeTableDatabaseObject?.subject != nil ? timeTableDatabaseObject?.subject!.name! : nil;
         self.classDate = timeTableDatabaseObject?.date != nil ? CustomDateClass(withDate: (timeTableDatabaseObject?.date)!) : nil;
