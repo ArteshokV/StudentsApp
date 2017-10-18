@@ -11,6 +11,7 @@ import UIKit
 class TaskViewEditViewController: UIViewController {
     
     
+    @IBOutlet weak var DoneButton: UIButton!
     
     @IBOutlet weak var EditButton: UIButton!
     var counter: Int!
@@ -37,7 +38,7 @@ class TaskViewEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.hidesBottomBarWhenPushed = true
+    
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.TaskShortNameField.text = taskModelObject?.taskNameShort
@@ -47,8 +48,6 @@ class TaskViewEditViewController: UIViewController {
         self.TaskStatusField.text = taskModelObject?.taskStatus?.description
         self.TaskPriorityField.text = taskModelObject?.taskPriority?.description
         
-        counter = 0
-         //EditButton.titleLabel?.text = "Редактировать"
         
         self.TaskDescriptionField.isEditable = false
         self.TaskShortNameField.isEditable = false
@@ -56,6 +55,8 @@ class TaskViewEditViewController: UIViewController {
         self.TaskDateField.isEditable = false
         self.TaskStatusField.isEditable = false
         self.TaskPriorityField.isEditable = false
+        
+        self.DoneButton.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +76,7 @@ class TaskViewEditViewController: UIViewController {
 
     
     @IBAction func EditButtonPressed(_ sender: Any) {
-        if counter == 0 {
+        
         self.TaskDescriptionField.isEditable = true
         self.TaskShortNameField.isEditable = true
         self.TaskSubjectField.isEditable = true
@@ -83,24 +84,27 @@ class TaskViewEditViewController: UIViewController {
         self.TaskStatusField.isEditable = true
         self.TaskPriorityField.isEditable = true
             self.TaskDescriptionField.textColor = UIColor.green
-            counter = 1;
-        //EditButton.titleLabel?.text = "Готово"
-         //  EditButton.setTitle("Готово", for: .selected)
-            //EditButton.currentTitle = "Готово"
-          //  EditButton.setAttributedTitle("Готво", for: .normal)
-        }
-        else {
-            self.TaskDescriptionField.isEditable = false
-            self.TaskShortNameField.isEditable = false
-            self.TaskSubjectField.isEditable = false
-            self.TaskDateField.isEditable = false
-            self.TaskStatusField.isEditable = false
-            self.TaskPriorityField.isEditable = false
+        
+        self.EditButton.isHidden = true
+        self.DoneButton.isHidden = false
+        
+        
+        
+    }
+   
+    
+    @IBAction func DoneButtonPressed(_ sender: Any) {
+        
+        self.TaskDescriptionField.isEditable = false
+        self.TaskShortNameField.isEditable = false
+        self.TaskSubjectField.isEditable = false
+        self.TaskDateField.isEditable = false
+        self.TaskStatusField.isEditable = false
+        self.TaskPriorityField.isEditable = false
             self.TaskDescriptionField.textColor = UIColor.red
-          counter = 0
-            EditButton.titleLabel?.text = "Редактировать"
-            EditButton.setTitle("Редактировать", for: .normal)
-        }
+        
+        self.DoneButton.isHidden = true
+        self.EditButton.isHidden = false
     }
     
 }
