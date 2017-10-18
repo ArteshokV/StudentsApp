@@ -16,9 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //---This calls DBInitiator and runs the initial data insertion
+        // to check stored data run it with check = true
         let dbInitor: DataBaseInitiator
         dbInitor = DataBaseInitiator()
-        dbInitor.insertInitialData(check: true)
+        dbInitor.insertInitialData(check: false)
+        
         return true
     }
 

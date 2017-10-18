@@ -19,6 +19,19 @@ class DatabaseController{
         return DatabaseController.persistentContainer.viewContext
     }
     
+    static func timeToStringForm(Int: Int16) -> String {
+        let h = Int / 100
+        let m = Int % 100
+        let hs = h < 10 ? "0\(h)" : "\(h)"
+        let ms = m < 10 ? "0\(m)" : "\(m)"
+        return "\(hs):\(ms)"
+    }
+    
+    func timeToInt16Form(String: String) -> Int16 {
+        //FIXME: realize the method... maybe... i donno....
+        return 0
+    }
+    
     // MARK: - Core Data stack
     
     static var persistentContainer: NSPersistentContainer = {
