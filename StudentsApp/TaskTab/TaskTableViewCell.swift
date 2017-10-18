@@ -42,7 +42,7 @@ class TaskTableViewCell: UITableViewCell {
     func initWithTask(model: TaskModel, forSortingType: String){
         taskModelObject = model
         
-        self.MiddleDescriptionLabel.text = taskModelObject?.taskNameShort
+        self.MiddleDescriptionLabel.text = taskModelObject?.taskNameShort != nil ? taskModelObject?.taskNameShort! : "(Не указано)";
         
         switch taskModelObject?.taskPriority {
         case 0?:
@@ -59,25 +59,28 @@ class TaskTableViewCell: UITableViewCell {
             break
         }
         
+        let subjectString = taskModelObject?.taskSubject != nil ? taskModelObject?.taskSubject! : "(Не указано)";
+        let dateString = taskModelObject?.taskDate != nil ? taskModelObject?.taskDate!.stringFromDate() : "(Не указано)";
+        
         switch forSortingType {
         case "Сроки":
-            self.TopSubjectLabel.text = taskModelObject?.taskSubject
+            self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = ""
             self.rounedView?.backgroundColor = cellColor
             break
         case "Предметы":
             self.TopSubjectLabel.text = ""
-            self.BottomEdgeDateLabel.text = taskModelObject?.taskDate?.stringFromDate()
+            self.BottomEdgeDateLabel.text = dateString
             self.rounedView?.backgroundColor = cellColor
             break
         case "Приоритет":
-            self.TopSubjectLabel.text = taskModelObject?.taskSubject
-            self.BottomEdgeDateLabel.text = taskModelObject?.taskDate?.stringFromDate()
+            self.TopSubjectLabel.text = subjectString
+            self.BottomEdgeDateLabel.text = dateString
             rounedView?.backgroundColor = UIColor.lightGray
             break
         default:
-            self.TopSubjectLabel.text = taskModelObject?.taskSubject
-            self.BottomEdgeDateLabel.text = taskModelObject?.taskDate?.stringFromDate()
+            self.TopSubjectLabel.text = subjectString
+            self.BottomEdgeDateLabel.text = dateString
             self.rounedView?.backgroundColor = cellColor
             break
         }
@@ -87,23 +90,27 @@ class TaskTableViewCell: UITableViewCell {
     func initWithActivity(model: ActivitiesModel, forSortingType: String){
         activityModelObject = model
         
-        self.MiddleDescriptionLabel.text = activityModelObject?.activityNameShort
+        self.MiddleDescriptionLabel.text = activityModelObject?.activityNameShort != nil ? activityModelObject?.activityNameShort! : "(Не указано)";
         cellColor = UIColor.blue
+        
+        
+        let subjectString = activityModelObject?.activitySubject != nil ? activityModelObject?.activitySubject! : "(Не указано)";
+        let dateString = activityModelObject?.activityDate != nil ? activityModelObject?.activityDate!.stringFromDate() : "(Не указано)";
         
         switch forSortingType {
         case "Сроки":
-            self.TopSubjectLabel.text = activityModelObject?.activitySubject
+            self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = ""
             self.rounedView?.backgroundColor = cellColor
             break
         case "Предметы":
             self.TopSubjectLabel.text = ""
-            self.BottomEdgeDateLabel.text = activityModelObject?.activityDate?.stringFromDate()
+            self.BottomEdgeDateLabel.text = dateString
             self.rounedView?.backgroundColor = cellColor
             break
         default:
-            self.TopSubjectLabel.text = activityModelObject?.activitySubject
-            self.BottomEdgeDateLabel.text = activityModelObject?.activityDate?.stringFromDate()
+            self.TopSubjectLabel.text = subjectString
+            self.BottomEdgeDateLabel.text = dateString
             self.rounedView?.backgroundColor = cellColor
             break
         }

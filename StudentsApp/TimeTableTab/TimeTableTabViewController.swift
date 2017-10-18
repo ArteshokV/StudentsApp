@@ -25,6 +25,8 @@ class TimeTableTabViewController: UIViewController {
 
     @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
     
+    @IBOutlet var RightSwipe: UISwipeGestureRecognizer!
+    @IBOutlet var LeftSwipe: UISwipeGestureRecognizer!
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
         DayLabel.text = TodayDate?.weekDayString()
@@ -54,8 +56,22 @@ class TimeTableTabViewController: UIViewController {
         ShowDates(CurrentDate: TodayDate!)
     }
     
+    @IBAction func SwipeOnRight(_ sender: Any) {
+        TodayDate?.switchToPreviousDay()
+        CurrentTimeTable  = []
+        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
+        TimeTableView.reloadData()
+        ShowDates(CurrentDate: TodayDate!)
+    }
     
-
+    @IBAction func SwipeOnLeft(_ sender: Any) {
+        TodayDate?.switchToNextDay()
+        CurrentTimeTable  = []
+        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
+        TimeTableView.reloadData()
+        ShowDates(CurrentDate: TodayDate!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         TimeTableView.rowHeight = UITableViewAutomaticDimension

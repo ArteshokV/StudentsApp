@@ -27,7 +27,7 @@ class CustomDateClass: NSObject {
     }
     
     func weekBeginSting() -> String {
-        let timeInterval = TimeInterval(-numberOfSecondsIn24Hours*weekDayInt!)
+        let timeInterval = TimeInterval(-numberOfSecondsIn24Hours*(weekDayInt!-1))
         let tempDate = currentDate?.addingTimeInterval(timeInterval)
         
         let calendar = Calendar.current
@@ -151,6 +151,10 @@ class CustomDateClass: NSObject {
         monthInt = calendar.component(.month, from: currentDate!)
         dayInt = calendar.component(.day, from: currentDate!)
         weekDayInt = calendar.component(.weekday, from: currentDate!) - 1
+        if weekDayInt == 0
+        {
+            weekDayInt = 7
+        }
     }
     
     // MARK: - Static functions
@@ -160,7 +164,10 @@ class CustomDateClass: NSObject {
         
         let tempMonthInt = calendar.component(.month, from: todayDate)
         let tempDayInt = calendar.component(.day, from: todayDate)
-        let tempWeekDayInt = calendar.component(.weekday, from: todayDate) - 1
+        var tempWeekDayInt = calendar.component(.weekday, from: todayDate) - 1
+        if tempWeekDayInt == 0 {
+            tempWeekDayInt = 7
+        }
         
         let tempMonthsNamesInString = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"]
         let tempWeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
@@ -169,20 +176,20 @@ class CustomDateClass: NSObject {
     }
     
     /*func printProperties(){
-        print(self.dayInt!)
-        print(self.monthInt!)
-        print(self.yearInt!)
-        print(self.weekDayInt!)
-        print(self.weekDayString())
-        print(self.todayStringWithoutWeekDay())
-        print(self.stringFromDate())
-        print(self.todayString())
-        print(self.weekBeginSting())
-        print(self.weekEndString())
-        print(self.weekNumber(fromStartDate: "01.09.2017"))
+        //print(self.dayInt!)
+        //print(self.monthInt!)
+        //print(self.yearInt!)
+        //print(self.weekDayInt!)
+        //print(self.weekDayString())
+        //print(self.todayStringWithoutWeekDay())
+        //print(self.stringFromDate())
+        //print(self.todayString())
+        //print(self.weekBeginSting())
+        //print(self.weekEndString())
+        //print(self.weekNumber(fromStartDate: "01.09.2017"))
         
-    }
-    */
+    }*/
+    
     override func isEqual(_ object: Any?) -> Bool {
         guard let obj = object as? CustomDateClass else {return false}
         return (self.dayInt! == obj.dayInt!)&&(self.monthInt! == obj.monthInt!)&&(self.yearInt! == obj.yearInt!)

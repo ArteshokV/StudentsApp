@@ -97,6 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
                         <outlet property="priorityButton" destination="367-oL-K8r" id="UGv-13-6zK"/>
@@ -378,6 +379,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lR4-ck-G2D" firstAttribute="leading" secondItem="4VK-7e-ef9" secondAttribute="leading" constant="5" id="0eN-PS-8Vx"/>
                             <constraint firstItem="4VK-7e-ef9" firstAttribute="trailing" secondItem="b3d-G0-e3j" secondAttribute="trailing" constant="5" id="3Sj-lO-krL"/>
@@ -398,6 +400,10 @@
                             <constraint firstItem="lR4-ck-G2D" firstAttribute="top" secondItem="4VK-7e-ef9" secondAttribute="top" constant="65" id="peO-uW-BIr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4VK-7e-ef9"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lou-h0-ocd" appends="YES" id="JeU-zh-SZD"/>
+                            <outletCollection property="gestureRecognizers" destination="Xis-Xs-zqh" appends="YES" id="uhG-OA-8CD"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Расписание" id="09d-OM-ppP"/>
                     <connections>
@@ -405,13 +411,25 @@
                         <outlet property="CurrentDayLabel" destination="HQB-lU-idQ" id="uYn-1P-i6j"/>
                         <outlet property="DayLabel" destination="wnH-KJ-im1" id="Uyo-pd-xtZ"/>
                         <outlet property="EndOfWeekLabel" destination="eWx-bl-XX4" id="Q5g-qF-5vx"/>
+                        <outlet property="LeftSwipe" destination="Xis-Xs-zqh" id="t5q-Bh-ehz"/>
                         <outlet property="NextWeekButton" destination="b3d-G0-e3j" id="JHV-iD-srH"/>
                         <outlet property="PreviousWeekButton" destination="lR4-ck-G2D" id="sGR-4P-non"/>
+                        <outlet property="RightSwipe" destination="lou-h0-ocd" id="ygI-ox-eWd"/>
                         <outlet property="TimeTableView" destination="Xtz-kc-JM9" id="G8e-aC-cvo"/>
                         <outlet property="WeekNumberLabel" destination="peV-6b-Pcl" id="bhK-jT-QY4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFl-n7-NeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="lou-h0-ocd">
+                    <connections>
+                        <action selector="SwipeOnRight:" destination="rUT-mW-xIp" id="XhF-bi-6PN"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="Xis-Xs-zqh">
+                    <connections>
+                        <action selector="SwipeOnLeft:" destination="rUT-mW-xIp" id="jAE-a7-sE6"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="629.60000000000002" y="-448.42578710644682"/>
         </scene>
