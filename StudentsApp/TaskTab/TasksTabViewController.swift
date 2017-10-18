@@ -77,6 +77,9 @@ class TasksTabViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       // taskTable.sectionFooterHeight = 0
+        taskTable.backgroundColor = UIColor.clear
+        
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
         
@@ -102,7 +105,7 @@ class TasksTabViewController: UIViewController{
         //********СОРТИРОВКИ ДЛЯ ЗАДАНИЙ**********
         //реализация сортировки заданий по дате
         
-        var tasksEmptyArray: Array<TaskModel> = Array() //пустой массив для инициализации нового блока
+        let tasksEmptyArray: Array<TaskModel> = Array() //пустой массив для инициализации нового блока
         var tasksAtDayZero: Array<TaskModel> = Array()
         tasksAtDayZero.append(taskArray[0])
         
@@ -501,6 +504,8 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
        // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
+        
+        cell.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате

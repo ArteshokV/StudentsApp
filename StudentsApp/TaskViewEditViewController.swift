@@ -82,6 +82,7 @@ class TaskViewEditViewController: UIViewController {
         self.TaskDateField.isEditable = true
         self.TaskStatusField.isEditable = true
         self.TaskPriorityField.isEditable = true
+            self.TaskDescriptionField.textColor = UIColor.green
             counter = 1;
         //EditButton.titleLabel?.text = "Готово"
          //  EditButton.setTitle("Готово", for: .selected)
@@ -95,6 +96,7 @@ class TaskViewEditViewController: UIViewController {
             self.TaskDateField.isEditable = false
             self.TaskStatusField.isEditable = false
             self.TaskPriorityField.isEditable = false
+            self.TaskDescriptionField.textColor = UIColor.red
           counter = 0
             EditButton.titleLabel?.text = "Редактировать"
             EditButton.setTitle("Редактировать", for: .normal)
