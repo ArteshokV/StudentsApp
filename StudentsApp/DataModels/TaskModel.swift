@@ -38,6 +38,70 @@ class TaskModel: NSObject {
         return returnArray
     }
     
+    static func getTasksGroupedByDate() -> [[TaskModel]] {
+        var returnArray = [[TaskModel]]()
+        let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        let sortDesrt = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        fetchRequest.sortDescriptors = [sortDesrt]
+        do{
+            let tasks = try DatabaseController.getContext().fetch(fetchRequest)
+            //---Creating random date to be able to start the loop
+            var dateComponents = DateComponents()
+            dateComponents.year = 1975
+            var oldDate:Date = Calendar.current.date(from: dateComponents)!
+            var tmpArray = [TaskModel]()
+            for task in tasks {
+                let oder = Calendar.current.compare(task.date!, to: oldDate, toGranularity: .day)
+                
+                //---Checking if this activity has the same date as the last one
+                if oder != .orderedSame {
+                    if tmpArray.count != 0 {
+                        returnArray.append(tmpArray)
+                    }
+                    tmpArray = [TaskModel]()
+                    tmpArray.append(TaskModel(withDatabaseObject: task))
+                }
+                else{
+                    tmpArray.append(TaskModel(withDatabaseObject: task))
+                }
+                oldDate = task.date!
+            }
+        }catch{
+            print("Error getting activities grouped by date. \(error.localizedDescription)")
+        }
+        return returnArray
+    }
+    
+    static func getTasksGroupedBySubject() -> [[TaskModel]] {
+        var returnArray = [[TaskModel]]()
+        
+        let fetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        
+        do{
+            //---Get all subjects... sorted, etc.
+            let sortDescr = NSSortDescriptor(key: #keyPath(Subjects.name), ascending: true)
+            fetchRequest.sortDescriptors = [sortDescr]
+            let subjects = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            //---fillout the res array
+            for subject in subjects {
+                var tmpArray: Array<TaskModel> = Array<TaskModel>()
+                let tasks = (subject.activities?.allObjects as! [Tasks]).sorted(by: {$0.date! < $1.date!})
+                if tasks.count > 0 {
+                    for task in tasks as [Tasks]{
+                        tmpArray.append(TaskModel(withDatabaseObject: task))
+                    }
+                    returnArray.append(tmpArray)
+                }
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        
+        return returnArray
+    }
+    
     func addTask() -> Bool {
         //Добавляем задание в БД
         return false
