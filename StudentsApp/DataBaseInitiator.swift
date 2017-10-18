@@ -73,8 +73,8 @@ class DataBaseInitiator: NSObject {
                  "weekDay": 2,
                  "Parity": true
                  */
-                event.startTime = record["StartTime"] as? String
-                event.endTime = record["EndTime"] as? String
+                event.startTime = record["StartTime"] as! Int16
+                event.endTime = record["EndTime"] as! Int16
                 event.teacher = record["Teacher"] as? String
                 event.place = record["Place"] as? String
                 event.type = record["classType"] as? String
@@ -190,7 +190,7 @@ class DataBaseInitiator: NSObject {
         do{
             let timeTableEvents = try DatabaseController.getContext().fetch(timeTableFetchRequest)
             for ttEvent in timeTableEvents {
-                print("\(ttEvent.date ?? nil) \(ttEvent.startTime!) \(ttEvent.endTime!) \(ttEvent.subject!.name!) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate ?? nil) \(ttEvent.endDate ?? nil) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
+                print("\(ttEvent.date ?? nil) \(ttEvent.startTime) \(ttEvent.endTime) \(ttEvent.subject!.name!) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate ?? nil) \(ttEvent.endDate ?? nil) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
             }
         }catch{
             print("** Error while dumping Time Table")

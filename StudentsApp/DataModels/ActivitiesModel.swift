@@ -35,6 +35,75 @@ class ActivitiesModel: NSObject {
         return returnArray
     }
     
+    static func getActivitiesGroupedByDate() -> [[ActivitiesModel]] {
+        var returnArray = [[ActivitiesModel]]()
+        let fetchRequest:NSFetchRequest<Activities> = Activities.fetchRequest()
+        let sortDesrt = NSSortDescriptor(key: #keyPath(Activities.date), ascending: true)
+        fetchRequest.sortDescriptors = [sortDesrt]
+        do{
+            let activities = try DatabaseController.getContext().fetch(fetchRequest)
+            //---Creating random date to be able to start the loop
+            var dateComponents = DateComponents()
+            dateComponents.year = 1975
+            var oldDate:Date = Calendar.current.date(from: dateComponents)!
+            var tmpArray = [ActivitiesModel]()
+            for activity in activities {
+                let oder = Calendar.current.compare(activity.date!, to: oldDate, toGranularity: .day)
+                
+                //---Checking if this activity has the same date as the last one
+                if oder != .orderedSame {
+                    if tmpArray.count != 0 {
+                        returnArray.append(tmpArray)
+                    }
+                    tmpArray = [ActivitiesModel]()
+                    tmpArray.append(ActivitiesModel(withDatabaseObject: activity))
+                }
+                else{
+                    tmpArray.append(ActivitiesModel(withDatabaseObject: activity))
+                }
+                oldDate = activity.date!
+            }
+        }catch{
+            print("Error getting activities grouped by date. \(error.localizedDescription)")
+        }
+        return returnArray
+    }
+    
+    static func getActivitiesGroupedBySubject() -> [[ActivitiesModel]] {
+        var returnArray = [[ActivitiesModel]]()
+        
+        let fetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        
+        do{
+            //---Get all subjects... sorted, etc.
+            let sortDescr = NSSortDescriptor(key: #keyPath(Subjects.name), ascending: true)
+            fetchRequest.sortDescriptors = [sortDescr]
+            let subjects = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            //---fillout the res array
+            for subject in subjects {
+                
+                var tmpArray: Array<ActivitiesModel> = Array<ActivitiesModel>()
+                let searchResults = (subject.activities?.allObjects as! [Activities]).sorted(by: {$0.date! < $1.date!})
+                if searchResults.count > 0 {
+                    for result in searchResults as [Activities]{
+                        
+                        tmpArray.append(ActivitiesModel(withDatabaseObject: result))
+                    }
+                    
+                    returnArray.append(tmpArray)
+                }
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        
+        return returnArray
+    }
+    
+    
+    
     func addActivity() -> Bool {
         //Добавляем мероприятие в БД
         return false
