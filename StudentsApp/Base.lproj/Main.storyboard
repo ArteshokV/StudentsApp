@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
-                                <rect key="frame" x="10" y="157" width="355" height="461"/>
+                                <rect key="frame" x="10" y="158" width="355" height="460"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" rowHeight="63" id="w8N-ch-2vm" customClass="taskTableViewCell" customModule="StudentsApp" customModuleProvider="target">
@@ -36,14 +36,6 @@
                                     <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tq0-X5-Plg">
-                                <rect key="frame" x="164" y="114" width="57" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Сроки"/>
-                                <connections>
-                                    <action selector="setTime:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="uVe-AW-LSB"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-7J-ya8">
                                 <rect key="frame" x="250" y="12" width="89" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -60,37 +52,30 @@
                                     <action selector="acrivityChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="Rul-AN-Pyp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffI-Ho-CPI">
-                                <rect key="frame" x="16" y="116" width="93" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Предметы"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oJW-Ys-kHo">
+                                <rect key="frame" x="16" y="116" width="343" height="29"/>
+                                <segments>
+                                    <segment title="Предметы"/>
+                                    <segment title="Сроки"/>
+                                    <segment title="Приоритет"/>
+                                </segments>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="setSubjects:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="uRj-R5-gXb"/>
+                                    <action selector="SegmentChenged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="ae4-56-StU"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="367-oL-K8r">
-                                <rect key="frame" x="262" y="114" width="97" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Приоритет"/>
-                                <connections>
-                                    <action selector="setPriority:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="XiT-cS-nja"/>
-                                </connections>
-                            </button>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="mCb-7J-ya8" secondAttribute="trailing" constant="36" id="22h-Lc-B31"/>
+                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="14" id="2UI-rb-Hde"/>
                             <constraint firstItem="Liy-Zh-tzU" firstAttribute="bottom" secondItem="rG3-ym-2mr" secondAttribute="bottom" id="60R-XV-iag"/>
-                            <constraint firstItem="Tq0-X5-Plg" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="19" id="Eu6-91-8yn"/>
+                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="CN1-wx-gaj"/>
                             <constraint firstItem="mCb-7J-ya8" firstAttribute="top" secondItem="EKH-md-aEO" secondAttribute="top" constant="12" id="Hgj-Dc-ZwG"/>
-                            <constraint firstItem="ffI-Ho-CPI" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="21" id="URY-Jz-ZpR"/>
+                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="21" id="QjV-fx-XlA"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="Liy-Zh-tzU" secondAttribute="trailing" constant="10" id="Y8B-xe-mS0"/>
-                            <constraint firstItem="367-oL-K8r" firstAttribute="leading" secondItem="Tq0-X5-Plg" secondAttribute="trailing" constant="41" id="bo3-T3-ov8"/>
                             <constraint firstItem="Liy-Zh-tzU" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="10" id="ds7-NI-AxH"/>
-                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="top" secondItem="ffI-Ho-CPI" secondAttribute="bottom" constant="6" id="h7o-Vz-WYW"/>
-                            <constraint firstItem="ffI-Ho-CPI" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="nYr-qi-mKb"/>
-                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="367-oL-K8r" secondAttribute="trailing" constant="16" id="nZU-8o-cM1"/>
-                            <constraint firstItem="367-oL-K8r" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="19" id="uLs-0C-opb"/>
+                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="oJW-Ys-kHo" secondAttribute="trailing" constant="16" id="now-47-S17"/>
                             <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="mCb-7J-ya8" secondAttribute="bottom" constant="3" id="xKX-fT-l5M"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="I5a-11-JxK" secondAttribute="trailing" constant="16" id="xh7-8w-nZZ"/>
                         </constraints>
@@ -99,18 +84,16 @@
                     <navigationItem key="navigationItem" id="5N1-wN-DCz"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="Segment" destination="oJW-Ys-kHo" id="g9q-DV-hyf"/>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
-                        <outlet property="priorityButton" destination="367-oL-K8r" id="UGv-13-6zK"/>
-                        <outlet property="subjectButton" destination="ffI-Ho-CPI" id="gMI-cq-gxx"/>
                         <outlet property="taskButton" destination="mCb-7J-ya8" id="Cep-BF-hMz"/>
                         <outlet property="taskTable" destination="Liy-Zh-tzU" id="0hz-hS-LBk"/>
-                        <outlet property="timeButton" destination="Tq0-X5-Plg" id="ufw-pf-crn"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTasksToTasksView" id="Zgn-fp-LuR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HRv-oR-HxN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1630" y="1066"/>
+            <point key="canvasLocation" x="1629.5999999999999" y="1065.5172413793105"/>
         </scene>
         <!--Task View Edit View Controller-->
         <scene sceneID="9qD-cF-dX1">
