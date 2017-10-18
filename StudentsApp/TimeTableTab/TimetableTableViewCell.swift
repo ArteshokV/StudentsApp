@@ -22,6 +22,7 @@ class TimetableTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
     }
     
     func initWithTimetable(model: TimetableModel){

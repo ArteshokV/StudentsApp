@@ -31,6 +31,8 @@ class TaskTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(rounedView!)
         self.contentView.sendSubview(toBack: rounedView!)
+        
+        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,13 +48,13 @@ class TaskTableViewCell: UITableViewCell {
         
         switch taskModelObject?.taskPriority {
         case 0?:
-            cellColor = UIColor.init(red: 14, green: 0, blue: 0, alpha: 0.1)
+            cellColor = UIColor.init(red: 14, green: 0, blue: 0, alpha: 0.05)
             break
         case 1?:
-            cellColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.2)
+            cellColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.05)
             break
         case 2?:
-            cellColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.1)
+            cellColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.05)
             break
         default:
             cellColor = UIColor.lightGray
@@ -66,22 +68,22 @@ class TaskTableViewCell: UITableViewCell {
         case "Сроки":
             self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = ""
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         case "Предметы":
             self.TopSubjectLabel.text = ""
             self.BottomEdgeDateLabel.text = dateString
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         case "Приоритет":
             self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = dateString
-            rounedView?.backgroundColor = UIColor.lightGray
+            rounedView?.layer.borderColor = UIColor.lightGray.cgColor
             break
         default:
             self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = dateString
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         }
         
@@ -101,17 +103,17 @@ class TaskTableViewCell: UITableViewCell {
         case "Сроки":
             self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = ""
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         case "Предметы":
             self.TopSubjectLabel.text = ""
             self.BottomEdgeDateLabel.text = dateString
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         default:
             self.TopSubjectLabel.text = subjectString
             self.BottomEdgeDateLabel.text = dateString
-            self.rounedView?.backgroundColor = cellColor
+            self.rounedView?.layer.borderColor = cellColor!.cgColor
             break
         }
         
@@ -130,6 +132,7 @@ class TaskTableViewCell: UITableViewCell {
         if(rounedView!.frame != frameOfRoundedView){
             rounedView!.layer.masksToBounds = false
             rounedView!.layer.cornerRadius = self.frame.height/2-2
+            rounedView!.layer.borderWidth = 1.5
 
             //Настройка тени
             rounedView!.layer.shadowOffset = CGSize(width:-1, height:2)
