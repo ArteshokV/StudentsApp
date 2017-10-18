@@ -76,36 +76,37 @@ class TimeTableTabViewController: UIViewController {
 
 
 
-/*extension TimeTableTabViewController: UITableViewDelegate {
+extension TimeTableTabViewController: UICollectionViewDelegate {
     
 }
 
-extension TimeTableTabViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+extension TimeTableTabViewController: UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
     }
     
-    // Получим количество строк для конкретной секции
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CurrentTimeTable.count
-    }
-    
-    // Получим заголовок для секции
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionTitle = (TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!
-        return sectionTitle
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0;//Choose your custom row height
-    }
-    
-    // Получим данные для использования в ячейке
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
-        
-        cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeTableCollectionCellIdentifier, for: indexPath as IndexPath) as! TimeTableCollectionViewCell
+        cell.CurrentTimeTable = CurrentTimeTable
+        cell.TodayDate = TodayDate
         return cell
     }
-}*/
+    
+}
+
+extension TimeTableTabViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        //Вычисляем размер ячейки
+        
+        return CGSize(width: CollectionOfTables.frame.size.width, height: CollectionOfTables.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}

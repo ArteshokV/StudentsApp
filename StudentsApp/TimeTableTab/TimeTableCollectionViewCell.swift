@@ -10,8 +10,8 @@ import UIKit
 
 class TimeTableCollectionViewCell: UICollectionViewCell {
 
-    private var CurrentTimeTable: [TimetableModel]!//массив занятий в расписании текущего дня
-    private var TodayDate: CustomDateClass?
+    var CurrentTimeTable: [TimetableModel]!//массив занятий в расписании текущего дня
+    var TodayDate: CustomDateClass?
     private var TimetableCellIdentifier = "TimeTableCell"
     
     @IBOutlet weak var TableForClasses: UITableView!
@@ -50,7 +50,6 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
         
         cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
-        
         return cell
     }
 }
