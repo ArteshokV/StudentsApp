@@ -54,12 +54,16 @@ class TaskModel: NSObject {
                 switch task.priority {
                 case 2 :
                     highPriotity.append(TaskModel(withDatabaseObject: task))
+                    break
                 case 1 :
                     midPriotity.append(TaskModel(withDatabaseObject: task))
+                    break
                 case 0 :
                     lowPriotity.append(TaskModel(withDatabaseObject: task))
+                    break
                 default:
                     other.append(TaskModel(withDatabaseObject: task))
+                    break
                 }
             }
             returnArray.append(highPriotity)
@@ -120,7 +124,7 @@ class TaskModel: NSObject {
             //---fillout the res array
             for subject in subjects {
                 var tmpArray: Array<TaskModel> = Array<TaskModel>()
-                let tasks = (subject.activities?.allObjects as! [Tasks]).sorted(by: {$0.date! < $1.date!})
+                let tasks = (subject.tasks?.allObjects as! [Tasks]).sorted(by: {$0.date! < $1.date!})
                 if tasks.count > 0 {
                     for task in tasks as [Tasks]{
                         tmpArray.append(TaskModel(withDatabaseObject: task))
