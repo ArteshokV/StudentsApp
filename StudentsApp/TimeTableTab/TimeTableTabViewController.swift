@@ -13,7 +13,7 @@ class TimeTableTabViewController: UIViewController {
     
     private var CurrentTimeTable: [TimetableModel]!//массив занятий в расписании текущего дня
     private var TodayDate: CustomDateClass?
-    private var TimetableCellIdentifier = "IdentCell"
+    private var TimeTableCollectionCellIdentifier = "TimeTableCollectionCell"
 
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
@@ -22,8 +22,8 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
-
-    @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
+    @IBOutlet weak var CollectionOfTables: UICollectionView!
+    
     
     @IBOutlet var RightSwipe: UISwipeGestureRecognizer!
     @IBOutlet var LeftSwipe: UISwipeGestureRecognizer!
@@ -42,7 +42,6 @@ class TimeTableTabViewController: UIViewController {
         TodayDate?.switchToPreviousWeek()
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
         ShowDates(CurrentDate: TodayDate!)
     }
     
@@ -52,34 +51,13 @@ class TimeTableTabViewController: UIViewController {
         TodayDate?.switchToNextWeek()
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
         ShowDates(CurrentDate: TodayDate!)
     }
     
-    @IBAction func SwipeOnRight(_ sender: Any) {
-        TodayDate?.switchToPreviousDay()
-        CurrentTimeTable  = []
-        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
-        ShowDates(CurrentDate: TodayDate!)
-    }
-    
-    @IBAction func SwipeOnLeft(_ sender: Any) {
-        TodayDate?.switchToNextDay()
-        CurrentTimeTable  = []
-        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
-        ShowDates(CurrentDate: TodayDate!)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TimeTableView.rowHeight = UITableViewAutomaticDimension
-        TimeTableView.estimatedRowHeight = 120
-        TimeTableView.autoresizesSubviews = true
-        let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
-        TimeTableView.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
-        
+        CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
         TodayDate = CustomDateClass()
         ShowDates(CurrentDate: TodayDate!)
         //получаем расписание на текущий день
@@ -98,7 +76,7 @@ class TimeTableTabViewController: UIViewController {
 
 
 
-extension TimeTableTabViewController: UITableViewDelegate {
+/*extension TimeTableTabViewController: UITableViewDelegate {
     
 }
 
@@ -130,4 +108,4 @@ extension TimeTableTabViewController: UITableViewDataSource {
         
         return cell
     }
-}
+}*/
