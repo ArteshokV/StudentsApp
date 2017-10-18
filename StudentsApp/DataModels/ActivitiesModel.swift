@@ -35,6 +35,39 @@ class ActivitiesModel: NSObject {
         return returnArray
     }
     
+    static func getActivitiesGroupedBySubject() -> [[ActivitiesModel]] {
+        var returnArray = [[ActivitiesModel]]()
+        
+        let fetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        
+        do{
+            //---Get all subjects... sorted, etc.
+            let sortDescr = NSSortDescriptor(key: #keyPath(Subjects.name), ascending: true)
+            fetchRequest.sortDescriptors = [sortDescr]
+            let subjects = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            //---fillout the res array
+            for subject in subjects {
+                
+                var tmpArray: Array<ActivitiesModel> = Array<ActivitiesModel>()
+                let searchResults = subject.activities?.allObjects as! [Activities]
+                if searchResults.count > 0 {
+                    for result in searchResults as [Activities]{
+                        
+                        tmpArray.append(ActivitiesModel(withDatabaseObject: result))
+                    }
+                    
+                    returnArray.append(tmpArray)
+                }
+            }
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        
+        return returnArray
+    }
+    
     func addActivity() -> Bool {
         //Добавляем мероприятие в БД
         return false
