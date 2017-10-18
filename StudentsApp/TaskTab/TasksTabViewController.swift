@@ -156,13 +156,15 @@ extension TasksTabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         if(taskOrActivity == "task"){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = UIColor.blue
+            selectedTaskCell.setHighlighted(false, animated: false)
+            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
         }
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         if(taskOrActivity == "task"){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
+            selectedTaskCell.setHighlighted(false, animated: false)
+            selectedTaskCell.rounedView?.backgroundColor = UIColor.clear
         }
     }
 }
@@ -284,7 +286,6 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
         
-        cell.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате

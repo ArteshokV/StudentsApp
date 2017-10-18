@@ -85,7 +85,7 @@ class TodayTabViewController: UIViewController {
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if(indexPath.section == 1){
+        if(indexPath.section == 2){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
             self.performSegue(withIdentifier: "fromTodayToTasksView", sender: self)
@@ -93,15 +93,16 @@ extension TodayTabViewController: UITableViewDelegate{
         }
     }
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        if(indexPath.section == 1){
+        if(indexPath.section == 2){
            let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = UIColor.blue
+            selectedTaskCell.setHighlighted(false, animated: false)
+            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
         }
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        if(indexPath.section == 1){
+        if(indexPath.section == 2){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
+            selectedTaskCell.rounedView?.backgroundColor = UIColor.clear
         }
     }
     

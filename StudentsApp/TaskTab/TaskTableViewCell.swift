@@ -48,13 +48,13 @@ class TaskTableViewCell: UITableViewCell {
         
         switch taskModelObject?.taskPriority {
         case 0?:
-            cellColor = UIColor.init(red: 14, green: 0, blue: 0, alpha: 0.05)
+            cellColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.05)
             break
         case 1?:
             cellColor = UIColor.init(red: 25, green: 25, blue: 0, alpha: 0.05)
             break
         case 2?:
-            cellColor = UIColor.init(red: 0, green: 15, blue: 0, alpha: 0.05)
+            cellColor = UIColor.init(red: 14, green: 0, blue: 0, alpha: 0.05)
             break
         default:
             cellColor = UIColor.lightGray
