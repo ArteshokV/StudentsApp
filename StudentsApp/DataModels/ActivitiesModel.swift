@@ -50,7 +50,7 @@ class ActivitiesModel: NSObject {
             for subject in subjects {
                 
                 var tmpArray: Array<ActivitiesModel> = Array<ActivitiesModel>()
-                let searchResults = subject.activities?.allObjects as! [Activities]
+                let searchResults = (subject.activities?.allObjects as! [Activities]).sorted(by: {$0.date! < $1.date!})
                 if searchResults.count > 0 {
                     for result in searchResults as [Activities]{
                         

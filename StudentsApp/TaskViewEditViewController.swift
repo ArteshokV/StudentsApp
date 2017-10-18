@@ -9,7 +9,28 @@
 import UIKit
 
 class TaskViewEditViewController: UIViewController {
+    
+    
+    
+    @IBOutlet weak var EditButton: UIButton!
+    var counter: Int!
+    
     @IBOutlet weak var TaskShortNameField: UITextView!
+    
+    
+    @IBOutlet weak var TaskSubjectField: UITextView!
+    
+    @IBOutlet weak var TaskDateField: UITextView!
+    
+    
+    @IBOutlet weak var TaskDescriptionField: UITextView!
+    
+    
+    @IBOutlet weak var TaskPriorityField: UITextView!
+    
+    
+    @IBOutlet weak var TaskStatusField: UITextView!
+    
     
     var taskModelObject: TaskModel?
     
@@ -20,6 +41,21 @@ class TaskViewEditViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.TaskShortNameField.text = taskModelObject?.taskNameShort
+        self.TaskDescriptionField.text = taskModelObject?.taskDescription
+        self.TaskSubjectField.text = taskModelObject?.taskSubject
+        self.TaskDateField.text = taskModelObject?.taskDate?.stringFromDate()
+        self.TaskStatusField.text = taskModelObject?.taskStatus?.description
+        self.TaskPriorityField.text = taskModelObject?.taskPriority?.description
+        
+        counter = 0
+         //EditButton.titleLabel?.text = "Редактировать"
+        
+        self.TaskDescriptionField.isEditable = false
+        self.TaskShortNameField.isEditable = false
+        self.TaskSubjectField.isEditable = false
+        self.TaskDateField.isEditable = false
+        self.TaskStatusField.isEditable = false
+        self.TaskPriorityField.isEditable = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,4 +73,32 @@ class TaskViewEditViewController: UIViewController {
     }
     */
 
+    
+    @IBAction func EditButtonPressed(_ sender: Any) {
+        if counter == 0 {
+        self.TaskDescriptionField.isEditable = true
+        self.TaskShortNameField.isEditable = true
+        self.TaskSubjectField.isEditable = true
+        self.TaskDateField.isEditable = true
+        self.TaskStatusField.isEditable = true
+        self.TaskPriorityField.isEditable = true
+            counter = 1;
+        //EditButton.titleLabel?.text = "Готово"
+         //  EditButton.setTitle("Готово", for: .selected)
+            //EditButton.currentTitle = "Готово"
+          //  EditButton.setAttributedTitle("Готво", for: .normal)
+        }
+        else {
+            self.TaskDescriptionField.isEditable = false
+            self.TaskShortNameField.isEditable = false
+            self.TaskSubjectField.isEditable = false
+            self.TaskDateField.isEditable = false
+            self.TaskStatusField.isEditable = false
+            self.TaskPriorityField.isEditable = false
+          counter = 0
+            EditButton.titleLabel?.text = "Редактировать"
+            EditButton.setTitle("Редактировать", for: .normal)
+        }
+    }
+    
 }

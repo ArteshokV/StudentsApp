@@ -57,7 +57,7 @@ class TasksTabViewController: UIViewController{
     
     var activitiesAtSubjectArray = Array<activitiesAtSubject>() // Источник данных (activities рассортированные по предметам)
     
-    
+    var ActivitiesAtSubjectArray: [[ActivitiesModel]] = []
     
     @IBOutlet weak var taskTable: UITableView!
     
@@ -96,7 +96,7 @@ class TasksTabViewController: UIViewController{
         
         var taskArray: Array<TaskModel> = TaskModel.getTasks() // получение данных из модели заданий
         var activitiesArray: Array<ActivitiesModel> = ActivitiesModel.getActivities() // получение данных из модели контрольных мероприятий
-        
+        ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
         
         
         //********СОРТИРОВКИ ДЛЯ ЗАДАНИЙ**********
@@ -214,6 +214,11 @@ class TasksTabViewController: UIViewController{
                 }
             }
         }
+        
+        
+        
+        
+        
         
         // Do any additional setup after loading the view.
     }
@@ -371,7 +376,7 @@ extension TasksTabViewController: UITableViewDataSource {
             }
                 
             else { if parametr == "subject" {
-                return activitiesAtSubjectArray.count
+                return ActivitiesAtSubjectArray.count
             }
             else {  return 0  }
             
@@ -409,7 +414,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         else {
             if parametr == "subject" {
-                return activitiesAtSubjectArray[section].sectionObjects.count
+                return ActivitiesAtSubjectArray[section].count
             }
             else {return 0}
         }
@@ -484,7 +489,7 @@ extension TasksTabViewController: UITableViewDataSource {
             }
             else {
                 if parametr == "subject" {
-                    return activitiesAtSubjectArray[section].sectionName
+                    return ActivitiesAtSubjectArray[section][0].activitySubject
                 }
                 else {return " "}
                 
@@ -544,7 +549,7 @@ extension TasksTabViewController: UITableViewDataSource {
                /* cell.BottomEdgeDateLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityDate?.stringFromDate()
                 cell.TopSubjectLabel.text = ""
                 cell.MiddleDescriptionLabel.text = activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort*/
-                cell.initWithActivity(model: activitiesAtSubjectArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Предметы")
+                cell.initWithActivity(model: ActivitiesAtSubjectArray[indexPath.section][indexPath.row], forSortingType: "Предметы")
             }
         }
         
