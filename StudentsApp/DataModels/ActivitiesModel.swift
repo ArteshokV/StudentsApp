@@ -35,6 +35,38 @@ class ActivitiesModel: NSObject {
         return returnArray
     }
     
+    static func getActivitiesGroupedByDate() -> [[ActivitiesModel]] {
+        var returnArray = [[ActivitiesModel]]()
+        let fetchRequest:NSFetchRequest<Activities> = Activities.fetchRequest()
+        let sortDesrt = NSSortDescriptor(key: #keyPath(Activities.date), ascending: true)
+        fetchRequest.sortDescriptors = [sortDesrt]
+        do{
+            let activities = try DatabaseController.getContext().fetch(fetchRequest)
+            //---Creating random date to be able to start the loop
+            var dateComponents = DateComponents()
+            dateComponents.year = 1975
+            var oldDate:Date = Calendar.current.date(from: dateComponents)!
+            for activity in activities {
+                let oder = Calendar.current.compare(activity.date!, to: oldDate, toGranularity: .day)
+                var tmpArray = [ActivitiesModel]()
+                //---Checking if this activity has the same date as the last one
+                if oder != .orderedSame {
+                    if tmpArray.count != 0 {
+                        returnArray.append(tmpArray)
+                    }
+                    tmpArray = [ActivitiesModel]()
+                }
+                else{
+                    tmpArray.append(ActivitiesModel(withDatabaseObject: activity))
+                }
+                oldDate = activity.date!
+            }
+        }catch{
+            print("Error getting activities grouped by date. \(error.localizedDescription)")
+        }
+        return returnArray
+    }
+    
     static func getActivitiesGroupedBySubject() -> [[ActivitiesModel]] {
         var returnArray = [[ActivitiesModel]]()
         
@@ -67,6 +99,8 @@ class ActivitiesModel: NSObject {
         
         return returnArray
     }
+    
+    
     
     func addActivity() -> Bool {
         //Добавляем мероприятие в БД
