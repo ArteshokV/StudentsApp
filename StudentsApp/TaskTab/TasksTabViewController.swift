@@ -58,6 +58,7 @@ class TasksTabViewController: UIViewController{
     var activitiesAtSubjectArray = Array<activitiesAtSubject>() // Источник данных (activities рассортированные по предметам)
     
     var ActivitiesAtSubjectArray: [[ActivitiesModel]] = []
+    var ActivitiesAtDayArray: [[ActivitiesModel]] = []
     
     @IBOutlet weak var taskTable: UITableView!
     
@@ -100,6 +101,7 @@ class TasksTabViewController: UIViewController{
         var taskArray: Array<TaskModel> = TaskModel.getTasks() // получение данных из модели заданий
         var activitiesArray: Array<ActivitiesModel> = ActivitiesModel.getActivities() // получение данных из модели контрольных мероприятий
         ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
+        ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
         
         
         //********СОРТИРОВКИ ДЛЯ ЗАДАНИЙ**********
@@ -375,7 +377,7 @@ extension TasksTabViewController: UITableViewDataSource {
         
         else { //для вывода мероприятий
              if parametr == "time" {
-                return activitiesAtDayArray.count
+                return ActivitiesAtDayArray.count
             }
                 
             else { if parametr == "subject" {
@@ -413,7 +415,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
      else { //для вывода мероприятий
         if parametr == "time" {
-            return activitiesAtDayArray[section].sectionObjects.count
+            return ActivitiesAtDayArray[section].count
         }
         else {
             if parametr == "subject" {
@@ -488,7 +490,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         else { //для вывода мероприятий
             if parametr == "time" {
-                return activitiesAtDayArray[section].sectionName
+                return ActivitiesAtDayArray[section][0].activityDate?.stringFromDate()
             }
             else {
                 if parametr == "subject" {
@@ -543,7 +545,7 @@ extension TasksTabViewController: UITableViewDataSource {
         else {
             if parametr == "time" { // Вывод данных для сортировки мероприятий по дате
                //cell.backgroundColor = UIColor.init(red: 0, green: 3, blue: 0, alpha: 0.01)
-                cell.initWithActivity(model: activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row], forSortingType: "Сроки")
+                cell.initWithActivity(model: ActivitiesAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
                 /*  cell.TopSubjectLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activitySubject
                 cell.BottomEdgeDateLabel.text = ""
                 cell.MiddleDescriptionLabel.text = activitiesAtDayArray[indexPath.section].sectionObjects[indexPath.row].activityNameShort*/

@@ -46,15 +46,17 @@ class ActivitiesModel: NSObject {
             var dateComponents = DateComponents()
             dateComponents.year = 1975
             var oldDate:Date = Calendar.current.date(from: dateComponents)!
+            var tmpArray = [ActivitiesModel]()
             for activity in activities {
                 let oder = Calendar.current.compare(activity.date!, to: oldDate, toGranularity: .day)
-                var tmpArray = [ActivitiesModel]()
+                
                 //---Checking if this activity has the same date as the last one
                 if oder != .orderedSame {
                     if tmpArray.count != 0 {
                         returnArray.append(tmpArray)
                     }
                     tmpArray = [ActivitiesModel]()
+                    tmpArray.append(ActivitiesModel(withDatabaseObject: activity))
                 }
                 else{
                     tmpArray.append(ActivitiesModel(withDatabaseObject: activity))
