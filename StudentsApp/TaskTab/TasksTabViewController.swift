@@ -110,6 +110,7 @@ class TasksTabViewController: UIViewController{
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
+        priorityButton.isHidden = false
         priorityButton.tintColor = UIColor.gray
         taskOrActivity = "task"
         taskTable.reloadData()
@@ -127,7 +128,7 @@ class TasksTabViewController: UIViewController{
         if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
             setTime((Any).self)
         }
-        priorityButton.tintColor = UIColor.white //делаем кнопку невидимой
+        priorityButton.isHidden = true //делаем кнопку невидимой
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
