@@ -223,20 +223,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пятница 2 октября" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YX9-T9-QTl">
-                                <rect key="frame" x="208" y="30" width="157" height="53"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="YX9-T9-QTl" secondAttribute="height" multiplier="80:27" id="hfg-sF-TW7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
-                                <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7RZ-nb-IBt">
-                                <rect key="frame" x="10" y="109" width="355" height="2"/>
-                            </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="UqD-EP-Zd0">
-                                <rect key="frame" x="10" y="126" width="355" height="492"/>
+                                <rect key="frame" x="10" y="20" width="355" height="598"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimetableCell" rowHeight="0.0" id="94r-2G-Ts0">
@@ -244,14 +232,6 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="94r-2G-Ts0" id="8rt-11-KyF">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="0.0"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="118" id="mav-Rr-5eN">
-                                        <rect key="frame" x="0.0" y="55.5" width="355" height="118"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mav-Rr-5eN" id="FRC-Rr-wUX">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -265,29 +245,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9YO-oV-SOa" firstAttribute="trailing" secondItem="UqD-EP-Zd0" secondAttribute="trailing" constant="10" id="3Dz-BT-4KT"/>
-                            <constraint firstItem="9YO-oV-SOa" firstAttribute="trailing" secondItem="YX9-T9-QTl" secondAttribute="trailing" constant="10" id="Ws1-3Y-n2T"/>
-                            <constraint firstItem="7RZ-nb-IBt" firstAttribute="top" secondItem="YX9-T9-QTl" secondAttribute="bottom" constant="26" id="XI6-BO-EcE"/>
+                            <constraint firstItem="UqD-EP-Zd0" firstAttribute="top" secondItem="9YO-oV-SOa" secondAttribute="top" id="LBb-B8-7Fh"/>
                             <constraint firstItem="UqD-EP-Zd0" firstAttribute="bottom" secondItem="9YO-oV-SOa" secondAttribute="bottom" id="fRi-A9-Lhl"/>
                             <constraint firstItem="UqD-EP-Zd0" firstAttribute="leading" secondItem="9YO-oV-SOa" secondAttribute="leading" constant="10" id="fel-Eb-3xC"/>
-                            <constraint firstItem="UqD-EP-Zd0" firstAttribute="top" secondItem="7RZ-nb-IBt" secondAttribute="bottom" constant="15" id="ibz-Ht-dVh"/>
-                            <constraint firstItem="YX9-T9-QTl" firstAttribute="top" secondItem="9YO-oV-SOa" secondAttribute="top" constant="10" id="iwV-Jy-WeY"/>
-                            <constraint firstAttribute="trailing" secondItem="7RZ-nb-IBt" secondAttribute="trailing" constant="10" id="kk8-Q1-IBy"/>
-                            <constraint firstItem="7RZ-nb-IBt" firstAttribute="leading" secondItem="vbb-Sg-hWT" secondAttribute="leading" constant="10" id="nt5-2f-xG6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9YO-oV-SOa"/>
                     </view>
                     <navigationItem key="navigationItem" id="PcB-Li-wKw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="ProgressViewOutlet" destination="7RZ-nb-IBt" id="bhH-IU-IvO"/>
                         <outlet property="TableViewOutlet" destination="UqD-EP-Zd0" id="vUN-8w-740"/>
-                        <outlet property="TodayDateLabel" destination="YX9-T9-QTl" id="9I6-nq-vac"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTodayToTasksView" id="CYU-7Q-vF8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tue-Et-Fhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1631" y="305"/>
+            <point key="canvasLocation" x="1629.5999999999999" y="304.4977511244378"/>
         </scene>
         <!--Расписание-->
         <scene sceneID="2Dl-YV-qCl">
@@ -574,6 +547,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zgn-fp-LuR"/>
+        <segue reference="CYU-7Q-vF8"/>
     </inferredMetricsTieBreakers>
 </document>

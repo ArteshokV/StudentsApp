@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let dbInitor: DataBaseInitiator
         dbInitor = DataBaseInitiator()
-        dbInitor.insertInitialData(check: true)
+        dbInitor.insertInitialData(check: false)
         return true
     }
 
