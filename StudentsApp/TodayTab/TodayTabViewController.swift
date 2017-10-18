@@ -14,16 +14,12 @@ class TodayTabViewController: UIViewController {
     @IBOutlet weak var ProgressViewOutlet: UIProgressView!
     @IBOutlet weak var TableViewOutlet: UITableView!
     
-    let TimetableCellIdentifier = "TimetableCell"
+    let TimetableContainerCellIdentifier = "TimetableContainerCell"
     let TasksCellIdentifier = "TaskCell"
     
-    var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
     
     var chosenObject = 0
-    //
-    var date1: CustomDateClass?
-    var date2: CustomDateClass?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,30 +28,24 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        date1 = CustomDateClass()
-        //self.prefersStatusBarHidden = true
         
         TableViewOutlet.rowHeight = UITableViewAutomaticDimension
         TableViewOutlet.estimatedRowHeight = 120
         TableViewOutlet.autoresizesSubviews = true
         
-        
-        
         //Получение сегодняшней даты
         TodayDateLabel.text = CustomDateClass.todaysDateString()
-        
-        //Полуение массива предметов
-        let cust = CustomDateClass()
-        timeTableArray = TimetableModel.getTimetable(Date: cust)
+        //Получение массива Заданий
         tasksArray = TaskModel.getTasks()
-
+        
+        //Изменение размера ProgressBar
         ProgressViewOutlet.transform = ProgressViewOutlet.transform.scaledBy(x: 1, y: 10)
 
         // Do any additional setup after loading the view.
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
         TableViewOutlet.register(taskCellNib, forCellReuseIdentifier: TasksCellIdentifier)
-        let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
-        TableViewOutlet.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
+        let timeTableContainerCellNib = UINib(nibName: "TodayTimetableTableViewCell", bundle: nil)
+        TableViewOutlet.register(timeTableContainerCellNib, forCellReuseIdentifier: TimetableContainerCellIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,16 +59,6 @@ class TodayTabViewController: UIViewController {
             taskVC.taskModelObject = tasksArray[chosenObject]
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -115,7 +95,7 @@ extension TodayTabViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfRows = (section == 0) ? timeTableArray.count : tasksArray.count ;
+        let numberOfRows = (section == 0) ? 1 : tasksArray.count ;
         return numberOfRows
     }
     
@@ -127,17 +107,15 @@ extension TodayTabViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         if (indexPath.section == 0) { //Берем расписание
-            let identifier = (indexPath.section == 0) ? TimetableCellIdentifier : TasksCellIdentifier ;
-            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TimetableTableViewCell
-            
-            cell.initWithTimetable(model: timeTableArray[indexPath.item])
+            let identifier = TimetableContainerCellIdentifier
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TodayTimetableTableViewCell
 
             return cell
             
         }else{
-            let identifier = (indexPath.section == 0) ? TimetableCellIdentifier : TasksCellIdentifier ;
+            let identifier = TasksCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
-            //cell.selectionStyle = .none
+            
             cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
             
             return cell
@@ -147,6 +125,16 @@ extension TodayTabViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
+        if(indexPath.section == 0){
+            let date = CustomDateClass(withString: "19.10.2017")
+            let todayTimetableHeight = (TimetableModel.getTimetable(Date: date).count+1) * 120
+            date.switchToNextDay()
+            let tomorrowTimetableHeight = (TimetableModel.getTimetable(Date: date).count+1) * 120
+            
+            //return CGFloat(todayTimetableHeight > tomorrowTimetableHeight ? todayTimetableHeight : tomorrowTimetableHeight)
+            return CGFloat(todayTimetableHeight)
+            
+        }
         return 120.0;//Choose your custom row height
     }
  

@@ -238,24 +238,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="UqD-EP-Zd0">
                                 <rect key="frame" x="10" y="126" width="355" height="492"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimetableCell" rowHeight="0.0" id="94r-2G-Ts0">
-                                        <rect key="frame" x="0.0" y="55.5" width="355" height="0.0"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="94r-2G-Ts0" id="8rt-11-KyF">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="0.0"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="118" id="mav-Rr-5eN">
-                                        <rect key="frame" x="0.0" y="55.5" width="355" height="118"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mav-Rr-5eN" id="FRC-Rr-wUX">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="118"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="qKy-tB-uo7" id="VdZ-6K-ZyS"/>
                                     <outlet property="delegate" destination="qKy-tB-uo7" id="Ok9-vF-eoV"/>
@@ -287,7 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tue-Et-Fhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1631" y="305"/>
+            <point key="canvasLocation" x="1629.5999999999999" y="304.4977511244378"/>
         </scene>
         <!--Расписание-->
         <scene sceneID="2Dl-YV-qCl">
@@ -574,6 +556,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zgn-fp-LuR"/>
+        <segue reference="CYU-7Q-vF8"/>
     </inferredMetricsTieBreakers>
 </document>
