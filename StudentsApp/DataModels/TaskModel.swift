@@ -38,6 +38,40 @@ class TaskModel: NSObject {
         return returnArray
     }
     
+    static func getTasksGroupedByPriority() -> [[TaskModel]] {
+        var returnArray = [[TaskModel]]()
+        let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        let sortDesrt = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        fetchRequest.sortDescriptors = [sortDesrt]
+        
+        do{
+            let tasks = try DatabaseController.getContext().fetch(fetchRequest)
+            var highPriotity = [TaskModel]()
+            var midPriotity = [TaskModel]()
+            var lowPriotity = [TaskModel]()
+            var other = [TaskModel]()
+            for task in tasks {
+                switch task.priority {
+                case 2 :
+                    highPriotity.append(TaskModel(withDatabaseObject: task))
+                case 1 :
+                    midPriotity.append(TaskModel(withDatabaseObject: task))
+                case 0 :
+                    lowPriotity.append(TaskModel(withDatabaseObject: task))
+                default:
+                    other.append(TaskModel(withDatabaseObject: task))
+                }
+            }
+            returnArray.append(highPriotity)
+            returnArray.append(midPriotity)
+            returnArray.append(lowPriotity)
+            returnArray.append(other)
+        }catch{
+            print("Error getting activities grouped by date. \(error.localizedDescription)")
+        }
+        return returnArray
+    }
+    
     static func getTasksGroupedByDate() -> [[TaskModel]] {
         var returnArray = [[TaskModel]]()
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
