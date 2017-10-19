@@ -28,7 +28,6 @@
                     </tableView>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="BsO-jp-0JG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="Iby-Cj-ZLB"/>
                 <constraint firstAttribute="trailing" secondItem="BsO-jp-0JG" secondAttribute="trailing" constant="5" id="SRm-2G-4gY"/>

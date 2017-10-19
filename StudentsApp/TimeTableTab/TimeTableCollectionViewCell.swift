@@ -18,7 +18,6 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
     }
@@ -48,7 +47,6 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     // Получим данные для использования в ячейке
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
-        
         cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
         return cell
     }
