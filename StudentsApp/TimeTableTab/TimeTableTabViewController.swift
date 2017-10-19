@@ -10,10 +10,11 @@ import UIKit
 
 class TimeTableTabViewController: UIViewController {
     
-    
     private var CurrentTimeTable: [TimetableModel]!//массив занятий в расписании текущего дня
     private var TodayDate: CustomDateClass?
-    private var TimetableCellIdentifier = "IdentCell"
+    private var TimeTableCollectionCellIdentifier = "TimeTableCollectionCell"
+    private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
+    private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
 
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
@@ -22,11 +23,9 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
-
-    @IBOutlet weak var TimeTableView: UITableView! //таблица отображения расписания
+    @IBOutlet weak var CollectionOfTables: UICollectionView!//коллекция таблиц
     
-    @IBOutlet var RightSwipe: UISwipeGestureRecognizer!
-    @IBOutlet var LeftSwipe: UISwipeGestureRecognizer!
+    
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
         DayLabel.text = TodayDate?.weekDayString()
@@ -42,8 +41,8 @@ class TimeTableTabViewController: UIViewController {
         TodayDate?.switchToPreviousWeek()
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
         ShowDates(CurrentDate: TodayDate!)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
     
@@ -52,82 +51,77 @@ class TimeTableTabViewController: UIViewController {
         TodayDate?.switchToNextWeek()
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
         ShowDates(CurrentDate: TodayDate!)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
-    @IBAction func SwipeOnRight(_ sender: Any) {
-        TodayDate?.switchToPreviousDay()
-        CurrentTimeTable  = []
-        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
-        ShowDates(CurrentDate: TodayDate!)
-    }
-    
-    @IBAction func SwipeOnLeft(_ sender: Any) {
-        TodayDate?.switchToNextDay()
-        CurrentTimeTable  = []
-        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        TimeTableView.reloadData()
-        ShowDates(CurrentDate: TodayDate!)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TimeTableView.rowHeight = UITableViewAutomaticDimension
-        TimeTableView.estimatedRowHeight = 120
-        TimeTableView.autoresizesSubviews = true
-        let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
-        TimeTableView.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
-        
         TodayDate = CustomDateClass()
+        CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
-        //получаем расписание на текущий день
-        CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
-        // Do any additional setup after loading the view.
     }
 
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    //Получение даты по номеру дня в семестре
+    func GetDateFromDayNumberInSemester (DayNumber: Int) -> CustomDateClass {
+        let DateForDay = CustomDateClass.init(withDate: (DateOfBeginOfSemester .currentDate?.addingTimeInterval(TimeInterval(60*60*24*DayNumber)))!)
+        return DateForDay
+    }
+    
+    //Получение номера дня в семестре по дате
+    func GetDayNumberFromDate (Date: CustomDateClass) -> Int {
+        let calendar = Calendar.current
+        let DateComponent = calendar.dateComponents([.day], from: DateOfBeginOfSemester .currentDate!, to: Date.currentDate!)
+        let NumberOfDay = DateComponent.day!
+        return NumberOfDay
+    }
 }
 
 
 
-extension TimeTableTabViewController: UITableViewDelegate {
-    
+extension TimeTableTabViewController: UICollectionViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        TodayDate = GetDateFromDayNumberInSemester(DayNumber: CollectionOfTables.indexPathsForVisibleItems[0][1])
+        ShowDates(CurrentDate: TodayDate!)
+    }
 }
 
-extension TimeTableTabViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+extension TimeTableTabViewController: UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let calendar = Calendar.current
+        let DateComponent = calendar.dateComponents([.day], from: DateOfBeginOfSemester.currentDate!, to: DateOfEndOfSemester.currentDate!)
+        let NumberOfDaysInSemester = DateComponent.day!
+        return NumberOfDaysInSemester
     }
     
-    // Получим количество строк для конкретной секции
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CurrentTimeTable.count
-    }
-    
-    // Получим заголовок для секции
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionTitle = (TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!
-        return sectionTitle
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0;//Choose your custom row height
-    }
-    
-    // Получим данные для использования в ячейке
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
-        
-        cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeTableCollectionCellIdentifier, for: indexPath as IndexPath) as! TimeTableCollectionViewCell
+        cell.CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (GetDateFromDayNumberInSemester(DayNumber: indexPath.item).stringFromDate())))
+        cell.TodayDate = GetDateFromDayNumberInSemester(DayNumber: indexPath.item)
+        cell.TableForClasses.reloadData()
         return cell
+    }
+    
+}
+
+extension TimeTableTabViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: CollectionOfTables.frame.size.width, height: CollectionOfTables.frame.size.height) //Вычисляем размер ячейки
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
