@@ -345,7 +345,7 @@ extension TasksTabViewController: UITableViewDataSource {
         sectionHeaderView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         
         let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:10,y:0,width:tableView.frame.width,height:50)
+        sectionHeaderLabel.frame = CGRect(x:10,y:0,width:(tableView.frame.width - 10),height:50)
         sectionHeaderLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.black)
         sectionHeaderLabel.textColor = UIColor.white
         //sectionHeaderLabel.textAlignment = NSTextAlignment.center
