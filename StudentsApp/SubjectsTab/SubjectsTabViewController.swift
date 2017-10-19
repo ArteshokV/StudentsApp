@@ -32,7 +32,7 @@ class SubjectsTabViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.insertSubview(blurEffectView, at: 1)
-        SubjectTabCollectionView.backgroundColor = UIColor.clear
+        SubjectTabCollectionView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)//UIColor.clear
         //Полуение массива предметов
         subjectsArray = SubjectModel.getSubjects()
         
@@ -81,6 +81,11 @@ extension SubjectsTabViewController: UICollectionViewDataSource{
         
         return cell
     }
+    
+   /* func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        print(indexPath)
+        return UICollectionReusableView()
+    }*/
 }
 
 // MARK: - UICollectionViewDelegate protocol

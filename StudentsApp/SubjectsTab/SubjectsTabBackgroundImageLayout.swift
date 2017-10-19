@@ -38,7 +38,7 @@ class SubjectsTabBackgroundImageLayout: UICollectionViewFlowLayout {
                     let decorationAttributes = SCSBCollectionViewLayoutAttributes(forDecorationViewOfKind: "sectionBackground", with: attr.indexPath)
                     
                     //Вычисляем размер заднего фона (Полки)
-                    let tmpWidth = self.collectionView!.contentSize.width
+                    let tmpWidth = UIScreen.main.bounds.width//self.collectionView!.contentSize.width
                     let tmpHeight = attr.frame.height
                     let yValue: CGFloat = attr.frame.origin.y + attr.frame.height/2
                     decorationAttributes.frame = CGRect(x: 0, y: yValue, width: tmpWidth, height: tmpHeight)
