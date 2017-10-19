@@ -41,8 +41,18 @@ class TasksTabViewController: UIViewController{
       //  taskTable.autoresizesSubviews = true
         
         taskTable.backgroundColor = UIColor.clear
-        self.view.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 250/255, alpha: 0.25)
+       // self.view.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 250/255, alpha: 0.25) //топ цвет
         counter = 1
+       // let blurEffectView: UIBlurEffect
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackGroundImage")
+        self.view.insertSubview(backgroundImage, at: 0)
+
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(blurEffectView, at: 1)
         
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
@@ -404,7 +414,8 @@ extension TasksTabViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
        
-        return HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
+        //return HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
+        return HeaderFooterViewClass.getViewForFooterInSectionWithLabelAndParametrs(tableView: tableView, height: 20, distance: 10, cornerRadiusWidth: 15, cornerRadiusHeight: 15)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
