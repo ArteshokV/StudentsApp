@@ -12,7 +12,7 @@ class TasksTabViewController: UIViewController{
     // MARK: - Variables
     var parametr: String! // переменная для выбота типа сортировки
     var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
-    
+    var counter: Int!
     var chosenObject: TaskModel?
     
     var ActivitiesAtSubjectArray: [[ActivitiesModel]] = []
@@ -42,7 +42,7 @@ class TasksTabViewController: UIViewController{
         
         taskTable.backgroundColor = UIColor.clear
         self.view.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 250/255, alpha: 0.25)
-        
+        counter = 1
         
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
@@ -72,7 +72,10 @@ class TasksTabViewController: UIViewController{
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
         taskOrActivity = "task"
+        if counter == 0 {
         Segment.insertSegment(withTitle: "Приоритет", at: 2, animated: true)
+            counter = 1
+        }
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
@@ -87,9 +90,10 @@ class TasksTabViewController: UIViewController{
             Segment.selectedSegmentIndex = 1
             parametr = "time"
         }
-   
+        if counter == 1 {
         Segment.removeSegment(at: 2, animated: true)
-        
+            counter = 0
+        }
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
