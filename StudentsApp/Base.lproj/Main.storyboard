@@ -18,15 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
-                                <rect key="frame" x="10" y="158" width="355" height="460"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
+                                <rect key="frame" x="10" y="150" width="355" height="468"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" rowHeight="63" id="w8N-ch-2vm" customClass="taskTableViewCell" customModule="StudentsApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="355" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w8N-ch-2vm" id="iEF-Xs-ifM">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="62.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -36,16 +36,8 @@
                                     <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-7J-ya8">
-                                <rect key="frame" x="250" y="12" width="89" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title="Задания"/>
-                                <connections>
-                                    <action selector="taskChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="J9Q-C6-HMV"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5a-11-JxK">
-                                <rect key="frame" x="215" y="55" width="144" height="40"/>
+                                <rect key="frame" x="215" y="65" width="144" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Мероприятия"/>
                                 <connections>
@@ -53,7 +45,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oJW-Ys-kHo">
-                                <rect key="frame" x="16" y="116" width="343" height="29"/>
+                                <rect key="frame" x="16" y="114" width="343" height="29"/>
                                 <segments>
                                     <segment title="Предметы"/>
                                     <segment title="Сроки"/>
@@ -64,19 +56,27 @@
                                     <action selector="SegmentChenged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="ae4-56-StU"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-7J-ya8">
+                                <rect key="frame" x="250" y="38" width="89" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Задания"/>
+                                <connections>
+                                    <action selector="taskChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="J9Q-C6-HMV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="mCb-7J-ya8" secondAttribute="trailing" constant="36" id="22h-Lc-B31"/>
-                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="14" id="2UI-rb-Hde"/>
                             <constraint firstItem="Liy-Zh-tzU" firstAttribute="bottom" secondItem="rG3-ym-2mr" secondAttribute="bottom" id="60R-XV-iag"/>
+                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="9" id="Bta-fV-4Ob"/>
                             <constraint firstItem="oJW-Ys-kHo" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="CN1-wx-gaj"/>
-                            <constraint firstItem="mCb-7J-ya8" firstAttribute="top" secondItem="EKH-md-aEO" secondAttribute="top" constant="12" id="Hgj-Dc-ZwG"/>
-                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="21" id="QjV-fx-XlA"/>
+                            <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="45" id="Eou-hJ-snj"/>
+                            <constraint firstItem="mCb-7J-ya8" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="18" id="JSY-gb-s9C"/>
+                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="8" id="Je2-Xf-geu"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="Liy-Zh-tzU" secondAttribute="trailing" constant="10" id="Y8B-xe-mS0"/>
                             <constraint firstItem="Liy-Zh-tzU" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="10" id="ds7-NI-AxH"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="oJW-Ys-kHo" secondAttribute="trailing" constant="16" id="now-47-S17"/>
-                            <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="mCb-7J-ya8" secondAttribute="bottom" constant="3" id="xKX-fT-l5M"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="I5a-11-JxK" secondAttribute="trailing" constant="16" id="xh7-8w-nZZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
@@ -610,6 +610,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CYU-7Q-vF8"/>
+        <segue reference="Zgn-fp-LuR"/>
     </inferredMetricsTieBreakers>
 </document>
