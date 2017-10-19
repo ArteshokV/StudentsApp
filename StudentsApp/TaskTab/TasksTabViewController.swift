@@ -23,12 +23,11 @@ class TasksTabViewController: UIViewController{
     
     @IBOutlet weak var taskTable: UITableView!
     
-    @IBOutlet weak var timeButton: UIButton!
-    @IBOutlet weak var subjectButton: UIButton!
-    @IBOutlet weak var priorityButton: UIButton!
     @IBOutlet weak var taskButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
     
+    
+    @IBOutlet weak var Segment: UISegmentedControl!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,12 +46,9 @@ class TasksTabViewController: UIViewController{
         taskTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
         
         // Задаем страртове цета кнопок
-        subjectButton.tintColor = UIColor.gray
-        timeButton.tintColor = UIColor.blue
-        priorityButton.tintColor = UIColor.gray
+        
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
-        
         
         ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
         ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
@@ -65,53 +61,13 @@ class TasksTabViewController: UIViewController{
     }
         
    
-    @IBAction func setTime(_ sender: Any) { //выбор сортировки по дате
-        
-        parametr = "time"
-        subjectButton.tintColor = UIColor.gray
-        timeButton.tintColor = UIColor.blue
-        if taskOrActivity == "task" {
-            priorityButton.tintColor = UIColor.gray
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-    }
-    
-    @IBAction func setSubjects(_ sender: Any) { //выбор сортировки по предмету
-       
-        
-        parametr = "subject"
-        subjectButton.tintColor = UIColor.blue
-        timeButton.tintColor = UIColor.gray
-        if taskOrActivity == "task" {
-            priorityButton.tintColor = UIColor.gray
-        }
-        
-        taskTable.reloadData()
-        
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-        
-    }
-    
-    @IBAction func setPriority(_ sender: Any) { //выбор сортировки по приоритету
-        if taskOrActivity == "task" {
-        parametr = "priority"
-        subjectButton.tintColor = UIColor.gray
-        timeButton.tintColor = UIColor.gray
-        priorityButton.tintColor = UIColor.blue
-        taskTable.reloadData()
-            let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-            taskTable.scrollToRow(at: index, at: .top, animated: true)
-    }
-    }
+   
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         taskButton.tintColor = UIColor.red
         activityButton.tintColor = UIColor.gray
-        priorityButton.tintColor = UIColor.gray
         taskOrActivity = "task"
+        Segment.insertSegment(withTitle: "Приоритет", at: 2, animated: true)
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
@@ -121,17 +77,39 @@ class TasksTabViewController: UIViewController{
     @IBAction func acrivityChooseButton(_ sender: Any) {//выбор просмотра мероприятий
         taskButton.tintColor = UIColor.gray
         activityButton.tintColor = UIColor.red
-        
         taskOrActivity = "activity"
-     
         if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
-            setTime((Any).self)
+            Segment.selectedSegmentIndex = 1
+            parametr = "time"
         }
-        priorityButton.tintColor = UIColor.white //делаем кнопку невидимой
+   
+        Segment.removeSegment(at: 2, animated: true)
+        
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
         
+    }
+    
+    
+    @IBAction func SegmentChenged(_ sender: Any) {
+        switch Segment.selectedSegmentIndex {
+        case 0:
+            parametr = "subject"
+            break
+        case 1:
+            parametr = "time"
+            break
+        case 2:
+            parametr = "priority"
+            break
+        default:
+            parametr = "time"
+            break
+        }
+        taskTable.reloadData()
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        taskTable.scrollToRow(at: index, at: .top, animated: true)
     }
     
     
@@ -178,13 +156,15 @@ extension TasksTabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         if(taskOrActivity == "task"){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = UIColor.blue
+            selectedTaskCell.setHighlighted(false, animated: false)
+            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
         }
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         if(taskOrActivity == "task"){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
-            selectedTaskCell.rounedView?.backgroundColor = selectedTaskCell.cellColor
+            selectedTaskCell.setHighlighted(false, animated: false)
+            selectedTaskCell.rounedView?.backgroundColor = UIColor.clear
         }
     }
 }
@@ -306,7 +286,6 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
         
-        cell.backgroundColor = UIColor.clear
         
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате

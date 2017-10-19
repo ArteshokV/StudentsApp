@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dbInitor: DataBaseInitiator
         dbInitor = DataBaseInitiator()
         dbInitor.insertInitialData(check: false)
-        
         return true
     }
 
