@@ -20,6 +20,7 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
+        TableForClasses.backgroundColor = UIColor.clear
     }
 
 }
