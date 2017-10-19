@@ -344,7 +344,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = UIView()
-        sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
+       /* sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
         sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
         sectionHeaderView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         
@@ -354,7 +354,7 @@ extension TasksTabViewController: UITableViewDataSource {
         sectionHeaderLabel.textColor = UIColor.white
         //sectionHeaderLabel.textAlignment = NSTextAlignment.center
         
-        
+ 
        
         switch parametr {
         case "time":
@@ -376,27 +376,35 @@ extension TasksTabViewController: UITableViewDataSource {
             sectionHeaderLabel.text = " "
         }
         
-        sectionHeaderView.addSubview(sectionHeaderLabel)
-        return sectionHeaderView
+       // sectionHeaderView.addSubview(sectionHeaderLabel)
+ */
+        
+        switch parametr {
+        case "time":
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, tableView: tableView)
+        case "subject":
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, tableView: tableView)
+        case "priority":
+            switch TasksAtPriorityArray[section][0].taskPriority! {
+            case 2:
+                 return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", tableView: tableView)
+            case 1:
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", tableView: tableView)
+            case 0:
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", tableView: tableView)
+            default:
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", tableView: tableView)
+            }
+        default:
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", tableView: tableView)
+        }
+        
         
         
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
        
-        let sectionFooterView = UIView()
-        sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
-        sectionFooterView.backgroundColor = UIColor.clear
-        
-        let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:40)
-        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        //sectionHeaderLabel.textColor = UIColor.white
-        sectionHeaderLabel.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
-    
-        sectionFooterView.addSubview(sectionHeaderLabel)
-        
-        return sectionFooterView
+        return HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
