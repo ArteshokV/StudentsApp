@@ -15,6 +15,7 @@ class TimeTableTabViewController: UIViewController {
     private var TimeTableCollectionCellIdentifier = "TimeTableCollectionCell"
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
     private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
+    var blurEffectView: UIVisualEffectView?
 
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
@@ -62,6 +63,18 @@ class TimeTableTabViewController: UIViewController {
         CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackGroundImage")
+        self.view.insertSubview(backgroundImage, at: 0)
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView!.frame = view.bounds
+        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(blurEffectView!, at: 1)
+        
+        CollectionOfTables.backgroundColor = UIColor.clear
     }
 
     
