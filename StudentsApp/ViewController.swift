@@ -29,6 +29,15 @@ class BaseTabBarController: UITabBarController {
     @IBInspectable var defaultIndex: Int = 3
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.tabBar.tintColor = UIColor.green //Цвет выделения
+        self.tabBar.barTintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        self.tabBar.alpha = 0.9
+        //Добавление Blur effect в Tab bar
+        let frost = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        frost.frame = self.tabBar.bounds
+        self.tabBar.insertSubview(frost, at: 0)
+        
+        
         self.selectedIndex = defaultIndex
     }
 }
