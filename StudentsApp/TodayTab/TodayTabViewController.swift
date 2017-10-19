@@ -25,7 +25,7 @@ class TodayTabViewController: UIViewController {
     //
     var date1: CustomDateClass?
     var date2: CustomDateClass?
-    
+    var blurEffectView: UIVisualEffectView?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -35,7 +35,24 @@ class TodayTabViewController: UIViewController {
         super.viewDidLoad()
         date1 = CustomDateClass()
         //self.prefersStatusBarHidden = true
-        self.view.backgroundColor = UIColor.brown
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "BackGroundImage")!)
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackGroundImage")
+        self.view.insertSubview(backgroundImage, at: 0)
+        /*
+        blurView = UIView()
+        blurView!.frame = UIScreen.main.bounds
+        blurView!.backgroundColor = UIColor.clear
+        self.view.insertSubview(blurView!, at: 1)
+         */
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView!.frame = view.bounds
+        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView!.alpha = 0.0;
+        self.view.insertSubview(blurEffectView!, at: 1)
+        
         TableViewOutlet.backgroundColor = UIColor.clear
         
         //TableViewOutlet.rowHeight = UITableViewAutomaticDimension
@@ -79,6 +96,13 @@ class TodayTabViewController: UIViewController {
         return maskLayer
     }
 
+}
+// MARK: - UIScrollViewDelegate protocol
+extension TodayTabViewController: UIScrollViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //blurView!.backgroundColor = UIColor(white: 1.0, alpha: scrollView.contentOffset.y/180)
+        blurEffectView!.alpha = scrollView.contentOffset.y/180;
+    }
 }
 
 // MARK: - UITableViewDelegate protocol
