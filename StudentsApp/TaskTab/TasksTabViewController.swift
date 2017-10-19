@@ -37,7 +37,12 @@ class TasksTabViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      //  taskTable.estimatedRowHeight = 120
+      //  taskTable.autoresizesSubviews = true
+        
         taskTable.backgroundColor = UIColor.clear
+        self.view.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 250/255, alpha: 0.25)
+        
         
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
@@ -125,6 +130,17 @@ class TasksTabViewController: UIViewController{
         }
     }
     
+    func makeRoundedMask(forTop: Bool, bounds: CGRect) -> CAShapeLayer {
+        let corners:UIRectCorner = (forTop ? [.topLeft , .topRight] : [.bottomRight , .bottomLeft])
+        let maskPath = UIBezierPath(roundedRect: bounds,
+                                    byRoundingCorners: corners,
+                                    cornerRadii:CGSize(width:15.0, height:15.0))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        maskLayer.path = maskPath.cgPath
+        return maskLayer
+    }
+    
 }
 
 
@@ -167,11 +183,14 @@ extension TasksTabViewController: UITableViewDelegate {
             selectedTaskCell.rounedView?.backgroundColor = UIColor.clear
         }
     }
+    
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }
 
 extension TasksTabViewController: UITableViewDataSource {
     
-
     
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
         if taskOrActivity == "task" { // для вывода заданий
@@ -206,9 +225,8 @@ extension TasksTabViewController: UITableViewDataSource {
         
     }
     
-      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
       
@@ -244,7 +262,7 @@ extension TasksTabViewController: UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { // Получим заголовок для секции
+  /*  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { // Получим заголовок для секции
         
         if taskOrActivity == "task" {  // для вывода заданий
             switch parametr {
@@ -281,7 +299,7 @@ extension TasksTabViewController: UITableViewDataSource {
             }
         }
     }
-    
+    */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
@@ -312,9 +330,76 @@ extension TasksTabViewController: UITableViewDataSource {
             }
         }
         
+        //cell.tintColor = UIColor.white
+        cell.MiddleDescriptionLabel.textColor = UIColor.white
+        cell.TopSubjectLabel.textColor = UIColor.lightGray
+        cell.BottomEdgeDateLabel.textColor = UIColor.lightGray
         
         return cell
     }
     
-
-}
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeaderView = UIView()
+        sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
+        sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
+        sectionHeaderView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        
+        let sectionHeaderLabel = UILabel()
+        sectionHeaderLabel.frame = CGRect(x:10,y:0,width:(tableView.frame.width - 10),height:50)
+        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.black)
+        sectionHeaderLabel.textColor = UIColor.white
+        //sectionHeaderLabel.textAlignment = NSTextAlignment.center
+        
+        
+       
+        switch parametr {
+        case "time":
+            sectionHeaderLabel.text = TasksAtDayArray[section][0].taskDate?.stringFromDate()
+        case "subject":
+            sectionHeaderLabel.text = TasksAtSubjectArray[section][0].taskSubject == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject
+        case "priority":
+            switch TasksAtPriorityArray[section][0].taskPriority! {
+            case 2:
+                sectionHeaderLabel.text = "Высокий приоритет"
+            case 1:
+                sectionHeaderLabel.text = "Средний приоритет"
+            case 0:
+                sectionHeaderLabel.text = "Низкий приоритет"
+            default:
+                sectionHeaderLabel.text = " "
+            }
+        default:
+            sectionHeaderLabel.text = " "
+        }
+        
+        sectionHeaderView.addSubview(sectionHeaderLabel)
+        return sectionHeaderView
+        
+        
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+       
+        let sectionFooterView = UIView()
+        sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
+        sectionFooterView.backgroundColor = UIColor.clear
+        
+        let sectionHeaderLabel = UILabel()
+        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:40)
+        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
+        //sectionHeaderLabel.textColor = UIColor.white
+        sectionHeaderLabel.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
+    
+        sectionFooterView.addSubview(sectionHeaderLabel)
+        
+        return sectionFooterView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    }
