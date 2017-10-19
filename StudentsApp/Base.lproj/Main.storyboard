@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -458,9 +457,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
-                                <rect key="frame" x="0.0" y="110" width="375" height="508"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMi-2o-irx">
+                                <rect key="frame" x="0.0" y="115" width="375" height="503"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ddq-yV-Pek" customClass="SubjectsTabBackgroundImageLayout" customModule="StudentsApp" customModuleProvider="target">
                                     <size key="itemSize" width="149" height="144"/>
@@ -483,32 +481,29 @@
                                     <outlet property="delegate" destination="5St-Aj-6Jv" id="fos-c9-8Z8"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
-                                <rect key="frame" x="229" y="34" width="124" height="54"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYO-tL-D1M">
+                                <rect key="frame" x="0.0" y="30" width="365" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="fYO-tL-D1M" secondAttribute="height" multiplier="39:17" id="a05-dt-DC7"/>
+                                    <constraint firstAttribute="height" constant="75" id="W6o-fZ-DjP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
-                                <color key="textColor" red="0.20852898316062174" green="0.20852898316062174" blue="0.20852898316062174" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Мои Предметы" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNB-nv-Gjb">
-                                <rect key="frame" x="229" y="34" width="124" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="JNB-nv-Gjb" secondAttribute="height" multiplier="39:17" id="PEp-n0-J2c"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
-                                <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="31"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="top" secondItem="fYO-tL-D1M" secondAttribute="bottom" constant="10" id="42n-cK-Lf2"/>
+                            <constraint firstItem="fYO-tL-D1M" firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="10" id="7lH-ll-t8L"/>
+                            <constraint firstItem="fYO-tL-D1M" firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="A0h-8E-rTV"/>
                             <constraint firstAttribute="bottom" secondItem="qa4-2t-oEP" secondAttribute="bottom" id="HLv-yt-iTJ"/>
                             <constraint firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="NUw-6H-X7r"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="trailing" secondItem="qa4-2t-oEP" secondAttribute="trailing" id="Vfn-Fr-G1r"/>
                             <constraint firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="Zgy-In-Qyx"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="leading" secondItem="qa4-2t-oEP" secondAttribute="leading" id="bED-JC-Mgv"/>
+                            <constraint firstItem="qa4-2t-oEP" firstAttribute="trailing" secondItem="fYO-tL-D1M" secondAttribute="trailing" constant="10" id="cJF-Jq-NvB"/>
                             <constraint firstAttribute="top" secondItem="qa4-2t-oEP" secondAttribute="top" constant="14" id="gmJ-cY-qb5"/>
-                            <constraint firstItem="JNB-nv-Gjb" firstAttribute="width" secondItem="JNB-nv-Gjb" secondAttribute="height" multiplier="39:17" id="yuk-Zn-9Vg"/>
+                            <constraint firstItem="PMi-2o-irx" firstAttribute="bottom" secondItem="qa4-2t-oEP" secondAttribute="bottom" id="yix-0s-LQK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
