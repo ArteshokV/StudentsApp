@@ -25,8 +25,6 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var CollectionOfTables: UICollectionView!
     
     
-    @IBOutlet var RightSwipe: UISwipeGestureRecognizer!
-    @IBOutlet var LeftSwipe: UISwipeGestureRecognizer!
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
         DayLabel.text = TodayDate?.weekDayString()
@@ -43,6 +41,7 @@ class TimeTableTabViewController: UIViewController {
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
         ShowDates(CurrentDate: TodayDate!)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
     
@@ -52,13 +51,16 @@ class TimeTableTabViewController: UIViewController {
         CurrentTimeTable  = []
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
         ShowDates(CurrentDate: TodayDate!)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
         TodayDate = CustomDateClass()
+        CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
+        
         ShowDates(CurrentDate: TodayDate!)
         //получаем расписание на текущий день
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
@@ -72,25 +74,48 @@ class TimeTableTabViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func GetDateFromDayNumberInSemester (DayNumber: Int) -> CustomDateClass {
+        let beginOfSemester = CustomDateClass(withString: "01.09.2017")
+        let DateForDay = CustomDateClass.init(withDate: (beginOfSemester.currentDate?.addingTimeInterval(TimeInterval(60*60*24*DayNumber)))!)
+        return DateForDay
+    }
+    
+    func GetDayNumberFromDate (Date: CustomDateClass) -> Int {
+        let beginOfSemester = CustomDateClass(withString: "01.09.2017")
+        let calendar = Calendar.current
+        let comp = calendar.dateComponents([.day], from: beginOfSemester.currentDate!, to: Date.currentDate!)
+        let NumberOfDay = comp.day!
+        return NumberOfDay
+    }
 }
 
 
 
 extension TimeTableTabViewController: UICollectionViewDelegate {
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        TodayDate = GetDateFromDayNumberInSemester(DayNumber: CollectionOfTables.indexPathsForVisibleItems[0][1])
+        ShowDates(CurrentDate: TodayDate!)
+    }
 }
 
 extension TimeTableTabViewController: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        let beginOfSemester = CustomDateClass(withString: "01.09.2017")
+        let endOfSemester = CustomDateClass(withString: "24.12.2017")
+        let calendar = Calendar.current
+        let comp = calendar.dateComponents([.day], from: beginOfSemester.currentDate!, to: endOfSemester.currentDate!)
+        let NumberOfDaysInSemester = comp.day!
+        return NumberOfDaysInSemester
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeTableCollectionCellIdentifier, for: indexPath as IndexPath) as! TimeTableCollectionViewCell
-        cell.CurrentTimeTable = CurrentTimeTable
-        cell.TodayDate = TodayDate
+        cell.CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (GetDateFromDayNumberInSemester(DayNumber: indexPath.item).stringFromDate())))
+        cell.TodayDate = GetDateFromDayNumberInSemester(DayNumber: indexPath.item)
+        cell.TableForClasses.reloadData()
         return cell
     }
     
