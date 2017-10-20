@@ -93,6 +93,7 @@ class HeaderFooterViewClass: UIView {
     static func getViewForFooterInSectionWithLabelAndParametrs (tableView: UITableView, height: CGFloat, distance: CGFloat, cornerRadiusWidth: CGFloat, cornerRadiusHeight: CGFloat) ->UIView {
         let sectionFooterView = UIView()
         sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height: (height + distance))
+        print("\(String(describing: height + distance))")
         sectionFooterView.backgroundColor = UIColor.clear
         
         let sectionHeaderLabel = UILabel()
