@@ -97,6 +97,7 @@ class TodayTabViewController: UIViewController {
     }
 
 }
+
 // MARK: - UIScrollViewDelegate protocol
 extension TodayTabViewController: UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
