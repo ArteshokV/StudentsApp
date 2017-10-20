@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  StudentsApp
+
+  Created by Иван Галкин on 20.10.2017.
+  Copyright © 2017 Владислав Захаров. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Students Appl";
+"NSHumanReadableCopyright" = "iOSBrazzers 2017.";
