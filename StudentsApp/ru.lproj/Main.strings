@@ -1,0 +1,111 @@
+
+/* Class = "UITabBarItem"; title = "Расписание"; ObjectID = "09d-OM-ppP"; */
+"09d-OM-ppP.title" = "Расписание";
+
+/* Class = "UILabel"; text = "ИУ6-72(б)"; ObjectID = "0H2-vD-sde"; */
+"0H2-vD-sde.text" = "ИУ6-72(б)";
+
+/* Class = "UILabel"; text = "CurrentDate"; ObjectID = "HQB-lU-idQ"; */
+"HQB-lU-idQ.text" = "CurrentDate";
+
+/* Class = "UIButton"; normalTitle = "Мероприятия"; ObjectID = "I5a-11-JxK"; */
+"I5a-11-JxK.normalTitle" = "Мероприятия";
+
+/* Class = "UITextView"; text = "Date"; ObjectID = "KxG-Yv-tUz"; */
+"KxG-Yv-tUz.text" = "Date";
+
+/* Class = "UITextView"; text = "Description"; ObjectID = "Mg4-l7-Bhu"; */
+"Mg4-l7-Bhu.text" = "Description";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "OVF-qc-gxh"; */
+"OVF-qc-gxh.text" = "-";
+
+/* Class = "UITabBarItem"; title = "Сегодня"; ObjectID = "S2T-j9-4nk"; */
+"S2T-j9-4nk.title" = "Сегодня";
+
+/* Class = "UIButton"; normalTitle = "Готово"; ObjectID = "TMq-7Q-dm6"; */
+"TMq-7Q-dm6.normalTitle" = "Готово";
+
+/* Class = "UILabel"; text = "Учебное заведение"; ObjectID = "TmG-d4-Lb3"; */
+"TmG-d4-Lb3.text" = "Учебное заведение";
+
+/* Class = "UILabel"; text = "Факультет"; ObjectID = "U2N-Sc-LCY"; */
+"U2N-Sc-LCY.text" = "Факультет";
+
+/* Class = "UILabel"; text = "Статус"; ObjectID = "Uh9-Dq-Wbb"; */
+"Uh9-Dq-Wbb.text" = "Статус";
+
+/* Class = "UILabel"; text = "Информатика и системы управления"; ObjectID = "Vpn-oz-cjQ"; */
+"Vpn-oz-cjQ.text" = "Информатика и системы управления";
+
+/* Class = "UITextView"; text = "Priority"; ObjectID = "WST-85-wzi"; */
+"WST-85-wzi.text" = "Priority";
+
+/* Class = "UIButton"; normalTitle = ">"; ObjectID = "b3d-G0-e3j"; */
+"b3d-G0-e3j.normalTitle" = ">";
+
+/* Class = "UITabBarItem"; title = "Дополнительно"; ObjectID = "cfn-VT-01P"; */
+"cfn-VT-01P.title" = "Дополнительно";
+
+/* Class = "UITextView"; text = "Subject"; ObjectID = "d6s-i2-rZB"; */
+"d6s-i2-rZB.text" = "Subject";
+
+/* Class = "UILabel"; text = "EndOfWeek"; ObjectID = "eWx-bl-XX4"; */
+"eWx-bl-XX4.text" = "EndOfWeek";
+
+/* Class = "UILabel"; text = "Мои Предметы"; ObjectID = "fYO-tL-D1M"; */
+"fYO-tL-D1M.text" = "Мои Предметы";
+
+/* Class = "UITextView"; text = "Status"; ObjectID = "hLu-1n-dy2"; */
+"hLu-1n-dy2.text" = "Status";
+
+/* Class = "UIButton"; normalTitle = "<"; ObjectID = "lR4-ck-G2D"; */
+"lR4-ck-G2D.normalTitle" = "<";
+
+/* Class = "UIButton"; normalTitle = "Задания"; ObjectID = "mCb-7J-ya8"; */
+"mCb-7J-ya8.normalTitle" = "Задания";
+
+/* Class = "UIButton"; normalTitle = "Настройки"; ObjectID = "mjL-W9-Z1h"; */
+"mjL-W9-Z1h.normalTitle" = "Настройки";
+
+/* Class = "UILabel"; text = "Неделя"; ObjectID = "nZl-J3-T99"; */
+"nZl-J3-T99.text" = "Неделя";
+
+/* Class = "UILabel"; text = "МГТУ им Баумана"; ObjectID = "oIL-uQ-abD"; */
+"oIL-uQ-abD.text" = "МГТУ им Баумана";
+
+/* Class = "UISegmentedControl"; oJW-Ys-kHo.segmentTitles[0] = "Предметы"; ObjectID = "oJW-Ys-kHo"; */
+"oJW-Ys-kHo.segmentTitles[0]" = "Предметы";
+
+/* Class = "UISegmentedControl"; oJW-Ys-kHo.segmentTitles[1] = "Сроки"; ObjectID = "oJW-Ys-kHo"; */
+"oJW-Ys-kHo.segmentTitles[1]" = "Сроки";
+
+/* Class = "UISegmentedControl"; oJW-Ys-kHo.segmentTitles[2] = "Приоритет"; ObjectID = "oJW-Ys-kHo"; */
+"oJW-Ys-kHo.segmentTitles[2]" = "Приоритет";
+
+/* Class = "UILabel"; text = "WeekNumber"; ObjectID = "peV-6b-Pcl"; */
+"peV-6b-Pcl.text" = "WeekNumber";
+
+/* Class = "UILabel"; text = "Приоритет"; ObjectID = "plq-mn-971"; */
+"plq-mn-971.text" = "Приоритет";
+
+/* Class = "UITextView"; text = "NameShort"; ObjectID = "tdG-ct-6xU"; */
+"tdG-ct-6xU.text" = "NameShort";
+
+/* Class = "UIButton"; normalTitle = "Расписание преподавателей"; ObjectID = "uAG-By-8uA"; */
+"uAG-By-8uA.normalTitle" = "Расписание преподавателей";
+
+/* Class = "UILabel"; text = "BeginOfWeek"; ObjectID = "vwW-m1-yXF"; */
+"vwW-m1-yXF.text" = "BeginOfWeek";
+
+/* Class = "UILabel"; text = "CurrentDay"; ObjectID = "wnH-KJ-im1"; */
+"wnH-KJ-im1.text" = "CurrentDay";
+
+/* Class = "UITabBarItem"; title = "Задания"; ObjectID = "wub-ai-uLH"; */
+"wub-ai-uLH.title" = "Задания";
+
+/* Class = "UITabBarItem"; title = "Предметы"; ObjectID = "wz4-HE-GR9"; */
+"wz4-HE-GR9.title" = "Предметы";
+
+/* Class = "UILabel"; text = "Учебная группа"; ObjectID = "xuZ-V8-9UX"; */
+"xuZ-V8-9UX.text" = "Учебная группа";

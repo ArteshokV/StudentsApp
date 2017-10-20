@@ -34,6 +34,8 @@
 		847C27581F8FC66F00592F65 /* TasksTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C27561F8FC66F00592F65 /* TasksTabViewController.swift */; };
 		84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */; };
 		BE65019F1F90C24600D7B1E7 /* DataBaseInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE65019E1F90C24600D7B1E7 /* DataBaseInitiator.swift */; };
+		BEB344591F9A1AA800A5B39F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BEB344571F9A1AA800A5B39F /* Localizable.strings */; };
+		BEB3445E1F9A345F00A5B39F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BEB3445C1F9A345F00A5B39F /* InfoPlist.strings */; };
 		BEB5D50B1F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */; };
 		BEB5D50E1F91061100B8AA84 /* InitialDataForDB.json in Resources */ = {isa = PBXBuildFile; fileRef = BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */; };
 /* End PBXBuildFile section */
@@ -69,6 +71,12 @@
 		84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabViewController.swift; sourceTree = "<group>"; };
 		BE35C6BD1F95EE4D00AFE3CA /* InitialDataForDB old1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "InitialDataForDB old1.json"; sourceTree = "<group>"; };
 		BE65019E1F90C24600D7B1E7 /* DataBaseInitiator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseInitiator.swift; sourceTree = "<group>"; };
+		BEB344551F9A1A0800A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		BEB344561F9A1A0800A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BEB344581F9A1AA800A5B39F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = StudentsApp/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BEB3445B1F9A1ADA00A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = StudentsApp/ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BEB3445D1F9A345F00A5B39F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = StudentsApp/Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BEB3445F1F9A349A00A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = StudentsApp/ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BEB5D50A1F90CDB700B8AA84 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = InitialDataForDB.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +105,8 @@
 		4E7C53801F86CEC10012329E = {
 			isa = PBXGroup;
 			children = (
+				BEB344571F9A1AA800A5B39F /* Localizable.strings */,
+				BEB3445C1F9A345F00A5B39F /* InfoPlist.strings */,
 				4E7C538B1F86CEC10012329E /* StudentsApp */,
 				4E7C538A1F86CEC10012329E /* Products */,
 			);
@@ -229,6 +239,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 4E7C53801F86CEC10012329E;
 			productRefGroup = 4E7C538A1F86CEC10012329E /* Products */;
@@ -250,9 +261,11 @@
 				4E4126B01F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib in Resources */,
 				4E7C53941F86CEC10012329E /* Assets.xcassets in Resources */,
 				4E2ADEA41F98047C008F89CD /* UpperTodayTableViewCell.xib in Resources */,
+				BEB344591F9A1AA800A5B39F /* Localizable.strings in Resources */,
 				4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */,
 				4E7C53921F86CEC10012329E /* Main.storyboard in Resources */,
 				8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */,
+				BEB3445E1F9A345F00A5B39F /* InfoPlist.strings in Resources */,
 				4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +307,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4E7C53911F86CEC10012329E /* Base */,
+				BEB344551F9A1A0800A5B39F /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -302,8 +316,27 @@
 			isa = PBXVariantGroup;
 			children = (
 				4E7C53961F86CEC10012329E /* Base */,
+				BEB344561F9A1A0800A5B39F /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BEB344571F9A1AA800A5B39F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEB344581F9A1AA800A5B39F /* Base */,
+				BEB3445B1F9A1ADA00A5B39F /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		BEB3445C1F9A345F00A5B39F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEB3445D1F9A345F00A5B39F /* Base */,
+				BEB3445F1F9A349A00A5B39F /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -313,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -370,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -421,10 +456,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = DGNJF8QZ5F;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dark1216.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -436,10 +471,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = DGNJF8QZ5F;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dark1216.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
