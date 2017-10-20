@@ -22,7 +22,7 @@ class TimetableModel: NSObject {
     static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
         var returnArray: Array<TimetableModel> = Array()
         
-        let parity = Date.weekNumber(fromStartDate: "01.09.2017") % 2 //0-четная, 1 - нечетная
+        //let parity = Date.weekNumber(fromStartDate: "01.09.2017") % 2 //0-четная, 1 - нечетная
         let selectionCondition: String = "dayOfWeek == \(Date.weekDayInt!)"
         //"(dayOfWeek == \(Date.weekDayInt!)) AND ((parity == \(parity)) OR (date == \(Date.currentDate!))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition)
