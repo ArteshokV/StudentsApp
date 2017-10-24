@@ -79,6 +79,13 @@ class CustomDateClass: NSObject {
         return Int((tempDateEnd?.timeIntervalSince(tempDateStart))!/Double(numberOfSecondsIn24Hours)/7)+1
     }
     
+    func startOfDay() -> String{
+        return "\(yearInt!)-\(monthInt!)-\(dayInt!) 00:00"
+    }
+    func endOfDay() -> String{
+        return "\(yearInt!)-\(monthInt!)-\(dayInt!) 23:59"
+    }
+    
     // MARK: - Switchers to other days
     func switchToNextWeek() {
         let timeInterval = TimeInterval(numberOfSecondsIn24Hours*7)

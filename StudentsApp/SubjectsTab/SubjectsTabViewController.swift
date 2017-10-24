@@ -19,6 +19,9 @@ class SubjectsTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //self.SubjectTabTableView.rowHeight = UITableViewAutomaticDimension;
+        //self.SubjectTabTableView.estimatedRowHeight = 200//UIScreen.main.bounds.width/2;
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackGroundImage")
         self.view.insertSubview(backgroundImage, at: 0)
@@ -134,8 +137,9 @@ extension SubjectsTabViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 200
+        return UIScreen.main.bounds.width/2
     }
+ 
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  10

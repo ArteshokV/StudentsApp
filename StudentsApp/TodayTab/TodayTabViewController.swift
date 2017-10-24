@@ -18,22 +18,33 @@ class TodayTabViewController: UIViewController {
     let TasksCellIdentifier = "TaskCell"
     let TopCellIdentifier = "TopCell"
     
+    var shownFirstTime = 1
+    
     var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
     
     var chosenObject = 0
-    //
-    var date1: CustomDateClass?
-    var date2: CustomDateClass?
+
     var blurEffectView: UIVisualEffectView?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if(shownFirstTime == 1){
+            UIView.animate(withDuration: 2.0, delay: 1.0, options: .curveEaseInOut, animations: {
+                let startCell = IndexPath(row: 0, section: 1)
+                self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
+                }, completion: nil)
+            shownFirstTime = 0
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        date1 = CustomDateClass()
+        //date1 = CustomDateClass()
         //self.prefersStatusBarHidden = true
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "BackGroundImage")!)
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
@@ -109,7 +120,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
 // MARK: - UITableViewDelegate protocol
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: false)
         if(indexPath.section == 2){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
@@ -145,7 +156,7 @@ extension TodayTabViewController: UITableViewDataSource{
             return  1
             
         case 1:
-            return timeTableArray.count
+            return timeTableArray.count != 0 ? timeTableArray.count : 1
             
         case 2:
             return tasksArray.count
@@ -162,7 +173,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(indexPath.section == 0){
             let identifier = TopCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UpperTodayTableViewCell
-            
+            cell.selectionStyle = .none
             cell.backgroundColor = UIColor.clear
             
             return cell
@@ -171,7 +182,10 @@ extension TodayTabViewController: UITableViewDataSource{
         if (indexPath.section == 1) { //Берем расписание
             let identifier = TimetableCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TimetableTableViewCell
-            
+            if(timeTableArray.count == 0){
+                cell.SubjectNameLabel.text = "Нет Пар"
+                return cell
+            }
             cell.initWithTimetable(model: timeTableArray[indexPath.item])
 
             return cell
