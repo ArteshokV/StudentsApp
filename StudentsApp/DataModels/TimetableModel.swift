@@ -23,9 +23,15 @@ class TimetableModel: NSObject {
         var returnArray: Array<TimetableModel> = Array()
         
         let parity = Date.weekNumber(fromStartDate: "01.09.2017") % 2 //0-четная, 1 - нечетная
-        let selectionCondition: String = "dayOfWeek == \(Date.weekDayInt!)"
-        //"(dayOfWeek == \(Date.weekDayInt!)) AND ((parity == \(parity)) OR (date == \(Date.currentDate!))"
-        let predicate:NSPredicate = NSPredicate(format: selectionCondition)
+        // get the current calendar
+        let calendar = Calendar.init(identifier: .gregorian)
+        // get the start of the day of the selected date
+        let startDate = calendar.startOfDay(for: Date.currentDate!)
+        // get the start of the day after the selected date
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        let selectionCondition: String = "(dayOfWeek == \(Date.weekDayInt!)) AND (parity == \(parity) OR parity == nil) OR ((date >= %@) AND (date < %@))"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition,startDate as NSDate,endDate! as NSDate)
+        print(predicate)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.startTime), ascending: true)
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()

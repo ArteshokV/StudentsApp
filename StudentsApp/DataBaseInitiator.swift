@@ -190,7 +190,7 @@ class DataBaseInitiator: NSObject {
         do{
             let timeTableEvents = try DatabaseController.getContext().fetch(timeTableFetchRequest)
             for ttEvent in timeTableEvents {
-                print("\(ttEvent.date ?? nil) \(ttEvent.startTime) \(ttEvent.endTime) \(ttEvent.subject!.name!) \(ttEvent.teacher) \(ttEvent.place) \(ttEvent.type) \(ttEvent.beginDate ?? nil) \(ttEvent.endDate ?? nil) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
+                print("\(String(describing: ttEvent.date)) \(ttEvent.startTime) \(ttEvent.endTime) \(String(describing: ttEvent.subject?.name)) \(String(describing: ttEvent.teacher)) \(ttEvent.place!) \(ttEvent.type!) \(String(describing: ttEvent.beginDate )) \(String(describing: ttEvent.endDate )) \(ttEvent.dayOfWeek) \(ttEvent.parity)")
             }
         }catch{
             print("** Error while dumping Time Table")
@@ -202,7 +202,7 @@ class DataBaseInitiator: NSObject {
         do{
             let tasks = try DatabaseController.getContext().fetch(tasksFetchRequest)
             for task in tasks {
-                print("\(task.date ?? nil) \(task.shortName) \(task.descrp) \(task.subject?.name) \(task.priority) \(task.status)")
+                print("\(task.date!) \(task.shortName!) \(task.descrp!) \(String(describing: task.subject?.name!)) \(task.priority) \(task.status)")
             }
         }catch{
             print("** Error while dumping Tasks")
@@ -214,7 +214,7 @@ class DataBaseInitiator: NSObject {
         do{
             let activities = try DatabaseController.getContext().fetch(activitiesFetchRequest)
             for activity in activities {
-                print("\(activity.date ?? nil) \(activity.shortName) \(activity.subject?.name)")
+                print("\(activity.date!) \(activity.shortName!) \(String(describing: activity.subject?.name!))")
             }
         }catch{
             print("** Error while dumping Activities")
