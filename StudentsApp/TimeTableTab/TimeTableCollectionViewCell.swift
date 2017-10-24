@@ -41,9 +41,14 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
         return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: ((TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!), tableView: tableView)
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0;//Choose your custom row height
     }
+    
     
     // Получим данные для использования в ячейке
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

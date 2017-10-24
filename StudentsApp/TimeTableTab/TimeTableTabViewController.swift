@@ -57,10 +57,18 @@ class TimeTableTabViewController: UIViewController {
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         TodayDate = CustomDateClass()
         CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
+        CollectionOfTables.translatesAutoresizingMaskIntoConstraints = false
+        CollectionOfTables.clipsToBounds = true
+        CollectionOfTables.autoresizesSubviews = true
+
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
         
@@ -133,13 +141,15 @@ extension TimeTableTabViewController: UICollectionViewDataSource {
         return cell
     }
     
+    
+    
 }
 
 extension TimeTableTabViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 120) //Вычисляем размер ячейки
+        return CGSize(width: UIScreen.main.bounds.width, height: collectionView.frame.height) //Вычисляем размер ячейки
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -157,5 +167,5 @@ extension TimeTableTabViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 0, height: 0)
     }
-    
+
 }
