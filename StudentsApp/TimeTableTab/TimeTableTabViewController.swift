@@ -15,8 +15,8 @@ class TimeTableTabViewController: UIViewController {
     private var TimeTableCollectionCellIdentifier = "TimeTableCollectionCell"
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
     private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
-    var blurEffectView: UIVisualEffectView?
-
+    private var blurEffectView: UIVisualEffectView?
+    
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
     @IBOutlet weak var PreviousWeekButton: UIButton! //кнопка перехода на предыдущую неделю
@@ -75,6 +75,14 @@ class TimeTableTabViewController: UIViewController {
         self.view.insertSubview(blurEffectView!, at: 1)
         
         CollectionOfTables.backgroundColor = UIColor.clear
+        
+        DayLabel.textColor = UIColor.white
+        CurrentDayLabel.textColor = UIColor.white
+        PreviousWeekButton.setTitleColor(UIColor.white, for: .normal)
+        BeginOfWeekLabel.textColor = UIColor.white
+        EndOfWeekLabel.textColor = UIColor.white
+        WeekNumberLabel.textColor = UIColor.white
+        NextWeekButton.setTitleColor(UIColor.white, for: .normal)
     }
 
     
@@ -131,10 +139,23 @@ extension TimeTableTabViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CollectionOfTables.frame.size.width, height: CollectionOfTables.frame.size.height) //Вычисляем размер ячейки
+        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 120) //Вычисляем размер ячейки
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 0.0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: 0, height: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 0, height: 0)
+    }
+    
 }

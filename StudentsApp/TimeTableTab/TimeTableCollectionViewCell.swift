@@ -21,6 +21,7 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
         TableForClasses.backgroundColor = UIColor.clear
+        TableForClasses.scrollsToTop = true
     }
 
 }
