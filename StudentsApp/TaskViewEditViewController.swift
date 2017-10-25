@@ -16,21 +16,21 @@ class TaskViewEditViewController: UIViewController {
     @IBOutlet weak var EditButton: UIButton!
     var counter: Int!
     
-    @IBOutlet weak var TaskShortNameField: UITextView!
+    @IBOutlet weak var TaskShortNameLabel: UILabel!
     
     
-    @IBOutlet weak var TaskSubjectField: UITextView!
+    @IBOutlet weak var TaskSubjectLabel: UILabel!
     
-    @IBOutlet weak var TaskDateField: UITextView!
-    
-    
-    @IBOutlet weak var TaskDescriptionField: UITextView!
+    @IBOutlet weak var TaskDateLabel: UILabel!
     
     
-    @IBOutlet weak var TaskPriorityField: UITextView!
+    @IBOutlet weak var TaskDescriptionLabel: UILabel!
     
     
-    @IBOutlet weak var TaskStatusField: UITextView!
+    @IBOutlet weak var TaskPriorityLabel: UILabel!
+    
+    
+    @IBOutlet weak var TaskStatusLabel: UILabel!
     
     
     var taskModelObject: TaskModel?
@@ -39,23 +39,40 @@ class TaskViewEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackGroundImage")
+        self.view.insertSubview(backgroundImage, at: 0)
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(blurEffectView, at: 1)
+        
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.TaskShortNameField.text = taskModelObject?.taskNameShort
-        self.TaskDescriptionField.text = taskModelObject?.taskDescription
-        self.TaskSubjectField.text = taskModelObject?.taskSubject
-        self.TaskDateField.text = taskModelObject?.taskDate?.stringFromDate()
-        self.TaskStatusField.text = taskModelObject?.taskStatus?.description
-        self.TaskPriorityField.text = taskModelObject?.taskPriority?.description
+        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
+        //navigationController?.navigationBar.titleTextAttributes = NSForegroundColorAttributeName: UIColor.red
+        //self.navigationController?.navigationBar.tintColor = UIColor.red
+        //self.navigationController?.navigationBar.barTintColor = UIColor.clear
         
         
-        self.TaskDescriptionField.isEditable = false
-        self.TaskShortNameField.isEditable = false
-        self.TaskSubjectField.isEditable = false
-        self.TaskDateField.isEditable = false
-        self.TaskStatusField.isEditable = false
-        self.TaskPriorityField.isEditable = false
+        self.TaskShortNameLabel.text = taskModelObject?.taskNameShort
+        self.TaskDescriptionLabel.text = taskModelObject?.taskDescription
+        self.TaskSubjectLabel.text = taskModelObject?.taskSubject
+        self.TaskDateLabel.text = taskModelObject?.taskDate?.stringFromDate()
+        self.TaskStatusLabel.text = taskModelObject?.taskStatus?.description
+        self.TaskPriorityLabel.text = taskModelObject?.taskPriority?.description
         
+        /*
+        self.TaskDescriptionLabel.isEditable = false
+        self.TaskShortNameLabel.isEditable = false
+        self.TaskSubjectLabel.isEditable = false
+        self.TaskDateLabel.isEditable = false
+        self.TaskStatusLabel.isEditable = false
+        self.TaskPriorityLabel.isEditable = false
+        */
         self.DoneButton.isHidden = true
     }
 
@@ -76,7 +93,7 @@ class TaskViewEditViewController: UIViewController {
 
     
     @IBAction func EditButtonPressed(_ sender: Any) {
-        
+     /*
         self.TaskDescriptionField.isEditable = true
         self.TaskShortNameField.isEditable = true
         self.TaskSubjectField.isEditable = true
@@ -84,7 +101,7 @@ class TaskViewEditViewController: UIViewController {
         self.TaskStatusField.isEditable = true
         self.TaskPriorityField.isEditable = true
             self.TaskDescriptionField.textColor = UIColor.green
-        
+        */
         self.EditButton.isHidden = true
         self.DoneButton.isHidden = false
         
@@ -94,7 +111,7 @@ class TaskViewEditViewController: UIViewController {
    
     
     @IBAction func DoneButtonPressed(_ sender: Any) {
-        
+    /*
         self.TaskDescriptionField.isEditable = false
         self.TaskShortNameField.isEditable = false
         self.TaskSubjectField.isEditable = false
@@ -102,7 +119,7 @@ class TaskViewEditViewController: UIViewController {
         self.TaskStatusField.isEditable = false
         self.TaskPriorityField.isEditable = false
             self.TaskDescriptionField.textColor = UIColor.red
-        
+       */
         self.DoneButton.isHidden = true
         self.EditButton.isHidden = false
     }
