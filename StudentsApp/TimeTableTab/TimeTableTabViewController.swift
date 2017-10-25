@@ -33,7 +33,7 @@ class TimeTableTabViewController: UIViewController {
         CurrentDayLabel.text = TodayDate?.stringFromDate()
         EndOfWeekLabel.text = TodayDate?.weekEndString()
         BeginOfWeekLabel.text = TodayDate?.weekBeginSting()
-        WeekNumberLabel.text = "\(TodayDate!.weekNumber(fromStartDate: "01.09.2017"))"
+        WeekNumberLabel.text = "\(TodayDate!.weekNumber(fromStartDate: "01.09.2017")) неделя"
     }
 
     
@@ -91,6 +91,32 @@ class TimeTableTabViewController: UIViewController {
         EndOfWeekLabel.textColor = UIColor.white
         WeekNumberLabel.textColor = UIColor.white
         NextWeekButton.setTitleColor(UIColor.white, for: .normal)
+        
+        //constraints and other parametrs
+        DayLabel.adjustsFontSizeToFitWidth = true
+        DayLabel.adjustsFontForContentSizeCategory = true
+        DayLabel.minimumScaleFactor = 0.2
+        DayLabel.numberOfLines = 0
+        
+        CurrentDayLabel.adjustsFontSizeToFitWidth = true
+        CurrentDayLabel.adjustsFontForContentSizeCategory = true
+        CurrentDayLabel.minimumScaleFactor = 0.2
+        CurrentDayLabel.numberOfLines = 0
+        
+        BeginOfWeekLabel.adjustsFontSizeToFitWidth = true
+        BeginOfWeekLabel.adjustsFontForContentSizeCategory = true
+        BeginOfWeekLabel.minimumScaleFactor = 0.2
+        BeginOfWeekLabel.numberOfLines = 1
+        
+        EndOfWeekLabel.adjustsFontSizeToFitWidth = true
+        EndOfWeekLabel.adjustsFontForContentSizeCategory = true
+        EndOfWeekLabel.minimumScaleFactor = 0.2
+        EndOfWeekLabel.numberOfLines = 1
+        
+        WeekNumberLabel.adjustsFontSizeToFitWidth = true
+        WeekNumberLabel.adjustsFontForContentSizeCategory = true
+        WeekNumberLabel.minimumScaleFactor = 0.2
+        WeekNumberLabel.numberOfLines = 1
     }
 
     
