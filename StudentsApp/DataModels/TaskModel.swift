@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class TaskModel: NSObject {
+    let coreDataTabelName = String(describing: Tasks.self)
     var TasksDatabaseObject: Tasks?
     var taskDate: CustomDateClass?
     var taskNameShort: String?
@@ -71,7 +72,7 @@ class TaskModel: NSObject {
             returnArray.append(lowPriotity)
             returnArray.append(other)
         }catch{
-            print("Error getting activities grouped by date. \(error.localizedDescription)")
+            print("Error getting tasks grouped by date. \(error.localizedDescription)")
         }
         return returnArray
     }
@@ -105,7 +106,7 @@ class TaskModel: NSObject {
                 oldDate = task.date!
             }
         }catch{
-            print("Error getting activities grouped by date. \(error.localizedDescription)")
+            print("Error getting tasks grouped by date. \(error.localizedDescription)")
         }
         return returnArray
     }
@@ -140,19 +141,45 @@ class TaskModel: NSObject {
         return returnArray
     }
     
-    func addTask() -> Bool {
+    func save() -> Bool {
+        
+        if TasksDatabaseObject == nil {
+            return insertTask()
+        }else{
+            return updateTask()
+        }
+        
+    }
+    
+    private func insertTask() -> Bool {
         //Добавляем задание в БД
-        return false
+        TasksDatabaseObject = (NSEntityDescription.insertNewObject(forEntityName: coreDataTabelName, into: DatabaseController.getContext()) as! Tasks)
+        return updateTask()
     }
     
-    func deleteTask() -> Bool {
+    private func updateTask() -> Bool {
+        //--- Populating entity with data from this object and if successful - saving context
+        if populateEntityWithObjectData(){
+            DatabaseController.saveContext()
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    
+    func delete() -> Bool {
         //Удаляем задание из БД
-        return false
-    }
-    
-    func updateTask() -> Bool {
-        //Обновляем задание в БД
-        return false
+        if TasksDatabaseObject != nil {
+            DatabaseController.getContext().delete(TasksDatabaseObject!)
+            DatabaseController.saveContext()
+            TasksDatabaseObject = nil
+            return true
+        }
+        else{
+            return false
+        }
+        
     }
     
     override init() {
@@ -172,4 +199,21 @@ class TaskModel: NSObject {
         self.taskDate = TasksDatabaseObject?.date != nil ? CustomDateClass(withDate: (TasksDatabaseObject?.date)!) : nil;
     }
 
+    //--- Before calling this make sure DB object is not nil, please)
+    private func populateEntityWithObjectData() -> Bool {
+        TasksDatabaseObject?.shortName = self.taskNameShort
+        TasksDatabaseObject?.priority = Int16(self.taskPriority!)
+        TasksDatabaseObject?.descrp = self.taskDescription
+        TasksDatabaseObject?.status = Int16(self.taskStatus!)
+        TasksDatabaseObject?.date = self.taskDate != nil ? self.taskDate?.currentDate : nil;
+        
+        //--- Handle getting subject as DB object
+        if (TasksDatabaseObject?.subject != nil) && (TasksDatabaseObject?.subject?.name == self.taskSubject) {
+            //---Well... Do nothing, it is the same subject)...
+        }else{
+            TasksDatabaseObject?.subject = SubjectModel.getOrCreateSubjectWith(Name: self.taskSubject!)
+        }
+        
+        return true
+    }
 }
