@@ -17,11 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
+        if !databaseIsInited  {
+            //print("Not inited.")
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            
+            let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateInitialViewController()
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+        
         //---This calls DBInitiator and runs the initial data insertion
         // to check stored data run it with check = true
-        let dbInitor: DataBaseInitiator
-        dbInitor = DataBaseInitiator()
-        dbInitor.insertInitialData(check: false)
+        //let dbInitor = DataBaseInitiator()
+        //dbInitor.insertInitialData(withJson: nil)
         return true
     }
 
