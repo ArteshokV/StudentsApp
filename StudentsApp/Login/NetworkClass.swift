@@ -27,7 +27,7 @@ class NetworkClass: NSObject {
         let urlString = "http://\(apiAdress)/api/universities"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
-                withCompletition(responseStruct!.universities)
+                withCompletition(responseStruct?.universities)
             }
         })
     }
@@ -36,7 +36,7 @@ class NetworkClass: NSObject {
         let urlString = "http://\(apiAdress)/api/faculties?university=\(forUniversity)"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
-                withCompletition(responseStruct!.faculties)
+                withCompletition(responseStruct?.faculties)
             }
         })
     }
@@ -46,7 +46,7 @@ class NetworkClass: NSObject {
         let urlString = "http://\(apiAdress)/api/groups?university=\(forUniversity)&faculty=\(forFaculty)"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
-                withCompletition(responseStruct!.groups)
+                withCompletition(responseStruct?.groups)
             }
         })
     }
@@ -56,18 +56,18 @@ class NetworkClass: NSObject {
         let urlString = "http://89.179.244.73:8112/stdApp/testEnv/api/getJSONinitialDataForRemoteApp"
         network.jetRawJson(URL: urlString, andCompletitionBlock: {json in
             
-            if(json != nil){
+            //if(json != nil){
                 DispatchQueue.main.async {
                     withCompletition(json)
                 }
-                
+            /*
             }else{
                 //print("json = nil")
                 DispatchQueue.main.async {
                     withCompletition(nil)
                 }
             }
-            
+            */
         })
     }
 }

@@ -175,7 +175,26 @@ class StudyPlaceSelectionViewController: UIViewController {
                 self.displayDownloadError()
             }
         })
+        
+        //Save selected items into UserDefaults
+        let StudyPlace: Array<studyUnit> = [selectedUniversity,selectedFaculty,selectedGroup]
+        saveSetected(StudyPlace: StudyPlace)
+        
         self.performSegue(withIdentifier: "StartUsing", sender: self)
+    }
+    
+    func saveSetected(StudyPlace: Array<studyUnit>){
+        //Save selected items into UserDefaults
+        do{
+            let university = try JSONEncoder().encode(StudyPlace[0])
+            let faculty = try JSONEncoder().encode(StudyPlace[1])
+            let group = try JSONEncoder().encode(StudyPlace[2])
+            UserDefaults.standard.set(university, forKey: "selectedUniversity")
+            UserDefaults.standard.set(faculty, forKey: "selectedFaculty")
+            UserDefaults.standard.set(group, forKey: "selectedGroup")
+        }catch{
+            print("Unable to encode selectedJson")
+        }
     }
     
     func displayDownloadError(){
@@ -294,6 +313,7 @@ extension StudyPlaceSelectionViewController: UITableViewDataSource{
             cell!.textLabel?.textColor = UIColor.white
             cell!.textLabel?.numberOfLines = 0
             cell!.detailTextLabel?.textColor = UIColor.lightGray
+            cell!.detailTextLabel?.numberOfLines = 0
         }
         
         cell!.backgroundColor = CustomApplicationLook.getUnderLayerColor()
