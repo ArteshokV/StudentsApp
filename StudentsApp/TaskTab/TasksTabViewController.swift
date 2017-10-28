@@ -136,8 +136,8 @@ class TasksTabViewController: UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "fromTasksToTasksView"){
-            let taskVC = segue.destination as! TaskViewEditViewController
-            taskVC.taskModelObject = chosenObject
+            //let taskVC = segue.destination as! TaskViewEditViewController
+            //taskVC.taskModelObject = chosenObject
         }
     }
     

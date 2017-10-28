@@ -32,7 +32,6 @@
 		4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */; };
 		4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */; };
 		4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */; };
-		4E94FFD71F8F6C5700B7C86E /* TaskViewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
 		8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */; };
 		845CFFD31FA3735E008324FF /* TaskTapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */; };
@@ -76,7 +75,6 @@
 		4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableTableViewCell.swift; sourceTree = "<group>"; };
 		4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimetableTableViewCell.xib; sourceTree = "<group>"; };
-		4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewEditViewController.swift; sourceTree = "<group>"; };
 		8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableCollectionViewCell.xib; sourceTree = "<group>"; };
 		845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTapViewCell.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				4E94FFF71F91568D00B7C86E /* TaskTab */,
 				4E94FFF61F91567500B7C86E /* TimeTableTab */,
 				4E94FFC91F8C43CA00B7C86E /* SubjectsTab */,
-				4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */,
 				4E679CB91F9F4A7200833CF5 /* Login */,
 				4E7C53931F86CEC10012329E /* Assets.xcassets */,
 				4E7C53951F86CEC10012329E /* LaunchScreen.storyboard */,
@@ -199,7 +196,6 @@
 				847C27561F8FC66F00592F65 /* TasksTabViewController.swift */,
 				4E94FFCE1F8E044800B7C86E /* TaskTableViewCell.swift */,
 				4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */,
-				4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */,
 				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
 				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
 			);
@@ -315,7 +311,6 @@
 				4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */,
 				845CFFD31FA3735E008324FF /* TaskTapViewCell.swift in Sources */,
 				4E7C539F1F86D0730012329E /* TaskModel.swift in Sources */,
-				4E94FFD71F8F6C5700B7C86E /* TaskViewEditViewController.swift in Sources */,
 				4E2ADEA31F98047C008F89CD /* UpperTodayTableViewCell.swift in Sources */,
 				4E7C53A31F86DEB80012329E /* SubjectModel.swift in Sources */,
 				4E94FFBC1F87B79B00B7C86E /* SubjectsTabViewController.swift in Sources */,
@@ -503,10 +498,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = URQ2645VFQ;
+				DEVELOPMENT_TEAM = 5RX87S98Q2;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -518,10 +513,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = URQ2645VFQ;
+				DEVELOPMENT_TEAM = 5RX87S98Q2;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
