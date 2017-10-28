@@ -107,8 +107,8 @@ class TodayTabViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "fromTodayToTasksView"){
-            //let taskVC = segue.destination as! TaskViewEditViewController
-            //taskVC.taskModelObject = tasksArray[chosenObject]
+            let taskVC = segue.destination as! TaskViewEditViewController
+            taskVC.taskModelObject = tasksArray[chosenObject]
         }
     }
     
