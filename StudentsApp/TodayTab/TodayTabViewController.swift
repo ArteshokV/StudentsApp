@@ -10,6 +10,7 @@ import UIKit
 
 class TodayTabViewController: UIViewController {
 
+    // MARK: - Variables
     //@IBOutlet weak var TodayDateLabel: UILabel!
     //@IBOutlet weak var ProgressViewOutlet: UIProgressView!
     @IBOutlet weak var TableViewOutlet: UITableView!
@@ -26,6 +27,8 @@ class TodayTabViewController: UIViewController {
     var chosenObject = 0
 
     var blurEffectView: UIVisualEffectView?
+    
+    // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -41,9 +44,22 @@ class TodayTabViewController: UIViewController {
             shownFirstTime = 0
         }
     }
-    
+    func getSetectedStudyPlace() -> Array<studyUnit>{
+        //Get selected items into UserDefaults
+        do{
+            let selectedUniversity = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedUniversity")!)
+            let selectedFaculty = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedFaculty")!)
+            let selectedGroup = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedGroup")!)
+            print([selectedUniversity, selectedFaculty, selectedGroup])
+            return [selectedUniversity, selectedFaculty, selectedGroup]
+        }catch{
+            print("Unable to decode selectedJson")
+        }
+        return []
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
         //date1 = CustomDateClass()
         //self.prefersStatusBarHidden = true
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "BackGroundImage")!)

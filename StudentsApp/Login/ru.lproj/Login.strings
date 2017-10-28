@@ -1,0 +1,15 @@
+
+/* Class = "UIButton"; normalTitle = "Ввести группу"; ObjectID = "2JG-O5-vGA"; */
+"2JG-O5-vGA.normalTitle" = "Ввести группу";
+
+/* Class = "UILabel"; text = "Добро пожаловать в Students App Выберите место учебы"; ObjectID = "Ihj-4G-5A2"; */
+"Ihj-4G-5A2.text" = "Добро пожаловать в Students App Выберите место учебы";
+
+/* Class = "UIButton"; normalTitle = "Ввести университет"; ObjectID = "asA-P6-8pg"; */
+"asA-P6-8pg.normalTitle" = "Ввести университет";
+
+/* Class = "UIButton"; normalTitle = "Ввести факультет"; ObjectID = "bU3-Gh-HpP"; */
+"bU3-Gh-HpP.normalTitle" = "Ввести факультет";
+
+/* Class = "UIButton"; normalTitle = "Начать!"; ObjectID = "vSa-Zd-3AA"; */
+"vSa-Zd-3AA.normalTitle" = "Начать!";

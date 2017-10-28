@@ -41,3 +41,27 @@ class BaseTabBarController: UITabBarController {
         self.selectedIndex = defaultIndex
     }
 }
+
+class CustomApplicationLook: NSObject{
+    var backgroundImage: UIImageView!
+    var backgroundBlurView: UIVisualEffectView!
+    var underLayerColor: UIColor!
+    
+    override init(){
+        super.init()
+
+        backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackGroundImage")
+        
+        
+        let blurEffectBackground = UIBlurEffect(style: UIBlurEffectStyle.light)
+        backgroundBlurView = UIVisualEffectView(effect: blurEffectBackground)
+        backgroundBlurView.frame = UIScreen.main.bounds
+        backgroundBlurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        underLayerColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+    }
+    static func getUnderLayerColor() -> UIColor{
+        return UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+    }
+}
