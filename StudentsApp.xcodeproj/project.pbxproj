@@ -31,6 +31,8 @@
 		4E94FFD71F8F6C5700B7C86E /* TaskViewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
 		8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */; };
+		845CFFD31FA3735E008324FF /* TaskTapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */; };
+		845CFFD41FA3735E008324FF /* TaskTapViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */; };
 		847C27581F8FC66F00592F65 /* TasksTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C27561F8FC66F00592F65 /* TasksTabViewController.swift */; };
 		8491F4441F98D4BA00558D01 /* HeaderFooterViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491F4431F98D4BA00558D01 /* HeaderFooterViewClass.swift */; };
 		84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */; };
@@ -68,6 +70,8 @@
 		4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewEditViewController.swift; sourceTree = "<group>"; };
 		8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableCollectionViewCell.xib; sourceTree = "<group>"; };
+		845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTapViewCell.swift; sourceTree = "<group>"; };
+		845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTapViewCell.xib; sourceTree = "<group>"; };
 		847C27561F8FC66F00592F65 /* TasksTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TasksTabViewController.swift; path = StudentsApp/TaskTab/TasksTabViewController.swift; sourceTree = SOURCE_ROOT; };
 		8491F4431F98D4BA00558D01 /* HeaderFooterViewClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderFooterViewClass.swift; path = StudentsApp/HeaderFooterViewClass.swift; sourceTree = "<group>"; };
 		84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableTabViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +142,6 @@
 				4E94FFF71F91568D00B7C86E /* TaskTab */,
 				4E94FFF61F91567500B7C86E /* TimeTableTab */,
 				4E94FFC91F8C43CA00B7C86E /* SubjectsTab */,
-				4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */,
 				4E7C53931F86CEC10012329E /* Assets.xcassets */,
 				4E7C53951F86CEC10012329E /* LaunchScreen.storyboard */,
 				4E7C53981F86CEC10012329E /* Info.plist */,
@@ -174,6 +177,9 @@
 				847C27561F8FC66F00592F65 /* TasksTabViewController.swift */,
 				4E94FFCE1F8E044800B7C86E /* TaskTableViewCell.swift */,
 				4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */,
+				4E94FFD61F8F6C5700B7C86E /* TaskViewEditViewController.swift */,
+				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
+				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
 			);
 			path = TaskTab;
 			sourceTree = "<group>";
@@ -262,6 +268,7 @@
 				BEB5D50E1F91061100B8AA84 /* InitialDataForDB.json in Resources */,
 				4E7C53971F86CEC10012329E /* LaunchScreen.storyboard in Resources */,
 				4E4126B01F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib in Resources */,
+				845CFFD41FA3735E008324FF /* TaskTapViewCell.xib in Resources */,
 				4E7C53941F86CEC10012329E /* Assets.xcassets in Resources */,
 				4E2ADEA41F98047C008F89CD /* UpperTodayTableViewCell.xib in Resources */,
 				BEB344591F9A1AA800A5B39F /* Localizable.strings in Resources */,
@@ -283,6 +290,7 @@
 				84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */,
 				8491F4441F98D4BA00558D01 /* HeaderFooterViewClass.swift in Sources */,
 				4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */,
+				845CFFD31FA3735E008324FF /* TaskTapViewCell.swift in Sources */,
 				4E7C539F1F86D0730012329E /* TaskModel.swift in Sources */,
 				4E94FFD71F8F6C5700B7C86E /* TaskViewEditViewController.swift in Sources */,
 				4E2ADEA31F98047C008F89CD /* UpperTodayTableViewCell.swift in Sources */,

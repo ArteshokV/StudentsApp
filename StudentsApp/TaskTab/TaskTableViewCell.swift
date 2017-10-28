@@ -49,7 +49,9 @@ class TaskTableViewCell: UITableViewCell {
         self.backButton.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        
+        self.MiddleDescriptionLabel.textColor = UIColor.white
+        self.TopSubjectLabel.textColor = UIColor.lightGray
+        self.BottomEdgeDateLabel.textColor = UIColor.lightGray
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

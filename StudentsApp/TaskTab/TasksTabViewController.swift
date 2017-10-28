@@ -298,9 +298,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         
         
-        cell.MiddleDescriptionLabel.textColor = UIColor.white
-        cell.TopSubjectLabel.textColor = UIColor.lightGray
-        cell.BottomEdgeDateLabel.textColor = UIColor.lightGray
+        
         return cell
     }
     
