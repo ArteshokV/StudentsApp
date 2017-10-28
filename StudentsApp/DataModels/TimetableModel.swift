@@ -71,22 +71,33 @@ class TimetableModel: NSObject {
     
     private func insertClass() -> Bool {
         //Добавляем пару в БД
-        //timeTableDatabaseObject = (NSEntityDescription.insertNewObject(forEntityName: coreDataTabelName, into: DatabaseController.getContext()) as! TimeTable)
+        timeTableDatabaseObject = (NSEntityDescription.insertNewObject(forEntityName: coreDataTabelName, into: DatabaseController.getContext()) as! TimeTable)
         
-        
-        
-        return false
+        return updateClass()
     }
     
     private func updateClass() -> Bool {
-        //Обновляем пару в БД
-        return false
+        if populateEntityWithObjectData(){
+            DatabaseController.saveContext()
+            return true
+        }else{
+            return false
+        }
     }
     
     
     func deleteClass() -> Bool {
         //Удаляем пару из БД
-        return false
+        if timeTableDatabaseObject != nil {
+            DatabaseController.getContext().delete(timeTableDatabaseObject!)
+            DatabaseController.saveContext()
+            timeTableDatabaseObject = nil
+            return true
+        }
+        else{
+            return false
+        }
+        
     }
     
     override init() {
@@ -116,15 +127,21 @@ class TimetableModel: NSObject {
         timeTableDatabaseObject?.teacher = self.classTeacher
         timeTableDatabaseObject?.place = self.classPlace
         timeTableDatabaseObject?.type = self.classType
-        //--- Handle getting subject as DB object
-        timeTableDatabaseObject?.subject = self.classSubject
         timeTableDatabaseObject?.date = self.classDate != nil ? self.classDate?.currentDate : nil;
         timeTableDatabaseObject?.beginDate = self.classBeginDate != nil ? self.classBeginDate?.currentDate : nil;
         timeTableDatabaseObject?.endDate = self.classEndDate != nil ? self.classEndDate?.currentDate : nil;
         
+        //--- Handle getting subject as DB object
+        if (timeTableDatabaseObject?.subject != nil) && (timeTableDatabaseObject?.subject?.name == self.classSubject) {
+            //---Well... Do nothing, it is the same subject)...
+        }else{
+            timeTableDatabaseObject?.subject = SubjectModel.getOrCreateSubjectWith(Name: self.classSubject!)
+        }
+        
         return true
     }
     
+    //--- Just a guy that converts time string ##:## to an integer #### or ###... Well you got it)
     private func timeStringToInt(str: String) -> Int16{
         let indexTo = str.index(str.startIndex, offsetBy: 1)
         let leftStr = str[...indexTo]
