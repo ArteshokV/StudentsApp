@@ -171,16 +171,16 @@ class StudyPlaceSelectionViewController: UIViewController {
             if(response != nil){
                 let dbInitor = DataBaseInitiator()
                 dbInitor.insertInitialData(withJson: response)
+                
+                //Save selected items into UserDefaults
+                let StudyPlace: Array<studyUnit> = [self.selectedUniversity,self.selectedFaculty,self.selectedGroup]
+                self.saveSetected(StudyPlace: StudyPlace)
+                
+                self.performSegue(withIdentifier: "StartUsing", sender: self)
             }else{
                 self.displayDownloadError()
             }
         })
-        
-        //Save selected items into UserDefaults
-        let StudyPlace: Array<studyUnit> = [selectedUniversity,selectedFaculty,selectedGroup]
-        saveSetected(StudyPlace: StudyPlace)
-        
-        self.performSegue(withIdentifier: "StartUsing", sender: self)
     }
     
     func saveSetected(StudyPlace: Array<studyUnit>){
