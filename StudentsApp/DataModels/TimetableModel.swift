@@ -86,7 +86,7 @@ class TimetableModel: NSObject {
     }
     
     
-    func deleteClass() -> Bool {
+    func delete() -> Bool {
         //Удаляем пару из БД
         if timeTableDatabaseObject != nil {
             DatabaseController.getContext().delete(timeTableDatabaseObject!)
