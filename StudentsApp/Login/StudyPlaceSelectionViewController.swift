@@ -391,7 +391,6 @@ extension StudyPlaceSelectionViewController: UITableViewDelegate{
     func groupSelected(withText: String){
         StartButton.isHidden = false
         
-        let attributedString = NSAttributedString(string: withText)
-        GroupButton.setAttributedTitle(attributedString, for: .normal)
+        GroupButton.setTitle(withText, for: .normal)
     }
 }
