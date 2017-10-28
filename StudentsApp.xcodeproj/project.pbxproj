@@ -10,7 +10,6 @@
 		4E02D4BC1FA0146800E4A969 /* NetworkClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4BB1FA0146800E4A969 /* NetworkClass.swift */; };
 		4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4BD1FA3666300E4A969 /* LowNetworkClass.swift */; };
 		4E02D4C01FA4972300E4A969 /* TaskViewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */; };
-		4E2ADE991F943246008F89CD /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ADE981F943246008F89CD /* DatabaseController.swift */; };
 		4E2ADEA31F98047C008F89CD /* UpperTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ADEA11F98047C008F89CD /* UpperTodayTableViewCell.swift */; };
 		4E2ADEA41F98047C008F89CD /* UpperTodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2ADEA21F98047C008F89CD /* UpperTodayTableViewCell.xib */; };
 		4E4126AF1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4126AD1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift */; };
@@ -51,7 +50,6 @@
 		4E02D4BB1FA0146800E4A969 /* NetworkClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClass.swift; sourceTree = "<group>"; };
 		4E02D4BD1FA3666300E4A969 /* LowNetworkClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowNetworkClass.swift; sourceTree = "<group>"; };
 		4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewEditViewController.swift; sourceTree = "<group>"; };
-		4E2ADE981F943246008F89CD /* DatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseController.swift; path = StudentsApp/Database/DatabaseController.swift; sourceTree = SOURCE_ROOT; };
 		4E2ADEA11F98047C008F89CD /* UpperTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperTodayTableViewCell.swift; sourceTree = "<group>"; };
 		4E2ADEA21F98047C008F89CD /* UpperTodayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpperTodayTableViewCell.xib; sourceTree = "<group>"; };
 		4E4126AD1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsTabTableViewCell.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */,
-				4E2ADE981F943246008F89CD /* DatabaseController.swift */,
 				BE65019E1F90C24600D7B1E7 /* DataBaseInitiator.swift */,
 				BE35C6BD1F95EE4D00AFE3CA /* InitialDataForDB old1.json */,
 				BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */,
@@ -337,7 +334,6 @@
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
 				4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */,
 				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
-				4E2ADE991F943246008F89CD /* DatabaseController.swift in Sources */,
 				4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */,
 				4E94FFCB1F8CCA1300B7C86E /* TodayTabViewController.swift in Sources */,
 				4E94FFD01F8E044800B7C86E /* TaskTableViewCell.swift in Sources */,
