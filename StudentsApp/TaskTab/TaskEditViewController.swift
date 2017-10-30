@@ -12,10 +12,23 @@ class TaskEditViewController: UIViewController {
     
     var taskEditObject: TaskModel?
     
+    @IBOutlet weak var PriorityButton: UIButton!
+    @IBOutlet weak var DateButton: UIButton!
+    @IBOutlet weak var DescriptionText: UITextView!
+    @IBOutlet weak var ShortNameText: UITextField!
+   
+    @IBOutlet weak var SubjectText: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        SubjectText.text = taskEditObject?.taskSubject
+        ShortNameText.text = taskEditObject?.taskNameShort
+        DescriptionText.text = taskEditObject?.taskDescription
+        DateButton.setTitle(taskEditObject?.taskDate?.stringFromDate(), for: .normal)
+        PriorityButton.setTitle(taskEditObject?.taskPriority?.description, for: .normal)
+        
+       // ShortNameText.sizeThatFits(CGSize)
     }
 
     override func didReceiveMemoryWarning() {
