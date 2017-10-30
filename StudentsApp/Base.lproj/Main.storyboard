@@ -152,24 +152,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DO-Ng-nA4">
-                                <rect key="frame" x="8" y="66" width="71.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-QB-UTO">
-                                <rect key="frame" x="8" y="152" width="359" height="22"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Задание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhB-6i-B3J">
-                                <rect key="frame" x="8" y="141" width="68" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dxx-1p-tW0">
                                 <rect key="frame" x="8" y="547" width="359" height="100"/>
                                 <subviews>
@@ -208,43 +190,73 @@
                                     <constraint firstAttribute="bottom" secondItem="eE1-cH-gPS" secondAttribute="bottom" constant="3" id="vkj-YG-Njp"/>
                                 </constraints>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="87x-Et-hWI">
-                                <rect key="frame" x="8" y="288" width="359" height="165"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="87x-Et-hWI">
+                                <rect key="frame" x="8" y="283" width="359" height="256"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="dfg" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
-                                <rect key="frame" x="8" y="98" width="359" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание задания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spK-1d-Err">
+                                <rect key="frame" x="8" y="163" width="359" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.048378645238088436" green="0.11699169093997874" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ksb-3o-rbt">
+                                <rect key="frame" x="8" y="191.5" width="359" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="7rw-sp-kmw"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Описание задания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spK-1d-Err">
-                                <rect key="frame" x="8" y="249" width="150" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предмет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DO-Ng-nA4">
+                                <rect key="frame" x="8" y="72" width="71.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.033376528174457576" green="0.10585450398039209" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="dfghjkjhgfghjkjhgfghjhgghjhgghjhgfghjkjhgfghjkjhghjkjhghjkjhg" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
+                                <rect key="frame" x="8" y="100" width="359" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Viu-rN-E1x"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Задание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhB-6i-B3J">
+                                <rect key="frame" x="8" y="254.5" width="68" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.050605719512876957" green="0.13314812909533158" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0DO-Ng-nA4" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" constant="2" id="2Qc-pY-k9o"/>
-                            <constraint firstItem="0DO-Ng-nA4" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="8Da-zO-jLe"/>
-                            <constraint firstItem="spK-1d-Err" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="8ce-HL-edl"/>
-                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="4H7-QB-UTO" secondAttribute="trailing" constant="8" id="Fxh-Bx-viA"/>
+                            <constraint firstItem="Ksb-3o-rbt" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="0Le-GW-P78"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="Ksb-3o-rbt" secondAttribute="trailing" constant="8" id="0ZX-gw-6sM"/>
+                            <constraint firstItem="JhB-6i-B3J" firstAttribute="top" secondItem="Ksb-3o-rbt" secondAttribute="bottom" constant="8" id="Eye-3Y-IV2"/>
+                            <constraint firstItem="0DO-Ng-nA4" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" constant="8" id="H35-Sr-K3B"/>
+                            <constraint firstItem="spK-1d-Err" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="8" id="MdM-vK-CyU"/>
                             <constraint firstItem="dxx-1p-tW0" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="NTp-hd-J8t"/>
-                            <constraint firstItem="4H7-QB-UTO" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="RbD-3v-NWM"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="bottom" secondItem="dxx-1p-tW0" secondAttribute="bottom" constant="20" id="VMR-9C-F96"/>
-                            <constraint firstItem="JhB-6i-B3J" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="YOg-ub-P5U"/>
-                            <constraint firstItem="87x-Et-hWI" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="a1W-eI-mwY"/>
+                            <constraint firstItem="0DO-Ng-nA4" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="XbO-Ge-Kdn"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="87x-Et-hWI" secondAttribute="trailing" constant="8" id="ZVi-fo-hJ3"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="dxx-1p-tW0" secondAttribute="trailing" constant="8" id="aSd-tW-Sqw"/>
-                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="87x-Et-hWI" secondAttribute="trailing" constant="8" id="c5D-AQ-vQ4"/>
-                            <constraint firstItem="JhB-6i-B3J" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="8" id="dvV-2g-Gwu"/>
-                            <constraint firstItem="dha-HB-dHM" firstAttribute="top" secondItem="0DO-Ng-nA4" secondAttribute="bottom" constant="8" id="f5k-PQ-z6N"/>
-                            <constraint firstItem="dha-HB-dHM" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="gdc-6i-QVH"/>
-                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="dha-HB-dHM" secondAttribute="trailing" constant="8" id="jej-Ph-8yY"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="dha-HB-dHM" secondAttribute="trailing" constant="8" id="aey-kx-fmj"/>
+                            <constraint firstItem="Ksb-3o-rbt" firstAttribute="top" secondItem="spK-1d-Err" secondAttribute="bottom" constant="8" id="b2y-Ot-ux7"/>
+                            <constraint firstItem="dha-HB-dHM" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="gin-Am-Nq2"/>
+                            <constraint firstItem="87x-Et-hWI" firstAttribute="top" secondItem="JhB-6i-B3J" secondAttribute="bottom" constant="8" id="gtw-Vb-VxK"/>
+                            <constraint firstItem="87x-Et-hWI" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="mCO-dn-ORk"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="spK-1d-Err" secondAttribute="trailing" constant="8" id="pjE-it-KCC"/>
+                            <constraint firstItem="dha-HB-dHM" firstAttribute="top" secondItem="0DO-Ng-nA4" secondAttribute="bottom" constant="8" id="sJ2-Z9-A2t"/>
+                            <constraint firstItem="dxx-1p-tW0" firstAttribute="top" secondItem="87x-Et-hWI" secondAttribute="bottom" constant="8" id="w7P-mk-oF8"/>
+                            <constraint firstItem="JhB-6i-B3J" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="xBD-p1-RZ1"/>
+                            <constraint firstItem="spK-1d-Err" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="zWS-aQ-KxF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ete-Gn-W8p"/>
                     </view>
@@ -252,8 +264,8 @@
                     <connections>
                         <outlet property="DateButton" destination="yVa-oa-c1p" id="DSO-lG-0Ty"/>
                         <outlet property="DescriptionText" destination="87x-Et-hWI" id="epd-gH-DgM"/>
+                        <outlet property="NameShortText" destination="Ksb-3o-rbt" id="jpd-a9-Yy0"/>
                         <outlet property="PriorityButton" destination="G22-Bg-6dR" id="c73-ez-a3U"/>
-                        <outlet property="ShortNameText" destination="4H7-QB-UTO" id="sWO-bA-vUO"/>
                         <outlet property="SubjectText" destination="dha-HB-dHM" id="Ii4-DW-hWe"/>
                     </connections>
                 </viewController>

@@ -15,20 +15,22 @@ class TaskEditViewController: UIViewController {
     @IBOutlet weak var PriorityButton: UIButton!
     @IBOutlet weak var DateButton: UIButton!
     @IBOutlet weak var DescriptionText: UITextView!
-    @IBOutlet weak var ShortNameText: UITextField!
-   
+    
+    @IBOutlet weak var NameShortText: UITextView!
+    
     @IBOutlet weak var SubjectText: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
-        ShortNameText.text = taskEditObject?.taskNameShort
-        DescriptionText.text = taskEditObject?.taskDescription
+        SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
+        NameShortText.text = taskEditObject?.taskNameShort
+        DescriptionText.text = "\((taskEditObject?.taskDescription)! + (taskEditObject?.taskDescription)!)"
         DateButton.setTitle(taskEditObject?.taskDate?.stringFromDate(), for: .normal)
         PriorityButton.setTitle(taskEditObject?.taskPriority?.description, for: .normal)
+       
         
-       // ShortNameText.sizeThatFits(CGSize)
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +38,10 @@ class TaskEditViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DescriptionText.setContentOffset(CGPoint.zero, animated: false)
+    }
     /*
     // MARK: - Navigation
 
