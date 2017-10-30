@@ -17,7 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyboard = UIStoryboard(name: "EditTimeTable", bundle: nil)
+        
+        let initialViewController = storyboard.instantiateInitialViewController()
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
+        let databaseIsInited = true
+        //let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
         if !databaseIsInited  {
             //print("Not inited.")
             self.window = UIWindow(frame: UIScreen.main.bounds)
