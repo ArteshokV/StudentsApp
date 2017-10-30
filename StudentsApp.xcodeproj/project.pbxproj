@@ -34,6 +34,7 @@
 		4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */; };
 		4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */; };
 		4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */; };
+		84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
 		8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */; };
 		845CFFD31FA3735E008324FF /* TaskTapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */; };
@@ -79,6 +80,7 @@
 		4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableTableViewCell.swift; sourceTree = "<group>"; };
 		4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimetableTableViewCell.xib; sourceTree = "<group>"; };
+		84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableCollectionViewCell.xib; sourceTree = "<group>"; };
 		845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTapViewCell.swift; sourceTree = "<group>"; };
@@ -214,9 +216,10 @@
 				847C27561F8FC66F00592F65 /* TasksTabViewController.swift */,
 				4E94FFCE1F8E044800B7C86E /* TaskTableViewCell.swift */,
 				4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */,
+				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
 				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
 				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
-				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
+				84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */,
 			);
 			path = TaskTab;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */,
 				84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */,
 				8491F4441F98D4BA00558D01 /* HeaderFooterViewClass.swift in Sources */,
 				4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */,
@@ -522,10 +526,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = URQ2645VFQ;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -537,10 +541,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = URQ2645VFQ;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
