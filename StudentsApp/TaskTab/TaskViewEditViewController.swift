@@ -193,7 +193,7 @@ extension TaskViewEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, tableView: tableView)
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, aligment: .center, tableView: tableView)
             
         }
         else {return nil}

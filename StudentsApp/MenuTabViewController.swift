@@ -10,10 +10,38 @@ import UIKit
 
 class MenuTabViewController: UIViewController {
 
+    @IBOutlet weak var UniversitySelectedLabel: UILabel!
+    @IBOutlet weak var FacultySelectedLabel: UILabel!
+    @IBOutlet weak var GroupSelectedLabel: UILabel!
+    
+    var selectedStudyPlace: Array<studyUnit>!
+    
+    func getSetectedStudyPlace() -> Array<studyUnit>{
+        //Get selected items into UserDefaults
+        do{
+            let selectedUniversity = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedUniversity")!)
+            let selectedFaculty = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedFaculty")!)
+            let selectedGroup = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedGroup")!)
+            //print([selectedUniversity, selectedFaculty, selectedGroup])
+            return [selectedUniversity, selectedFaculty, selectedGroup]
+        }catch{
+            print("Unable to decode selectedJson")
+        }
+        return []
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let appDesign = CustomApplicationLook()
+        appDesign.initBackground(ofView: self.view)
+        
+        
         // Do any additional setup after loading the view.
+        selectedStudyPlace = getSetectedStudyPlace()
+        UniversitySelectedLabel.text = selectedStudyPlace[0].name
+        FacultySelectedLabel.text = selectedStudyPlace[1].name
+        GroupSelectedLabel.text = selectedStudyPlace[2].name
     }
 
     override func didReceiveMemoryWarning() {

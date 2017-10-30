@@ -11,8 +11,9 @@ import UIKit
 class TodayTabViewController: UIViewController {
 
     // MARK: - Variables
-    //@IBOutlet weak var TodayDateLabel: UILabel!
-    //@IBOutlet weak var ProgressViewOutlet: UIProgressView!
+    var tomorrowButton: UIButton!
+    var todayButton: UIButton!
+    
     @IBOutlet weak var TableViewOutlet: UITableView!
     
     let TimetableCellIdentifier = "TimetableCell"
@@ -20,6 +21,7 @@ class TodayTabViewController: UIViewController {
     let TopCellIdentifier = "TopCell"
     
     var shownFirstTime = 1
+    var workingWithToday = true
     
     var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
@@ -44,52 +46,25 @@ class TodayTabViewController: UIViewController {
             shownFirstTime = 0
         }
     }
-    func getSetectedStudyPlace() -> Array<studyUnit>{
-        //Get selected items into UserDefaults
-        do{
-            let selectedUniversity = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedUniversity")!)
-            let selectedFaculty = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedFaculty")!)
-            let selectedGroup = try JSONDecoder().decode(studyUnit.self, from: UserDefaults.standard.data(forKey: "selectedGroup")!)
-            print([selectedUniversity, selectedFaculty, selectedGroup])
-            return [selectedUniversity, selectedFaculty, selectedGroup]
-        }catch{
-            print("Unable to decode selectedJson")
-        }
-        return []
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
-        //date1 = CustomDateClass()
-        //self.prefersStatusBarHidden = true
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "BackGroundImage")!)
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "BackGroundImage")
-        self.view.insertSubview(backgroundImage, at: 0)
-        /*
-        blurView = UIView()
-        blurView!.frame = UIScreen.main.bounds
-        blurView!.backgroundColor = UIColor.clear
-        self.view.insertSubview(blurView!, at: 1)
-         */
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView!.frame = view.bounds
-        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        let appDesign = CustomApplicationLook()
+        appDesign.initBackground(ofView: self.view)
+        blurEffectView = appDesign.backgroundBlurView
         blurEffectView!.alpha = 0.0;
-        self.view.insertSubview(blurEffectView!, at: 1)
         
         TableViewOutlet.backgroundColor = UIColor.clear
         
-        //TableViewOutlet.rowHeight = UITableViewAutomaticDimension
+        TableViewOutlet.rowHeight = UITableViewAutomaticDimension
         TableViewOutlet.estimatedRowHeight = 120
         TableViewOutlet.autoresizesSubviews = true
         
         //Полуение массива предметов
         let cust = CustomDateClass()
         timeTableArray = TimetableModel.getTimetable(Date: cust)
-        tasksArray = TaskModel.getTasks()
+        tasksArray = TaskModel.getTasksForToday()
 
         // Do any additional setup after loading the view.
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
@@ -144,6 +119,9 @@ extension TodayTabViewController: UITableViewDelegate{
             self.hidesBottomBarWhenPushed = false
         }
     }
+    
+    
+    /*
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         if(indexPath.section == 2){
            let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
@@ -157,7 +135,7 @@ extension TodayTabViewController: UITableViewDelegate{
             selectedTaskCell.rounedView?.backgroundColor = UIColor.clear
         }
     }
-    
+    */
 }
 
 // MARK: - UITableViewDataSource protocol
@@ -209,7 +187,6 @@ extension TodayTabViewController: UITableViewDataSource{
         }else{
             let identifier = TasksCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
-            
             cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
             
             return cell
@@ -228,7 +205,7 @@ extension TodayTabViewController: UITableViewDataSource{
             return 120
             
         case 2:
-            return 80
+            return UITableViewAutomaticDimension //80
             
         default:
             return 1
@@ -240,6 +217,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(section == 0){
             return nil
         }
+        /*
         let sectionHeaderView = UIView()
         sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
         sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
@@ -255,16 +233,24 @@ extension TodayTabViewController: UITableViewDataSource{
         }
         
         sectionHeaderView.addSubview(sectionHeaderLabel)
+         */
+        let headerText: String
+        if(section == 1){
+            headerText = "Расписание"
+        }else{
+            headerText = "Задания"
+        }
         
-       return sectionHeaderView
+        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
         
         
     }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if(section == 0){
             return nil
         }
-        
+        /*
         let sectionFooterView = UIView()
         sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
         sectionFooterView.backgroundColor = UIColor.clear
@@ -276,8 +262,87 @@ extension TodayTabViewController: UITableViewDataSource{
         sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
         
         sectionFooterView.addSubview(sectionHeaderLabel)
+         */
+        let footerView = HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
         
-        return sectionFooterView
+        if(section != 1){
+            return footerView
+        }
+        
+        todayButton = UIButton()
+        todayButton.frame = CGRect(x: 0, y: 0, width: tableView.frame.width/2, height: 40)
+        todayButton.setTitle("Сегодня", for: .normal)
+        todayButton.addTarget(self, action: #selector(todayButtonPressed), for: .touchUpInside)
+        //todayButton.setTitleColor(UIColor.green, for: .normal)
+        todayButton.layer.cornerRadius = 15
+        
+        tomorrowButton = UIButton()
+        tomorrowButton.frame = CGRect(x: tableView.frame.width/2, y: 0, width: tableView.frame.width/2, height: 40)
+        tomorrowButton.setTitle("Завтра", for: .normal)
+        
+        tomorrowButton.addTarget(self, action: #selector(tomorrowButtonPressed), for: .touchUpInside)
+        tomorrowButton.layer.cornerRadius = 15
+        
+        if(workingWithToday){
+            todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        }else{
+            tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        }
+        
+        
+        footerView.addSubview(todayButton)
+        footerView.addSubview(tomorrowButton)
+        
+        return footerView
+    }
+    
+    
+    
+    @objc func todayButtonPressed(_ sender: UIButton!){
+        if(!workingWithToday){
+            //let section = IndexPath(row: 0, section: 1)
+            //TableViewOutlet.scrollToRow(at: section, at: .top, animated: true)
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+                
+                let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
+                self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
+            }, completion: { _ in
+                self.workingWithToday = true
+                let today = CustomDateClass()
+                self.timeTableArray = TimetableModel.getTimetable(Date: today)
+                self.TableViewOutlet.beginUpdates()
+                self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .automatic)
+                self.TableViewOutlet.endUpdates()
+                
+            })
+            //tomorrowButton.backgroundColor = UIColor.clear
+            //todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            
+        }
+    }
+    
+    @objc func tomorrowButtonPressed(_ sender: UIButton!){
+        if(workingWithToday){
+            //let section = IndexPath(row: 0, section: 1)
+            //TableViewOutlet.scrollToRow(at: section, at: .top, animated: true)
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+                let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
+                self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
+            }, completion: { _ in
+            
+                self.workingWithToday = false
+                let nextDay = CustomDateClass()
+                nextDay.switchToNextDay()
+                self.timeTableArray = TimetableModel.getTimetable(Date: nextDay)
+                self.TableViewOutlet.beginUpdates()
+                self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .automatic)
+                self.TableViewOutlet.endUpdates()
+            })
+            //todayButton.backgroundColor = UIColor.clear
+            //tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
