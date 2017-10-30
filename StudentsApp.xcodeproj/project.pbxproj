@@ -45,6 +45,7 @@
 		BEB3445E1F9A345F00A5B39F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BEB3445C1F9A345F00A5B39F /* InfoPlist.strings */; };
 		BEB5D50B1F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */; };
 		BEB5D50E1F91061100B8AA84 /* InitialDataForDB.json in Resources */ = {isa = PBXBuildFile; fileRef = BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */; };
+		BEEFD4B21FA790F50062385A /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEFD4B11FA790F50062385A /* TeacherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		BEB3445F1F9A349A00A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = StudentsApp/ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BEB5D50A1F90CDB700B8AA84 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = InitialDataForDB.json; sourceTree = "<group>"; };
+		BEEFD4B11FA790F50062385A /* TeacherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
+				BEEFD4B11FA790F50062385A /* TeacherModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
 				4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */,
 				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
+				BEEFD4B21FA790F50062385A /* TeacherModel.swift in Sources */,
 				4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */,
 				4E94FFCB1F8CCA1300B7C86E /* TodayTabViewController.swift in Sources */,
 				4E94FFD01F8E044800B7C86E /* TaskTableViewCell.swift in Sources */,
