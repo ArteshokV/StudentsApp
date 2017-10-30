@@ -196,6 +196,9 @@
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="mRm-T6-Bsb" id="pKX-Gu-JHo"/>
+                                </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание задания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spK-1d-Err">
                                 <rect key="frame" x="8" y="163" width="359" height="20.5"/>
@@ -234,6 +237,13 @@
                                 <color key="textColor" red="0.050605719512876957" green="0.13314812909533158" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hc0-aQ-uJl">
+                                <rect key="frame" x="8" y="72" width="359" height="345"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -244,16 +254,20 @@
                             <constraint firstItem="spK-1d-Err" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="8" id="MdM-vK-CyU"/>
                             <constraint firstItem="dxx-1p-tW0" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="NTp-hd-J8t"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="bottom" secondItem="dxx-1p-tW0" secondAttribute="bottom" constant="20" id="VMR-9C-F96"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="bottom" secondItem="hc0-aQ-uJl" secondAttribute="bottom" constant="250" id="Vqn-i8-mr4"/>
                             <constraint firstItem="0DO-Ng-nA4" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="XbO-Ge-Kdn"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="87x-Et-hWI" secondAttribute="trailing" constant="8" id="ZVi-fo-hJ3"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="dxx-1p-tW0" secondAttribute="trailing" constant="8" id="aSd-tW-Sqw"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="dha-HB-dHM" secondAttribute="trailing" constant="8" id="aey-kx-fmj"/>
                             <constraint firstItem="Ksb-3o-rbt" firstAttribute="top" secondItem="spK-1d-Err" secondAttribute="bottom" constant="8" id="b2y-Ot-ux7"/>
+                            <constraint firstItem="hc0-aQ-uJl" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="eUW-iB-N0u"/>
                             <constraint firstItem="dha-HB-dHM" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="gin-Am-Nq2"/>
                             <constraint firstItem="87x-Et-hWI" firstAttribute="top" secondItem="JhB-6i-B3J" secondAttribute="bottom" constant="8" id="gtw-Vb-VxK"/>
                             <constraint firstItem="87x-Et-hWI" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="mCO-dn-ORk"/>
+                            <constraint firstItem="hc0-aQ-uJl" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" constant="8" id="ok9-Lj-It8"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="spK-1d-Err" secondAttribute="trailing" constant="8" id="pjE-it-KCC"/>
                             <constraint firstItem="dha-HB-dHM" firstAttribute="top" secondItem="0DO-Ng-nA4" secondAttribute="bottom" constant="8" id="sJ2-Z9-A2t"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="hc0-aQ-uJl" secondAttribute="trailing" constant="8" id="tce-D5-UMJ"/>
                             <constraint firstItem="dxx-1p-tW0" firstAttribute="top" secondItem="87x-Et-hWI" secondAttribute="bottom" constant="8" id="w7P-mk-oF8"/>
                             <constraint firstItem="JhB-6i-B3J" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="xBD-p1-RZ1"/>
                             <constraint firstItem="spK-1d-Err" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" constant="8" id="zWS-aQ-KxF"/>
@@ -263,9 +277,13 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="DateButton" destination="yVa-oa-c1p" id="DSO-lG-0Ty"/>
+                        <outlet property="DescriptionLabel" destination="spK-1d-Err" id="1TK-MV-6DX"/>
                         <outlet property="DescriptionText" destination="87x-Et-hWI" id="epd-gH-DgM"/>
+                        <outlet property="HiddenDescription" destination="hc0-aQ-uJl" id="dyD-qQ-7LO"/>
+                        <outlet property="NameShortLabel" destination="JhB-6i-B3J" id="Oki-ho-skC"/>
                         <outlet property="NameShortText" destination="Ksb-3o-rbt" id="jpd-a9-Yy0"/>
                         <outlet property="PriorityButton" destination="G22-Bg-6dR" id="c73-ez-a3U"/>
+                        <outlet property="SubjectLabel" destination="0DO-Ng-nA4" id="6WW-cY-RIH"/>
                         <outlet property="SubjectText" destination="dha-HB-dHM" id="Ii4-DW-hWe"/>
                     </connections>
                 </viewController>

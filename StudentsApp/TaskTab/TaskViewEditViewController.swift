@@ -54,8 +54,9 @@ class TaskViewEditViewController: UIViewController {
        
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.TaskViewTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -120,20 +121,27 @@ extension TaskViewEditViewController: UITableViewDataSource {
             cell.backgroundColor = UIColor.clear
         }
         else {
+            cell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         switch indexPath.row {
         case 0:
+            cell.label.textColor = UIColor.white
             cell.label.text = taskModelObject?.taskNameShort
             cell.label.font = UIFont.italicSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             break
         case 1:
+            cell.label.textColor = UIColor.white
             cell.label.text = " " + (taskModelObject?.taskDescription)!
             cell.label.textAlignment = .justified
             break
         case 2:
+            cell.label.textColor = UIColor.white
             cell.label.text = "Дата сдачи: " + (taskModelObject?.taskDate?.stringFromDate())!
+            cell.label.textAlignment = .left
             break
         case 3:
+            cell.label.textColor = UIColor.white
+            cell.label.textAlignment = .left
             switch taskModelObject?.taskPriority {
             case 0?:
                 cell.label.text = "Приоритет: низкий"
