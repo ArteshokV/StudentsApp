@@ -32,7 +32,7 @@ class TimetableTableViewCell: UITableViewCell {
         self.StartTimeLabel.text = timetableModelObject?.classStartTime != nil ? timetableModelObject?.classStartTime! : "-:-";
         self.EndTimeLabel.text = timetableModelObject?.classEndTime != nil ? timetableModelObject?.classEndTime! : "-:-";
         self.SubjectNameLabel.text = timetableModelObject?.classSubject != nil ? timetableModelObject?.classSubject! : "(Не указано)";
-        self.TeacherLabel.text = timetableModelObject?.classTeacher != nil ? timetableModelObject?.classTeacher! : nil;
+        self.TeacherLabel.text = timetableModelObject?.classTeacher != nil ? timetableModelObject?.classTeacher!.name : nil;
         self.PlaceLabel.text = timetableModelObject?.classPlace != nil ? timetableModelObject?.classPlace! : nil;
     }
 

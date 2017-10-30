@@ -76,7 +76,8 @@ class DataBaseInitiator: NSObject {
                  */
                 event.startTime = record["StartTime"] as! Int16
                 event.endTime = record["EndTime"] as! Int16
-                event.teacher = record["Teacher"] as? String
+                
+                
                 event.place = record["Place"] as? String
                 event.type = record["classType"] as? String
                 if !(record["StartDate"] is NSNull){
@@ -96,7 +97,16 @@ class DataBaseInitiator: NSObject {
                 }
                 
                 event.subject = getSubjectBy(Name: record["Subject"] as! String)
-                
+                if record["Teacher"] is NSNull {
+                    event.teacher = nil
+                    DatabaseController.saveContext()
+                }
+                else{
+                    let teacher:TeacherModel = TeacherModel(Name: record["Teacher"] as! String, FamilyName: "", FatherName:nil)
+                    teacher.save()
+                    event.teacher = teacher.getDataBaseEntity()
+                    
+                }
             }
             DatabaseController.saveContext()
             
@@ -146,6 +156,8 @@ class DataBaseInitiator: NSObject {
             print(error.localizedDescription)
         }
         UserDefaults.standard.set(true, forKey: "databaseIsInited")
+        
+        //doCheck()
     }
     
     func getSubjectBy(Name: String) -> Subjects {
@@ -230,6 +242,18 @@ class DataBaseInitiator: NSObject {
             }
         }catch{
             print("** Error while dumping Subjects")
+        }
+        
+        print("")
+        print("** Dumping Teacher entity ...")
+        let teacherFetchRequest: NSFetchRequest<Teacher> = Teacher.fetchRequest()
+        do{
+            let teachers = try DatabaseController.getContext().fetch(teacherFetchRequest)
+            for teacher in teachers {
+                print("\(teacher.name!)")
+            }
+        }catch{
+            print("** Error while dumping Teachers")
         }
 
         print("************************** The end of data dump *******************************************")
