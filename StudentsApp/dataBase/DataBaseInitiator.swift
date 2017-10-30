@@ -11,7 +11,7 @@ import CoreData
 
 class DataBaseInitiator: NSObject {
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
-    func insertInitialData(check:Bool?) {
+    func insertInitialData(withJson: Any?) {
         var numberOfSearchResults = 0
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
@@ -31,18 +31,19 @@ class DataBaseInitiator: NSObject {
         
         if(numberOfSearchResults != 0){
             print("Первичный загрузчик данных обнаружил данные в базе и завершил работу. Если вы хотели загрузить данные снуля - переустановите приложение...")
-            if check == true{
-                doCheck()
-            }
             return
         }
         
         do{
+            var json: [String: Any]!
+            if (withJson == nil){
+                let url = Bundle.main.url(forResource: "InitialDataForDB", withExtension: "json")
+                let data = try Data(contentsOf: url!)
+                json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+            }else{
+                json = withJson as! [String: Any]
+            }
             let timeTableDatabaseName:String = String(describing: TimeTable.self)
-            let url = Bundle.main.url(forResource: "InitialDataForDB", withExtension: "json")
-            let data = try Data(contentsOf: url!)
-            var json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-            
             let subjectsInitalData = json["Subjects"] as! [String: [String:Any]]
             let subjectsDatabaseName:String = String(describing: Subjects.self)
             for record in subjectsInitalData.values{
@@ -144,10 +145,7 @@ class DataBaseInitiator: NSObject {
         catch{
             print(error.localizedDescription)
         }
-        
-        if check == true{
-            doCheck()
-        }
+        UserDefaults.standard.set(true, forKey: "databaseIsInited")
     }
     
     func getSubjectBy(Name: String) -> Subjects {
@@ -180,6 +178,8 @@ class DataBaseInitiator: NSObject {
         }
         DatabaseController.saveContext()
     }
+    
+    
     
     func doCheck() {
         print("************************** Starting the data dump here ************************************")
@@ -236,23 +236,4 @@ class DataBaseInitiator: NSObject {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

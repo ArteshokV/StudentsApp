@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class ActivitiesModel: NSObject {
+    let coreDataTabelName = String(describing: Activities.self)
     var ActivityDatabaseObject: Activities?
     var activityDate: CustomDateClass?
     var activityNameShort: String?
@@ -104,19 +105,45 @@ class ActivitiesModel: NSObject {
     
     
     
-    func addActivity() -> Bool {
+    func save() -> Bool {
+        
+        if ActivityDatabaseObject == nil {
+            return insertActivity()
+        }else{
+            return updateActivity()
+        }
+        
+    }
+    
+    private func insertActivity() -> Bool {
         //Добавляем мероприятие в БД
-        return false
+        ActivityDatabaseObject = (NSEntityDescription.insertNewObject(forEntityName: coreDataTabelName, into: DatabaseController.getContext()) as! Activities)
+        return updateActivity()
     }
     
-    func deleteActivity() -> Bool {
+    private func updateActivity() -> Bool {
+        //--- Populating entity with data from this object and if successful - saving context
+        if populateEntityWithObjectData(){
+            DatabaseController.saveContext()
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    
+    func delete() -> Bool {
         //Удаляем мероприятие из БД
-        return false
-    }
-    
-    func updateActivity() -> Bool {
-        //Обновляем мероприятие в БД
-        return false
+        if ActivityDatabaseObject != nil {
+            DatabaseController.getContext().delete(ActivityDatabaseObject!)
+            DatabaseController.saveContext()
+            ActivityDatabaseObject = nil
+            return true
+        }
+        else{
+            return false
+        }
+        
     }
     
     override init() {
@@ -131,5 +158,20 @@ class ActivitiesModel: NSObject {
         self.activityNameShort = ActivityDatabaseObject?.shortName != nil ? ActivityDatabaseObject?.shortName! : nil;
         self.activitySubject = ActivityDatabaseObject?.subject != nil ? ActivityDatabaseObject?.subject!.name! : nil;
         self.activityDate = ActivityDatabaseObject?.date != nil ? CustomDateClass(withDate: (ActivityDatabaseObject?.date)!) : nil;
+    }
+    
+    //--- Before calling this make sure DB object is not nil, please)
+    private func populateEntityWithObjectData() -> Bool {
+        ActivityDatabaseObject?.shortName = self.activityNameShort
+        ActivityDatabaseObject?.date = self.activityDate != nil ? self.activityDate?.currentDate : nil;
+        
+        //--- Handle getting subject as DB object
+        if (ActivityDatabaseObject?.subject != nil) && (ActivityDatabaseObject?.subject?.name == self.activitySubject) {
+            //---Well... Do nothing, it is the same subject)...
+        }else{
+            ActivityDatabaseObject?.subject = SubjectModel.getOrCreateSubjectWith(Name: self.activitySubject!)
+        }
+        
+        return true
     }
 }
