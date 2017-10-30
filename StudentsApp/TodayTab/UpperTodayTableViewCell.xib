@@ -19,19 +19,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="252.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GrK-iK-Hre">
-                        <rect key="frame" x="8" y="125" width="300" height="120"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вторник 2 октября" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GrK-iK-Hre">
+                        <rect key="frame" x="106" y="124.5" width="300" height="120"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="KOD-LW-h5P"/>
                             <constraint firstAttribute="width" constant="300" id="V3i-3d-gdh"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="29"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GrK-iK-Hre" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0p2-di-1aI"/>
+                    <constraint firstItem="GrK-iK-Hre" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="0p2-di-1aI"/>
                     <constraint firstAttribute="bottomMargin" secondItem="GrK-iK-Hre" secondAttribute="bottom" id="eP8-9Z-OxA"/>
                 </constraints>
             </tableViewCellContentView>
