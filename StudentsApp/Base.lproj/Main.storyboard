@@ -465,11 +465,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-Kx-TPS">
+                            <collectionView verifyAmbiguity="ignoreSizes" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-Kx-TPS">
                                 <rect key="frame" x="0.0" y="177" width="375" height="441"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <viewLayoutGuide key="safeArea" id="bGN-An-7ln"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="8BE-Vp-xi3">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CQY-VR-GZw">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -520,7 +520,6 @@
                             <constraint firstItem="lR4-ck-G2D" firstAttribute="leading" secondItem="4VK-7e-ef9" secondAttribute="leading" constant="5" id="s4o-RJ-WG1"/>
                             <constraint firstItem="4VK-7e-ef9" firstAttribute="trailing" secondItem="wnH-KJ-im1" secondAttribute="trailing" constant="10" id="sch-0y-e91"/>
                             <constraint firstItem="eWx-bl-XX4" firstAttribute="top" secondItem="HQB-lU-idQ" secondAttribute="bottom" constant="13.5" id="v8v-x3-dbK"/>
-                            <constraint firstItem="ke3-Kx-TPS" firstAttribute="bottom" secondItem="4VK-7e-ef9" secondAttribute="bottom" id="z5c-FR-1c6"/>
                             <constraint firstItem="vwW-m1-yXF" firstAttribute="leading" secondItem="lR4-ck-G2D" secondAttribute="trailing" constant="12" id="zSE-TF-f28"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4VK-7e-ef9"/>
