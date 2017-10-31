@@ -32,6 +32,7 @@ class TasksTabViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.taskTable.reloadData()
     }
     
     override func viewDidLoad() {
@@ -65,7 +66,7 @@ class TasksTabViewController: UIViewController{
     }
         
    
-   
+    
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         taskButton.tintColor = UIColor.red
