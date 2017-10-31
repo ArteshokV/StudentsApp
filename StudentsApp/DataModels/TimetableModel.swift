@@ -34,7 +34,7 @@ class TimetableModel: NSObject {
         let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
         let selectionCondition: String = "(dayOfWeek == \(Date.weekDayInt!)) AND (parity == \(parity) OR parity == nil) OR ((date >= %@) AND (date < %@))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition,startDate as NSDate,endDate! as NSDate)
-        print(predicate)
+        //print(predicate)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.startTime), ascending: true)
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()

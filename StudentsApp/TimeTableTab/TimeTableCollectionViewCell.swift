@@ -38,7 +38,7 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     
     // Получим заголовок для секции
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: ((TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!), tableView: tableView)
+        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: ((TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!), aligment: .center, tableView: tableView)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -55,6 +55,13 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
         cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return  50
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return  50
     }
 }
 

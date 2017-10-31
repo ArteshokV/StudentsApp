@@ -22,15 +22,8 @@ class SubjectsTabViewController: UIViewController {
         //self.SubjectTabTableView.rowHeight = UITableViewAutomaticDimension;
         //self.SubjectTabTableView.estimatedRowHeight = 200//UIScreen.main.bounds.width/2;
         
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "BackGroundImage")
-        self.view.insertSubview(backgroundImage, at: 0)
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView, at: 1)
+        let appDesign = CustomApplicationLook()
+        appDesign.initBackground(ofView: self.view)
         
         SubjectTabTableView.backgroundColor = UIColor.clear
         

@@ -19,11 +19,20 @@ class TaskModel: NSObject {
     var taskDescription: String?
     var taskStatus: Int?
     
-    static func getTasks() -> Array<TaskModel>{
+    static func getTasksForToday() -> Array<TaskModel>{
         //Получаем список заданий
         var returnArray: Array<TaskModel> = Array()
         
+        let weekForwardDate = CustomDateClass()
+        weekForwardDate.switchToNextWeek()
+        let selectionCondition: String = "(status == 0) AND (date < %@)"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition, weekForwardDate.currentDate! as NSDate)
+        
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
         
         do{
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
