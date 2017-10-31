@@ -37,7 +37,6 @@
 		4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */; };
 		84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
-		8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */; };
 		843934AE1FA7886800311CAF /* EditTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843934AD1FA7886800311CAF /* EditTimeTable.storyboard */; };
 		843934B21FA78BDE00311CAF /* EditTimeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843934B11FA78BDE00311CAF /* EditTimeTableController.swift */; };
 		843934B41FA791BC00311CAF /* EditClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843934B31FA791BC00311CAF /* EditClassController.swift */; };
