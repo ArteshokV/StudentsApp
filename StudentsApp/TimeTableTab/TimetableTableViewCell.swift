@@ -18,10 +18,15 @@ class TimetableTableViewCell: UITableViewCell {
     
     var timetableModelObject: TimetableModel?
     
+    var sepLine: UIView?
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        sepLine = UIView(frame: self.frame)
+        self.contentView.addSubview(sepLine!)
+        
         self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
     }
     
@@ -32,7 +37,7 @@ class TimetableTableViewCell: UITableViewCell {
         self.StartTimeLabel.text = timetableModelObject?.classStartTime != nil ? timetableModelObject?.classStartTime! : "-:-";
         self.EndTimeLabel.text = timetableModelObject?.classEndTime != nil ? timetableModelObject?.classEndTime! : "-:-";
         self.SubjectNameLabel.text = timetableModelObject?.classSubject != nil ? timetableModelObject?.classSubject! : "(Не указано)";
-        self.TeacherLabel.text = timetableModelObject?.classTeacher != nil ? timetableModelObject?.classTeacher! : nil;
+        self.TeacherLabel.text = timetableModelObject?.classTeacher != nil ? timetableModelObject?.classTeacher!.name : nil;
         self.PlaceLabel.text = timetableModelObject?.classPlace != nil ? timetableModelObject?.classPlace! : nil;
     }
 
@@ -40,6 +45,17 @@ class TimetableTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let square = CGRect(
+            origin: CGPoint(x: 15, y: 1),
+            size: CGSize(width: self.frame.width - 30, height: 0.5))
+        
+        sepLine?.frame = square
+        sepLine?.layer.borderWidth = 0.5
+        sepLine?.layer.borderColor = UIColor.lightGray.cgColor
     }
     
 }

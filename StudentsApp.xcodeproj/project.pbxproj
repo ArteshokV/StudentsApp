@@ -11,6 +11,7 @@
 		4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4BD1FA3666300E4A969 /* LowNetworkClass.swift */; };
 		4E02D4C01FA4972300E4A969 /* TaskViewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */; };
 		4E02D4C61FA4A11600E4A969 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02D4C51FA4A11600E4A969 /* DatabaseController.swift */; };
+		4E03D8AF1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E03D8AE1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib */; };
 		4E19FF7A1FA769A8007F2D21 /* MenuTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19FF791FA769A8007F2D21 /* MenuTabViewController.swift */; };
 		4E2ADEA31F98047C008F89CD /* UpperTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ADEA11F98047C008F89CD /* UpperTodayTableViewCell.swift */; };
 		4E2ADEA41F98047C008F89CD /* UpperTodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2ADEA21F98047C008F89CD /* UpperTodayTableViewCell.xib */; };
@@ -34,6 +35,7 @@
 		4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */; };
 		4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */; };
 		4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */; };
+		84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
 		8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */; };
 		843934AE1FA7886800311CAF /* EditTimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843934AD1FA7886800311CAF /* EditTimeTable.storyboard */; };
@@ -49,6 +51,7 @@
 		BEB3445E1F9A345F00A5B39F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BEB3445C1F9A345F00A5B39F /* InfoPlist.strings */; };
 		BEB5D50B1F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BEB5D5091F90CDB700B8AA84 /* CoreDataModel.xcdatamodeld */; };
 		BEB5D50E1F91061100B8AA84 /* InitialDataForDB.json in Resources */ = {isa = PBXBuildFile; fileRef = BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */; };
+		BEEFD4B21FA790F50062385A /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEFD4B11FA790F50062385A /* TeacherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,7 @@
 		4E02D4BD1FA3666300E4A969 /* LowNetworkClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowNetworkClass.swift; sourceTree = "<group>"; };
 		4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewEditViewController.swift; sourceTree = "<group>"; };
 		4E02D4C51FA4A11600E4A969 /* DatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
+		4E03D8AE1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableCollectionViewCell.xib; sourceTree = "<group>"; };
 		4E19FF791FA769A8007F2D21 /* MenuTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTabViewController.swift; sourceTree = "<group>"; };
 		4E2ADEA11F98047C008F89CD /* UpperTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperTodayTableViewCell.swift; sourceTree = "<group>"; };
 		4E2ADEA21F98047C008F89CD /* UpperTodayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpperTodayTableViewCell.xib; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 		4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableTableViewCell.swift; sourceTree = "<group>"; };
 		4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimetableTableViewCell.xib; sourceTree = "<group>"; };
+		84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCollectionViewCell.swift; sourceTree = "<group>"; };
 		8436D76C1F9794B4001622EB /* TimeTableCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeTableCollectionViewCell.xib; sourceTree = "<group>"; };
 		843934AD1FA7886800311CAF /* EditTimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = EditTimeTable.storyboard; path = ../../../../EditTimeTable.storyboard; sourceTree = "<group>"; };
@@ -102,6 +107,7 @@
 		BEB3445F1F9A349A00A5B39F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = StudentsApp/ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BEB5D50A1F90CDB700B8AA84 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		BEB5D50C1F90F40B00B8AA84 /* InitialDataForDB.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = InitialDataForDB.json; sourceTree = "<group>"; };
+		BEEFD4B11FA790F50062385A /* TeacherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +219,7 @@
 				843934AD1FA7886800311CAF /* EditTimeTable.storyboard */,
 				843934B11FA78BDE00311CAF /* EditTimeTableController.swift */,
 				843934B31FA791BC00311CAF /* EditClassController.swift */,
+				4E03D8AE1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib */,
 			);
 			path = TimeTableTab;
 			sourceTree = "<group>";
@@ -223,9 +230,10 @@
 				847C27561F8FC66F00592F65 /* TasksTabViewController.swift */,
 				4E94FFCE1F8E044800B7C86E /* TaskTableViewCell.swift */,
 				4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */,
+				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
 				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
 				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
-				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
+				84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */,
 			);
 			path = TaskTab;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
+				BEEFD4B11FA790F50062385A /* TeacherModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -314,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E03D8AF1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib in Resources */,
 				BEB5D50E1F91061100B8AA84 /* InitialDataForDB.json in Resources */,
 				4E7C53971F86CEC10012329E /* LaunchScreen.storyboard in Resources */,
 				4E4126B01F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib in Resources */,
@@ -325,7 +335,6 @@
 				BEB344591F9A1AA800A5B39F /* Localizable.strings in Resources */,
 				4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */,
 				4E7C53921F86CEC10012329E /* Main.storyboard in Resources */,
-				8436D76E1F9794B4001622EB /* TimeTableCollectionViewCell.xib in Resources */,
 				BEB3445E1F9A345F00A5B39F /* InfoPlist.strings in Resources */,
 				4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */,
 			);
@@ -338,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */,
 				84E054E91F8C13CA00DA1C2C /* TimeTableTabViewController.swift in Sources */,
 				8491F4441F98D4BA00558D01 /* HeaderFooterViewClass.swift in Sources */,
 				4E7C53A51F86DECE0012329E /* ActivitiesModel.swift in Sources */,
@@ -351,6 +361,7 @@
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
 				4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */,
 				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
+				BEEFD4B21FA790F50062385A /* TeacherModel.swift in Sources */,
 				4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */,
 				4E94FFCB1F8CCA1300B7C86E /* TodayTabViewController.swift in Sources */,
 				4E94FFD01F8E044800B7C86E /* TaskTableViewCell.swift in Sources */,
@@ -534,10 +545,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = URQ2645VFQ;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,10 +560,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5RX87S98Q2;
+				DEVELOPMENT_TEAM = URQ2645VFQ;
 				INFOPLIST_FILE = StudentsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = arteshok.StudentsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = saver.StudentsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

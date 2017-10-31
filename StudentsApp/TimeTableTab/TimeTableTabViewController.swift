@@ -72,15 +72,8 @@ class TimeTableTabViewController: UIViewController {
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
         
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "BackGroundImage")
-        self.view.insertSubview(backgroundImage, at: 0)
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView!.frame = view.bounds
-        blurEffectView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView!, at: 1)
+        let appDesign = CustomApplicationLook()
+        appDesign.initBackground(ofView: self.view)
         
         CollectionOfTables.backgroundColor = UIColor.clear
         

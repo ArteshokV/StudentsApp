@@ -27,7 +27,7 @@ class HeaderFooterViewClass: UIView {
     return maskLayer
     }
     
-    static func getViewForHeaderInSectionWithLabel (textFronLabel: String, tableView: UITableView) ->UIView {
+    static func getViewForHeaderInSectionWithLabel (textFronLabel: String, aligment: NSTextAlignment,  tableView: UITableView) ->UIView {
         let sectionHeaderView = UIView()
         sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
         sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
@@ -38,7 +38,7 @@ class HeaderFooterViewClass: UIView {
         sectionHeaderLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.black)
         sectionHeaderLabel.textColor = UIColor.white
         sectionHeaderLabel.numberOfLines = 0
-        sectionHeaderLabel.textAlignment = .center
+        sectionHeaderLabel.textAlignment = aligment
         sectionHeaderLabel.text = textFronLabel
         sectionHeaderView.addSubview(sectionHeaderLabel)
         

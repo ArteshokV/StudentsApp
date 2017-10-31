@@ -54,52 +54,38 @@ class TaskViewEditViewController: UIViewController {
        
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.TaskViewTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
-/*    func getSubview (label:UILabel) -> UIView {
-        rounedView = UIView(frame: label.frame)
-        rounedView?.layer.borderColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25).cgColor
-        rounedView?.layer.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25).cgColor
-        let roundedViewWidth = label.frame.width
-        let roundedViewHeight = label.frame.height
-        
-        let frameOfRoundedView = CGRect(x:0, y:0, width:roundedViewWidth - 15, height:roundedViewHeight)
-        
-        
-        
-        rounedView?.layer.masksToBounds = false
-        rounedView?.layer.cornerRadius = label.frame.width * 0.01
-        rounedView?.layer.borderWidth = 1.5
-            
-            //Настройка тени
-        rounedView?.layer.shadowOffset = CGSize(width:-2, height:2)
-        rounedView?.layer.shadowOpacity = 1
-            
-            //rounedView!.backgroundColor = UIColor.lightGray
-        rounedView?.frame = frameOfRoundedView
-        return rounedView!
-    } */
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if(segue.identifier == "fromTaskViewToTaskEdit"){
+            let taskEC = segue.destination as! TaskEditViewController
+            taskEC.taskEditObject = taskModelObject
+        }
     }
-    */
+    
 
     
     @IBAction func EditButtonPressed(_ sender: Any) {
     
-        
+            self.hidesBottomBarWhenPushed = true
+            self.performSegue(withIdentifier: "fromTaskViewToTaskEdit", sender: self)
+           
         
         
     }
@@ -135,20 +121,27 @@ extension TaskViewEditViewController: UITableViewDataSource {
             cell.backgroundColor = UIColor.clear
         }
         else {
+            cell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         switch indexPath.row {
         case 0:
+            cell.label.textColor = UIColor.white
             cell.label.text = taskModelObject?.taskNameShort
             cell.label.font = UIFont.italicSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             break
         case 1:
+            cell.label.textColor = UIColor.white
             cell.label.text = " " + (taskModelObject?.taskDescription)!
             cell.label.textAlignment = .justified
             break
         case 2:
+            cell.label.textColor = UIColor.white
             cell.label.text = "Дата сдачи: " + (taskModelObject?.taskDate?.stringFromDate())!
+            cell.label.textAlignment = .left
             break
         case 3:
+            cell.label.textColor = UIColor.white
+            cell.label.textAlignment = .left
             switch taskModelObject?.taskPriority {
             case 0?:
                 cell.label.text = "Приоритет: низкий"
@@ -193,7 +186,7 @@ extension TaskViewEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, tableView: tableView)
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, aligment: .center, tableView: tableView)
             
         }
         else {return nil}

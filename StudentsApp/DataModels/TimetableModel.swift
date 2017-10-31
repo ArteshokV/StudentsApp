@@ -18,7 +18,7 @@ class TimetableModel: NSObject {
     var classStartTime: String?
     var classEndTime: String?
     var classSubject: String?
-    var classTeacher: String?
+    var classTeacher: TeacherModel?
     var classPlace: String?
     var classType: String?
     
@@ -34,7 +34,7 @@ class TimetableModel: NSObject {
         let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
         let selectionCondition: String = "(dayOfWeek == \(Date.weekDayInt!)) AND (parity == \(parity) OR parity == nil) OR ((date >= %@) AND (date < %@))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition,startDate as NSDate,endDate! as NSDate)
-        print(predicate)
+        //print(predicate)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.startTime), ascending: true)
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
@@ -77,6 +77,9 @@ class TimetableModel: NSObject {
     }
     
     private func updateClass() -> Bool {
+        if self.classTeacher != nil {
+            self.classTeacher?.save()
+        }
         if populateEntityWithObjectData(){
             DatabaseController.saveContext()
             return true
@@ -109,7 +112,7 @@ class TimetableModel: NSObject {
         self.timeTableDatabaseObject = withDatabaseObject
         self.classStartTime = timeTableDatabaseObject?.startTime != nil ? DatabaseController.timeToStringForm(Int: (timeTableDatabaseObject?.startTime)!) : nil;
         self.classEndTime = timeTableDatabaseObject?.endTime != nil ? DatabaseController.timeToStringForm(Int: (timeTableDatabaseObject?.endTime)!) : nil;
-        self.classTeacher = timeTableDatabaseObject?.teacher != nil ? timeTableDatabaseObject?.teacher! : nil;
+        self.classTeacher = timeTableDatabaseObject?.teacher != nil ? TeacherModel(withDatabaseObject: (timeTableDatabaseObject?.teacher)!): TeacherModel();
         self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
         self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type : nil;
         
@@ -124,7 +127,7 @@ class TimetableModel: NSObject {
         //--- Handle convertion for time from str to int16
         timeTableDatabaseObject?.startTime = timeStringToInt(str: self.classStartTime!)
         timeTableDatabaseObject?.endTime = timeStringToInt(str: self.classEndTime!)
-        timeTableDatabaseObject?.teacher = self.classTeacher
+        //timeTableDatabaseObject?.teacher
         timeTableDatabaseObject?.place = self.classPlace
         timeTableDatabaseObject?.type = self.classType
         timeTableDatabaseObject?.date = self.classDate != nil ? self.classDate?.currentDate : nil;

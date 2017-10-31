@@ -32,6 +32,7 @@ class TasksTabViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.taskTable.reloadData()
     }
     
     override func viewDidLoad() {
@@ -40,16 +41,8 @@ class TasksTabViewController: UIViewController{
         taskTable.backgroundColor = UIColor.clear
        
         counter = 1
-       // let blurEffectView: UIBlurEffect
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "BackGroundImage")
-        self.view.insertSubview(backgroundImage, at: 0)
-
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView, at: 1)
+        let appDesign = CustomApplicationLook()
+        appDesign.initBackground(ofView: self.view)
         
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
@@ -73,7 +66,7 @@ class TasksTabViewController: UIViewController{
     }
         
    
-   
+    
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         taskButton.tintColor = UIColor.red
@@ -308,22 +301,22 @@ extension TasksTabViewController: UITableViewDataSource {
       
         switch parametr {
         case "time":
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, tableView: tableView)
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
         case "subject":
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, tableView: tableView)
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
         case "priority":
             switch TasksAtPriorityArray[section][0].taskPriority! {
             case 2:
-                 return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", tableView: tableView)
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
             case 1:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", tableView: tableView)
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
             case 0:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", tableView: tableView)
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
             default:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", tableView: tableView)
+                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
             }
         default:
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", tableView: tableView)
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
         }
         
         

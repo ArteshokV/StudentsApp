@@ -11,14 +11,24 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
 
     @IBAction func CheckPressed(_ sender: Any) {
-        print("Pressed that task is done")
+        //print("Pressed that task is done")
         if count == 0 {
-            self.rounedView?.backgroundColor = cellColor
-            count = 1
+            taskModelObject?.taskStatus = 1
+            if(taskModelObject!.save()){
+                self.rounedView?.backgroundColor = cellColor
+                count = 1
+            }else{
+                taskModelObject?.taskStatus = 0
+            }
         }
         else {
-            self.rounedView?.backgroundColor = UIColor.clear
-            count = 0
+            taskModelObject?.taskStatus = 0
+            if(taskModelObject!.save()){
+                self.rounedView?.backgroundColor = UIColor.clear
+                count = 0
+            }else{
+                taskModelObject?.taskStatus = 1
+            }
         }
         
     }
@@ -62,7 +72,7 @@ class TaskTableViewCell: UITableViewCell {
     
     func initWithTask(model: TaskModel, forSortingType: String){
         taskModelObject = model
-        rounedView?.backgroundColor = UIColor.clear
+        
         self.MiddleDescriptionLabel.text = taskModelObject?.taskNameShort != nil ? taskModelObject?.taskNameShort! : "(Не указано)";
         
         switch taskModelObject?.taskPriority {
@@ -78,6 +88,14 @@ class TaskTableViewCell: UITableViewCell {
         default:
             cellColor = UIColor.lightGray
             break
+        }
+        
+        if(taskModelObject?.taskStatus == 0){
+            count = 0
+            rounedView?.backgroundColor = UIColor.clear
+        }else{
+            count = 1
+            rounedView?.backgroundColor = cellColor
         }
         
         let subjectString = taskModelObject?.taskSubject != nil ? taskModelObject?.taskSubject! : "(Не указано)";

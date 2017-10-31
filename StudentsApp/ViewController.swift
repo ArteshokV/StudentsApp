@@ -64,4 +64,9 @@ class CustomApplicationLook: NSObject{
     static func getUnderLayerColor() -> UIColor{
         return UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
     }
+    
+    func initBackground(ofView: UIView) {
+        ofView.insertSubview(backgroundImage, at: 0)
+        ofView.insertSubview(backgroundBlurView, at: 1)
+    }
 }
