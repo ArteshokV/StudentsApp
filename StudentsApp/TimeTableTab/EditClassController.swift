@@ -10,7 +10,8 @@ import UIKit
 
 class EditClassController: UIViewController {
     
-    private var pickerDataSource = ["8:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
+    private var TimesOfClassBegining = ["8:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
+    private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
 
     @IBOutlet weak var SegmentClassType1: UISegmentedControl!
     @IBOutlet weak var SegmentClassType2: UISegmentedControl!
@@ -20,13 +21,32 @@ class EditClassController: UIViewController {
     @IBOutlet weak var ClassRoomField: UITextField!
     
     @IBOutlet weak var BeginTime: UITextField!
+    @IBOutlet weak var EndTime: UITextField!
     
-    @IBAction func dsd(_ sender: UITextField) {
-        let PickerView:UIPickerView = UIPickerView()
-        PickerView.delegate = self
-        PickerView.dataSource = self
-        BeginTime.inputView = PickerView
-        BeginTime.text = pickerDataSource[PickerView.selectedRow(inComponent: 0)]
+    @IBAction func ChooseEndTime(_ sender: Any) {
+        let datePicker:UIDatePicker = UIDatePicker()
+        datePicker.datePickerMode = UIDatePickerMode.time
+        EndTime.inputView = datePicker
+        datePicker.addTarget(self, action: #selector(EditClassController.ChangeEndField), for: UIControlEvents.valueChanged)
+    }
+    
+    @IBAction func ChooseBeginTime(_ sender: UITextField) {
+        let datePicker:UIDatePicker = UIDatePicker()
+        datePicker.datePickerMode = UIDatePickerMode.time
+        BeginTime.inputView = datePicker
+        datePicker.addTarget(self, action: #selector(EditClassController.ChangeBeginField), for: UIControlEvents.valueChanged)
+    }
+    
+    @objc func ChangeEndField (sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH-mm"
+        EndTime.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func ChangeBeginField (sender:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH-mm"
+        BeginTime.text = dateFormatter.string(from: sender.date)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -73,22 +93,4 @@ class EditClassController: UIViewController {
 
 }
 
-extension EditClassController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerDataSource.count;
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerDataSource[row]
-    }
-}
-
-extension EditClassController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        BeginTime.text = pickerDataSource[pickerView.selectedRow(inComponent: 0)]
-    }
-}
