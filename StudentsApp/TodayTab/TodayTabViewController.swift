@@ -25,6 +25,7 @@ class TodayTabViewController: UIViewController {
     
     var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
+    var activitiesArray: [ActivitiesModel]! //Добавляем пустой массив заданий
     
     var chosenObject = 0
 
@@ -38,8 +39,9 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //shownFirstTime = 1
         if(shownFirstTime == 1){
-            UIView.animate(withDuration: 2.0, delay: 1.0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut, .allowUserInteraction], animations: {
                 let startCell = IndexPath(row: 0, section: 1)
                 self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
                 }, completion: nil)
@@ -49,6 +51,7 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.alpha = 0
 
         let appDesign = CustomApplicationLook()
         appDesign.initBackground(ofView: self.view)
@@ -65,6 +68,7 @@ class TodayTabViewController: UIViewController {
         let cust = CustomDateClass()
         timeTableArray = TimetableModel.getTimetable(Date: cust)
         tasksArray = TaskModel.getTasksForToday()
+        activitiesArray = ActivitiesModel.getActivitiesForToday()
 
         // Do any additional setup after loading the view.
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
@@ -86,25 +90,20 @@ class TodayTabViewController: UIViewController {
             taskVC.taskModelObject = tasksArray[chosenObject]
         }
     }
-    
-    func makeRoundedMask(forTop: Bool, bounds: CGRect) -> CAShapeLayer {
-        let corners:UIRectCorner = (forTop ? [.topLeft , .topRight] : [.bottomRight , .bottomLeft])
-        let maskPath = UIBezierPath(roundedRect: bounds,
-                                     byRoundingCorners: corners,
-                                     cornerRadii:CGSize(width:15.0, height:15.0))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = bounds
-        maskLayer.path = maskPath.cgPath
-        return maskLayer
-    }
 
 }
 
 // MARK: - UIScrollViewDelegate protocol
 extension TodayTabViewController: UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //blurView!.backgroundColor = UIColor(white: 1.0, alpha: scrollView.contentOffset.y/180)
-        blurEffectView!.alpha = scrollView.contentOffset.y/180;
+        
+        //self.view.layer.removeAllAnimations()
+        //self.TableViewOutlet.setContentOffset(TableViewOutlet.contentOffset, animated: false)
+        //TableViewOutlet.layer.removeAllAnimations()
+        
+        
+        blurEffectView!.alpha = scrollView.contentOffset.y/240///180;
+        self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
     }
 }
 
@@ -141,7 +140,7 @@ extension TodayTabViewController: UITableViewDelegate{
 // MARK: - UITableViewDataSource protocol
 extension TodayTabViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return activitiesArray.count != 0 ? 4 : 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,6 +152,9 @@ extension TodayTabViewController: UITableViewDataSource{
             return timeTableArray.count != 0 ? timeTableArray.count : 1
             
         case 2:
+            return activitiesArray.count != 0 ? activitiesArray.count : tasksArray.count
+            
+        case 3:
             return tasksArray.count
             
         default:
@@ -184,10 +186,16 @@ extension TodayTabViewController: UITableViewDataSource{
 
             return cell
             
-        }else{
+        }else if ((indexPath.section == 3)||(activitiesArray.count == 0)){
             let identifier = TasksCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
             cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
+            
+            return cell
+        }else{
+            let identifier = TasksCellIdentifier
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
+            cell.initWithActivity(model: activitiesArray[indexPath.row], forSortingType: "Today")
             
             return cell
         }
@@ -204,8 +212,8 @@ extension TodayTabViewController: UITableViewDataSource{
         case 1:
             return 120
             
-        case 2:
-            return UITableViewAutomaticDimension //80
+        case 2,3:
+            return UITableViewAutomaticDimension
             
         default:
             return 1
@@ -217,31 +225,34 @@ extension TodayTabViewController: UITableViewDataSource{
         if(section == 0){
             return nil
         }
-        /*
-        let sectionHeaderView = UIView()
-        sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
-        sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
-        sectionHeaderView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         
-        let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
-        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        if(section == 1){
-            sectionHeaderLabel.text = "Расписание"
-        }else{
-            sectionHeaderLabel.text = "Задания"
-        }
-        
-        sectionHeaderView.addSubview(sectionHeaderLabel)
-         */
+        let header: UIView
         let headerText: String
         if(section == 1){
             headerText = "Расписание"
-        }else{
+        }else if ((section == 3)||(activitiesArray.count == 0)){
             headerText = "Задания"
+            header = HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
+            
+            let numberOfExpiredTasks = TaskModel.getNumberOfExpiredTasks()
+            if(numberOfExpiredTasks == "0"){
+                return header
+            }
+            let expiredLabel = UILabel()
+            expiredLabel.text = "Просрочено: " + numberOfExpiredTasks
+            expiredLabel.textAlignment = .right
+            expiredLabel.adjustsFontSizeToFitWidth = true
+            expiredLabel.minimumScaleFactor = 0.2
+            expiredLabel.frame = CGRect(x: 3*header.frame.width/4, y: 0, width: header.frame.width/4 - 10, height: header.frame.height)
+            header.addSubview(expiredLabel)
+            return header
+        }else{
+            headerText = "Ближайшие мероприятия"
         }
+        header = HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
         
-        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
+        
+        return header
         
         
     }
@@ -250,19 +261,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(section == 0){
             return nil
         }
-        /*
-        let sectionFooterView = UIView()
-        sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
-        sectionFooterView.backgroundColor = UIColor.clear
         
-        let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:40)
-        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        sectionHeaderLabel.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
-        
-        sectionFooterView.addSubview(sectionHeaderLabel)
-         */
         let footerView = HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
         
         if(section != 1){
@@ -300,49 +299,58 @@ extension TodayTabViewController: UITableViewDataSource{
     
     @objc func todayButtonPressed(_ sender: UIButton!){
         if(!workingWithToday){
-            //let section = IndexPath(row: 0, section: 1)
-            //TableViewOutlet.scrollToRow(at: section, at: .top, animated: true)
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-                
-                let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
-                self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
-            }, completion: { _ in
-                self.workingWithToday = true
-                let today = CustomDateClass()
-                self.timeTableArray = TimetableModel.getTimetable(Date: today)
-                self.TableViewOutlet.beginUpdates()
-                self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .automatic)
-                self.TableViewOutlet.endUpdates()
-                
-            })
-            //tomorrowButton.backgroundColor = UIColor.clear
-            //todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            
+            todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            tomorrowButton.backgroundColor = UIColor.clear
+            let oldLengthOfSection = timeTableArray.count
+            workingWithToday = true
+            let today = CustomDateClass()
+            self.timeTableArray = TimetableModel.getTimetable(Date: today)
+            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
         }
     }
     
     @objc func tomorrowButtonPressed(_ sender: UIButton!){
         if(workingWithToday){
-            //let section = IndexPath(row: 0, section: 1)
-            //TableViewOutlet.scrollToRow(at: section, at: .top, animated: true)
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-                let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
-                self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
-            }, completion: { _ in
-            
-                self.workingWithToday = false
-                let nextDay = CustomDateClass()
-                nextDay.switchToNextDay()
-                self.timeTableArray = TimetableModel.getTimetable(Date: nextDay)
-                self.TableViewOutlet.beginUpdates()
-                self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .automatic)
-                self.TableViewOutlet.endUpdates()
-            })
-            //todayButton.backgroundColor = UIColor.clear
-            //tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            
-            
+            todayButton.backgroundColor = UIColor.clear
+            tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            let oldLengthOfSection = timeTableArray.count
+            workingWithToday = false
+            let nextDay = CustomDateClass()
+            nextDay.switchToNextDay()
+            timeTableArray = TimetableModel.getTimetable(Date: nextDay)
+            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
         }
+    }
+    
+    func updateTimetableSection(withChangesNumber: Int){
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            //let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
+            self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
+            //self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
+            
+        }, completion: { _ in
+            if(withChangesNumber == 0){return}
+            
+            var indexPathsToChange: Array<IndexPath> = Array()
+            for rowToChange in 1...abs(withChangesNumber)-1{
+                indexPathsToChange.append(IndexPath(row: rowToChange, section: 1))
+            }
+            self.TableViewOutlet.beginUpdates()
+            
+            if(withChangesNumber > 0){
+                self.TableViewOutlet.insertRows(at: indexPathsToChange, with: .middle)
+            }else if(withChangesNumber < 0){
+                self.TableViewOutlet.deleteRows(at:indexPathsToChange, with: .middle)
+            }
+            
+
+            //UIView.transition(with: self.view...
+ 
+            self.TableViewOutlet.endUpdates()
+            self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .fade)
+        })
+ 
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

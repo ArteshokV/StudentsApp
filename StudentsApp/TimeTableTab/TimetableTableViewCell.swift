@@ -17,6 +17,7 @@ class TimetableTableViewCell: UITableViewCell {
     @IBOutlet weak var PlaceLabel: UILabel!
     
     var timetableModelObject: TimetableModel?
+    var customAppLook = CustomApplicationLook()
     
     var sepLine: UIView?
     
@@ -27,7 +28,14 @@ class TimetableTableViewCell: UITableViewCell {
         sepLine = UIView(frame: self.frame)
         self.contentView.addSubview(sepLine!)
         
-        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+        //self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        self.ClassTypeLabel.textColor = UIColor.white
+        self.StartTimeLabel.textColor = customAppLook.mainTextColor
+        self.EndTimeLabel.textColor = customAppLook.subTextColor
+        self.SubjectNameLabel.textColor = customAppLook.mainTextColor
+        self.TeacherLabel.textColor = customAppLook.subTextColor
+        self.PlaceLabel.textColor = customAppLook.subTextColor
     }
     
     func initWithTimetable(model: TimetableModel){

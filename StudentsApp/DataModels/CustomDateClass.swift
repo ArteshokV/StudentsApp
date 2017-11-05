@@ -79,11 +79,17 @@ class CustomDateClass: NSObject {
         return Int((tempDateEnd?.timeIntervalSince(tempDateStart))!/Double(numberOfSecondsIn24Hours)/7)+1
     }
     
-    func startOfDay() -> String{
-        return "\(yearInt!)-\(monthInt!)-\(dayInt!) 00:00"
+    func startOfDay() -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let startDate = dateFormatter.date(from: "\(yearInt!).\(monthInt!).\(dayInt!) 00:00:00")!
+        return startDate
     }
-    func endOfDay() -> String{
-        return "\(yearInt!)-\(monthInt!)-\(dayInt!) 23:59"
+    func endOfDay() -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let endDate = dateFormatter.date(from: "\(yearInt!).\(monthInt!).\(dayInt!) 23:59:59")!
+        return endDate
     }
     
     // MARK: - Switchers to other days

@@ -98,7 +98,8 @@ extension SubjectsTabViewController: UITableViewDataSource{
         let sectionHeaderView = UIView()
         sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:10)
         sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
-        sectionHeaderView.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        sectionHeaderView.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         
         let sectionHeaderLabel = UILabel()
         sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:10)
@@ -120,7 +121,8 @@ extension SubjectsTabViewController: UITableViewDataSource{
         let sectionHeaderLabel = UILabel()
         sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:40)
         sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        sectionHeaderLabel.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        sectionHeaderLabel.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
         
         sectionFooterView.addSubview(sectionHeaderLabel)

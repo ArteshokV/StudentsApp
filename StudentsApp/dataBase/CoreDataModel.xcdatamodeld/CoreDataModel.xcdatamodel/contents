@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Activities" representedClassName="Activities" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subjects" inverseName="activities" inverseEntity="Subjects" syncable="YES"/>
+    </entity>
+    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class">
+        <attribute name="backGroundImage" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <entity name="Subjects" representedClassName="Subjects" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -44,7 +47,8 @@
         <element name="Activities" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="Subjects" positionX="-54" positionY="-9" width="128" height="120"/>
         <element name="Tasks" positionX="-36" positionY="9" width="128" height="135"/>
-        <element name="TimeTable" positionX="-18" positionY="27" width="128" height="210"/>
         <element name="Teacher" positionX="-45" positionY="99" width="128" height="120"/>
+        <element name="TimeTable" positionX="-18" positionY="27" width="128" height="210"/>
+        <element name="Entity" positionX="-45" positionY="99" width="128" height="60"/>
     </elements>
 </model>

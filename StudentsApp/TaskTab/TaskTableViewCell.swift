@@ -41,6 +41,7 @@ class TaskTableViewCell: UITableViewCell {
     
     var taskModelObject: TaskModel?
     var activityModelObject: ActivitiesModel?
+    var customAppLook = CustomApplicationLook()
     var rounedView: UIView?
     var sepLine: UIView?
     var cellColor: UIColor?
@@ -57,11 +58,12 @@ class TaskTableViewCell: UITableViewCell {
         self.contentView.addSubview(sepLine!)
         self.backButton.addSubview(rounedView!)
         self.backButton.backgroundColor = UIColor.clear
-        self.backgroundColor = UIColor.clear
-        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        self.MiddleDescriptionLabel.textColor = UIColor.white
-        self.TopSubjectLabel.textColor = UIColor.lightGray
-        self.BottomEdgeDateLabel.textColor = UIColor.lightGray
+        //self.backgroundColor = UIColor.clear
+        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        self.MiddleDescriptionLabel.textColor = customAppLook.mainTextColor
+        self.TopSubjectLabel.textColor = customAppLook.subTextColor
+        self.BottomEdgeDateLabel.textColor = customAppLook.subTextColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -72,6 +74,7 @@ class TaskTableViewCell: UITableViewCell {
     
     func initWithTask(model: TaskModel, forSortingType: String){
         taskModelObject = model
+        rounedView?.isHidden = false
         
         self.MiddleDescriptionLabel.text = taskModelObject?.taskNameShort != nil ? taskModelObject?.taskNameShort! : "(Не указано)";
         
@@ -129,7 +132,8 @@ class TaskTableViewCell: UITableViewCell {
     
     func initWithActivity(model: ActivitiesModel, forSortingType: String){
         activityModelObject = model
-        rounedView?.backgroundColor = UIColor.clear
+        rounedView?.isHidden = true
+        //rounedView?.backgroundColor = UIColor.clear
         self.MiddleDescriptionLabel.text = activityModelObject?.activityNameShort != nil ? activityModelObject?.activityNameShort! : "(Не указано)";
         cellColor = UIColor.white
         
