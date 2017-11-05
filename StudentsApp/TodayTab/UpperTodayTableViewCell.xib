@@ -25,7 +25,8 @@
                             <constraint firstAttribute="height" constant="120" id="KOD-LW-h5P"/>
                             <constraint firstAttribute="width" constant="300" id="V3i-3d-gdh"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>

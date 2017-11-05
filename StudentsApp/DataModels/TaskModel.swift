@@ -22,30 +22,85 @@ class TaskModel: NSObject {
     static func getTasksForToday() -> Array<TaskModel>{
         //Получаем список заданий
         var returnArray: Array<TaskModel> = Array()
+        let todayDate = CustomDateClass()
+        let tomorrowDate = CustomDateClass()
+        tomorrowDate.switchToNextDay()
+        var selectionCondition: String = "(status == 0) AND (date >= %@) AND (date <= %@)"
+        var predicate:NSPredicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate, tomorrowDate.endOfDay() as NSDate)
         
-        let weekForwardDate = CustomDateClass()
-        weekForwardDate.switchToNextWeek()
-        let selectionCondition: String = "(status == 0) AND (date < %@)"
-        let predicate:NSPredicate = NSPredicate(format: selectionCondition, weekForwardDate.currentDate! as NSDate)
-        
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        var sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
         
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
+        //Getting tasks for today and tomorrow
+        var searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for result in searchResults as [Tasks]{
+            returnArray.append(TaskModel(withDatabaseObject: result))
+        }
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            
-            for result in searchResults as [Tasks]{
-                returnArray.append(TaskModel(withDatabaseObject: result))
+        if(returnArray.count >= 6){
+            return returnArray
+        }
+        
+        //Getting tasks for day after tomorrow
+        selectionCondition = "(status == 0) AND (date >= %@) AND (date <= %@)"
+        tomorrowDate.switchToNextDay()
+        predicate = NSPredicate(format: selectionCondition,tomorrowDate.startOfDay() as NSDate, tomorrowDate.endOfDay() as NSDate)
+        fetchRequest.predicate = predicate
+        searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for result in searchResults as [Tasks]{
+            if(returnArray.count == 6){
+               return returnArray
             }
+            returnArray.append(TaskModel(withDatabaseObject: result))
         }
-        catch{
-            print("Error: \(error)")
+        
+        //Getting 3 highPriority tasks not in today - day after today e.g. day after after today and grater
+        selectionCondition = "(status == 0) AND (date >= %@) AND (priority == 2)"
+        tomorrowDate.switchToNextDay()
+        predicate = NSPredicate(format: selectionCondition,tomorrowDate.startOfDay() as NSDate)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 3
+        searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for result in searchResults as [Tasks]{
+            if(returnArray.count == 6){
+                return returnArray
+            }
+            returnArray.append(TaskModel(withDatabaseObject: result))
         }
+        
+        //Getting 3 missed tasks
+        selectionCondition = "(status == 0) AND (date < %@)"
+        tomorrowDate.switchToNextDay()
+        predicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.priority), ascending: false)
+        let secondSortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 0
+        fetchRequest.sortDescriptors = [sortDescriptor, secondSortDescriptor]
+        searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for result in searchResults as [Tasks]{
+            if(returnArray.count == 6){
+                return returnArray
+            }
+            returnArray.append(TaskModel(withDatabaseObject: result))
+        }
+        
 
         return returnArray
+    }
+    
+    static func getNumberOfExpiredTasks() -> String {
+        let todayDate = CustomDateClass()
+        let selectionCondition: String = "(status == 0) AND (date < %@)"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        fetchRequest.predicate = predicate
+        
+        //Getting expired tasks
+        var searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        return "\(searchResults.count)"
     }
     
     static func getTasksGroupedByPriority() -> [[TaskModel]] {
@@ -81,7 +136,7 @@ class TaskModel: NSObject {
             returnArray.append(lowPriotity)
             returnArray.append(other)
         }catch{
-            print("Error getting tasks grouped by date. \(error.localizedDescription)")
+            print("Error getting tasks grouped by priority. \(error.localizedDescription)")
         }
         return returnArray
     }
@@ -101,7 +156,7 @@ class TaskModel: NSObject {
             for task in tasks {
                 let oder = Calendar.current.compare(task.date!, to: oldDate, toGranularity: .day)
                 
-                //---Checking if this activity has the same date as the last one
+                //---Checking if this task has the same date as the last one
                 if oder != .orderedSame {
                     if tmpArray.count != 0 {
                         returnArray.append(tmpArray)
@@ -114,9 +169,13 @@ class TaskModel: NSObject {
                 }
                 oldDate = task.date!
             }
+            if tmpArray.count != 0 {
+                returnArray.append(tmpArray)
+            }
         }catch{
             print("Error getting tasks grouped by date. \(error.localizedDescription)")
         }
+        
         return returnArray
     }
     

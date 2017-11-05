@@ -16,11 +16,22 @@ class ActivitiesModel: NSObject {
     var activityNameShort: String?
     var activitySubject: String?
     
-    static func getActivities() -> Array<ActivitiesModel>{
-        //Получаем список мероприятий
+    static func getActivitiesForToday() -> Array<ActivitiesModel>{
+        //Получаем список мероприятий на ближайшие 3 дня
         var returnArray: Array<ActivitiesModel> = Array()
         
+        let todayDate = CustomDateClass()
+        let tomorrowDate = CustomDateClass()
+        tomorrowDate.switchToNextDay()
+        tomorrowDate.switchToNextDay()
+        let selectionCondition: String = "(date >= %@) AND (date <= %@)"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate, tomorrowDate.endOfDay() as NSDate)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Activities.date), ascending: true)
+        
         let fetchRequest:NSFetchRequest<Activities> = Activities.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
+        //fetchRequest.fetchLimit = 3
         
         do{
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)

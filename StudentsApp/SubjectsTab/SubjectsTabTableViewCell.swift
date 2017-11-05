@@ -31,7 +31,8 @@ class SubjectsTabTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectViewLeft = UIVisualEffectView(effect: blurEffect)

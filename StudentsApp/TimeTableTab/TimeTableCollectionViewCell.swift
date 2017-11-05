@@ -18,10 +18,17 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        //TableForClasses.isHidden = true
+        let Table = UITableView(frame: frame, style: .grouped)
+        Table.backgroundColor = UIColor.clear
+        Table.delegate = self
+        Table.dataSource = self
+        //self.addSubview(Table)
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
         TableForClasses.backgroundColor = UIColor.clear
         TableForClasses.scrollsToTop = true
+        Table.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
     }
 
 }
