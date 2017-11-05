@@ -41,7 +41,7 @@ class TodayTabViewController: UIViewController {
         super.viewDidAppear(animated)
         //shownFirstTime = 1
         if(shownFirstTime == 1){
-            UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+            UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut], animations: {
                 let startCell = IndexPath(row: 0, section: 1)
                 self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
                 }, completion: nil)
@@ -51,7 +51,7 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.alpha = 0
+        //self.tabBarController?.tabBar.alpha = 0
 
         let appDesign = CustomApplicationLook()
         appDesign.initBackground(ofView: self.view)
@@ -103,7 +103,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
         
         
         blurEffectView!.alpha = scrollView.contentOffset.y/240///180;
-        self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
+        //self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
     }
 }
 
