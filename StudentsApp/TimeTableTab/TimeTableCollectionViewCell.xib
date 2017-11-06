@@ -18,26 +18,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="590"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BsO-jp-0JG">
-                        <rect key="frame" x="5" y="5" width="365" height="580"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="849-F1-hQA">
+                        <rect key="frame" x="5" y="273" width="365" height="44"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <connections>
-                            <outlet property="dataSource" destination="gTV-IL-0wX" id="C0o-ht-bvD"/>
-                            <outlet property="delegate" destination="gTV-IL-0wX" id="fLN-K4-QL7"/>
+                            <outlet property="dataSource" destination="gTV-IL-0wX" id="HBz-Sk-jMq"/>
+                            <outlet property="delegate" destination="gTV-IL-0wX" id="33c-5m-QfW"/>
                         </connections>
                     </tableView>
                 </subviews>
             </view>
-            <constraints>
-                <constraint firstItem="BsO-jp-0JG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="Iby-Cj-ZLB"/>
-                <constraint firstAttribute="trailing" secondItem="BsO-jp-0JG" secondAttribute="trailing" constant="5" id="SRm-2G-4gY"/>
-                <constraint firstItem="BsO-jp-0JG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="UM2-5a-UfM"/>
-                <constraint firstAttribute="bottom" secondItem="BsO-jp-0JG" secondAttribute="bottom" constant="5" id="ZJk-M3-Psb"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="303" height="590"/>
             <connections>
-                <outlet property="TableForClasses" destination="BsO-jp-0JG" id="O8z-OF-Z7O"/>
+                <outlet property="TableForClasses" destination="849-F1-hQA" id="N8q-No-IwK"/>
             </connections>
             <point key="canvasLocation" x="-22.5" y="143"/>
         </collectionViewCell>

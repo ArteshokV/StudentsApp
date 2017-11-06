@@ -18,17 +18,41 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //TableForClasses.isHidden = true
-        let Table = UITableView(frame: frame, style: .grouped)
-        Table.backgroundColor = UIColor.clear
-        Table.delegate = self
-        Table.dataSource = self
-        //self.addSubview(Table)
+        
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
         TableForClasses.backgroundColor = UIColor.clear
         TableForClasses.scrollsToTop = true
-        Table.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
+        TableForClasses.separatorColor = UIColor.clear
+        TableForClasses.showsVerticalScrollIndicator = false
+        
+        TableForClasses.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraints(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-10-[subview]-10-|",
+            options: [],
+            metrics: nil,
+            views: ["subview":TableForClasses]))
+        self.addConstraints(NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-10-[subview]-10-|",
+            options: [],
+            metrics: nil,
+            views: ["subview":TableForClasses]))
+        
+        /*
+        TableForClasses.translatesAutoresizingMaskIntoConstraints = false
+        let horizontalConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        let verticalConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0)
+        let heightConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
+        TableForClasses.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+ */
+    
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //TableForClasses.frame = frame
+        //TableForClasses.reloadData()
     }
 
 }
