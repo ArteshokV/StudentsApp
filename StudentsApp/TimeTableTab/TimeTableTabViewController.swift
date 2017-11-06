@@ -139,6 +139,11 @@ extension TimeTableTabViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         TodayDate = GetDateFromDayNumberInSemester(DayNumber: CollectionOfTables.indexPathsForVisibleItems[0][1])
         ShowDates(CurrentDate: TodayDate!)
+        
+        let visibleCell = CollectionOfTables.cellForItem(at: CollectionOfTables.indexPathsForVisibleItems[0]) as! TimeTableCollectionViewCell
+        if(visibleCell.CurrentTimeTable.count != 0){
+            visibleCell.TableForClasses.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: true)
+        }
     }
 }
 
