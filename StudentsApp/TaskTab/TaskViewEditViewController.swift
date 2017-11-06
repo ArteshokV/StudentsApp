@@ -15,13 +15,14 @@ class TaskViewEditViewController: UIViewController {
     
     var taskModelObject: TaskModel?
     var rounedView: UIView?
+    let appDesign = CustomApplicationLook()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        appDesign.initBackground(ofView: self.view)
         
-        
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+      /*  let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackGroundImage")
         self.view.insertSubview(backgroundImage, at: 0)
         
@@ -29,12 +30,12 @@ class TaskViewEditViewController: UIViewController {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView, at: 1)
+        self.view.insertSubview(blurEffectView, at: 1) */
         
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
+        //self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.barTintColor = appDesign.tabBarColor
         
         /* let rightAddBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Редактировать", style: UIBarButtonItemStyle.plain, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:))) */
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:)))
@@ -121,26 +122,26 @@ extension TaskViewEditViewController: UITableViewDataSource {
             cell.backgroundColor = UIColor.clear
         }
         else {
-            cell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+            cell.backgroundColor = CustomApplicationLook.getUnderLayerColor()
         switch indexPath.row {
         case 0:
-            cell.label.textColor = UIColor.white
+            cell.label.textColor = appDesign.mainTextColor
             cell.label.text = taskModelObject?.taskNameShort
             cell.label.font = UIFont.italicSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             break
         case 1:
-            cell.label.textColor = UIColor.white
+            cell.label.textColor = appDesign.mainTextColor
             cell.label.text = " " + (taskModelObject?.taskDescription)!
             cell.label.textAlignment = .justified
             break
         case 2:
-            cell.label.textColor = UIColor.white
+            cell.label.textColor = appDesign.mainTextColor
             cell.label.text = "Дата сдачи: " + (taskModelObject?.taskDate?.stringFromDate())!
             cell.label.textAlignment = .left
             break
         case 3:
-            cell.label.textColor = UIColor.white
+            cell.label.textColor = appDesign.mainTextColor
             cell.label.textAlignment = .left
             switch taskModelObject?.taskPriority {
             case 0?:
@@ -186,8 +187,7 @@ extension TaskViewEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, aligment: .center, tableView: tableView)
-            
+            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabelAndParametrs(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, tableView: tableView, height: 50, cornerRadiusWidth: 8, cornerRadiusHeight: 8)
         }
         else {return nil}
        

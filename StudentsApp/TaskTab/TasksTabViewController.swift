@@ -21,6 +21,8 @@ class TasksTabViewController: UIViewController{
     var TasksAtSubjectArray: [[TaskModel]] = []
     var TasksAtPriorityArray: [[TaskModel]] = []
     
+    let appDesign = CustomApplicationLook()
+    
     @IBOutlet weak var taskTable: UITableView!
     
     @IBOutlet weak var taskButton: UIButton!
@@ -41,7 +43,7 @@ class TasksTabViewController: UIViewController{
         taskTable.backgroundColor = UIColor.clear
        
         counter = 1
-        let appDesign = CustomApplicationLook()
+        
         appDesign.initBackground(ofView: self.view)
         
         taskOrActivity = "task"//выбираем просмотр заданий
@@ -168,7 +170,7 @@ extension TasksTabViewController: UITableViewDelegate {
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
             selectedTaskCell.setHighlighted(false, animated: false)
             selectedTaskCell.MiddleDescriptionLabel.textColor = UIColor.red
-            selectedTaskCell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+           // selectedTaskCell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
             
         }
         
@@ -178,8 +180,8 @@ extension TasksTabViewController: UITableViewDelegate {
         if(taskOrActivity == "task"){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
             selectedTaskCell.setHighlighted(false, animated: false)
-            selectedTaskCell.MiddleDescriptionLabel.textColor = UIColor.white
-            selectedTaskCell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+            selectedTaskCell.MiddleDescriptionLabel.textColor = appDesign.mainTextColor
+            //selectedTaskCell.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
         }
     }
     
@@ -298,28 +300,42 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
+      var headerLabel = ""
         switch parametr {
         case "time":
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
+            headerLabel = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
+            break
+            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
         case "subject":
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
+            headerLabel = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
+            break
+            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
         case "priority":
             switch TasksAtPriorityArray[section][0].taskPriority! {
             case 2:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
+                headerLabel = "Высокий приоритет"
+                break
+                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
             case 1:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
+                headerLabel = "Средний приоритет"
+                break
+                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
             case 0:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
+                headerLabel = "Низкий приоритет"
+                break
+                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
             default:
-                return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
+                headerLabel = " "
+                break
+                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
             }
         default:
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
+            headerLabel = " "
+            break
+            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
         }
         
-        
+        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabelAndParametrs(textFronLabel: headerLabel, tableView: tableView, height: 50, cornerRadiusWidth: 8, cornerRadiusHeight: 8)
         
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

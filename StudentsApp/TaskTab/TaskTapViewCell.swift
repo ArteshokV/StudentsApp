@@ -11,12 +11,12 @@ import UIKit
 class TaskTapViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
-    
+     var customAppLook = CustomApplicationLook()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        self.label.textColor = UIColor.white
+        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
+        self.label.textColor = customAppLook.mainTextColor
          self.selectionStyle = .none
        
     }

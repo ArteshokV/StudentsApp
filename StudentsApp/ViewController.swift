@@ -68,9 +68,10 @@ class CustomApplicationLook: NSObject{
     
     override init(){
         super.init()
-        tabBarColor = UIColor(red: 192/255, green: 140/255, blue: 83/255, alpha: 0.6) //UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 0.6)
-        mainTextColor = UIColor.black
-        subTextColor = UIColor.darkGray
+        tabBarColor = UIColor.black.withAlphaComponent(0.4)
+            //UIColor(red: 192/255, green: 140/255, blue: 83/255, alpha: 0.6) //UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 0.6)
+        mainTextColor = UIColor.white
+        subTextColor = UIColor.lightGray
 
         backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackGroundImage")
@@ -82,8 +83,8 @@ class CustomApplicationLook: NSObject{
         let G = CGFloat(43) //CGFloat(arc4random_uniform(255))
         let B = CGFloat(52) //CGFloat(arc4random_uniform(255))
         
-        gradientView.firstColor = UIColor.red//UIColor(red: R/255, green: G/255, blue: B/255, alpha: 0.6)
-        gradientView.secondColor = UIColor.white//UIColor(red: R/255, green: G/255, blue: B/255, alpha: 0.6)
+        gradientView.firstColor = UIColor.darkGray//UIColor(red: R/255, green: G/255, blue: B/255, alpha: 0.6)
+        gradientView.secondColor = UIColor.black//UIColor(red: R/255, green: G/255, blue: B/255, alpha: 0.6)
         //backgroundImage.image = nil
         
         backgroundImage.backgroundColor = UIColor.white
@@ -122,8 +123,8 @@ class CustomApplicationLook: NSObject{
         //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.6)
         //UIColor(red: 192/255, green: 140/255, blue: 83/255, alpha: 0.3)
         //UIColor(red: R/255, green: G/255, blue: B/255, alpha:   0.7)
-        UIColor(white: 1, alpha: 0.85)//0.075)
-        //UIColor.blue.withAlphaComponent(0.2)
+        //UIColor(white: 1, alpha: 0.85)//0.075)
+        UIColor.lightGray.withAlphaComponent(0.2)
         //UIColor(red: 49/255, green: 51/255, blue: 89/255, alpha: 0.07)
     }
     
