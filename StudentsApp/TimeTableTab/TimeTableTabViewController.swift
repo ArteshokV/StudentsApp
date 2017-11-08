@@ -26,6 +26,7 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
+    @IBOutlet weak var TickLabel: UILabel!
     @IBOutlet weak var CollectionOfTables: UICollectionView!//коллекция таблиц
     
     
@@ -78,13 +79,23 @@ class TimeTableTabViewController: UIViewController {
         
         CollectionOfTables.backgroundColor = UIColor.clear
         
-        DayLabel.textColor = UIColor.white
-        CurrentDayLabel.textColor = UIColor.white
-        PreviousWeekButton.setTitleColor(UIColor.white, for: .normal)
-        BeginOfWeekLabel.textColor = UIColor.white
-        EndOfWeekLabel.textColor = UIColor.white
-        WeekNumberLabel.textColor = UIColor.white
-        NextWeekButton.setTitleColor(UIColor.white, for: .normal)
+        appDesign.managedMainLablesContext.append(DayLabel)
+        DayLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainLablesContext.append(TickLabel)
+        TickLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainLablesContext.append(CurrentDayLabel)
+        CurrentDayLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainLablesContext.append(BeginOfWeekLabel)
+        BeginOfWeekLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainButonsContext.append(PreviousWeekButton)
+        PreviousWeekButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        appDesign.managedMainLablesContext.append(EndOfWeekLabel)
+        EndOfWeekLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainLablesContext.append(WeekNumberLabel)
+        WeekNumberLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainButonsContext.append(NextWeekButton)
+        NextWeekButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        
         
         //constraints and other parametrs
         DayLabel.adjustsFontSizeToFitWidth = true
