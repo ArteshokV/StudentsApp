@@ -5,8 +5,17 @@
         <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subjects" inverseName="activities" inverseEntity="Subjects" syncable="YES"/>
     </entity>
-    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class">
+    <entity name="AppLook" representedClassName="AppLook" syncable="YES" codeGenerationType="class">
         <attribute name="backGroundImage" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="blurViewStyle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gradientLowerColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="gradientUpperColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lookName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainTextColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="subTextColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="tabBarColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="underLayerColor" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
     <entity name="Subjects" representedClassName="Subjects" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -45,10 +54,10 @@
     </entity>
     <elements>
         <element name="Activities" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="AppLook" positionX="-45" positionY="99" width="128" height="195"/>
         <element name="Subjects" positionX="-54" positionY="-9" width="128" height="120"/>
         <element name="Tasks" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="Teacher" positionX="-45" positionY="99" width="128" height="120"/>
         <element name="TimeTable" positionX="-18" positionY="27" width="128" height="210"/>
-        <element name="Entity" positionX="-45" positionY="99" width="128" height="60"/>
     </elements>
 </model>

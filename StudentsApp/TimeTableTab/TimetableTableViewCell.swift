@@ -17,7 +17,7 @@ class TimetableTableViewCell: UITableViewCell {
     @IBOutlet weak var PlaceLabel: UILabel!
     
     var timetableModelObject: TimetableModel?
-    var customAppLook = CustomApplicationLook()
+    let customAppLook = CustomApplicationLook()
     
     var sepLine: UIView?
     
@@ -28,14 +28,24 @@ class TimetableTableViewCell: UITableViewCell {
         sepLine = UIView(frame: self.frame)
         self.contentView.addSubview(sepLine!)
         
-        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
-        //self.backgroundColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        customAppLook.managedLayersContext.append(self)
+        //self.backgroundColor = customAppLook.underLayerColor
+        
+        customAppLook.managedMainLablesContext?.append(self.SubjectNameLabel)
+        customAppLook.managedMainLablesContext?.append(self.StartTimeLabel)
+        //self.SubjectNameLabel.textColor = customAppLook.mainTextColor
+        //self.StartTimeLabel.textColor = customAppLook.mainTextColor
+        
+        customAppLook.managedSubLablesContext?.append(self.EndTimeLabel)
+        customAppLook.managedSubLablesContext?.append(self.TeacherLabel)
+        customAppLook.managedSubLablesContext?.append(self.PlaceLabel)
+        //self.EndTimeLabel.textColor = customAppLook.subTextColor
+        //self.TeacherLabel.textColor = customAppLook.subTextColor
+        //self.PlaceLabel.textColor = customAppLook.subTextColor
+        
+        customAppLook.updateManagedContext()
+
         self.ClassTypeLabel.textColor = UIColor.white
-        self.StartTimeLabel.textColor = customAppLook.mainTextColor
-        self.EndTimeLabel.textColor = customAppLook.subTextColor
-        self.SubjectNameLabel.textColor = customAppLook.mainTextColor
-        self.TeacherLabel.textColor = customAppLook.subTextColor
-        self.PlaceLabel.textColor = customAppLook.subTextColor
     }
     
     func initWithTimetable(model: TimetableModel){

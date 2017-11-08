@@ -17,9 +17,11 @@ class StudyPlaceSelectionViewController: UIViewController {
     @IBOutlet weak var connectionSpinner: UIImageView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var ContainerView: UIView!
+    @IBOutlet weak var HeaderLabel: UILabel!
     
     var searchBar: UISearchBar!
     var blurEffectView: UIVisualEffectView!
+    let screenLook = CustomApplicationLook()
     
     var SearchController: UISearchController!
     var resultsController: UITableViewController!
@@ -31,7 +33,7 @@ class StudyPlaceSelectionViewController: UIViewController {
     var selectedGroup: studyUnit!
     
     var workingWithPlaceType = 0
-
+    
     // MARK: - initialSetupOfView
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +51,15 @@ class StudyPlaceSelectionViewController: UIViewController {
         
         setButtonFrame(forButton: StartButton)
         StartButton.backgroundColor = UIColor(red: 10/255, green: 157/255, blue: 15/255, alpha: 0.25)
+        
+        HeaderLabel.textColor = screenLook.mainTextColor
+        screenLook.managedMainLablesContext.append(HeaderLabel)
     }
     
     func setBackGroundAndBlurView(){
-        let screenLook = CustomApplicationLook()
+        screenLook.initBackground(ofView: self.view)
         
-        self.view.insertSubview(screenLook.backgroundImage, at: 0)
-        self.view.insertSubview(screenLook.backgroundBlurView, at: 1)
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffect = UIBlurEffect(style: .dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.safeAreaLayoutGuide.layoutFrame //view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -96,12 +98,14 @@ class StudyPlaceSelectionViewController: UIViewController {
     
     func setButtonFrame(forButton: UIButton){
         forButton.layer.cornerRadius = 15.0
-        forButton.backgroundColor = UIColor(red: 153/255, green: 189/255, blue: 160/255, alpha: 0.4)
-        //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        forButton.backgroundColor = screenLook.underLayerColor
+        screenLook.managedLayersContext.append(forButton)
         
         forButton.clipsToBounds = true
         forButton.titleLabel?.numberOfLines = 0
         forButton.titleLabel?.textAlignment = .center
+        forButton.setTitleColor(screenLook.mainTextColor, for: .normal)
+        screenLook.managedMainButonsContext.append(forButton)
     }
     
     // MARK: - ButtonsPressProcessing
@@ -209,8 +213,16 @@ class StudyPlaceSelectionViewController: UIViewController {
         var showAlpha: CGFloat = 0
         
         if(show){
+            if(screenLook.blurEffectStyle == UIBlurEffectStyle.dark){
+                let blurEffect = UIBlurEffect(style: .extraLight)
+                blurEffectView.effect = blurEffect
+            }
             showAlpha = 1.0
         }else{
+            if(screenLook.blurEffectStyle == UIBlurEffectStyle.dark){
+                let blurEffect = UIBlurEffect(style: .dark)
+                blurEffectView.effect = blurEffect
+            }
             showAlpha = 0.0
         }
         spinConnectionSpinner()

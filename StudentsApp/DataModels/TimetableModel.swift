@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class TimetableModel: NSObject {
+    // MARK: - Variables
     let coreDataTabelName = String(describing: TimeTable.self)
     var timeTableDatabaseObject: TimeTable?
     var classDate: CustomDateClass?
@@ -22,6 +23,7 @@ class TimetableModel: NSObject {
     var classPlace: String?
     var classType: String?
     
+    // MARK: - Static getting of timetable
     static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
         var returnArray: Array<TimetableModel> = Array()
         
@@ -59,6 +61,30 @@ class TimetableModel: NSObject {
         return returnArray
     }
     
+    // MARK: FetchController Setup
+    
+    static func setupFetchController(forDate: CustomDateClass) -> NSFetchedResultsController<TimeTable>{
+        let parity = forDate.weekNumber(fromStartDate: "01.09.2017") % 2 //0-четная, 1 - нечетная
+        // get the current calendar
+        let calendar = Calendar.init(identifier: .gregorian)
+        // get the start of the day of the selected date
+        let startDate = calendar.startOfDay(for: forDate.currentDate!)
+        // get the start of the day after the selected date
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        let selectionCondition: String = "(dayOfWeek == \(forDate.weekDayInt!)) AND (parity == \(parity) OR parity == nil) OR ((date >= %@) AND (date < %@))"
+        let predicate:NSPredicate = NSPredicate(format: selectionCondition,startDate as NSDate,endDate! as NSDate)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.date), ascending: false)
+        let TimeTableFetchRequest: NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        TimeTableFetchRequest.sortDescriptors = [sortDescriptor]
+        TimeTableFetchRequest.predicate = predicate
+        
+        let fetchController = NSFetchedResultsController(fetchRequest: TimeTableFetchRequest, managedObjectContext: DatabaseController.getContext(), sectionNameKeyPath: nil, cacheName: nil)
+        
+        try! fetchController.performFetch()
+        return fetchController
+    }
+    
+    //MARK: - Timetable Update Methods
     func save() -> Bool {
         
         if timeTableDatabaseObject == nil {
@@ -103,6 +129,8 @@ class TimetableModel: NSObject {
         
     }
     
+    
+    // MARK: - Help Methods
     override init() {
         super.init()
     }
