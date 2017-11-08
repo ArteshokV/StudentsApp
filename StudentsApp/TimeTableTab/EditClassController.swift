@@ -12,6 +12,8 @@ class EditClassController: UIViewController {
     
     private var TimesOfClassBegining = ["8:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
+    private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
+    private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
     private var BeginTimeInDate:CustomDateClass = CustomDateClass()
     private var EndTimeInDate:CustomDateClass = CustomDateClass()
     private var PeriodicStartDateValue:CustomDateClass = CustomDateClass()
@@ -21,8 +23,12 @@ class EditClassController: UIViewController {
     private var ChoosenDay:Int = 0
     private var WeekInterval:TimeInterval = 60*60*24*7
     private var FiveMinutesInterval: TimeInterval = 5*60
+    private var OneDayInterval: TimeInterval = 60*60*24
     private var CoorForAnimation:CGFloat = 0
     private var AnimationDo:Bool = false
+    private var ClassModel:TimetableModel = TimetableModel()
+
+    
 
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
@@ -65,6 +71,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.white
             SaturdayButton.backgroundColor = UIColor.white
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
         if (DayNumber == 2) {
             MondayButton.backgroundColor = UIColor.white
@@ -74,6 +84,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.white
             SaturdayButton.backgroundColor = UIColor.white
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
         if (DayNumber == 3) {
             MondayButton.backgroundColor = UIColor.white
@@ -83,6 +97,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.white
             SaturdayButton.backgroundColor = UIColor.white
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
         if (DayNumber == 4) {
             MondayButton.backgroundColor = UIColor.white
@@ -92,6 +110,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.white
             SaturdayButton.backgroundColor = UIColor.white
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
         if (DayNumber == 5) {
             MondayButton.backgroundColor = UIColor.white
@@ -101,6 +123,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.lightGray
             SaturdayButton.backgroundColor = UIColor.white
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
         if (DayNumber == 6) {
             MondayButton.backgroundColor = UIColor.white
@@ -110,6 +136,10 @@ class EditClassController: UIViewController {
             FridayButton.backgroundColor = UIColor.white
             SaturdayButton.backgroundColor = UIColor.lightGray
             ChoosenDay = DayNumber
+            let difference = Double(7-DateOfBeginOfSemester.weekDayInt!-(7-ChoosenDay))
+            let interval = TimeInterval(OneDayInterval*sqrt(difference*difference))
+            PeriodicStartDateValue = CustomDateClass(withDate: (DateOfBeginOfSemester.currentDate?.addingTimeInterval(interval))!)
+            PeriodicStartDate.text = PeriodicStartDateValue.stringFromDate()
         }
     }
     
@@ -173,6 +203,9 @@ class EditClassController: UIViewController {
         datePicker.datePickerMode = UIDatePickerMode.date
         PeriodicStartDate.inputView = customView
         PeriodicStartDate.tintColor = UIColor.clear
+        if (PeriodicStartDate.text != "") {
+            datePicker.setDate(PeriodicStartDateValue.currentDate!, animated: false)
+        }
         if (PeriodicEndDate.text != "") {
             datePicker.maximumDate = PeriodicEndDateValue.currentDate?.addingTimeInterval(-WeekInterval)
         }
@@ -199,6 +232,9 @@ class EditClassController: UIViewController {
         datePicker.datePickerMode = UIDatePickerMode.date
         PeriodicEndDate.inputView = customView
         PeriodicEndDate.tintColor = UIColor.clear
+        if (PeriodicEndDate.text != "") {
+            datePicker.setDate(PeriodicEndDateValue.currentDate!, animated: false)
+        }
         if (PeriodicStartDate.text != "") {
             datePicker.minimumDate = PeriodicStartDateValue.currentDate?.addingTimeInterval(WeekInterval)
         }
@@ -314,7 +350,9 @@ class EditClassController: UIViewController {
     }
     
     @IBAction func SaveButtonPressed (_ sender: Any) {
-   navigationController?.popToViewController((navigationController?.viewControllers[0])!, animated: true)
+        (navigationController?.viewControllers[0] as! EditTimeTableController).GetClass(GetterClass: ComplectClassInformation(ComplectClass: ClassModel))
+        (navigationController?.viewControllers[0] as! EditTimeTableController).TableOfClasses.reloadData()
+        navigationController?.popToViewController((navigationController?.viewControllers[0])!, animated: true)
     }
     
     @IBAction func NumberOfClassChoice(_ sender: Any) {
@@ -330,6 +368,23 @@ class EditClassController: UIViewController {
     
     @IBAction func SelectSegmentClassType2(_ sender: Any) {
         SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
+    }
+    
+    func ComplectClassInformation (ComplectClass: TimetableModel) -> TimetableModel {
+        ComplectClass.classBeginDate = PeriodicStartDateValue
+        ComplectClass.classEndDate = PeriodicEndDateValue
+        ComplectClass.classEndTime = EndTime.text
+        ComplectClass.classStartTime = BeginTime.text
+        ComplectClass.classPlace = ClassRoomField.text
+        ComplectClass.classSubject = SubjectField.text
+        let tech:TeacherModel = TeacherModel()
+        tech.familyName = TeacherField.text
+        tech.fatherName = TeacherField.text
+        tech.name = TeacherField.text
+        ComplectClass.classTeacher = tech
+        ComplectClass.classType = SegmentClassType1.titleForSegment(at: SegmentClassType1.selectedSegmentIndex)
+        ComplectClass.classDate = CustomDateClass(withDate: (dateFormatterForDate.date(from: "01.09.2017")!).addingTimeInterval(TimeInterval(60*60*24*(ChoosenDay))))
+        return ComplectClass
     }
     
     override func viewDidLoad() {
