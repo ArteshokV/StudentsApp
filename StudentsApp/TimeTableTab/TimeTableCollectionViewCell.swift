@@ -37,15 +37,7 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
             options: [],
             metrics: nil,
             views: ["subview":TableForClasses]))
-        
-        /*
-        TableForClasses.translatesAutoresizingMaskIntoConstraints = false
-        let horizontalConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-        let verticalConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0)
-        let heightConstraint = NSLayoutConstraint(item: TableForClasses, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
-        TableForClasses.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
- */
+
     
     }
     
@@ -69,11 +61,11 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     
     // Получим заголовок для секции
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: ((TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!), aligment: .center, tableView: tableView)
+        return HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: ((TodayDate?.weekDayString())! + " " + (TodayDate?.stringFromDate())!))
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
+        return HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -89,7 +81,7 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return  50
+        return  40
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return  50

@@ -519,7 +519,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVF-qc-gxh">
                                 <rect key="frame" x="182" y="104" width="12.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeekNumber" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peV-6b-Pcl">
@@ -568,6 +567,7 @@
                         <outlet property="EndOfWeekLabel" destination="eWx-bl-XX4" id="Q5g-qF-5vx"/>
                         <outlet property="NextWeekButton" destination="b3d-G0-e3j" id="JHV-iD-srH"/>
                         <outlet property="PreviousWeekButton" destination="lR4-ck-G2D" id="sGR-4P-non"/>
+                        <outlet property="TickLabel" destination="OVF-qc-gxh" id="gKm-kW-Zd3"/>
                         <outlet property="WeekNumberLabel" destination="peV-6b-Pcl" id="bhK-jT-QY4"/>
                     </connections>
                 </viewController>

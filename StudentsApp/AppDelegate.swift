@@ -23,21 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             standartLookInitiator.initStandartAppLooks()
         }
         
-
-        /*Нужно Игорю для проверки работы сториборда с изменением расписания
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        
-        let storyboard = UIStoryboard(name: "EditTimeTable", bundle: nil)
-        
-        let initialViewController = storyboard.instantiateInitialViewController()
-        
-        self.window?.rootViewController = initialViewController
-        self.window?.makeKeyAndVisible()
-        
-        let databaseIsInited = true
-        */
-      
         let databaseIsInited = UserDefaults.standard.bool(forKey: "databaseIsInited")
         if !databaseIsInited  {
             //print("Not inited.")
