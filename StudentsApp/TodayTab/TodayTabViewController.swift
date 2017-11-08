@@ -76,7 +76,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(TimetableModel.getTimetableForChanges())
         //Полуение массива предметов
         let cust = CustomDateClass()
         timeTableArray = TimetableModel.getTimetable(Date: cust)

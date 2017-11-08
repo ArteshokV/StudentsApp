@@ -89,10 +89,10 @@ class DataBaseInitiator: NSObject {
                     event.endDate = CustomDateClass(withString: record["EndDate"] as! String).currentDate
                 }
                 if !(record["weekDay"] is NSNull){
-                    event.dayOfWeek = record["weekDay"] as! Int16
+                    event.dayOfWeek = record["weekDay"] as! Int16 as NSNumber
                 }
                 if !(record["Parity"] is NSNull){
-                    event.parity = record["Parity"] as! Bool
+                    event.parity = record["Parity"] as! Bool as NSNumber
                 }
                 if !(record["Date"] is NSNull){
                     event.date = CustomDateClass(withString: record["Date"] as! String).currentDate

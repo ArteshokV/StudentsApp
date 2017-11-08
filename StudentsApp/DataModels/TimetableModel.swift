@@ -22,6 +22,8 @@ class TimetableModel: NSObject {
     var classTeacher: TeacherModel?
     var classPlace: String?
     var classType: String?
+    var classWeekDay: Int16?
+    var parity: Bool?
     
     // MARK: - Static getting of timetable
     static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
@@ -34,6 +36,7 @@ class TimetableModel: NSObject {
         let startDate = calendar.startOfDay(for: Date.currentDate!)
         // get the start of the day after the selected date
         let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        //Добавить дату начала и дата конца!!!!!!!!!! при выборке
         let selectionCondition: String = "(dayOfWeek == \(Date.weekDayInt!)) AND (parity == \(parity) OR parity == nil) OR ((date >= %@) AND (date < %@))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition,startDate as NSDate,endDate! as NSDate)
         //print(predicate)
@@ -57,6 +60,47 @@ class TimetableModel: NSObject {
         catch{
             print("Error: \(error)")
         }
+        
+        return returnArray
+    }
+    
+    static func getTimetableForChanges() -> Array<Array<TimetableModel>>{
+        var returnArray: Array<Array<TimetableModel>> = Array()
+        
+        var predicate:NSPredicate!
+        var sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.startTime), ascending: true)
+        let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        //Для каждого дня недели добавляем массив объектов
+        for i in 1...7{
+            predicate = NSPredicate(format: "(dayOfWeek == \(i))")
+            fetchRequest.predicate = predicate
+            
+            let searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+            var weekDayArray = Array<TimetableModel>()
+            for result in searchResults as [TimeTable]{
+                weekDayArray.append(TimetableModel(withDatabaseObject: result))
+            }
+
+            returnArray.append(weekDayArray)
+            
+        }
+        
+        //Для пар, заданных по датам
+        sortDescriptor = NSSortDescriptor(key: #keyPath(TimeTable.date), ascending: true)
+        predicate = NSPredicate(format: "(date != nil)")
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
+        
+        let searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        var weekDayArray = Array<TimetableModel>()
+        for result in searchResults as [TimeTable]{
+            weekDayArray.append(TimetableModel(withDatabaseObject: result))
+        }
+
+        returnArray.append(weekDayArray)
+        
         
         return returnArray
     }
@@ -143,6 +187,8 @@ class TimetableModel: NSObject {
         self.classTeacher = timeTableDatabaseObject?.teacher != nil ? TeacherModel(withDatabaseObject: (timeTableDatabaseObject?.teacher)!): TeacherModel();
         self.classPlace = timeTableDatabaseObject?.place != nil ? timeTableDatabaseObject?.place! : nil;
         self.classType = timeTableDatabaseObject?.type != nil ? timeTableDatabaseObject?.type : nil;
+        self.classWeekDay = timeTableDatabaseObject?.dayOfWeek as? Int16
+        self.parity = timeTableDatabaseObject?.parity  as? Bool
         
         self.classSubject = timeTableDatabaseObject?.subject != nil ? timeTableDatabaseObject?.subject!.name! : nil;
         self.classDate = timeTableDatabaseObject?.date != nil ? CustomDateClass(withDate: (timeTableDatabaseObject?.date)!) : nil;
@@ -161,6 +207,8 @@ class TimetableModel: NSObject {
         timeTableDatabaseObject?.date = self.classDate != nil ? self.classDate?.currentDate : nil;
         timeTableDatabaseObject?.beginDate = self.classBeginDate != nil ? self.classBeginDate?.currentDate : nil;
         timeTableDatabaseObject?.endDate = self.classEndDate != nil ? self.classEndDate?.currentDate : nil;
+        timeTableDatabaseObject?.dayOfWeek = self.classWeekDay as NSNumber?
+        timeTableDatabaseObject?.parity = self.parity as NSNumber?
         
         //--- Handle getting subject as DB object
         if (timeTableDatabaseObject?.subject != nil) && (timeTableDatabaseObject?.subject?.name == self.classSubject) {
