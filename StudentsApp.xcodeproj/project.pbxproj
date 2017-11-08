@@ -18,6 +18,7 @@
 		4E2F70931FAD206D00F67216 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F70911FAD206D00F67216 /* CoreDataModel.xcdatamodeld */; };
 		4E4126AF1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4126AD1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift */; };
 		4E4126B01F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E4126AE1F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib */; };
+		4E560DA91FB3984E000CBD9C /* CustomApplicationLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E560DA81FB3984E000CBD9C /* CustomApplicationLook.swift */; };
 		4E679CB81F9F4A6800833CF5 /* StudyPlaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E679CB71F9F4A6800833CF5 /* StudyPlaceSelectionViewController.swift */; };
 		4E679CBA1F9F87C200833CF5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E679CBC1F9F87C200833CF5 /* Login.storyboard */; };
 		4E7C538D1F86CEC10012329E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C538C1F86CEC10012329E /* AppDelegate.swift */; };
@@ -66,6 +67,7 @@
 		4E2F70921FAD206D00F67216 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		4E4126AD1F99C5E2006CBD2A /* SubjectsTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsTabTableViewCell.swift; sourceTree = "<group>"; };
 		4E4126AE1F99C5E2006CBD2A /* SubjectsTabTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubjectsTabTableViewCell.xib; sourceTree = "<group>"; };
+		4E560DA81FB3984E000CBD9C /* CustomApplicationLook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomApplicationLook.swift; sourceTree = "<group>"; };
 		4E679CB71F9F4A6800833CF5 /* StudyPlaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlaceSelectionViewController.swift; sourceTree = "<group>"; };
 		4E679CBB1F9F87C200833CF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		4E679CBE1F9F87CE00833CF5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Login.strings; sourceTree = "<group>"; };
@@ -139,6 +141,16 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		4E263CDF1FB3997C0036EFC7 /* EditAddTimetableViews */ = {
+			isa = PBXGroup;
+			children = (
+				BE3669BB1FA7FFB800BB563D /* EditTimeTable.storyboard */,
+				843934B11FA78BDE00311CAF /* EditTimeTableController.swift */,
+				843934B31FA791BC00311CAF /* EditClassController.swift */,
+			);
+			path = EditAddTimetableViews;
+			sourceTree = "<group>";
+		};
 		4E2ADEA51F980483008F89CD /* TodayTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +159,17 @@
 				4E2ADEA21F98047C008F89CD /* UpperTodayTableViewCell.xib */,
 			);
 			path = TodayTab;
+			sourceTree = "<group>";
+		};
+		4E560DAA1FB398CC000CBD9C /* TaskViewEditViews */ = {
+			isa = PBXGroup;
+			children = (
+				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
+				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
+				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
+				84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */,
+			);
+			path = TaskViewEditViews;
 			sourceTree = "<group>";
 		};
 		4E679CB91F9F4A7200833CF5 /* Login */ = {
@@ -186,7 +209,9 @@
 				4E19FF791FA769A8007F2D21 /* MenuTabViewController.swift */,
 				4E2ADEA51F980483008F89CD /* TodayTab */,
 				4E94FFF71F91568D00B7C86E /* TaskTab */,
+				4E560DAA1FB398CC000CBD9C /* TaskViewEditViews */,
 				4E94FFF61F91567500B7C86E /* TimeTableTab */,
+				4E263CDF1FB3997C0036EFC7 /* EditAddTimetableViews */,
 				4E94FFC91F8C43CA00B7C86E /* SubjectsTab */,
 				4E02D4C11FA4982B00E4A969 /* NetWork */,
 				4E679CB91F9F4A7200833CF5 /* Login */,
@@ -212,13 +237,10 @@
 		4E94FFF61F91567500B7C86E /* TimeTableTab */ = {
 			isa = PBXGroup;
 			children = (
+				84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */,
 				4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */,
 				4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */,
-				84E054E81F8C13CA00DA1C2C /* TimeTableTabViewController.swift */,
 				8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */,
-				BE3669BB1FA7FFB800BB563D /* EditTimeTable.storyboard */,
-				843934B11FA78BDE00311CAF /* EditTimeTableController.swift */,
-				843934B31FA791BC00311CAF /* EditClassController.swift */,
 				4E03D8AE1FA7F6CB002F1416 /* TimeTableCollectionViewCell.xib */,
 			);
 			path = TimeTableTab;
@@ -230,10 +252,6 @@
 				847C27561F8FC66F00592F65 /* TasksTabViewController.swift */,
 				4E94FFCE1F8E044800B7C86E /* TaskTableViewCell.swift */,
 				4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */,
-				4E02D4BF1FA4972300E4A969 /* TaskViewEditViewController.swift */,
-				845CFFD11FA3735E008324FF /* TaskTapViewCell.swift */,
-				845CFFD21FA3735E008324FF /* TaskTapViewCell.xib */,
-				84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */,
 			);
 			path = TaskTab;
 			sourceTree = "<group>";
@@ -247,6 +265,7 @@
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
 				BEEFD4B11FA790F50062385A /* TeacherModel.swift */,
+				4E560DA81FB3984E000CBD9C /* CustomApplicationLook.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -373,6 +392,7 @@
 				4E7C53A11F86DD190012329E /* TimetableModel.swift in Sources */,
 				4E02D4C01FA4972300E4A969 /* TaskViewEditViewController.swift in Sources */,
 				4E02D4C61FA4A11600E4A969 /* DatabaseController.swift in Sources */,
+				4E560DA91FB3984E000CBD9C /* CustomApplicationLook.swift in Sources */,
 				4E02D4BC1FA0146800E4A969 /* NetworkClass.swift in Sources */,
 				8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */,
 				BE65019F1F90C24600D7B1E7 /* DataBaseInitiator.swift in Sources */,
