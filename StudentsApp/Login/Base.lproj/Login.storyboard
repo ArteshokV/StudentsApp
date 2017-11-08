@@ -127,6 +127,7 @@
                         <outlet property="ContainerView" destination="Odl-QB-XI5" id="XVM-VY-SyL"/>
                         <outlet property="FacultyButton" destination="bU3-Gh-HpP" id="9hy-eh-KzN"/>
                         <outlet property="GroupButton" destination="2JG-O5-vGA" id="67t-GZ-VtJ"/>
+                        <outlet property="HeaderLabel" destination="Ihj-4G-5A2" id="6jx-hd-b6U"/>
                         <outlet property="StartButton" destination="vSa-Zd-3AA" id="g6d-07-BZD"/>
                         <outlet property="UnivercityButton" destination="asA-P6-8pg" id="qpH-9g-0wA"/>
                         <outlet property="connectionSpinner" destination="iCz-Ch-d3r" id="dX7-tL-A9G"/>

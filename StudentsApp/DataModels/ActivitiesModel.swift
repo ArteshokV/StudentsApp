@@ -114,6 +114,18 @@ class ActivitiesModel: NSObject {
         return returnArray
     }
     
+    // MARK: FetchController Setup
+    
+    static func setupFetchController() -> NSFetchedResultsController<Activities>{
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Activities.date), ascending: false)
+        let ActivitiesFetchRequest: NSFetchRequest<Activities> = Activities.fetchRequest()
+        ActivitiesFetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchController = NSFetchedResultsController(fetchRequest: ActivitiesFetchRequest, managedObjectContext: DatabaseController.getContext(), sectionNameKeyPath: nil, cacheName: nil)
+        
+        try! fetchController.performFetch()
+        return fetchController
+    }
     
     
     func save() -> Bool {

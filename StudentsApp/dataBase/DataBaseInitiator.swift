@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
+
 
 class DataBaseInitiator: NSObject {
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
@@ -257,6 +259,66 @@ class DataBaseInitiator: NSObject {
         }
 
         print("************************** The end of data dump *******************************************")
+    }
+    
+    func initStandartAppLooks(){
+        let appLookTableDatabaseName:String = String(describing: AppLook.self)
+        //DARK LOOK
+        let darkLook:AppLook = NSEntityDescription.insertNewObject(forEntityName: appLookTableDatabaseName, into: DatabaseController.getContext()) as! AppLook
+        
+        darkLook.lookName = "Dark"
+        darkLook.backGroundImage = nil
+        
+        darkLook.gradientUpperColor = UIColor.darkGray
+        darkLook.gradientLowerColor = UIColor.black
+        
+        darkLook.mainTextColor = UIColor.white
+        darkLook.subTextColor = UIColor.lightGray
+        
+        darkLook.tabBarColor = UIColor.black.withAlphaComponent(0.4)
+        darkLook.underLayerColor = UIColor.lightGray.withAlphaComponent(0.2)
+        darkLook.blurViewStyle = "dark"
+        
+        darkLook.isSelected = true
+        
+        //GRAY LOOK
+        let grayLook:AppLook = NSEntityDescription.insertNewObject(forEntityName: appLookTableDatabaseName, into: DatabaseController.getContext()) as! AppLook
+        
+        grayLook.lookName = "Gray"
+        grayLook.backGroundImage = nil
+        
+        grayLook.gradientUpperColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 0.4)
+        grayLook.gradientLowerColor = UIColor.lightGray.withAlphaComponent(0.4)
+        
+        grayLook.mainTextColor = UIColor.darkText
+        grayLook.subTextColor = UIColor.darkGray
+        
+        grayLook.tabBarColor = UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 0.6)
+        grayLook.underLayerColor = UIColor.white.withAlphaComponent(0.9)
+        grayLook.blurViewStyle = "dark"
+        
+        grayLook.isSelected = false
+        
+        //LIGHT LOOK
+        let lightLook:AppLook = NSEntityDescription.insertNewObject(forEntityName: appLookTableDatabaseName, into: DatabaseController.getContext()) as! AppLook
+        
+        lightLook.lookName = "Light"
+        lightLook.backGroundImage = nil
+        
+        lightLook.gradientUpperColor = UIColor.lightGray
+        lightLook.gradientLowerColor = UIColor.white
+        
+        lightLook.mainTextColor = UIColor.darkText
+        lightLook.subTextColor = UIColor.darkGray
+        
+        lightLook.tabBarColor = UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 0.6)
+        lightLook.underLayerColor = UIColor.lightGray.withAlphaComponent(0.4)
+        lightLook.blurViewStyle = "light"
+        
+        lightLook.isSelected = false
+        
+        DatabaseController.saveContext()
+        UserDefaults.standard.set(true, forKey: "appLooksInited")
     }
     
 }

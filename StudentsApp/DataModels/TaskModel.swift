@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class TaskModel: NSObject {
+    // MARK: - Variables
     let coreDataTabelName = String(describing: Tasks.self)
     var TasksDatabaseObject: Tasks?
     var taskDate: CustomDateClass?
@@ -19,6 +20,7 @@ class TaskModel: NSObject {
     var taskDescription: String?
     var taskStatus: Int?
     
+    // MARK: - Static getting of tasks
     static func getTasksForToday() -> Array<TaskModel>{
         //Получаем список заданий
         var returnArray: Array<TaskModel> = Array()
@@ -103,6 +105,7 @@ class TaskModel: NSObject {
         return "\(searchResults.count)"
     }
     
+    // MARK:  Groupped Tasks
     static func getTasksGroupedByPriority() -> [[TaskModel]] {
         var returnArray = [[TaskModel]]()
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
@@ -209,6 +212,20 @@ class TaskModel: NSObject {
         return returnArray
     }
     
+    // MARK: FetchController Setup
+    
+    static func setupFetchController() -> NSFetchedResultsController<Tasks>{
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: false)
+        let TasksFetchRequest: NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        TasksFetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchController = NSFetchedResultsController(fetchRequest: TasksFetchRequest, managedObjectContext: DatabaseController.getContext(), sectionNameKeyPath: nil, cacheName: nil)
+        
+        try! fetchController.performFetch()
+        return fetchController
+    }
+    
+    // MARK: - Task Update Methods
     func save() -> Bool {
         
         if TasksDatabaseObject == nil {
@@ -250,6 +267,7 @@ class TaskModel: NSObject {
         
     }
     
+    // MARK: - Help Methods
     override init() {
         super.init()
     }

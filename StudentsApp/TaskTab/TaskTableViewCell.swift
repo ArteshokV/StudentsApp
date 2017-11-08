@@ -41,7 +41,7 @@ class TaskTableViewCell: UITableViewCell {
     
     var taskModelObject: TaskModel?
     var activityModelObject: ActivitiesModel?
-    var customAppLook = CustomApplicationLook()
+    let customAppLook = CustomApplicationLook()
     var rounedView: UIView?
     var sepLine: UIView?
     var cellColor: UIColor?
@@ -58,12 +58,20 @@ class TaskTableViewCell: UITableViewCell {
         self.contentView.addSubview(sepLine!)
         self.backButton.addSubview(rounedView!)
         self.backButton.backgroundColor = UIColor.clear
-        //self.backgroundColor = UIColor.clear
-        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
-            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        self.MiddleDescriptionLabel.textColor = customAppLook.mainTextColor
-        self.TopSubjectLabel.textColor = customAppLook.subTextColor
-        self.BottomEdgeDateLabel.textColor = customAppLook.subTextColor
+
+        
+        customAppLook.managedLayersContext.append(self)
+        //self.backgroundColor = customAppLook.underLayerColor
+        
+        customAppLook.managedMainLablesContext?.append(self.MiddleDescriptionLabel)
+        //self.MiddleDescriptionLabel.textColor = customAppLook.mainTextColor
+        
+        customAppLook.managedSubLablesContext?.append(self.TopSubjectLabel)
+        customAppLook.managedSubLablesContext?.append(self.BottomEdgeDateLabel)
+        //self.TopSubjectLabel.textColor = customAppLook.subTextColor
+        //self.BottomEdgeDateLabel.textColor = customAppLook.subTextColor
+        
+        customAppLook.updateManagedContext()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -190,9 +198,6 @@ class TaskTableViewCell: UITableViewCell {
             
             //rounedView!.backgroundColor = UIColor.lightGray
             rounedView!.frame = frameOfRoundedView
-            
-            
-            
         }
         
         

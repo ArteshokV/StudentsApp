@@ -17,6 +17,8 @@ class TimeTableTabViewController: UIViewController {
     private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
     private var blurEffectView: UIVisualEffectView?
     
+    let appDesign = CustomApplicationLook()
+    
     @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
     @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
     @IBOutlet weak var PreviousWeekButton: UIButton! //кнопка перехода на предыдущую неделю
@@ -72,7 +74,6 @@ class TimeTableTabViewController: UIViewController {
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
         
-        let appDesign = CustomApplicationLook()
         appDesign.initBackground(ofView: self.view)
         
         CollectionOfTables.backgroundColor = UIColor.clear

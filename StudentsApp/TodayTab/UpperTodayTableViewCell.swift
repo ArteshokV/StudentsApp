@@ -11,11 +11,18 @@ import UIKit
 class UpperTodayTableViewCell: UITableViewCell {
 
     @IBOutlet weak var DateLabel: UILabel!
+    
+    let customAppLook = CustomApplicationLook()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.selectionStyle = .none
+        self.backgroundColor = UIColor.clear
+        self.DateLabel.textColor = customAppLook.mainTextColor
+        customAppLook.managedMainLablesContext.append(self.DateLabel)
+        
         DateLabel.text = CustomDateClass.todaysDateString()
-        print(CustomDateClass.todaysDateString())
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

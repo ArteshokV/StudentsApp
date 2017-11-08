@@ -16,13 +16,13 @@ class SubjectsTabViewController: UIViewController {
     @IBOutlet weak var SubjectTabTableView: UITableView!
     let subjectsTabCellIdentifier = "SubjectsTabTableViewCell" //Идентификатор ячейки
     
+    let appDesign = CustomApplicationLook()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //self.SubjectTabTableView.rowHeight = UITableViewAutomaticDimension;
         //self.SubjectTabTableView.estimatedRowHeight = 200//UIScreen.main.bounds.width/2;
-        
-        let appDesign = CustomApplicationLook()
         appDesign.initBackground(ofView: self.view)
         
         SubjectTabTableView.backgroundColor = UIColor.clear

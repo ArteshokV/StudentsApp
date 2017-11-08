@@ -80,4 +80,17 @@ class SubjectModel: NSObject {
         
         return returnArray
     }
+    
+    // MARK: FetchController Setup
+    
+    static func setupFetchController() -> NSFetchedResultsController<Subjects>{
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Subjects.name), ascending: false)
+        let SubjectsFetchRequest: NSFetchRequest<Subjects> = Subjects.fetchRequest()
+        SubjectsFetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchController = NSFetchedResultsController(fetchRequest: SubjectsFetchRequest, managedObjectContext: DatabaseController.getContext(), sectionNameKeyPath: nil, cacheName: nil)
+        
+        try! fetchController.performFetch()
+        return fetchController
+    }
 }

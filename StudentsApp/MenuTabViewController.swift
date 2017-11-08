@@ -14,6 +14,8 @@ class MenuTabViewController: UIViewController {
     @IBOutlet weak var FacultySelectedLabel: UILabel!
     @IBOutlet weak var GroupSelectedLabel: UILabel!
     
+    let appDesign = CustomApplicationLook()
+    
     var selectedStudyPlace: Array<studyUnit>!
     
     func getSetectedStudyPlace() -> Array<studyUnit>{
@@ -33,7 +35,6 @@ class MenuTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let appDesign = CustomApplicationLook()
         appDesign.initBackground(ofView: self.view)
         
         
