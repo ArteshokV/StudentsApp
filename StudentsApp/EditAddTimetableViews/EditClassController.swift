@@ -350,9 +350,9 @@ class EditClassController: UIViewController {
     }
     
     @IBAction func SaveButtonPressed (_ sender: Any) {
-        (navigationController?.viewControllers[0] as! EditTimeTableController).GetClass(GetterClass: ComplectClassInformation(ComplectClass: ClassModel))
-        (navigationController?.viewControllers[0] as! EditTimeTableController).TableOfClasses.reloadData()
-        navigationController?.popToViewController((navigationController?.viewControllers[0])!, animated: true)
+        (navigationController?.viewControllers[1] as! EditTimeTableController).GetClass(GetterClass: ComplectClassInformation(ComplectClass: ClassModel))
+        (navigationController?.viewControllers[1] as! EditTimeTableController).TableOfClasses.reloadData()
+        navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
     }
     
     @IBAction func NumberOfClassChoice(_ sender: Any) {
