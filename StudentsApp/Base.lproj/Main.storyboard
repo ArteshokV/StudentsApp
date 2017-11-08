@@ -253,6 +253,8 @@
                         <outlet property="PriorityButton" destination="G22-Bg-6dR" id="c73-ez-a3U"/>
                         <outlet property="SubjectLabel" destination="0DO-Ng-nA4" id="6WW-cY-RIH"/>
                         <outlet property="SubjectText" destination="dha-HB-dHM" id="Ii4-DW-hWe"/>
+                        <outlet property="bottomView" destination="H2R-QH-EHd" id="lZT-9r-qVJ"/>
+                        <outlet property="stackView" destination="dxx-1p-tW0" id="2Hw-oN-dMZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRE-Vp-5kE" userLabel="First Responder" sceneMemberID="firstResponder"/>

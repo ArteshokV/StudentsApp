@@ -12,6 +12,8 @@ class TaskEditViewController: UIViewController {
     
     var taskEditObject: TaskModel?
     
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var NameShortLabel: UILabel!
     @IBOutlet weak var SubjectLabel: UILabel!
     @IBOutlet weak var DescriptionLabel: UILabel!
@@ -23,8 +25,7 @@ class TaskEditViewController: UIViewController {
     @IBOutlet weak var NameShortText: UITextView!
     
     @IBOutlet weak var SubjectText: UITextView!
-    
-    var DesrHeight: CGFloat!
+  
     var DesrY: CGFloat!
     
     override func viewDidLoad() {
@@ -32,8 +33,7 @@ class TaskEditViewController: UIViewController {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
-        //HiddenDescription.alpha = 0
-        //HiddenDescription.text = taskEditObject?.taskDescription
+        
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
         SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
@@ -43,10 +43,10 @@ class TaskEditViewController: UIViewController {
         DescriptionText.layer.backgroundColor = UIColor.white.cgColor
         DateButton.setTitle(taskEditObject?.taskDate?.stringFromDate(), for: .normal)
         PriorityButton.setTitle(taskEditObject?.taskPriority?.description, for: .normal)
-     self.view.bringSubview(toFront: DescriptionText)
+     //DescriptionText.setContentOffset(CGPoint.zero, animated: false)
+        self.view.bringSubview(toFront: DescriptionText)
         DesrY = self.DescriptionText.frame.origin.y
-        DesrHeight = self.DescriptionText.frame.height
-        
+       
         if DescriptionText.isFirstResponder {
             print (" khkjk ")
         }
@@ -79,62 +79,36 @@ class TaskEditViewController: UIViewController {
     
     @objc func doneDescriptionEditing() {
       self.navigationItem.rightBarButtonItem = nil
-       // self.DescriptionText.text = self.HiddenDescription.text
-       /* UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-            self.HiddenDescription.alpha = 0
-        }, completion: nil)*/
-        
         view.endEditing(true)
         
-        UIView.animate(withDuration: 1, delay: 0.1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = self.DesrY
-            var newFrame = self.DescriptionText.frame
-            newFrame.size = CGSize(width: self.DescriptionText.frame.width, height: self.DesrHeight)
-            self.DescriptionText.frame = newFrame
-            //self.DescriptionText.frame.origin.x = self.DesrX
-            /*self.SubjectText.alpha = 1
-            self.SubjectText.alpha = 1
-            self.NameShortText.alpha = 1
-            self.DescriptionText.alpha = 1
-            self.DateButton.alpha = 1
-            self.PriorityButton.alpha = 1
-            //self.DescriptionLabel.alpha = 1
-            self.NameShortLabel.alpha = 1
-            self.SubjectLabel.alpha = 1*/
+          
+            var oldFrame = self.DescriptionText.frame
+            let h = self.stackView.frame.origin.y - self.DesrY - 8
+            oldFrame.size = CGSize(width: self.DescriptionText.frame.width, height: h)
+            self.DescriptionText.frame = oldFrame
             
-        }, completion: nil)
+        }, completion: nil )
         
+        self.view.bringSubview(toFront: self.bottomView)
         self.navigationItem.hidesBackButton = false
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
-        
+        self.DescriptionText.setContentOffset(CGPoint.zero, animated: false)
     }
     
     func touchDescription() {
        
         self.navigationItem.hidesBackButton = true
-       // self.HiddenDescription.becomeFirstResponder()
-       /* UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-            self.SubjectText.alpha = 0
-            self.SubjectText.alpha = 0
-            self.NameShortText.alpha = 0
-            //self.DescriptionText.alpha = 0
-            self.DateButton.alpha = 0
-            self.PriorityButton.alpha = 0
-            self.DescriptionLabel.alpha = 0
-            self.NameShortLabel.alpha = 0
-            self.SubjectLabel.alpha = 0
-            
-        }, completion: nil) */
-       
-        UIView.animate(withDuration: 1, delay: 0.1, options: .curveEaseInOut, animations: {
-          //  self.HiddenDescription.alpha = 1
+      
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = 18 + (self.navigationController?.navigationBar.frame.height)!
-           
+            
             var newFrame = self.DescriptionText.frame
             newFrame.size = CGSize(width: self.DescriptionText.frame.width, height: self.view.frame.height - (18 + (self.navigationController?.navigationBar.frame.height)!) - 250)
             self.DescriptionText.frame = newFrame
-            //self.DescriptionText.hei = self.view.frame.height - (18 + (self.navigationController?.navigationBar.frame.height)!) - 250
+            
             self.navigationItem.rightBarButtonItem = nil
             let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
             self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
