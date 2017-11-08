@@ -58,8 +58,13 @@ class TimeTableTabViewController: UIViewController {
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        CollectionOfTables.reloadData()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
     }
     
@@ -71,6 +76,8 @@ class TimeTableTabViewController: UIViewController {
         CollectionOfTables.clipsToBounds = true
         CollectionOfTables.autoresizesSubviews = true
 
+        //self.view.layoutSubviews()
+        //CollectionOfTables.reloadData()
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
         ShowDates(CurrentDate: TodayDate!)
         

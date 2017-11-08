@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class TasksTabViewController: UIViewController{
+class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelegate{
     // MARK: - Variables
     var parametr: String! // переменная для выбота типа сортировки
     var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
@@ -20,6 +21,11 @@ class TasksTabViewController: UIViewController{
     var TasksAtDayArray: [[TaskModel]] = []
     var TasksAtSubjectArray: [[TaskModel]] = []
     var TasksAtPriorityArray: [[TaskModel]] = []
+    
+    var tasksFetchController: NSFetchedResultsController<Tasks>!
+    var activitiesFetchController: NSFetchedResultsController<Activities>!
+    var viewHasChanges: Bool = false
+    var changesController: NSFetchedResultsController<NSFetchRequestResult>!
     
     let appDesign = CustomApplicationLook()
     
@@ -34,11 +40,32 @@ class TasksTabViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.taskTable.reloadData()
+        if(viewHasChanges){
+            viewHasChanges = false
+            
+            if(changesController == tasksFetchController){
+                ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
+                ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
+                
+            }
+            
+            if(changesController == activitiesFetchController){
+                TasksAtDayArray = TaskModel.getTasksGroupedByDate()
+                TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
+                TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+                
+            }
+            taskTable.reloadData()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tasksFetchController = TaskModel.setupFetchController()
+        tasksFetchController.delegate = self
+        activitiesFetchController = ActivitiesModel.setupFetchController()
+        activitiesFetchController.delegate = self
         
         taskTable.backgroundColor = UIColor.clear
        
@@ -65,6 +92,11 @@ class TasksTabViewController: UIViewController{
     
         
         // Do any additional setup after loading the view.
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        viewHasChanges = true
+        changesController = controller
     }
         
    
