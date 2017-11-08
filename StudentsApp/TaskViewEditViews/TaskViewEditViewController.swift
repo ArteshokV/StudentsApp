@@ -187,7 +187,11 @@ extension TaskViewEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
-            return HeaderFooterViewClass.getViewForHeaderInSectionWithLabelAndParametrs(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, tableView: tableView, height: 50, cornerRadiusWidth: 8, cornerRadiusHeight: 8)
+            let header = HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
+            header.mainHeaderLabel?.textAlignment = .center
+            header.mainHeaderLabel?.text = taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!
+           // return HeaderFooterViewClass.getViewForHeaderInSectionWithLabelAndParametrs(textFronLabel: taskModelObject?.taskSubject! == "" ? "Дополнительно" : (taskModelObject?.taskSubject!)!, tableView: tableView, height: 50, cornerRadiusWidth: 8, cornerRadiusHeight: 8)
+        return header
         }
         else {return nil}
        
@@ -198,8 +202,9 @@ extension TaskViewEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 1 {
-            return HeaderFooterViewClass.getViewForFooterInSectionWithLabelAndParametrs(tableView: tableView, height: 15, distance: 10, cornerRadiusWidth: 15, cornerRadiusHeight: 50)
-            
+            //return HeaderFooterViewClass.getViewForFooterInSectionWithLabelAndParametrs(tableView: tableView, height: 15, distance: 10, cornerRadiusWidth: 15, cornerRadiusHeight: 50)
+            let footer = HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
+            return footer
         }
         else {
             return nil

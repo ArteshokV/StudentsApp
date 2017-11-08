@@ -72,6 +72,12 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
+        appDesign.managedMainButonsContext.removeAll()
+        appDesign.managedSubButonsContext.removeAll()
+        appDesign.managedMainButonsContext.append(taskButton)
+        appDesign.managedSubButonsContext.append(activityButton)
+        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
         
         taskOrActivity = "task"//выбираем просмотр заданий
         parametr = "time" //выбираем сортировку по времени
@@ -81,8 +87,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
         // Задаем страртове цета кнопок
         
-        taskButton.tintColor = UIColor.red
-        activityButton.tintColor = UIColor.gray
+       
         
         ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
         ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
@@ -103,8 +108,13 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
-        taskButton.tintColor = UIColor.red
-        activityButton.tintColor = UIColor.gray
+        
+        appDesign.managedMainButonsContext.removeAll()
+        appDesign.managedSubButonsContext.removeAll()
+        appDesign.managedMainButonsContext.append(taskButton)
+        appDesign.managedSubButonsContext.append(activityButton)
+        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
         taskOrActivity = "task"
         if counter == 0 {
         Segment.insertSegment(withTitle: "Приоритет", at: 2, animated: true)
@@ -117,8 +127,12 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     
     @IBAction func acrivityChooseButton(_ sender: Any) {//выбор просмотра мероприятий
-        taskButton.tintColor = UIColor.gray
-        activityButton.tintColor = UIColor.red
+        appDesign.managedMainButonsContext.removeAll()
+        appDesign.managedSubButonsContext.removeAll()
+        appDesign.managedMainButonsContext.append(activityButton)
+        appDesign.managedSubButonsContext.append(taskButton)
+        activityButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        taskButton.setTitleColor(appDesign.subTextColor, for: .normal)
         taskOrActivity = "activity"
         if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
             Segment.selectedSegmentIndex = 1
@@ -332,47 +346,67 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      var headerLabel = ""
+      
+        let header = HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
+        header.mainHeaderLabel?.textAlignment = .left
+        //var headerLabel = ""
         switch parametr {
         case "time":
-            headerLabel = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
+            header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
             break
             //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
         case "subject":
-            headerLabel = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
+            header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
             break
             //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
         case "priority":
             switch TasksAtPriorityArray[section][0].taskPriority! {
             case 2:
-                headerLabel = "Высокий приоритет"
+                header.mainHeaderLabel?.text = "Высокий приоритет"
                 break
                 //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
             case 1:
-                headerLabel = "Средний приоритет"
+                header.mainHeaderLabel?.text = "Средний приоритет"
                 break
                 //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
             case 0:
-                headerLabel = "Низкий приоритет"
+                header.mainHeaderLabel?.text = "Низкий приоритет"
                 break
                 //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
             default:
-                headerLabel = " "
+                header.mainHeaderLabel?.text = " "
                 break
                 //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
             }
         default:
-            headerLabel = " "
+            header.mainHeaderLabel?.text = " "
             break
             //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
         }
-        
-        return HeaderFooterViewClass.getViewForHeaderInSectionWithLabelAndParametrs(textFronLabel: headerLabel, tableView: tableView, height: 50, cornerRadiusWidth: 8, cornerRadiusHeight: 8)
+        header.viewCornerRadius = 8.0
+        return header
         
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
        
-        return HeaderFooterViewClass.getViewForFooterInSectionWithLabelAndParametrs(tableView: tableView, height: 15, distance: 10, cornerRadiusWidth: 15, cornerRadiusHeight: 50)
+        let footer = HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
+       /* if(section == 1){
+            footer.leftFooterButton?.addTarget(self, action: #selector(todayButtonPressed), for: .touchUpInside)
+            footer.leftFooterButton?.isHidden = false
+            todayButton = footer.leftFooterButton!
+            
+            footer.rightFooterButton?.addTarget(self, action: #selector(tomorrowButtonPressed), for: .touchUpInside)
+            footer.rightFooterButton?.isHidden = false
+            tomorrowButton = footer.rightFooterButton!
+            
+            if(workingWithToday){
+                footer.leftFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            }else{
+                footer.rightFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            }
+        }*/
+        footer.viewCornerRadius = 15.0
+        return footer
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
