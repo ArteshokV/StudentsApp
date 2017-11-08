@@ -618,6 +618,7 @@
                     <tabBarItem key="tabBarItem" title="Предметы" id="wz4-HE-GR9"/>
                     <connections>
                         <outlet property="SubjectTabTableView" destination="BuB-io-pxf" id="otP-77-orH"/>
+                        <outlet property="titleLabel" destination="fYO-tL-D1M" id="rTE-Og-Uwg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EX-5x-FMi" userLabel="First Responder" sceneMemberID="firstResponder"/>

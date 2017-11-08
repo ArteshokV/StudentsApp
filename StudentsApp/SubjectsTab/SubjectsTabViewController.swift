@@ -7,12 +7,16 @@
 //
 
 import UIKit
-import Foundation
+import CoreData
 
-class SubjectsTabViewController: UIViewController {
+class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     var subjectsArray: [SubjectModel]! //Добавляем пустой массив предметов
     
+    var subjectsFetchController: NSFetchedResultsController<Subjects>!
+    var viewHasChanges: Bool = false
+    
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var SubjectTabTableView: UITableView!
     let subjectsTabCellIdentifier = "SubjectsTabTableViewCell" //Идентификатор ячейки
     
@@ -21,30 +25,34 @@ class SubjectsTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.SubjectTabTableView.rowHeight = UITableViewAutomaticDimension;
-        //self.SubjectTabTableView.estimatedRowHeight = 200//UIScreen.main.bounds.width/2;
         appDesign.initBackground(ofView: self.view)
         
         SubjectTabTableView.backgroundColor = UIColor.clear
+        titleLabel.textColor = appDesign.mainTextColor
+        appDesign.managedMainLablesContext.append(titleLabel)
         
         //Полуение массива предметов
         subjectsArray = SubjectModel.getSubjects()
-        
+        subjectsFetchController = SubjectModel.setupFetchController()
+        subjectsFetchController.delegate = self
         
         let subjectsCellNib = UINib(nibName: "SubjectsTabTableViewCell", bundle: nil)
         SubjectTabTableView.register(subjectsCellNib, forCellReuseIdentifier: subjectsTabCellIdentifier)
     }
-
-    func makeRoundedMask(forTop: Bool, bounds: CGRect) -> CAShapeLayer {
-        let corners:UIRectCorner = (forTop ? [.topLeft , .topRight] : [.bottomRight , .bottomLeft])
-        let maskPath = UIBezierPath(roundedRect: bounds,
-                                    byRoundingCorners: corners,
-                                    cornerRadii:CGSize(width:15.0, height:15.0))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = bounds
-        maskLayer.path = maskPath.cgPath
-        return maskLayer
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if(viewHasChanges){
+            viewHasChanges = false
+            subjectsArray = SubjectModel.getSubjects()
+            SubjectTabTableView.reloadData()
+        }
     }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        viewHasChanges = true
+    }
+
 }
 
 
@@ -95,6 +103,7 @@ extension SubjectsTabViewController: UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        /*
         let sectionHeaderView = UIView()
         sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:10)
         sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
@@ -110,10 +119,12 @@ extension SubjectsTabViewController: UITableViewDataSource{
         sectionHeaderView.addSubview(sectionHeaderLabel)
         
         return sectionHeaderView
+ */
         
-        
+        return HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        /*
         let sectionFooterView = UIView()
         sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
         sectionFooterView.backgroundColor = UIColor.clear
@@ -128,6 +139,8 @@ extension SubjectsTabViewController: UITableViewDataSource{
         sectionFooterView.addSubview(sectionHeaderLabel)
         
         return sectionFooterView
+ */
+        return HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -137,11 +150,11 @@ extension SubjectsTabViewController: UITableViewDataSource{
  
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return  10
+        return  30
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return  50
+        return  30
     }
     
 }
