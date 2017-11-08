@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class TodayTabViewController: UIViewController {
+class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegate {
 
     // MARK: - Variables
     var tomorrowButton: UIButton!
@@ -19,6 +20,7 @@ class TodayTabViewController: UIViewController {
     let TimetableCellIdentifier = "TimetableCell"
     let TasksCellIdentifier = "TaskCell"
     let TopCellIdentifier = "TopCell"
+    let EmptyCellIdentifier = "EmptyCell"
     
     var shownFirstTime = 1
     var workingWithToday = true
@@ -26,15 +28,38 @@ class TodayTabViewController: UIViewController {
     var timeTableArray: [TimetableModel]! //Добавляем пустой массив расписания
     var tasksArray: [TaskModel]! //Добавляем пустой массив заданий
     var activitiesArray: [ActivitiesModel]! //Добавляем пустой массив заданий
+    var timeTableFetchController: NSFetchedResultsController<TimeTable>!
+    var tasksFetchController: NSFetchedResultsController<Tasks>!
+    var activitiesFetchController: NSFetchedResultsController<Activities>!
+    var viewHasChanges: Bool = false
+    var changesController: NSFetchedResultsController<NSFetchRequestResult>!
     
     var chosenObject = 0
 
+    let appDesign = CustomApplicationLook()
     var blurEffectView: UIVisualEffectView?
+    
     
     // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        if(viewHasChanges){
+            viewHasChanges = false
+            if(changesController == timeTableFetchController){
+                let cust = CustomDateClass()
+                timeTableArray = TimetableModel.getTimetable(Date: cust)
+            }
+            if(changesController == tasksFetchController){
+                tasksArray = TaskModel.getTasksForToday()
+            }
+            
+            if(changesController == activitiesFetchController){
+                activitiesArray = ActivitiesModel.getActivitiesForToday()
+            }
+            TableViewOutlet.reloadData()
+            self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,9 +76,20 @@ class TodayTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.tabBarController?.tabBar.alpha = 0
-
-        let appDesign = CustomApplicationLook()
+        
+        //Полуение массива предметов
+        let cust = CustomDateClass()
+        timeTableArray = TimetableModel.getTimetable(Date: cust)
+        tasksArray = TaskModel.getTasksForToday()
+        activitiesArray = ActivitiesModel.getActivitiesForToday()
+        
+        timeTableFetchController = TimetableModel.setupFetchController(forDate: cust)
+        timeTableFetchController.delegate = self
+        tasksFetchController = TaskModel.setupFetchController()
+        tasksFetchController.delegate = self
+        activitiesFetchController = ActivitiesModel.setupFetchController()
+        activitiesFetchController.delegate = self
+        
         appDesign.initBackground(ofView: self.view)
         blurEffectView = appDesign.backgroundBlurView
         blurEffectView!.alpha = 0.0;
@@ -63,12 +99,6 @@ class TodayTabViewController: UIViewController {
         TableViewOutlet.rowHeight = UITableViewAutomaticDimension
         TableViewOutlet.estimatedRowHeight = 120
         TableViewOutlet.autoresizesSubviews = true
-        
-        //Полуение массива предметов
-        let cust = CustomDateClass()
-        timeTableArray = TimetableModel.getTimetable(Date: cust)
-        tasksArray = TaskModel.getTasksForToday()
-        activitiesArray = ActivitiesModel.getActivitiesForToday()
 
         // Do any additional setup after loading the view.
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
@@ -77,11 +107,13 @@ class TodayTabViewController: UIViewController {
         TableViewOutlet.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
         let topCellNib = UINib(nibName: "UpperTodayTableViewCell", bundle: nil)
         TableViewOutlet.register(topCellNib, forCellReuseIdentifier: TopCellIdentifier)
+        TableViewOutlet.register(UITableViewCell.self, forCellReuseIdentifier: EmptyCellIdentifier)
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        viewHasChanges = true
+        changesController = controller
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -152,7 +184,7 @@ extension TodayTabViewController: UITableViewDataSource{
             return timeTableArray.count != 0 ? timeTableArray.count : 1
             
         case 2:
-            return activitiesArray.count != 0 ? activitiesArray.count : tasksArray.count
+            return activitiesArray.count != 0 ? activitiesArray.count : (tasksArray.count != 0 ? tasksArray.count : 1)
             
         case 3:
             return tasksArray.count
@@ -169,32 +201,70 @@ extension TodayTabViewController: UITableViewDataSource{
         if(indexPath.section == 0){
             let identifier = TopCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UpperTodayTableViewCell
-            cell.selectionStyle = .none
-            cell.backgroundColor = UIColor.clear
             
             return cell
         }
         
         if (indexPath.section == 1) { //Берем расписание
-            let identifier = TimetableCellIdentifier
-            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TimetableTableViewCell
-            if(timeTableArray.count == 0){
-                cell.SubjectNameLabel.text = "Нет Пар"
+            if(timeTableArray.count != 0){
+                let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
+                cell.initWithTimetable(model: timeTableArray[indexPath.row])
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyCellIdentifier, for: indexPath)
+                cell.backgroundColor = appDesign.underLayerColor
+                appDesign.managedLayersContext.append(cell)
+                
+                cell.textLabel?.text = "У вас нет пар!"
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.textAlignment = .center
+                cell.textLabel?.textColor = appDesign.mainTextColor
+                appDesign.managedMainLablesContext.append(cell.textLabel!)
+                
+                let sepLine = UIView()
+                let square = CGRect(
+                    origin: CGPoint(x: 15, y: 1),
+                    size: CGSize(width: tableView.frame.width - 30, height: 0.5))
+                
+                sepLine.frame = square
+                sepLine.layer.borderWidth = 0.5
+                sepLine.layer.borderColor = UIColor.lightGray.cgColor
+                cell.addSubview(sepLine)
                 return cell
             }
-            cell.initWithTimetable(model: timeTableArray[indexPath.item])
-
-            return cell
             
         }else if ((indexPath.section == 3)||(activitiesArray.count == 0)){
-            let identifier = TasksCellIdentifier
-            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
-            cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
-            
-            return cell
+            if(tasksArray.count != 0){
+                let cell = tableView.dequeueReusableCell(withIdentifier: TasksCellIdentifier, for: indexPath) as!  TaskTableViewCell
+                cell.initWithTask(model: tasksArray[indexPath.item], forSortingType: "Today")
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyCellIdentifier, for: indexPath)
+                cell.backgroundColor = appDesign.underLayerColor
+                appDesign.managedLayersContext.append(cell)
+                
+                cell.textLabel?.text = "У Вас нет заданий!"
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.textAlignment = .center
+                cell.textLabel?.textColor = appDesign.mainTextColor
+                appDesign.managedMainLablesContext.append(cell.textLabel!)
+                
+                let sepLine = UIView()
+                let square = CGRect(
+                    origin: CGPoint(x: 15, y: 1),
+                    size: CGSize(width: tableView.frame.width - 30, height: 0.5))
+                
+                sepLine.frame = square
+                sepLine.layer.borderWidth = 0.5
+                sepLine.layer.borderColor = UIColor.lightGray.cgColor
+                cell.addSubview(sepLine)
+                
+                return cell
+            }
         }else{
             let identifier = TasksCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as!  TaskTableViewCell
+            
             cell.initWithActivity(model: activitiesArray[indexPath.row], forSortingType: "Today")
             
             return cell
@@ -225,36 +295,22 @@ extension TodayTabViewController: UITableViewDataSource{
         if(section == 0){
             return nil
         }
-        
-        let header: UIView
-        let headerText: String
+        let header = HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
+        header.mainHeaderLabel?.textAlignment = .left
         if(section == 1){
-            headerText = "Расписание"
+            header.mainHeaderLabel?.text = "Расписание"
         }else if ((section == 3)||(activitiesArray.count == 0)){
-            headerText = "Задания"
-            header = HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
+            header.mainHeaderLabel?.text = "Задания"
             
             let numberOfExpiredTasks = TaskModel.getNumberOfExpiredTasks()
-            if(numberOfExpiredTasks == "0"){
-                return header
+            if(numberOfExpiredTasks != "0"){
+                header.attributeHeaderLabel?.text = "Просрочено: " + numberOfExpiredTasks
+                header.attributeHeaderLabel?.isHidden = false
             }
-            let expiredLabel = UILabel()
-            expiredLabel.text = "Просрочено: " + numberOfExpiredTasks
-            expiredLabel.textAlignment = .right
-            expiredLabel.adjustsFontSizeToFitWidth = true
-            expiredLabel.minimumScaleFactor = 0.2
-            expiredLabel.frame = CGRect(x: 3*header.frame.width/4, y: 0, width: header.frame.width/4 - 10, height: header.frame.height)
-            header.addSubview(expiredLabel)
-            return header
         }else{
-            headerText = "Ближайшие мероприятия"
+            header.mainHeaderLabel?.text = "Ближайшие мероприятия"
         }
-        header = HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: headerText, aligment: .left, tableView: tableView)
-        
-        
         return header
-        
-        
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -262,6 +318,25 @@ extension TodayTabViewController: UITableViewDataSource{
             return nil
         }
         
+        let footer = HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
+        if(section == 1){
+            footer.leftFooterButton?.addTarget(self, action: #selector(todayButtonPressed), for: .touchUpInside)
+            footer.leftFooterButton?.isHidden = false
+            todayButton = footer.leftFooterButton!
+            
+            footer.rightFooterButton?.addTarget(self, action: #selector(tomorrowButtonPressed), for: .touchUpInside)
+            footer.rightFooterButton?.isHidden = false
+            tomorrowButton = footer.rightFooterButton!
+            
+            if(workingWithToday){
+                footer.leftFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            }else{
+                footer.rightFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            }
+        }
+        
+        return footer
+        /*
         let footerView = HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
         
         if(section != 1){
@@ -292,7 +367,10 @@ extension TodayTabViewController: UITableViewDataSource{
         footerView.addSubview(todayButton)
         footerView.addSubview(tomorrowButton)
         
+        appDesign.managedLayersContext.append(footerView)
+        
         return footerView
+ */
     }
     
     
@@ -305,6 +383,8 @@ extension TodayTabViewController: UITableViewDataSource{
             workingWithToday = true
             let today = CustomDateClass()
             self.timeTableArray = TimetableModel.getTimetable(Date: today)
+            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: today)
+            self.timeTableFetchController.delegate = self
             updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
         }
     }
@@ -318,22 +398,29 @@ extension TodayTabViewController: UITableViewDataSource{
             let nextDay = CustomDateClass()
             nextDay.switchToNextDay()
             timeTableArray = TimetableModel.getTimetable(Date: nextDay)
+            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: nextDay)
+            self.timeTableFetchController.delegate = self
             updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
         }
     }
     
     func updateTimetableSection(withChangesNumber: Int){
-        
+
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             //let startCell = IndexPath(row: self.timeTableArray.count/2, section: 1)
             self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
             //self.TableViewOutlet.scrollToRow(at: startCell, at: .middle , animated: false)
             
         }, completion: { _ in
-            if(withChangesNumber == 0){return}
+            if(withChangesNumber == 0){
+                self.TableViewOutlet.beginUpdates()
+                self.TableViewOutlet.reloadSections(IndexSet(integer: 1), with: .fade)
+                self.TableViewOutlet.endUpdates()
+                return
+            }
             
             var indexPathsToChange: Array<IndexPath> = Array()
-            for rowToChange in 1...abs(withChangesNumber)-1{
+            for rowToChange in 1...abs(withChangesNumber){
                 indexPathsToChange.append(IndexPath(row: rowToChange, section: 1))
             }
             self.TableViewOutlet.beginUpdates()
@@ -353,10 +440,13 @@ extension TodayTabViewController: UITableViewDataSource{
  
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 50
-    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 50
+        return section == 0 ? 0 : HeaderFooterViewClass.viewHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if(section == 0){return 0}
+        if(section == 1){return HeaderFooterViewClass.viewHeight}
+        return 40
     }
 }

@@ -33,7 +33,7 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
             metrics: nil,
             views: ["subview":TableForClasses]))
         self.addConstraints(NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-10-[subview]-10-|",
+            withVisualFormat: "V:|-5-[subview]-0-|",
             options: [],
             metrics: nil,
             views: ["subview":TableForClasses]))

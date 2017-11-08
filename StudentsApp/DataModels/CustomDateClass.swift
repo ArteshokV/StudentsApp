@@ -203,15 +203,13 @@ class CustomDateClass: NSObject {
         
     }*/
     
+    // MARK: - Compare functions
     override func isEqual(_ object: Any?) -> Bool {
         guard let obj = object as? CustomDateClass else {return false}
         return (self.dayInt! == obj.dayInt!)&&(self.monthInt! == obj.monthInt!)&&(self.yearInt! == obj.yearInt!)
     }
     
 }
-
-
-// MARK: - Compare functions
 
      func > (left: CustomDateClass, right: CustomDateClass) -> Bool {
         if(left.currentDate! > right.currentDate!){

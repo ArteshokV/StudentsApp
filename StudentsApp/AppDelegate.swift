@@ -13,9 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "appLooksInited")
+        print(launchedBefore)
+        if !launchedBefore  {
+            let standartLookInitiator = DataBaseInitiator()
+            standartLookInitiator.initStandartAppLooks()
+        }
+        
         /* Нужно Игорю для проверки работы сториборда с изменением расписания
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
@@ -41,10 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
         }
         
-        //---This calls DBInitiator and runs the initial data insertion
-        // to check stored data run it with check = true
-        //let dbInitor = DataBaseInitiator()
-        //dbInitor.insertInitialData(withJson: nil)
         return true
     }
 

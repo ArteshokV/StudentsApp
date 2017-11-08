@@ -28,11 +28,13 @@ class SubjectsTabTableViewCell: UITableViewCell {
         print(subjectRightModel?.subjectName as Any)
     }
     
+    let customAppLook = CustomApplicationLook()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = CustomApplicationLook.getUnderLayerColor()
-            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
+        self.backgroundColor = customAppLook.underLayerColor
+        customAppLook.managedLayersContext.append(self)
         
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectViewLeft = UIVisualEffectView(effect: blurEffect)
