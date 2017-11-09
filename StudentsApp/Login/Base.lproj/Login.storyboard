@@ -133,11 +133,38 @@
                         <outlet property="connectionSpinner" destination="iCz-Ch-d3r" id="dX7-tL-A9G"/>
                         <outlet property="stackView" destination="VVg-V9-VKJ" id="79v-kK-ZGl"/>
                         <segue destination="oDg-od-BQc" kind="show" identifier="StartUsing" id="EKz-Rt-Uae"/>
+                        <segue destination="tmv-Mp-4xL" kind="show" id="MW0-ZA-OrZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qS-7D-Pfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="112.8" y="-48.125937031484263"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="PZ9-fT-pPv">
+            <objects>
+                <viewController id="tmv-Mp-4xL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bgP-2f-izQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="Mib-Vx-gt4"/>
+                    </view>
+                    <connections>
+                        <segue destination="mFO-Yr-hKH" kind="show" id="LDV-aV-ycM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0yb-qd-HbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1298" y="-368"/>
+        </scene>
+        <!--EditTimeTable-->
+        <scene sceneID="Mcq-8k-HkA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditTimeTable" id="mFO-Yr-hKH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wpy-E6-5Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2001" y="-369"/>
         </scene>
         <!--Main-->
         <scene sceneID="eJ3-WY-cXd">
@@ -145,7 +172,7 @@
                 <viewControllerPlaceholder storyboardName="Main" id="oDg-od-BQc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JE5-3k-Ahy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="-49"/>
+            <point key="canvasLocation" x="1048" y="239"/>
         </scene>
     </scenes>
     <resources>

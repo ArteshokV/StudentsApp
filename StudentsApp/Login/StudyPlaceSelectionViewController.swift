@@ -355,10 +355,11 @@ extension StudyPlaceSelectionViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(filteredArray.count == 0){
-            print("ADD SOMETHING")
+            //print("ADD SOMETHING")
             SearchController.dismiss(animated: true, completion: nil)
             searchBar.text = ""
             dismissSearchBar()
+            self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
             return
         }
         

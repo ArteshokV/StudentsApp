@@ -43,8 +43,9 @@ class EditTimeTableController: UIViewController {
         super.viewDidLoad()
         
         appDesign.initBackground(ofView: self.view)
-        
         TableOfClasses.backgroundColor = UIColor.clear
+        CompleteButton.isHidden = true
+        if(!UserDefaults.standard.bool(forKey: "databaseIsInited")){CompleteButton.setTitle("Начать работу", for: .normal)}
         
         setupNavigationBar()
         
