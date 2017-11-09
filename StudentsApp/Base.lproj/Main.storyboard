@@ -143,7 +143,7 @@
                                                 <state key="normal" title="Date"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="yVa-oa-c1p" firstAttribute="centerX" secondItem="H2R-QH-EHd" secondAttribute="centerX" id="9Vj-9y-6OQ"/>
                                             <constraint firstItem="yVa-oa-c1p" firstAttribute="centerY" secondItem="H2R-QH-EHd" secondAttribute="centerY" id="BcO-JQ-p25"/>
@@ -157,7 +157,7 @@
                                                 <state key="normal" title="Priority"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="G22-Bg-6dR" firstAttribute="centerY" secondItem="eE1-cH-gPS" secondAttribute="centerY" id="1yQ-dT-xWs"/>
                                             <constraint firstItem="G22-Bg-6dR" firstAttribute="centerX" secondItem="eE1-cH-gPS" secondAttribute="centerX" id="adO-ZN-mwG"/>
@@ -172,7 +172,7 @@
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="87x-Et-hWI">
                                 <rect key="frame" x="8" y="283" width="359" height="207"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -188,7 +188,7 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ksb-3o-rbt">
                                 <rect key="frame" x="8" y="191.5" width="359" height="55"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="7rw-sp-kmw"/>
                                 </constraints>
@@ -204,7 +204,7 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="dfghjkjhgfghjkjhgfghjhgghjhgghjhgfghjkjhgfghjkjhghjkjhghjkjhg" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
                                 <rect key="frame" x="8" y="100" width="359" height="55"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Viu-rN-E1x"/>
                                 </constraints>
@@ -222,6 +222,7 @@
                             </label>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="4ch-tv-CHZ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="mRm-T6-Bsb" id="CtG-ej-ztv"/>
@@ -229,7 +230,7 @@
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wj5-zX-0os">
                                 <rect key="frame" x="0.0" y="120" width="375" height="288"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="mRm-T6-Bsb" id="rWW-GF-bxy"/>
                                     <outlet property="delegate" destination="mRm-T6-Bsb" id="75H-nL-qe7"/>

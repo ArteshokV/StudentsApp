@@ -35,20 +35,26 @@ class TaskEditViewController: UIViewController {
     var searchSubject: [String] = []
     var searchActive : Bool = false
     
+    let appDesign = CustomApplicationLook()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
-        
+        //customization
+        appDesign.initBackground(ofView: self.view)
+        DescriptionLabel.textColor = appDesign.subTextColor
+        SubjectLabel.textColor = appDesign.subTextColor
+        NameShortLabel.textColor = appDesign.subTextColor
+        DescriptionText.textColor = appDesign.mainTextColor
+        SubjectText.textColor = appDesign.mainTextColor
+        NameShortText.textColor = appDesign.mainTextColor
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
         SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
         NameShortText.text = taskEditObject?.taskNameShort
         DescriptionText.text = taskEditObject?.taskDescription
-        DescriptionText.backgroundColor = UIColor.white
-        DescriptionText.layer.backgroundColor = UIColor.white.cgColor
         DateButton.setTitle(taskEditObject?.taskDate?.stringFromDate(), for: .normal)
         PriorityButton.setTitle(taskEditObject?.taskPriority?.description, for: .normal)
     
@@ -56,8 +62,8 @@ class TaskEditViewController: UIViewController {
         DesrY = self.DescriptionText.frame.origin.y
        
         //Ищем предмет
-        self.searchBar.isHidden = true
-        self.subjectTable.isHidden = true
+        self.searchBar.alpha = 0
+        self.subjectTable.alpha = 0
         
         definesPresentationContext = true
         TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
@@ -100,6 +106,8 @@ class TaskEditViewController: UIViewController {
     
     @objc func saveChanges() {
         taskEditObject?.taskDescription = self.DescriptionText.text
+        taskEditObject?.taskSubject = self.SubjectText.text
+        taskEditObject?.taskNameShort = self.NameShortText.text
         taskEditObject?.save()
         self.navigationController?.popViewController(animated: true)
         
@@ -109,9 +117,8 @@ class TaskEditViewController: UIViewController {
       self.navigationItem.rightBarButtonItem = nil
         view.endEditing(true)
         
-        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = self.DesrY
-          
             var oldFrame = self.DescriptionText.frame
             let h = self.stackView.frame.origin.y - self.DesrY - 8
             oldFrame.size = CGSize(width: self.DescriptionText.frame.width, height: h)
@@ -119,12 +126,39 @@ class TaskEditViewController: UIViewController {
             
         }, completion: nil )
         
+        if (self.searchBar.alpha == 0) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+           self.SubjectLabel.alpha = 1
+        }, completion: nil )
+        UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+            self.SubjectText.alpha = 1
+        }, completion: nil )
+        UIView.animate(withDuration: 0.3, delay: 0.2, options: .curveEaseInOut, animations: {
+            self.DescriptionLabel.alpha = 1
+        }, completion: nil )
+        UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseInOut, animations: {
+            self.NameShortText.alpha = 1
+        }, completion: nil )
+        UIView.animate(withDuration: 0.1, delay: 0.4, options: .curveEaseInOut, animations: {
+            self.NameShortLabel.alpha = 1
+        }, completion: nil )
+        } else {
+        self.DescriptionLabel.alpha = 1
+        self.SubjectLabel.alpha = 1
+        self.SubjectText.alpha = 1
+        self.NameShortText.alpha = 1
+        self.NameShortLabel.alpha = 1 }
+        self.DateButton.alpha = 1
+        self.PriorityButton.alpha = 1
+        
         self.view.bringSubview(toFront: self.bottomView)
         
         //subject
-        self.searchBar.isHidden = true
-        self.subjectTable.isHidden = true
-        self.DescriptionText.isHidden = true
+        self.searchBar.alpha = 0
+        self.subjectTable.alpha = 0
+        
+        self.DescriptionText.alpha = 1
+        
         self.navigationItem.hidesBackButton = false
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
@@ -136,8 +170,31 @@ class TaskEditViewController: UIViewController {
     func touchDescription() {
        
         self.navigationItem.hidesBackButton = true
-      
-        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseInOut, animations: {
+        if (self.searchBar.alpha == 0) {
+            UIView.animate(withDuration: 0.1, delay: 0.4, options: .curveEaseInOut, animations: {
+                self.SubjectLabel.alpha = 0
+            }, completion: nil )
+            UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseInOut, animations: {
+                self.SubjectText.alpha = 0
+            }, completion: nil )
+            UIView.animate(withDuration: 0.3, delay: 0.2, options: .curveEaseInOut, animations: {
+                self.DescriptionLabel.alpha = 0
+            }, completion: nil )
+            UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
+                self.NameShortText.alpha = 0
+            }, completion: nil )
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.NameShortLabel.alpha = 0
+            }, completion: nil )
+        } else {
+            self.DescriptionLabel.alpha = 0
+            self.SubjectLabel.alpha = 0
+            self.SubjectText.alpha = 0
+            self.NameShortText.alpha = 0
+            self.NameShortLabel.alpha = 0 }
+        self.DateButton.alpha = 0
+        self.PriorityButton.alpha = 0
+        UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = 18 + (self.navigationController?.navigationBar.frame.height)!
             
             var newFrame = self.DescriptionText.frame
@@ -153,10 +210,18 @@ class TaskEditViewController: UIViewController {
     
     func touchSubject() {
         searchBar.becomeFirstResponder()
-        self.DescriptionText.isHidden = true
+        self.DescriptionText.alpha = 0
+        self.DescriptionLabel.alpha = 0
+        self.SubjectLabel.alpha = 0
+        self.SubjectText.alpha = 0
+        self.NameShortText.alpha = 0
+        self.NameShortLabel.alpha = 0
+        self.DateButton.alpha = 0
+        self.PriorityButton.alpha = 0
+        
         self.navigationItem.hidesBackButton = true
-        self.searchBar.isHidden = false
-        self.subjectTable.isHidden = false
+        self.searchBar.alpha = 1
+        self.subjectTable.alpha = 1
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
