@@ -190,6 +190,7 @@ class EditClassController: UIViewController {
     
     
     @IBAction func ChoosePeriodicStartDate(_ sender: Any) {
+        PeriodicEndDate.isEnabled = false
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
         let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
         doneButton.setTitle("Done", for: UIControlState.normal)
@@ -212,13 +213,14 @@ class EditClassController: UIViewController {
         datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
 
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.RegularityView.center.y -= customView.center.y
-            self.CoorForAnimation = customView.center.y
+            self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
+            self.RegularityView.center.y -= self.CoorForAnimation
             self.AnimationDo = true
         }, completion: nil)
     }
     
     @IBAction func ChoosePeriodicEndDate(_ sender: Any) {
+        PeriodicStartDate.isEnabled = false
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
         let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
         doneButton.setTitle("Done", for: UIControlState.normal)
@@ -241,8 +243,8 @@ class EditClassController: UIViewController {
         datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-            self.RegularityView.center.y -= customView.center.y
-            self.CoorForAnimation = customView.center.y
+            self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
+            self.RegularityView.center.y -= self.CoorForAnimation
             self.AnimationDo = true
         }, completion: nil)
     }
@@ -313,6 +315,8 @@ class EditClassController: UIViewController {
                 self.AnimationDo = false
             }, completion: nil)
         }
+        PeriodicStartDate.isEnabled = true
+        PeriodicEndDate.isEnabled = true
     }
     
     @objc func ChangePeriodicStartDateField (sender:UIDatePicker) {
@@ -347,6 +351,8 @@ class EditClassController: UIViewController {
                 self.AnimationDo = false
             }, completion: nil)
         }
+        PeriodicStartDate.isEnabled = true
+        PeriodicEndDate.isEnabled = true
     }
     
     @IBAction func SaveButtonPressed (_ sender: Any) {
@@ -391,10 +397,6 @@ class EditClassController: UIViewController {
         super.viewDidLoad()
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
-        
-        SubjectField.backgroundColor = UIColor.lightGray
-        TeacherField.backgroundColor = UIColor.lightGray
-        ClassRoomField.backgroundColor = UIColor.lightGray
         
         RegularityCustomView.isHidden = true
         
