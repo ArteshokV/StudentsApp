@@ -14,23 +14,27 @@ class EditClassController: UIViewController {
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
     private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
-    private var BeginTimeInDate:CustomDateClass = CustomDateClass()
-    private var EndTimeInDate:CustomDateClass = CustomDateClass()
-    private var PeriodicStartDateValue:CustomDateClass = CustomDateClass()
-    private var PeriodicEndDateValue:CustomDateClass = CustomDateClass()
+    private var BeginTimeInDate: CustomDateClass = CustomDateClass()
+    private var EndTimeInDate: CustomDateClass = CustomDateClass()
+    private var PeriodicStartDateValue: CustomDateClass = CustomDateClass()
+    private var PeriodicEndDateValue: CustomDateClass = CustomDateClass()
     private var dateFormatterForTime = DateFormatter()
     private var dateFormatterForDate = DateFormatter()
-    private var ChoosenDay:Int = 0
-    private var WeekInterval:TimeInterval = 60*60*24*7
+    private var ChoosenDay: Int = 0
+    private var ChoosenClassType: String?
+    private var WeekInterval: TimeInterval = 60*60*24*7
     private var FiveMinutesInterval: TimeInterval = 5*60
     private var OneDayInterval: TimeInterval = 60*60*24
     private var CoorForAnimation:CGFloat = 0
-    private var AnimationDo:Bool = false
-    private var ClassModel:TimetableModel = TimetableModel()
+    private var AnimationDo: Bool = false
+    private var ClassTempModel: TimetableModel = TimetableModel()
+    private var SubjectTempModel: SubjectModel = SubjectModel()
+    private var TeacherTempModel: TeacherModel = TeacherModel()
+    private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
+    private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
     private var ArrayOfCustomDates: Array<CustomDateClass> = Array()
-    private var CustomClassTypeButtonMode:Bool = false
+    private var CustomClassTypeButtonMode: Bool = false
 
-    
 
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
@@ -151,6 +155,8 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.backgroundColor = UIColor.blue
         CustomClassTypeButton.setTitleColor(UIColor.white, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        CustomClassTypeButtonMode = true
+        ChoosenClassType = CustomClassTypeButton.titleLabel?.text
         CheckSaveButton()
     }
     
@@ -205,7 +211,7 @@ class EditClassController: UIViewController {
         datePicker.datePickerMode = UIDatePickerMode.date
     }
     
-    
+    //////////////////////////////////////////////////////////////////////ДАТА ПИКЕРЫ
     @IBAction func ChoosePeriodicStartDate(_ sender: Any) {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
         let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
@@ -378,6 +384,7 @@ class EditClassController: UIViewController {
         BeginTime.text = dateFormatterForTime.string(from: sender.date)
     }
     
+    //////////////////////////////////////////////////////////////////////ОБРАБОТКА КАСАНИЙ
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             view.endEditing(true)
@@ -392,8 +399,9 @@ class EditClassController: UIViewController {
         }
     }
     
+    //////////////////////////////////////////////////////////////////////КНОПКА СОХРАНИТЬ
     @IBAction func SaveButtonPressed (_ sender: Any) {
-        (navigationController?.viewControllers[1] as! EditTimeTableController).GetClass(GetterClass: ComplectClassInformation(ComplectClass: ClassModel))
+        
         (navigationController?.viewControllers[1] as! EditTimeTableController).TableOfClasses.reloadData()
         navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
     }
@@ -411,6 +419,13 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.backgroundColor = UIColor.white
         CustomClassTypeButton.setTitleColor(UIColor.blue, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        CustomClassTypeButtonMode = false
+        if (SegmentClassType1.selectedSegmentIndex == 0) {
+            ChoosenClassType = SegmentClassType1.titleForSegment(at: 0)
+        }
+        else {
+            ChoosenClassType = SegmentClassType1.titleForSegment(at: 1)
+        }
         CheckSaveButton()
     }
     
@@ -419,28 +434,33 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.backgroundColor = UIColor.white
         CustomClassTypeButton.setTitleColor(UIColor.blue, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        CustomClassTypeButtonMode = false
+        if (SegmentClassType2.selectedSegmentIndex == 0) {
+            ChoosenClassType = SegmentClassType2.titleForSegment(at: 0)
+        }
+        else {
+            ChoosenClassType = SegmentClassType2.titleForSegment(at: 1)
+        }
         CheckSaveButton()
     }
     
-    func ComplectClassInformation (ComplectClass: TimetableModel) -> TimetableModel {
-        ComplectClass.classBeginDate = PeriodicStartDateValue
-        ComplectClass.classEndDate = PeriodicEndDateValue
-        ComplectClass.classEndTime = EndTime.text
-        ComplectClass.classStartTime = BeginTime.text
-        ComplectClass.classPlace = ClassRoomField.text
-        ComplectClass.classSubject = SubjectField.text
-        let tech:TeacherModel = TeacherModel()
-        tech.familyName = TeacherField.text
-        tech.fatherName = TeacherField.text
-        tech.name = TeacherField.text
-        ComplectClass.classTeacher = tech
-        ComplectClass.classType = SegmentClassType1.titleForSegment(at: SegmentClassType1.selectedSegmentIndex)
-        ComplectClass.classDate = CustomDateClass(withDate: (dateFormatterForDate.date(from: "01.09.2017")!).addingTimeInterval(TimeInterval(60*60*24*(ChoosenDay))))
-        return ComplectClass
+    //////////////////////////////////////////////////////////////////////КОМПЛЕКТАЦИЯ ДАННЫХ
+    func ComplectInformation () {
+        ClassTempModel.classPlace = ClassRoomField.text
+        ClassTempModel.classSubject = SubjectField.text
+        TeacherTempModel = TeacherModel(Name: TeacherField.text!, FamilyName: TeacherField.text!, FatherName: TeacherField.text!)
+        ClassTempModel.classTeacher = TeacherTempModel
+        ClassTempModel.classType = ChoosenClassType
+        ClassTempModel.classEndTime = EndTime.text
+        ClassTempModel.classStartTime = BeginTime.text
+        ClassTempModel.classWeekDay = Int16(ChoosenDay)
+        ClassTempModel.classBeginDate = PeriodicStartDateValue
+        ClassTempModel.classEndDate = PeriodicEndDateValue
+        
     }
     
     func CheckSaveButton () {
-        if (SubjectField.text != "")&&(TeacherField.text != "")&&(ClassRoomField.text != "")&&((SegmentClassType2.selectedSegmentIndex != UISegmentedControlNoSegment)||(SegmentClassType1.selectedSegmentIndex != UISegmentedControlNoSegment)||(CustomClassTypeButton.backgroundColor == UIColor.blue))&&(BeginTime.text != "")&&(EndTime.text != "")&&(((RegularitySegment.selectedSegmentIndex == 0)&&(ChoosenDay != 0))||((RegularitySegment.selectedSegmentIndex == 1)&&(ArrayOfCustomDates.count != 0))) {
+        if (SubjectField.text != "")&&(TeacherField.text != "")&&(ClassRoomField.text != "")&&((SegmentClassType2.selectedSegmentIndex != UISegmentedControlNoSegment)||(SegmentClassType1.selectedSegmentIndex != UISegmentedControlNoSegment)||CustomClassTypeButtonMode)&&(BeginTime.text != "")&&(EndTime.text != "")&&(((RegularitySegment.selectedSegmentIndex == 0)&&(ChoosenDay != 0))||((RegularitySegment.selectedSegmentIndex == 1)&&(ArrayOfCustomDates.count != 0))) {
             self.navigationItem.rightBarButtonItems?.first?.isEnabled = true
         }
         else {
@@ -454,6 +474,9 @@ class EditClassController: UIViewController {
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
         RegularityCustomView.isHidden = true
+        
+        EndTime.placeholder = "Конец"
+        BeginTime.placeholder = "Начало"
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
