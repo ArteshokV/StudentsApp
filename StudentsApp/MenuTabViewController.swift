@@ -45,9 +45,10 @@ class MenuTabViewController: UIViewController {
         GroupSelectedLabel.text = selectedStudyPlace[2].name
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func changeTimetableButtonPressed(_ sender: Any) { //выбор просмотра заданий
+        self.hidesBottomBarWhenPushed = true
+        self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
+        self.hidesBottomBarWhenPushed = false
     }
     
 

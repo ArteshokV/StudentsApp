@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,32 +18,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LY0-bw-P3G">
-                                <rect key="frame" x="0.0" y="64" width="375" height="534"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Lb8-8Y-bxt" id="QMT-z2-kzQ"/>
-                                    <outlet property="delegate" destination="Lb8-8Y-bxt" id="jJd-t9-vvF"/>
-                                </connections>
-                            </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8f8-lE-VPN">
-                                <rect key="frame" x="67" y="609" width="240" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Сохранить изменения"/>
-                                <connections>
-                                    <action selector="TestAction:" destination="Lb8-8Y-bxt" eventType="touchUpInside" id="Uab-t3-dWW"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tbI-Dw-0fB">
+                                <rect key="frame" x="10" y="74" width="355" height="593"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LY0-bw-P3G">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="543"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Lb8-8Y-bxt" id="QMT-z2-kzQ"/>
+                                            <outlet property="delegate" destination="Lb8-8Y-bxt" id="jJd-t9-vvF"/>
+                                        </connections>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8f8-lE-VPN">
+                                        <rect key="frame" x="0.0" y="543" width="355" height="50"/>
+                                        <color key="backgroundColor" red="0.59673648509999999" green="0.91195757769999997" blue="0.52655021980000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Сохранить изменения"/>
+                                        <connections>
+                                            <action selector="TestAction:" destination="Lb8-8Y-bxt" eventType="touchUpInside" id="Uab-t3-dWW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8f8-lE-VPN" firstAttribute="height" secondItem="tbI-Dw-0fB" secondAttribute="height" multiplier="0.08" constant="2.8599999999999994" id="IHa-9z-Grw"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LY0-bw-P3G" firstAttribute="leading" secondItem="OBx-EZ-hUA" secondAttribute="leading" id="GGt-tf-LXQ"/>
-                            <constraint firstItem="8f8-lE-VPN" firstAttribute="leading" secondItem="OBx-EZ-hUA" secondAttribute="leading" constant="67" id="HIF-Dd-chn"/>
-                            <constraint firstItem="LY0-bw-P3G" firstAttribute="trailing" secondItem="OBx-EZ-hUA" secondAttribute="trailing" id="HuK-xN-Pyq"/>
-                            <constraint firstItem="OBx-EZ-hUA" firstAttribute="trailing" secondItem="8f8-lE-VPN" secondAttribute="trailing" constant="68" id="PjE-0f-HAT"/>
-                            <constraint firstItem="OBx-EZ-hUA" firstAttribute="bottom" secondItem="8f8-lE-VPN" secondAttribute="bottom" constant="20" id="Pok-kR-UKZ"/>
-                            <constraint firstItem="LY0-bw-P3G" firstAttribute="top" secondItem="OBx-EZ-hUA" secondAttribute="top" id="aWp-l4-xon"/>
-                            <constraint firstItem="8f8-lE-VPN" firstAttribute="top" secondItem="LY0-bw-P3G" secondAttribute="bottom" constant="11" id="i5e-zN-wXT"/>
+                            <constraint firstItem="OBx-EZ-hUA" firstAttribute="trailing" secondItem="tbI-Dw-0fB" secondAttribute="trailing" constant="10" id="WP4-Fp-YOe"/>
+                            <constraint firstItem="tbI-Dw-0fB" firstAttribute="leading" secondItem="OBx-EZ-hUA" secondAttribute="leading" constant="10" id="t1n-mB-uBe"/>
+                            <constraint firstItem="tbI-Dw-0fB" firstAttribute="top" secondItem="OBx-EZ-hUA" secondAttribute="top" constant="10" id="wr2-Bn-47K"/>
+                            <constraint firstItem="OBx-EZ-hUA" firstAttribute="bottom" secondItem="tbI-Dw-0fB" secondAttribute="bottom" id="xHd-pg-oet"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OBx-EZ-hUA"/>
                     </view>
@@ -56,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1A-Om-2w9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="161"/>
+            <point key="canvasLocation" x="520.79999999999995" y="160.56971514242881"/>
         </scene>
         <!--Edit Class Controller-->
         <scene sceneID="xpi-F7-bKI">
