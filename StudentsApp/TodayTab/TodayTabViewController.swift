@@ -287,7 +287,6 @@ extension TodayTabViewController: UITableViewDataSource{
             
         default:
             return 1
-            
         }
     }
  
