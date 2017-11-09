@@ -148,6 +148,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J77-x7-any">
                                         <rect key="frame" x="0.0" y="58" width="355" height="29"/>
                                         <state key="normal" title="Другое"/>
+                                        <connections>
+                                            <action selector="ChooseCustomClassType:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="86O-uj-jEO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -319,6 +322,9 @@
                                                     <segment title="Четная"/>
                                                     <segment title="Нечетная"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="ChooseParity:" destination="Kpp-3l-5M5" eventType="valueChanged" id="7Pb-R2-Jxi"/>
+                                                </connections>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wka-Sa-vF0" userLabel="StartDate">
                                                 <rect key="frame" x="0.0" y="68" width="355" height="29"/>
@@ -423,9 +429,9 @@
                         <outlet property="EndTime" destination="Eby-jH-WcZ" id="fe5-kU-vYg"/>
                         <outlet property="FridayButton" destination="lAg-Ol-twy" id="bdA-1b-JCH"/>
                         <outlet property="MondayButton" destination="5Qm-hP-zMb" id="SFG-In-i6n"/>
+                        <outlet property="ParitySegment" destination="b2P-iM-LYM" id="yoY-4R-R3O"/>
                         <outlet property="PeriodicEndDate" destination="kFx-U3-8xz" id="JYl-9B-15Q"/>
                         <outlet property="PeriodicEndDateLabel" destination="EBu-eL-8eZ" id="Ag6-pC-9vB"/>
-                        <outlet property="PeriodicSegment" destination="b2P-iM-LYM" id="MV2-24-j9q"/>
                         <outlet property="PeriodicStartDate" destination="pg2-Xd-RCt" id="OYR-Ys-NXk"/>
                         <outlet property="PeriodicStartDateLabel" destination="8Ri-Zw-eOt" id="dND-vQ-Q8P"/>
                         <outlet property="RegularityCustomView" destination="4F9-IZ-rdw" id="sgC-9J-I1u"/>
