@@ -38,6 +38,10 @@ class EditTimeTableController: UIViewController {
         self.performSegue(withIdentifier: "AddButtonPress", sender: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
+        TableOfClasses.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

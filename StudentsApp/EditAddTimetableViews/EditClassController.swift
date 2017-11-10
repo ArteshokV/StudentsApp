@@ -10,7 +10,7 @@ import UIKit
 
 class EditClassController: UIViewController {
     
-    private var TimesOfClassBegining = ["8:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
+    private var TimesOfClassBegining = ["08:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
     private var DateOfEndOfSemester = CustomDateClass(withString: "24.12.2017")//дата конца семестра
@@ -21,7 +21,8 @@ class EditClassController: UIViewController {
     private var dateFormatterForTime = DateFormatter()
     private var dateFormatterForDate = DateFormatter()
     private var ChoosenDay: Int = 0
-    private var ChoosenClassType: String?
+    private var ChoosenClassType: String = "Лекция"
+    private var ChoosenParity: Bool?
     private var WeekInterval: TimeInterval = 60*60*24*7
     private var FiveMinutesInterval: TimeInterval = 5*60
     private var OneDayInterval: TimeInterval = 60*60*24
@@ -34,6 +35,7 @@ class EditClassController: UIViewController {
     private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
     private var ArrayOfCustomDates: Array<CustomDateClass> = Array()
     private var CustomClassTypeButtonMode: Bool = false
+    private var CustomDateMode: Bool = false
 
 
     @IBOutlet weak var RegularityCustomView: UIView!
@@ -51,7 +53,7 @@ class EditClassController: UIViewController {
     
     @IBOutlet weak var TableForDates: UITableView!
     
-    @IBOutlet weak var PeriodicSegment: UISegmentedControl!
+    @IBOutlet weak var ParitySegment: UISegmentedControl!
     @IBOutlet weak var RegularitySegment: UISegmentedControl!
     @IBOutlet weak var SegmentClassType1: UISegmentedControl!
     @IBOutlet weak var SegmentClassType2: UISegmentedControl!
@@ -156,7 +158,7 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.setTitleColor(UIColor.white, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = true
-        ChoosenClassType = CustomClassTypeButton.titleLabel?.text
+        ChoosenClassType = (CustomClassTypeButton.titleLabel?.text)!
         CheckSaveButton()
     }
     
@@ -185,14 +187,29 @@ class EditClassController: UIViewController {
         CheckSaveButton()
     }
     
+    @IBAction func ChooseParity(_ sender: Any) {
+        if (ParitySegment.selectedSegmentIndex == 0) {
+            ChoosenParity = nil
+        }
+        if (ParitySegment.selectedSegmentIndex == 1) {
+            ChoosenParity = false
+        }
+        if (ParitySegment.selectedSegmentIndex == 2) {
+            ChoosenParity = true
+        }
+    }
+    
+    
     @IBAction func ChooseRegularity(_ sender: Any) {
         if (RegularitySegment.selectedSegmentIndex == 0) {
             RegularityView.isHidden = false
             RegularityCustomView.isHidden = true
+            CustomDateMode = false
         }
         else {
             RegularityView.isHidden = true
             RegularityCustomView.isHidden = false
+            CustomDateMode = true
         }
         CheckSaveButton()
     }
@@ -401,8 +418,10 @@ class EditClassController: UIViewController {
     
     //////////////////////////////////////////////////////////////////////КНОПКА СОХРАНИТЬ
     @IBAction func SaveButtonPressed (_ sender: Any) {
-        
-        (navigationController?.viewControllers[1] as! EditTimeTableController).TableOfClasses.reloadData()
+        ComplectInformation()
+        ClassTempModel.save()
+        //SubjectTempModel.save()
+        TeacherTempModel.save()
         navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
     }
     
@@ -421,10 +440,10 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = false
         if (SegmentClassType1.selectedSegmentIndex == 0) {
-            ChoosenClassType = SegmentClassType1.titleForSegment(at: 0)
+            ChoosenClassType = SegmentClassType1.titleForSegment(at: 0)!
         }
         else {
-            ChoosenClassType = SegmentClassType1.titleForSegment(at: 1)
+            ChoosenClassType = SegmentClassType1.titleForSegment(at: 1)!
         }
         CheckSaveButton()
     }
@@ -436,10 +455,10 @@ class EditClassController: UIViewController {
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = false
         if (SegmentClassType2.selectedSegmentIndex == 0) {
-            ChoosenClassType = SegmentClassType2.titleForSegment(at: 0)
+            ChoosenClassType = SegmentClassType2.titleForSegment(at: 0)!
         }
         else {
-            ChoosenClassType = SegmentClassType2.titleForSegment(at: 1)
+            ChoosenClassType = SegmentClassType2.titleForSegment(at: 1)!
         }
         CheckSaveButton()
     }
@@ -447,16 +466,25 @@ class EditClassController: UIViewController {
     //////////////////////////////////////////////////////////////////////КОМПЛЕКТАЦИЯ ДАННЫХ
     func ComplectInformation () {
         ClassTempModel.classPlace = ClassRoomField.text
+        SubjectTempModel.subjectName = SubjectField.text
         ClassTempModel.classSubject = SubjectField.text
-        TeacherTempModel = TeacherModel(Name: TeacherField.text!, FamilyName: TeacherField.text!, FatherName: TeacherField.text!)
+        TeacherTempModel.name = TeacherField.text
+        TeacherTempModel.familyName = TeacherField.text
+        TeacherTempModel.fatherName = TeacherField.text
         ClassTempModel.classTeacher = TeacherTempModel
         ClassTempModel.classType = ChoosenClassType
         ClassTempModel.classEndTime = EndTime.text
         ClassTempModel.classStartTime = BeginTime.text
         ClassTempModel.classWeekDay = Int16(ChoosenDay)
+        ClassTempModel.parity = ChoosenParity
         ClassTempModel.classBeginDate = PeriodicStartDateValue
         ClassTempModel.classEndDate = PeriodicEndDateValue
-        
+        if (CustomDateMode) {
+            ClassTempModel.classDate = nil
+        }
+        else {
+            ClassTempModel.classDate = nil
+        }
     }
     
     func CheckSaveButton () {
