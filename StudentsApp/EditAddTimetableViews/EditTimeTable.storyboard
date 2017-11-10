@@ -154,6 +154,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J77-x7-any">
                                                         <rect key="frame" x="0.0" y="58" width="355" height="29"/>
                                                         <state key="normal" title="Другое"/>
+                                                        <connections>
+                                                            <action selector="ChooseCustomClassType:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="byP-jc-oX6"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -328,6 +331,9 @@
                                                                     <segment title="Четная"/>
                                                                     <segment title="Нечетная"/>
                                                                 </segments>
+                                                                <connections>
+                                                                    <action selector="ChooseParity:" destination="Kpp-3l-5M5" eventType="valueChanged" id="vvJ-Xj-wLW"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wka-Sa-vF0" userLabel="StartDate">
                                                                 <rect key="frame" x="0.0" y="78" width="355" height="29"/>

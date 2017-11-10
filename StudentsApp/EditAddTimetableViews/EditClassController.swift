@@ -421,7 +421,7 @@ class EditClassController: UIViewController {
         ComplectInformation()
         ClassTempModel.save()
         //SubjectTempModel.save()
-        TeacherTempModel.save()
+        //TeacherTempModel.save()
         navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
     }
     
