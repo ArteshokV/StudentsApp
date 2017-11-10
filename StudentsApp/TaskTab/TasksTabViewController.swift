@@ -44,16 +44,14 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             viewHasChanges = false
             
             if(changesController == tasksFetchController){
-                ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
-                ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
-                
-            }
-            
-            if(changesController == activitiesFetchController){
                 TasksAtDayArray = TaskModel.getTasksGroupedByDate()
                 TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
                 TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
-                
+            }
+            
+            if(changesController == activitiesFetchController){
+                ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
+                ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
             }
             taskTable.reloadData()
         }
