@@ -38,22 +38,28 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     @IBOutlet weak var Segment: UISegmentedControl!
     
     override func viewWillAppear(_ animated: Bool) {
+        if(!(self.navigationController?.navigationBar.isHidden)!){
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        //self.navigationController?.setNavigationBarHidden(true, animated: false)
         if(viewHasChanges){
             viewHasChanges = false
-            
-            if(changesController == tasksFetchController){
-                TasksAtDayArray = TaskModel.getTasksGroupedByDate()
-                TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
-                TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
-            }
-            
-            if(changesController == activitiesFetchController){
-                ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
-                ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
-            }
+            updateData()
             taskTable.reloadData()
+        }
+    }
+    
+    func updateData(){
+        if(changesController == tasksFetchController){
+            TasksAtDayArray = TaskModel.getTasksGroupedByDate()
+            TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
+            TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+        }
+        
+        if(changesController == activitiesFetchController){
+            ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
+            ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
         }
     }
     
@@ -161,6 +167,10 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         default:
             parametr = "time"
             break
+        }
+        if(viewHasChanges){
+            viewHasChanges = false
+            updateData()
         }
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении

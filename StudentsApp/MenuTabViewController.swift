@@ -37,12 +37,23 @@ class MenuTabViewController: UIViewController {
 
         appDesign.initBackground(ofView: self.view)
         
-        
         // Do any additional setup after loading the view.
         selectedStudyPlace = getSetectedStudyPlace()
         UniversitySelectedLabel.text = selectedStudyPlace[0].name
         FacultySelectedLabel.text = selectedStudyPlace[1].name
         GroupSelectedLabel.text = selectedStudyPlace[2].name
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //self.navigationController?.navigationBar.backgroundColor = UIColor.clear
+        //self.navigationController?.navigationBar.barTintColor = UIColor.clear
+        //self.navigationController?.navigationBar.barStyle = .blackTranslucent
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        
     }
 
     @IBAction func changeTimetableButtonPressed(_ sender: Any) { //выбор просмотра заданий

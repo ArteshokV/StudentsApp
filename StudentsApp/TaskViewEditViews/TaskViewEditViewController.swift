@@ -22,6 +22,9 @@ class TaskViewEditViewController: UIViewController {
     
         appDesign.initBackground(ofView: self.view)
         
+        
+        
+        
       /*  let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackGroundImage")
         self.view.insertSubview(backgroundImage, at: 0)
@@ -33,7 +36,13 @@ class TaskViewEditViewController: UIViewController {
         self.view.insertSubview(blurEffectView, at: 1) */
         
         // Do any additional setup after loading the view.
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        
+        //!!!!!
+        //self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        
+        
         //self.navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = appDesign.tabBarColor
         
@@ -41,7 +50,13 @@ class TaskViewEditViewController: UIViewController {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:)))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
+        let item = UINavigationItem(title: "EDIT")
+        item.rightBarButtonItem = rightEditBarButtonItem
+        let topBar = UINavigationBar(frame: self.navigationController!.navigationBar.bounds)
+        topBar.pushItem(item, animated: false)
         
+        //self.navigationController?.set //navigationBar.alpha = 0
+        //self.view.addSubview(topBar)
         
         //navigationController?.navigationBar.titleTextAttributes = NSForegroundColorAttributeName: UIColor.red
         //self.navigationController?.navigationBar.tintColor = UIColor.red
@@ -56,8 +71,21 @@ class TaskViewEditViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
+        //self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(move))
+        //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+
         self.TaskViewTable.reloadData()
+    }
+    
+    @objc func move(_ sender: UIGestureRecognizer!){
+        //print(sender.location(in: self.view))
+        let alphaBar = abs(sender.location(in: self.view).x) / self.view.frame.width
+        //print((self.navigationController?.navigationBar.frame.height)! * alphaBar)
+        //self.navigationController?.navigationBar.alpha = alphaBar
+        self.navigationController?.navigationBar.frame.origin.y = 85//(self.navigationController?.navigationBar.frame.height)! * alphaBar
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,9 +114,6 @@ class TaskViewEditViewController: UIViewController {
     
             self.hidesBottomBarWhenPushed = true
             self.performSegue(withIdentifier: "fromTaskViewToTaskEdit", sender: self)
-           
-        
-        
     }
    
     
