@@ -28,8 +28,28 @@ class TimeTableTabViewController: UIViewController {
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
     @IBOutlet weak var TickLabel: UILabel!
     @IBOutlet weak var CollectionOfTables: UICollectionView!//коллекция таблиц
+    @IBOutlet weak var PagesControl: UIPageControl!
+    var pageOldValue: Int = 0
     
     
+    @IBAction func PageValueChanged(_ sender: UIPageControl) {
+        if ((PagesControl.currentPage - pageOldValue) > 0){
+            //Промотали вправо
+            var currentIndexPath = CollectionOfTables.indexPathsForVisibleItems[0]
+            currentIndexPath.item += 1
+            PagesControl.isEnabled = false
+            CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
+            pageOldValue = PagesControl.currentPage
+        }else if((PagesControl.currentPage - pageOldValue) < 0){
+            //Промотали влево
+            var currentIndexPath = CollectionOfTables.indexPathsForVisibleItems[0]
+            currentIndexPath.item -= 1
+            PagesControl.isEnabled = false
+            CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
+            pageOldValue = PagesControl.currentPage
+        }
+        
+    }
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
         DayLabel.text = TodayDate?.weekDayString()
@@ -37,6 +57,9 @@ class TimeTableTabViewController: UIViewController {
         EndOfWeekLabel.text = TodayDate?.weekEndString()
         BeginOfWeekLabel.text = TodayDate?.weekBeginSting()
         WeekNumberLabel.text = "\(TodayDate!.weekNumber(fromStartDate: "01.09.2017")) неделя"
+        
+        PagesControl.currentPage = CurrentDate.weekDayInt! - 1
+        pageOldValue = PagesControl.currentPage
     }
 
     
@@ -163,7 +186,17 @@ extension TimeTableTabViewController: UICollectionViewDelegate {
         if(visibleCell.CurrentTimeTable.count != 0){
             visibleCell.TableForClasses.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: true)
         }
+        PagesControl.isEnabled = true
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        PagesControl.isEnabled = false
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        PagesControl.isEnabled = true
+    }
+    
 }
 
 extension TimeTableTabViewController: UICollectionViewDataSource {
