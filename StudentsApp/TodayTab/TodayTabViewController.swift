@@ -67,13 +67,6 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
             self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
         }
     }
-    
-    func navigationController(_ navigationController: UINavigationController,
-                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?{
-        print("animationController")
-        //UIViewControllerInteractiveTransitioning(
-        return nil
-    }
 
     
     override func viewDidAppear(_ animated: Bool) {
