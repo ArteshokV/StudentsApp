@@ -13,9 +13,11 @@ class TaskEditViewController: UIViewController {
     var taskEditObject: TaskModel?
     
     
+    @IBOutlet weak var stackView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var subjectTable: UITableView!
-    @IBOutlet weak var stackView: UIStackView!
+    
+    @IBOutlet weak var prioritySegment: UISegmentedControl!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var NameShortLabel: UILabel!
     @IBOutlet weak var SubjectLabel: UILabel!
@@ -41,7 +43,7 @@ class TaskEditViewController: UIViewController {
     var counterS: Int = 0
     private var dateFormatterForDate = DateFormatter()
     private var CoorForAnimation:CGFloat = 0
-    
+    var pickerDate: Date?
     let appDesign = CustomApplicationLook()
     
     override func viewDidLoad() {
@@ -60,7 +62,7 @@ class TaskEditViewController: UIViewController {
         dateLabel.textColor = appDesign.subTextColor
         DateField.textColor = appDesign.mainTextColor
         priorityLabel.textColor = appDesign.subTextColor
-        priorityField.textColor = appDesign.mainTextColor
+       
         
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
@@ -69,7 +71,8 @@ class TaskEditViewController: UIViewController {
         DescriptionText.text = taskEditObject?.taskDescription
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
         //priorityField.text = taskEditObject?.taskPriority
-        switch taskEditObject?.taskPriority {
+        prioritySegment.selectedSegmentIndex = (taskEditObject?.taskPriority)!
+      /* switch taskEditObject?.taskPriority {
         case 0?:
             priorityField.text = "Низкий"
             break
@@ -83,7 +86,7 @@ class TaskEditViewController: UIViewController {
             priorityField.text = "Не установлен"
             break
         }
-        
+        */
         
         self.view.bringSubview(toFront: DescriptionText)
         DesrY = self.DescriptionText.frame.origin.y
@@ -122,6 +125,7 @@ class TaskEditViewController: UIViewController {
         )
         
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
+        self.view.bringSubview(toFront: stackView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -145,6 +149,8 @@ class TaskEditViewController: UIViewController {
         taskEditObject?.taskDescription = self.DescriptionText.text
         taskEditObject?.taskSubject = self.SubjectText.text
         taskEditObject?.taskNameShort = self.NameShortText.text
+        taskEditObject?.taskPriority = self.prioritySegment.selectedSegmentIndex
+        taskEditObject?.taskDate = CustomDateClass(withString: self.DateField.text!)
         taskEditObject?.save()
         self.navigationController?.popViewController(animated: true)
         
@@ -187,7 +193,7 @@ class TaskEditViewController: UIViewController {
         self.NameShortLabel.alpha = 1 }
         self.dateLabel.alpha = 1
         self.DateField.alpha = 1
-        self.priorityField.alpha = 1
+        
         self.priorityLabel.alpha = 1
         
         //self.view.bringSubview(toFront: self.bottomView)
@@ -233,7 +239,7 @@ class TaskEditViewController: UIViewController {
             self.NameShortLabel.alpha = 0 }
         self.dateLabel.alpha = 0
         self.DateField.alpha = 0
-        self.priorityField.alpha = 0
+        
         self.priorityLabel.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = 18 + (self.navigationController?.navigationBar.frame.height)!
@@ -268,7 +274,7 @@ class TaskEditViewController: UIViewController {
         self.NameShortLabel.alpha = 0
         self.dateLabel.alpha = 0
         self.DateField.alpha = 0
-        self.priorityField.alpha = 0
+        
         self.priorityLabel.alpha = 0
         
         self.navigationItem.hidesBackButton = true
@@ -289,7 +295,9 @@ class TaskEditViewController: UIViewController {
     }
     
     func touchDate() {
-       print("fghfdjfjd")
+       
+        self.stackView.backgroundColor = appDesign.secondGradientColor
+        
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
         let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
         doneButton.setTitle("Done", for: UIControlState.normal)
@@ -309,7 +317,7 @@ class TaskEditViewController: UIViewController {
         }
         
         datePicker.addTarget(self, action: #selector(TaskEditViewController.ChangeTaskDate), for: UIControlEvents.valueChanged)
-        self.stackView.layer.backgroundColor = UIColor.darkGray.cgColor
+      
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                 self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.stackView.center.y - self.stackView.frame.height/2)
                 self.stackView.center.y -= self.CoorForAnimation
@@ -326,12 +334,14 @@ class TaskEditViewController: UIViewController {
                 self.CoorForAnimation = 0
                 
             }, completion: nil)
-        
+     self.stackView.backgroundColor = UIColor.clear
     }
     
     
     @objc func ChangeTaskDate (sender:UIDatePicker) {
         DateField.text = dateFormatterForDate.string(from: sender.date)
+        self.pickerDate = sender.date
+        //print ("\(string(self.pickerDate))")
     }
     /*
     // MARK: - Navigation
