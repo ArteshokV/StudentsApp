@@ -22,31 +22,14 @@ class TaskViewEditViewController: UIViewController {
     
         appDesign.initBackground(ofView: self.view)
         
-        
-        
-        
-      /*  let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "BackGroundImage")
-        self.view.insertSubview(backgroundImage, at: 0)
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.insertSubview(blurEffectView, at: 1) */
+      
         
         // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
-        
-        //!!!!!
-        //self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        
-        
-        //self.navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = appDesign.tabBarColor
         
-        /* let rightAddBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Редактировать", style: UIBarButtonItemStyle.plain, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:))) */
+       
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:)))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
@@ -54,15 +37,6 @@ class TaskViewEditViewController: UIViewController {
         item.rightBarButtonItem = rightEditBarButtonItem
         let topBar = UINavigationBar(frame: self.navigationController!.navigationBar.bounds)
         topBar.pushItem(item, animated: false)
-        
-        //self.navigationController?.set //navigationBar.alpha = 0
-        //self.view.addSubview(topBar)
-        
-        //navigationController?.navigationBar.titleTextAttributes = NSForegroundColorAttributeName: UIColor.red
-        //self.navigationController?.navigationBar.tintColor = UIColor.red
-        //self.navigationController?.navigationBar.barTintColor = UIColor.clear
-       
-        
         
         TaskViewTable.backgroundColor = UIColor.clear
         let taskCellNib = UINib(nibName: "TaskTapViewCell", bundle: nil)
