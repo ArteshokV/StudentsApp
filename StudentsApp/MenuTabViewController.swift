@@ -91,7 +91,7 @@ class MenuTabViewController: UIViewController {
         registerChangeButton.layer.cornerRadius = 15.0
         appDesign.managedLayersContext.append(registerChangeButton)
         
-        userImage.layer.cornerRadius = userImage.frame.width / 2
+        //userImage.layer.cornerRadius = userImage.frame.height / 2
         userImage.layer.borderWidth = 0.5
         userImage.layer.borderColor = UIColor.black.cgColor
         userImage.backgroundColor = UIColor.white.withAlphaComponent(0.2)
@@ -113,6 +113,11 @@ class MenuTabViewController: UIViewController {
         UniversitySelectedLabel.text = selectedStudyPlace[0].name
         FacultySelectedLabel.text = selectedStudyPlace[1].name
         GroupSelectedLabel.text = selectedStudyPlace[2].name
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        userImage.layer.cornerRadius = userImage.frame.height / 2 - 1
     }
 
     @IBAction func changeTimetableButtonPressed(_ sender: Any) { //выбор просмотра заданий
