@@ -56,6 +56,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Четн" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdz-A2-zwJ">
+                        <rect key="frame" x="220" y="8" width="77" height="21"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="tah-X5-FKV" secondAttribute="trailing" constant="52" id="42L-ov-G5Y"/>
@@ -66,19 +73,23 @@
                     <constraint firstItem="Qch-8i-sjW" firstAttribute="top" secondItem="0uN-5K-3LR" secondAttribute="bottom" constant="6" id="GJw-81-xw3"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Qch-8i-sjW" secondAttribute="trailing" constant="52" id="LmG-iY-sbz"/>
                     <constraint firstItem="tah-X5-FKV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="87" id="P9v-Bh-ldG"/>
+                    <constraint firstItem="Wdz-A2-zwJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Sxt-xW-X0C"/>
                     <constraint firstItem="0uN-5K-3LR" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="a58-Dp-BjT"/>
                     <constraint firstItem="Vad-iM-2HF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="hLi-C6-pLE"/>
                     <constraint firstItem="3ls-ca-6Bj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hw0-rq-GGw"/>
                     <constraint firstItem="Qch-8i-sjW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="87" id="iaL-po-yjP"/>
+                    <constraint firstItem="Wdz-A2-zwJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="212" id="lg8-XQ-XoZ"/>
                     <constraint firstItem="tah-X5-FKV" firstAttribute="top" secondItem="Qch-8i-sjW" secondAttribute="bottom" constant="2" id="m4U-X9-Pe2"/>
                     <constraint firstItem="6pm-iF-jGJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="nvf-P7-vUk"/>
                     <constraint firstItem="0uN-5K-3LR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="87" id="p7R-60-u2S"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Wdz-A2-zwJ" secondAttribute="trailing" constant="38.5" id="ucM-TA-nCw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="ClassTypeLabel" destination="Vad-iM-2HF" id="lCK-9O-h9A"/>
                 <outlet property="EndTimeLabel" destination="6pm-iF-jGJ" id="Qeu-iK-cpB"/>
+                <outlet property="ParityLabel" destination="Wdz-A2-zwJ" id="2Dt-o1-ncH"/>
                 <outlet property="PlaceLabel" destination="tah-X5-FKV" id="hPF-Cv-gG1"/>
                 <outlet property="StartTimeLabel" destination="3ls-ca-6Bj" id="4AN-Aj-Tr2"/>
                 <outlet property="SubjectNameLabel" destination="0uN-5K-3LR" id="Tkv-hO-CFg"/>

@@ -12,6 +12,8 @@ class EditTimeTableController: UIViewController {
     
     private var TimeTableChangesArray: Array<Array<TimetableModel>> = TimetableModel.getTimetableForChanges()
     private var TimetableCellIdentifier = "TimeTableCell"
+    var chosenObject:IndexPath? //IndexPath(row: 0, section: 0)
+    var shouldShowStartButton = false
     
     let WeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Одиночные даты"]
     
@@ -29,26 +31,15 @@ class EditTimeTableController: UIViewController {
         //TimeTableModelArray.append(GetterClass)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "AddButtonPress") {
-        }
-    }
-    
     @IBAction func AddButtonPressed (_ sender:Any) {
         self.performSegue(withIdentifier: "AddButtonPress", sender: self)
     }
     
-    /*override func viewWillAppear(_ animated: Bool) {
-        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
-        TableOfClasses.reloadData()
-    }*/
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CompleteButton.isHidden = true
         appDesign.initBackground(ofView: self.view)
         TableOfClasses.backgroundColor = UIColor.clear
-        CompleteButton.isHidden = true
         if(!UserDefaults.standard.bool(forKey: "databaseIsInited")){CompleteButton.setTitle("Начать работу", for: .normal)}
         
         setupNavigationBar()
@@ -63,6 +54,12 @@ class EditTimeTableController: UIViewController {
         TableOfClasses.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewWillAppear(animated)
+        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
+        TableOfClasses.reloadData()
+        
+        if(shouldShowStartButton){
+            CompleteButton.isHidden = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,7 +81,21 @@ class EditTimeTableController: UIViewController {
 // MARK: - UITableViewDelegate protocol
 extension EditTimeTableController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        chosenObject = indexPath
+        self.performSegue(withIdentifier: "AddButtonPress", sender: self)
+        chosenObject = nil
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if((segue.identifier == "AddButtonPress")&&(chosenObject != nil)){
+            let editVC = segue.destination as! EditClassController
+            if (TimeTableChangesArray[chosenObject!.section].count != 0) {
+                editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+            }
+            else {
+                editVC.ClassTempModel = nil
+            }
+        }
     }
 }
 
@@ -108,6 +119,7 @@ extension EditTimeTableController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(TimeTableChangesArray[indexPath.section].count != 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
+            cell.EditMode = true
             cell.initWithTimetable(model: TimeTableChangesArray[indexPath.section][indexPath.row])
             return cell
         }else{

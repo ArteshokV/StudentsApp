@@ -71,6 +71,10 @@ extension AppLookSelectionViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: appLookCellIdentifier, for: indexPath)
         cell.textLabel?.text = appLooksArray[indexPath.row].lookName
+        cell.backgroundColor = appDesign.underLayerColor
+        cell.textLabel?.textColor = appDesign.mainTextColor
+        appDesign.managedLayersContext.append(cell)
+        appDesign.managedMainLablesContext.append(cell.textLabel)
         return cell
     }
     

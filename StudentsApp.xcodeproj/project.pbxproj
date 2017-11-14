@@ -37,6 +37,7 @@
 		4E94FFD11F8E044800B7C86E /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */; };
 		4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */; };
 		4E94FFD51F8E0A8000B7C86E /* TimetableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */; };
+		4ED5D3481FBB8179003071B3 /* FirstSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5D3471FBB8179003071B3 /* FirstSetupViewController.swift */; };
 		4EDCC5721FB0F10F00FE887F /* AppLookSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCC5711FB0F10F00FE887F /* AppLookSelectionViewController.swift */; };
 		84095B5E1FA78B0B0016FB10 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */; };
 		8436D76D1F9794B4001622EB /* TimeTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */; };
@@ -89,6 +90,7 @@
 		4E94FFCF1F8E044800B7C86E /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		4E94FFD21F8E0A8000B7C86E /* TimetableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableTableViewCell.swift; sourceTree = "<group>"; };
 		4E94FFD31F8E0A8000B7C86E /* TimetableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimetableTableViewCell.xib; sourceTree = "<group>"; };
+		4ED5D3471FBB8179003071B3 /* FirstSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSetupViewController.swift; sourceTree = "<group>"; };
 		4EDCC5711FB0F10F00FE887F /* AppLookSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLookSelectionViewController.swift; sourceTree = "<group>"; };
 		84095B5D1FA78B0B0016FB10 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		8436D76B1F9794B4001622EB /* TimeTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				4E679CBC1F9F87C200833CF5 /* Login.storyboard */,
 				4E679CB71F9F4A6800833CF5 /* StudyPlaceSelectionViewController.swift */,
+				4ED5D3471FBB8179003071B3 /* FirstSetupViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -259,9 +262,9 @@
 		4E94FFF81F9156D700B7C86E /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C539E1F86D0730012329E /* TaskModel.swift */,
 				4E7C53A01F86DD190012329E /* TimetableModel.swift */,
-				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
 				BEEFD4B11FA790F50062385A /* TeacherModel.swift */,
@@ -379,6 +382,7 @@
 				4E94FFD41F8E0A8000B7C86E /* TimetableTableViewCell.swift in Sources */,
 				4E7C538F1F86CEC10012329E /* ViewController.swift in Sources */,
 				4E02D4BE1FA3666300E4A969 /* LowNetworkClass.swift in Sources */,
+				4ED5D3481FBB8179003071B3 /* FirstSetupViewController.swift in Sources */,
 				4E94FFCD1F8CFF7300B7C86E /* CustomDateClass.swift in Sources */,
 				4E2F70931FAD206D00F67216 /* CoreDataModel.xcdatamodeld in Sources */,
 				BEEFD4B21FA790F50062385A /* TeacherModel.swift in Sources */,

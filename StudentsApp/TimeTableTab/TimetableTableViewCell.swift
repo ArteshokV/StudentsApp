@@ -15,7 +15,9 @@ class TimetableTableViewCell: UITableViewCell {
     @IBOutlet weak var SubjectNameLabel: UILabel!
     @IBOutlet weak var TeacherLabel: UILabel!
     @IBOutlet weak var PlaceLabel: UILabel!
+    @IBOutlet weak var ParityLabel: UILabel!
     
+    var EditMode: Bool = false
     var timetableModelObject: TimetableModel?
     let customAppLook = CustomApplicationLook()
     
@@ -27,6 +29,8 @@ class TimetableTableViewCell: UITableViewCell {
         // Initialization code
         sepLine = UIView(frame: self.frame)
         self.contentView.addSubview(sepLine!)
+        
+        ParityLabel.isHidden = true
         
         customAppLook.managedLayersContext.append(self)
         //self.backgroundColor = customAppLook.underLayerColor
@@ -50,7 +54,28 @@ class TimetableTableViewCell: UITableViewCell {
     
     func initWithTimetable(model: TimetableModel){
         timetableModelObject = model
-
+        
+        if (EditMode) {
+            if (self.timetableModelObject?.classDate != nil) {
+                ParityLabel.isHidden = false
+                ParityLabel.text = self.timetableModelObject?.classDate?.stringFromDate()
+            }
+            else {
+                if (self.timetableModelObject?.parity != nil) {
+                    if (self.timetableModelObject?.parity)! {
+                        ParityLabel.isHidden = false
+                        ParityLabel.text = "Нечет"
+                    }
+                    else {
+                        ParityLabel.isHidden = false
+                        ParityLabel.text = "Чет"
+                    }
+                }else{
+                    ParityLabel.isHidden = true
+                }
+            }
+        }
+        
         self.ClassTypeLabel.text = timetableModelObject?.classType != nil ? timetableModelObject?.classType! : "(Не указано)";
         self.StartTimeLabel.text = timetableModelObject?.classStartTime != nil ? timetableModelObject?.classStartTime! : "-:-";
         self.EndTimeLabel.text = timetableModelObject?.classEndTime != nil ? timetableModelObject?.classEndTime! : "-:-";

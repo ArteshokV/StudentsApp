@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tbI-Dw-0fB">
-                                <rect key="frame" x="10" y="74" width="355" height="593"/>
+                                <rect key="frame" x="10" y="64" width="355" height="603"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="LY0-bw-P3G">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="543"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="552"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="Lb8-8Y-bxt" id="QMT-z2-kzQ"/>
@@ -31,12 +31,13 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8f8-lE-VPN">
-                                        <rect key="frame" x="0.0" y="543" width="355" height="50"/>
+                                        <rect key="frame" x="0.0" y="552" width="355" height="51"/>
                                         <color key="backgroundColor" red="0.59673648509999999" green="0.91195757769999997" blue="0.52655021980000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal" title="Сохранить изменения"/>
                                         <connections>
                                             <action selector="TestAction:" destination="Lb8-8Y-bxt" eventType="touchUpInside" id="Uab-t3-dWW"/>
+                                            <segue destination="5eo-ks-V63" kind="presentation" id="yHY-ls-sJi"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -49,7 +50,7 @@
                         <constraints>
                             <constraint firstItem="OBx-EZ-hUA" firstAttribute="trailing" secondItem="tbI-Dw-0fB" secondAttribute="trailing" constant="10" id="WP4-Fp-YOe"/>
                             <constraint firstItem="tbI-Dw-0fB" firstAttribute="leading" secondItem="OBx-EZ-hUA" secondAttribute="leading" constant="10" id="t1n-mB-uBe"/>
-                            <constraint firstItem="tbI-Dw-0fB" firstAttribute="top" secondItem="OBx-EZ-hUA" secondAttribute="top" constant="10" id="wr2-Bn-47K"/>
+                            <constraint firstItem="tbI-Dw-0fB" firstAttribute="top" secondItem="OBx-EZ-hUA" secondAttribute="top" id="wr2-Bn-47K"/>
                             <constraint firstItem="OBx-EZ-hUA" firstAttribute="bottom" secondItem="tbI-Dw-0fB" secondAttribute="bottom" id="xHd-pg-oet"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OBx-EZ-hUA"/>
@@ -65,6 +66,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1A-Om-2w9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="520.79999999999995" y="160.56971514242881"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="aR1-cf-a5q">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="5eo-ks-V63" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7U4-DX-xqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="520" y="645"/>
         </scene>
         <!--Edit Class Controller-->
         <scene sceneID="xpi-F7-bKI">
@@ -154,6 +163,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J77-x7-any">
                                                         <rect key="frame" x="0.0" y="58" width="355" height="29"/>
                                                         <state key="normal" title="Другое"/>
+                                                        <connections>
+                                                            <action selector="ChooseCustomClassType:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="byP-jc-oX6"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -233,32 +245,6 @@
                                                     <action selector="ChooseRegularity:" destination="Kpp-3l-5M5" eventType="valueChanged" id="Dnf-sn-Drz"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4F9-IZ-rdw">
-                                                <rect key="frame" x="0.0" y="384" width="375" height="151"/>
-                                                <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Qb-dh-E6Q">
-                                                        <rect key="frame" x="10" y="0.0" width="355" height="120.5"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </tableView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoM-8y-Kmw">
-                                                        <rect key="frame" x="0.0" y="125" width="375" height="30"/>
-                                                        <state key="normal" title="Добавить дату"/>
-                                                        <connections>
-                                                            <action selector="CreateNewDateInTable:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="m7A-YD-oEs"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="top" secondItem="4F9-IZ-rdw" secondAttribute="top" id="7Ih-9m-2eA"/>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" constant="10" id="Kj6-cl-EOA"/>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="height" secondItem="4F9-IZ-rdw" secondAttribute="height" multiplier="0.8" id="UBp-Fc-TVp"/>
-                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="top" secondItem="2Qb-dh-E6Q" secondAttribute="bottom" constant="5" id="b9C-mN-9Wb"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2Qb-dh-E6Q" secondAttribute="trailing" constant="10" id="d9L-V3-wck"/>
-                                                    <constraint firstAttribute="trailing" secondItem="DoM-8y-Kmw" secondAttribute="trailing" id="mMi-Uy-rKF"/>
-                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" id="z9O-3Z-YZO"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RXV-qa-IAj">
                                                 <rect key="frame" x="0.0" y="384" width="375" height="151"/>
                                                 <subviews>
@@ -328,6 +314,9 @@
                                                                     <segment title="Четная"/>
                                                                     <segment title="Нечетная"/>
                                                                 </segments>
+                                                                <connections>
+                                                                    <action selector="ChooseParity:" destination="Kpp-3l-5M5" eventType="valueChanged" id="vvJ-Xj-wLW"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wka-Sa-vF0" userLabel="StartDate">
                                                                 <rect key="frame" x="0.0" y="78" width="355" height="29"/>
@@ -386,7 +375,47 @@
                                                     <constraint firstAttribute="bottom" secondItem="o8j-n2-0p3" secondAttribute="bottom" id="nVl-HA-JhI"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-JI-eKt">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4F9-IZ-rdw">
+                                                <rect key="frame" x="0.0" y="384" width="375" height="151"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Qb-dh-E6Q">
+                                                        <rect key="frame" x="10" y="0.0" width="355" height="120.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dd" id="qWh-x8-skH">
+                                                                <rect key="frame" x="0.0" y="28" width="355" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qWh-x8-skH" id="eNu-t4-tY4">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="355" height="43.5"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="Kpp-3l-5M5" id="2Nn-EK-ZLS"/>
+                                                            <outlet property="delegate" destination="Kpp-3l-5M5" id="iDh-m4-yWA"/>
+                                                        </connections>
+                                                    </tableView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoM-8y-Kmw">
+                                                        <rect key="frame" x="0.0" y="125" width="375" height="30"/>
+                                                        <state key="normal" title="Добавить дату"/>
+                                                        <connections>
+                                                            <action selector="CreateNewDateInTable:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="m7A-YD-oEs"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="top" secondItem="4F9-IZ-rdw" secondAttribute="top" id="7Ih-9m-2eA"/>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" constant="10" id="Kj6-cl-EOA"/>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="height" secondItem="4F9-IZ-rdw" secondAttribute="height" multiplier="0.8" id="UBp-Fc-TVp"/>
+                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="top" secondItem="2Qb-dh-E6Q" secondAttribute="bottom" constant="5" id="b9C-mN-9Wb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Qb-dh-E6Q" secondAttribute="trailing" constant="10" id="d9L-V3-wck"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DoM-8y-Kmw" secondAttribute="trailing" id="mMi-Uy-rKF"/>
+                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" id="z9O-3Z-YZO"/>
+                                                </constraints>
+                                            </view>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-JI-eKt">
                                                 <rect key="frame" x="10" y="560" width="355" height="40"/>
                                                 <color key="backgroundColor" red="0.84644961357116699" green="0.37284656854681453" blue="0.22425206671299361" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -395,6 +424,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Удалить занятие"/>
+                                                <connections>
+                                                    <action selector="DeleteClass:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="GsI-9f-qU9"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -435,6 +467,9 @@
                                     <constraint firstItem="RXf-Wk-JEy" firstAttribute="top" secondItem="6B9-0S-b1a" secondAttribute="top" id="jSg-0Y-KYi"/>
                                     <constraint firstItem="RXf-Wk-JEy" firstAttribute="leading" secondItem="6B9-0S-b1a" secondAttribute="leading" id="m7r-od-G0m"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Kpp-3l-5M5" id="MHS-7t-jtf"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,6 +499,7 @@
                         <outlet property="RegularitySegment" destination="Ksa-EH-4MB" id="oPx-m2-zl6"/>
                         <outlet property="RegularityView" destination="RXV-qa-IAj" id="E9V-nh-f59"/>
                         <outlet property="SaturdayButton" destination="AL2-N2-lcw" id="ZaE-Zg-gUs"/>
+                        <outlet property="ScrollView" destination="6B9-0S-b1a" id="JON-af-zhs"/>
                         <outlet property="SegmentClassType1" destination="L9i-x7-KWA" id="7DH-TJ-NbL"/>
                         <outlet property="SegmentClassType2" destination="FMa-85-4yF" id="jvk-KP-cH1"/>
                         <outlet property="SegmentOfNumberOfClass" destination="PBN-c1-q39" id="GRh-2c-Bw5"/>

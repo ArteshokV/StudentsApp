@@ -201,7 +201,7 @@ class TimetableModel: NSObject {
         //--- Handle convertion for time from str to int16
         timeTableDatabaseObject?.startTime = timeStringToInt(str: self.classStartTime!)
         timeTableDatabaseObject?.endTime = timeStringToInt(str: self.classEndTime!)
-        //timeTableDatabaseObject?.teacher
+        timeTableDatabaseObject?.teacher = self.classTeacher?.getDataBaseEntity()
         timeTableDatabaseObject?.place = self.classPlace
         timeTableDatabaseObject?.type = self.classType
         timeTableDatabaseObject?.date = self.classDate != nil ? self.classDate?.currentDate : nil;

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class EditClassController: UIViewController {
+class EditClassController: UIViewController, UIScrollViewDelegate {
     
+    // MARK: - Переменные
     private var TimesOfClassBegining = ["08:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
@@ -21,23 +22,27 @@ class EditClassController: UIViewController {
     private var dateFormatterForTime = DateFormatter()
     private var dateFormatterForDate = DateFormatter()
     private var ChoosenDay: Int = 0
-    private var ChoosenClassType: String = "Лекция"
+    private var ChoosenClassType: String?
     private var ChoosenParity: Bool?
     private var WeekInterval: TimeInterval = 60*60*24*7
     private var FiveMinutesInterval: TimeInterval = 5*60
     private var OneDayInterval: TimeInterval = 60*60*24
-    private var CoorForAnimation:CGFloat = 0
     private var AnimationDo: Bool = false
-    private var ClassTempModel: TimetableModel = TimetableModel()
+    var ClassTempModel: TimetableModel! //= TimetableModel()
     private var SubjectTempModel: SubjectModel = SubjectModel()
     private var TeacherTempModel: TeacherModel = TeacherModel()
     private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
     private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
+    private var CustomDateInTable: CustomDateClass = CustomDateClass()
     private var ArrayOfCustomDates: Array<CustomDateClass> = Array()
     private var CustomClassTypeButtonMode: Bool = false
     private var CustomDateMode: Bool = false
+    private var customViewForDatePicker = UIView()
+    private var doneButtonInSubview = UIButton()
+    private var datePickerInSubview = UIDatePicker()
 
-
+    @IBOutlet weak var ScrollView: UIScrollView!
+    
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
     
@@ -70,87 +75,115 @@ class EditClassController: UIViewController {
     @IBOutlet weak var PeriodicStartDateLabel: UILabel!
     @IBOutlet weak var PeriodicEndDateLabel: UILabel!
     
+    // MARK: - Функции
+    
+    func ComplectDatePickerView () {
+        customViewForDatePicker = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 240, width: self.view.frame.width, height: 240))
+        customViewForDatePicker.backgroundColor = UIColor.lightGray
+        doneButtonInSubview = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
+        doneButtonInSubview.setTitle("Done", for: UIControlState.normal)
+        doneButtonInSubview.setTitleColor(UIColor.black, for: UIControlState.normal)
+        doneButtonInSubview.setTitle("Done", for: UIControlState.highlighted)
+        doneButtonInSubview.setTitleColor(UIColor.white, for: UIControlState.highlighted)
+        doneButtonInSubview.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
+        datePickerInSubview = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
+        customViewForDatePicker.addSubview(datePickerInSubview)
+        customViewForDatePicker.addSubview(doneButtonInSubview)
+    }
+    
+    func CheckDateInTable (DateForCheck: CustomDateClass) -> Bool {
+        if (ArrayOfCustomDates.count != 0) {
+            for CustomDate in ArrayOfCustomDates {
+                if (CustomDate == DateForCheck) {
+                    return false
+                }
+            }
+            return true
+        }
+        else {
+            return true
+        }
+    }
     
     func ChooseDay (DayNumber: Int) {
         if (DayNumber == 1) {
+            setWhiteColorsToDaysButtons()
             MondayButton.backgroundColor = UIColor.lightGray
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 2) {
-            MondayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             TuesdayButton.backgroundColor = UIColor.lightGray
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 3) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             WednesdayButton.backgroundColor = UIColor.lightGray
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 4) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             ThursdayButton.backgroundColor = UIColor.lightGray
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 5) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             FridayButton.backgroundColor = UIColor.lightGray
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 6) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             SaturdayButton.backgroundColor = UIColor.lightGray
+        }
+        if (DayNumber != 0) {
             ChoosenDay = DayNumber
             PeriodicStartDateValue = DateOfBeginOfSemester
             PeriodicEndDateValue = DateOfEndOfSemester
             PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
             PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
+            ArrayOfCustomDates = Array()
+            TableForDates.reloadData()
         }
     }
+    
+    func setWhiteColorsToDaysButtons(){
+        MondayButton.backgroundColor = UIColor.white
+        TuesdayButton.backgroundColor = UIColor.white
+        WednesdayButton.backgroundColor = UIColor.white
+        ThursdayButton.backgroundColor = UIColor.white
+        FridayButton.backgroundColor = UIColor.white
+        SaturdayButton.backgroundColor = UIColor.white
+    }
+    
+    func SetClassType (CurrentClassType: String?) {
+        if (CurrentClassType == nil) {
+            SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
+            SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
+        }
+        else {
+            if (CurrentClassType == "Лекция") {
+                SegmentClassType1.selectedSegmentIndex = 0
+                SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
+            }
+            if (CurrentClassType == "Семинар") {
+                SegmentClassType1.selectedSegmentIndex = 1
+                SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
+            }
+            if (CurrentClassType == "Лабораторная") {
+                SegmentClassType2.selectedSegmentIndex = 0
+                SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
+            }
+            if (CurrentClassType == "Консультация") {
+                SegmentClassType2.selectedSegmentIndex = 1
+                SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
+            }
+            if !((CurrentClassType == "Лекция")||(CurrentClassType == "Семинар")||(CurrentClassType == "Лабораторная")||(CurrentClassType == "Консультация")) {
+                SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
+                SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
+                CustomClassTypeButton.backgroundColor = UIColor.blue
+                CustomClassTypeButton.setTitleColor(UIColor.white, for: .normal)
+                CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+                CustomClassTypeButtonMode = true
+                CustomClassTypeButton.titleLabel?.text = CurrentClassType
+            }
+        }
+    }
+    
     @IBAction func ChooseCustomClassType(_ sender: Any) {
         SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
         SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
@@ -187,6 +220,20 @@ class EditClassController: UIViewController {
         CheckSaveButton()
     }
     
+    func  SetParity (CurrentParity: Bool?) {
+        if (CurrentParity == nil) {
+            ParitySegment.selectedSegmentIndex = 0
+        }
+        else {
+            if (!CurrentParity!) {
+                ParitySegment.selectedSegmentIndex = 1
+            }
+            if (CurrentParity)! {
+                ParitySegment.selectedSegmentIndex = 2
+            }
+        }
+    }
+    
     @IBAction func ChooseParity(_ sender: Any) {
         if (ParitySegment.selectedSegmentIndex == 0) {
             ChoosenParity = nil
@@ -197,8 +244,26 @@ class EditClassController: UIViewController {
         if (ParitySegment.selectedSegmentIndex == 2) {
             ChoosenParity = true
         }
+        ArrayOfCustomDates = Array()
+        TableForDates.reloadData()
     }
     
+    func SetRegularity (CustomDate: CustomDateClass?) {
+        if (CustomDate == nil) {
+            RegularitySegment.selectedSegmentIndex = 0
+            RegularityView.isHidden = false
+            RegularityCustomView.isHidden = true
+            CustomDateMode = false
+        }
+        else {
+            RegularitySegment.selectedSegmentIndex = 1
+            RegularityView.isHidden = true
+            RegularityCustomView.isHidden = false
+            CustomDateMode = true
+            ArrayOfCustomDates.append(CustomDate!)
+            TableForDates.reloadData()
+        }
+    }
     
     @IBAction func ChooseRegularity(_ sender: Any) {
         if (RegularitySegment.selectedSegmentIndex == 0) {
@@ -213,108 +278,79 @@ class EditClassController: UIViewController {
         }
         CheckSaveButton()
     }
+
     
     @IBAction func CreateNewDateInTable(_ sender: Any) {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
-        customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
-        datePicker.datePickerMode = UIDatePickerMode.date
+        ComplectDatePickerView()
+        datePickerInSubview.datePickerMode = UIDatePickerMode.date
+        datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChooseCustomDateInTable), for: UIControlEvents.valueChanged)
+        self.view.addSubview(customViewForDatePicker)
+        if (!AnimationDo) {
+            self.AnimationDo = true
+            ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityCustomView.frame.origin.y), animated: true)
+        }
+        CreateNewDateForTableButton.isEnabled = false
     }
     
-    //////////////////////////////////////////////////////////////////////ДАТА ПИКЕРЫ
+    // MARK: - ДАТА ПИКЕРЫ
     @IBAction func ChoosePeriodicStartDate(_ sender: Any) {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
-        customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
-        datePicker.datePickerMode = UIDatePickerMode.date
-        PeriodicStartDate.inputView = customView
+        ComplectDatePickerView()
+        datePickerInSubview.datePickerMode = UIDatePickerMode.date
+        PeriodicStartDate.inputView = customViewForDatePicker
         PeriodicStartDate.tintColor = UIColor.clear
-        datePicker.minimumDate = DateOfBeginOfSemester.currentDate
+        datePickerInSubview.minimumDate = DateOfBeginOfSemester.currentDate
         if (PeriodicStartDate.text != "") {
-            datePicker.setDate(PeriodicStartDateValue.currentDate!, animated: false)
+            datePickerInSubview.setDate(PeriodicStartDateValue.currentDate!, animated: false)
         }
         if (PeriodicEndDate.text != "") {
-            datePicker.maximumDate = PeriodicEndDateValue.currentDate?.addingTimeInterval(-WeekInterval)
+            datePickerInSubview.maximumDate = PeriodicEndDateValue.currentDate?.addingTimeInterval(-WeekInterval)
         }
-        datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
+        
+        datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
-                self.RegularityView.center.y -= self.CoorForAnimation
-                self.AnimationDo = true
-            }, completion: nil)
+            self.AnimationDo = true
+            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
         }
+        ArrayOfCustomDates = Array()
+        TableForDates.reloadData()
     }
     
     @IBAction func ChoosePeriodicEndDate(_ sender: Any) {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
-        customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
-        datePicker.datePickerMode = UIDatePickerMode.date
-        PeriodicEndDate.inputView = customView
+        ComplectDatePickerView()
+        datePickerInSubview.datePickerMode = UIDatePickerMode.date
+        PeriodicEndDate.inputView = customViewForDatePicker
         PeriodicEndDate.tintColor = UIColor.clear
-        datePicker.maximumDate = DateOfEndOfSemester.currentDate
+        datePickerInSubview.maximumDate = DateOfEndOfSemester.currentDate
         if (PeriodicEndDate.text != "") {
-            datePicker.setDate(PeriodicEndDateValue.currentDate!, animated: false)
+            datePickerInSubview.setDate(PeriodicEndDateValue.currentDate!, animated: false)
         }
         if (PeriodicStartDate.text != "") {
-            datePicker.minimumDate = PeriodicStartDateValue.currentDate?.addingTimeInterval(WeekInterval)
+            datePickerInSubview.minimumDate = PeriodicStartDateValue.currentDate?.addingTimeInterval(WeekInterval)
         }
-        datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
+        datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
-                self.RegularityView.center.y -= self.CoorForAnimation
-                self.AnimationDo = true
-            }, completion: nil)
+            self.AnimationDo = true
+            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
         }
+        ArrayOfCustomDates = Array()
+        TableForDates.reloadData()
     }
     
     @IBAction func ChooseEndTime(_ sender: Any) {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
-        customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
-        datePicker.datePickerMode = UIDatePickerMode.time
-        datePicker.minuteInterval = 5
-        EndTime.inputView = customView
+        ComplectDatePickerView()
+        datePickerInSubview.datePickerMode = UIDatePickerMode.time
+        datePickerInSubview.minuteInterval = 5
+        EndTime.inputView = customViewForDatePicker
         EndTime.tintColor = UIColor.clear
         if (BeginTime.text != "") {
-            datePicker.minimumDate = BeginTimeInDate.currentDate?.addingTimeInterval(FiveMinutesInterval)
+            datePickerInSubview.minimumDate = BeginTimeInDate.currentDate?.addingTimeInterval(FiveMinutesInterval)
             if (EndTime.text == "") {
                 EndTimeInDate.currentDate = BeginTimeInDate.currentDate?.addingTimeInterval(5*60)
                 EndTime.text = dateFormatterForTime.string(from: EndTimeInDate.currentDate!)
             }
         }
         if (EndTime.text != "") {
-            datePicker.setDate(EndTimeInDate.currentDate!, animated: false)
+            datePickerInSubview.setDate(EndTimeInDate.currentDate!, animated: false)
         }
         else {
             let calendar = Calendar.current
@@ -322,33 +358,24 @@ class EditClassController: UIViewController {
             EndTimeInDate.currentDate = EndTimeInDate.currentDate?.addingTimeInterval(TimeInterval(-(min%5 * 60)))
             EndTime.text = dateFormatterForTime.string(from: (EndTimeInDate.currentDate)!)
         }
-        datePicker.addTarget(self, action: #selector(EditClassController.ChangeEndField), for: UIControlEvents.valueChanged)
+        datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangeEndField), for: UIControlEvents.valueChanged)
     }
     
     @IBAction func ChooseBeginTime(_ sender: UITextField) {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(EditClassController.DoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
-        customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
-        datePicker.datePickerMode = UIDatePickerMode.time
-        datePicker.minuteInterval = 5
-        BeginTime.inputView = customView
+        ComplectDatePickerView()
+        datePickerInSubview.datePickerMode = UIDatePickerMode.time
+        datePickerInSubview.minuteInterval = 5
+        BeginTime.inputView = customViewForDatePicker
         BeginTime.tintColor = UIColor.clear
         if (EndTime.text != "") {
-            datePicker.maximumDate = EndTimeInDate.currentDate?.addingTimeInterval(-FiveMinutesInterval)
+            datePickerInSubview.maximumDate = EndTimeInDate.currentDate?.addingTimeInterval(-FiveMinutesInterval)
             if (BeginTime.text == "") {
                 BeginTimeInDate.currentDate = EndTimeInDate.currentDate?.addingTimeInterval(-5*60)
                 BeginTime.text = dateFormatterForTime.string(from: BeginTimeInDate.currentDate!)
             }
         }
         if (BeginTime.text != "") {
-            datePicker.setDate(BeginTimeInDate.currentDate!, animated: false)
+            datePickerInSubview.setDate(BeginTimeInDate.currentDate!, animated: false)
         }
         else {
             let calendar = Calendar.current
@@ -356,7 +383,7 @@ class EditClassController: UIViewController {
             BeginTimeInDate.currentDate = BeginTimeInDate.currentDate?.addingTimeInterval(TimeInterval(-(min%5 * 60)))
             BeginTime.text = dateFormatterForTime.string(from: (BeginTimeInDate.currentDate)!)
         }
-        datePicker.addTarget(self, action: #selector(EditClassController.ChangeBeginField), for: UIControlEvents.valueChanged)
+        datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangeBeginField), for: UIControlEvents.valueChanged)
     }
     
     
@@ -371,14 +398,28 @@ class EditClassController: UIViewController {
     }
     
     @objc func DoneButtonPressed (sender:UIButton) {
+        if (CustomDateMode) {
+            customViewForDatePicker.removeFromSuperview()
+            if (CheckDateInTable(DateForCheck: CustomDateInTable)) {
+                ArrayOfCustomDates.append(CustomDateInTable)
+            }
+            TableForDates.reloadData()
+            CreateNewDateForTableButton.isEnabled = true
+            setWhiteColorsToDaysButtons()
+            PeriodicStartDate.text = ""
+            PeriodicEndDate.text = ""
+            ParitySegment.selectedSegmentIndex = 0
+            CheckSaveButton()
+        }
         view.endEditing(true)
         if (AnimationDo) {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.RegularityView.center.y += self.CoorForAnimation
-                self.CoorForAnimation = 0
-                self.AnimationDo = false
-            }, completion: nil)
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            self.AnimationDo = false
         }
+    }
+    
+    @objc func ChooseCustomDateInTable (sender:UIDatePicker) {
+        CustomDateInTable = CustomDateClass(withDate: sender.date)
     }
     
     @objc func ChangePeriodicStartDateField (sender:UIDatePicker) {
@@ -400,29 +441,42 @@ class EditClassController: UIViewController {
         BeginTimeInDate.currentDate = sender.date
         BeginTime.text = dateFormatterForTime.string(from: sender.date)
     }
+
     
-    //////////////////////////////////////////////////////////////////////ОБРАБОТКА КАСАНИЙ
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.first != nil {
-            view.endEditing(true)
+    // MARK: - КНОПКА СОХРАНИТЬ
+    @IBAction func SaveButtonPressed (_ sender: Any) {
+        if ((!(CustomDateMode))||(ArrayOfCustomDates.count == 1)) {
+            ComplectInformation()
+            if (ArrayOfCustomDates.count == 1) {
+                ClassTempModel.classDate = ArrayOfCustomDates[0]
+            }
+            ClassTempModel.save()
         }
-        super.touchesBegan(touches, with: event)
-        if (AnimationDo) {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.RegularityView.center.y += self.CoorForAnimation
-                self.CoorForAnimation = 0
-                self.AnimationDo = false
-            }, completion: nil)
+        else {
+            for CustomDate in ArrayOfCustomDates {
+                ClassTempModel = TimetableModel()
+                ComplectInformation()
+                ClassTempModel.classDate = CustomDate
+                ClassTempModel.save()
+            }
         }
+        //navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
-    //////////////////////////////////////////////////////////////////////КНОПКА СОХРАНИТЬ
-    @IBAction func SaveButtonPressed (_ sender: Any) {
-        ComplectInformation()
-        ClassTempModel.save()
-        //SubjectTempModel.save()
-        TeacherTempModel.save()
-        navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+    @IBAction func DeleteClass(_ sender: Any) {
+        ClassTempModel.delete()
+        //navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func SetClassNumber (StartTime: String, EndTime: String) {
+        let endIndex = TimesOfClassBegining.count - 1
+        for i in 0 ... endIndex {
+            if ((TimesOfClassBegining[i] == StartTime)&&(TimesOfClassEnding[i] == EndTime)) {
+                SegmentOfNumberOfClass.selectedSegmentIndex = i
+            }
+        }
     }
     
     @IBAction func NumberOfClassChoice(_ sender: Any) {
@@ -463,7 +517,7 @@ class EditClassController: UIViewController {
         CheckSaveButton()
     }
     
-    //////////////////////////////////////////////////////////////////////КОМПЛЕКТАЦИЯ ДАННЫХ
+    // MARK: - КОМПЛЕКТАЦИЯ ДАННЫХ
     func ComplectInformation () {
         ClassTempModel.classPlace = ClassRoomField.text
         SubjectTempModel.subjectName = SubjectField.text
@@ -482,9 +536,6 @@ class EditClassController: UIViewController {
         if (CustomDateMode) {
             ClassTempModel.classDate = nil
         }
-        else {
-            ClassTempModel.classDate = nil
-        }
     }
     
     func CheckSaveButton () {
@@ -501,6 +552,8 @@ class EditClassController: UIViewController {
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
+        self.ScrollView.delegate = self
+        
         RegularityCustomView.isHidden = true
         
         EndTime.placeholder = "Конец"
@@ -513,13 +566,61 @@ class EditClassController: UIViewController {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(EditClassController.SaveButtonPressed(_:)))
         rightEditBarButtonItem.isEnabled = false
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
+        
+        if(ClassTempModel == nil){
+            ClassTempModel = TimetableModel()
+            ChoosenClassType = "Лекция"
+        }else{
+            initViewWith(Class: ClassTempModel)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
+    
+    func initViewWith(Class: TimetableModel){
+        SetRegularity(CustomDate: ClassTempModel.classDate)
+        ClassRoomField.text = ClassTempModel.classPlace
+        SubjectField.text = ClassTempModel.classSubject
+        TeacherField.text = ClassTempModel.classTeacher?.name
+        ChoosenClassType = ClassTempModel.classType
+        SetClassType(CurrentClassType: ChoosenClassType)
+        EndTime.text = ClassTempModel.classEndTime
+        BeginTime.text = ClassTempModel.classStartTime
+        SetClassNumber(StartTime: ClassTempModel.classStartTime!, EndTime: ClassTempModel.classEndTime!)
+        ChoosenDay = Int(ClassTempModel.classWeekDay!)
+        ChooseDay(DayNumber: ChoosenDay)
+        PeriodicEndDate.text = ClassTempModel.classEndDate?.stringFromDate()
+        PeriodicStartDate.text = ClassTempModel.classBeginDate?.stringFromDate()
+        ChoosenParity = ClassTempModel.parity
+        SetParity(CurrentParity: ChoosenParity)
+        CheckSaveButton()
+        DeleteClassButton.isHidden = false
+    }
 }
 
 
+extension EditClassController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ArrayOfCustomDates.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dd", for: indexPath) 
+        cell.textLabel?.text = ArrayOfCustomDates[indexPath.row].stringFromDate()
+        return cell
+    }
+}
+
+extension EditClassController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {
+            _, indexPath in
+            self.ArrayOfCustomDates.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.CheckSaveButton()
+        }
+        return [deleteAction]
+    }
+}
