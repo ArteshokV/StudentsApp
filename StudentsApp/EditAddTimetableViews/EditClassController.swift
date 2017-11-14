@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditClassController: UIViewController {
+class EditClassController: UIViewController, UIScrollViewDelegate {
     
     private var TimesOfClassBegining = ["08:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
@@ -33,11 +33,13 @@ class EditClassController: UIViewController {
     private var TeacherTempModel: TeacherModel = TeacherModel()
     private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
     private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
+    private var CustomDateInTable: CustomDateClass = CustomDateClass()
     private var ArrayOfCustomDates: Array<CustomDateClass> = Array()
     private var CustomClassTypeButtonMode: Bool = false
     private var CustomDateMode: Bool = false
 
-
+    @IBOutlet weak var ScrollView: UIScrollView!
+    
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
     
@@ -226,6 +228,8 @@ class EditClassController: UIViewController {
         customView.addSubview(datePicker)
         customView.addSubview(doneButton)
         datePicker.datePickerMode = UIDatePickerMode.date
+        BeginTime.inputView = customView
+        datePicker.addTarget(self, action: #selector(EditClassController.ChooseCustomDateInTable), for: UIControlEvents.valueChanged)
     }
     
     //////////////////////////////////////////////////////////////////////ДАТА ПИКЕРЫ
@@ -250,10 +254,11 @@ class EditClassController: UIViewController {
         if (PeriodicEndDate.text != "") {
             datePicker.maximumDate = PeriodicEndDateValue.currentDate?.addingTimeInterval(-WeekInterval)
         }
+        
         datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
+                self.CoorForAnimation = customView.frame.height - (self.ScrollView.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2-10)
                 self.RegularityView.center.y -= self.CoorForAnimation
                 self.AnimationDo = true
             }, completion: nil)
@@ -284,7 +289,7 @@ class EditClassController: UIViewController {
         datePicker.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2)
+                self.CoorForAnimation = customView.frame.height - (self.ScrollView.frame.height - self.RegularityView.center.y - self.RegularityView.frame.height/2-10)
                 self.RegularityView.center.y -= self.CoorForAnimation
                 self.AnimationDo = true
             }, completion: nil)
@@ -371,6 +376,10 @@ class EditClassController: UIViewController {
     }
     
     @objc func DoneButtonPressed (sender:UIButton) {
+        if (CustomDateMode) {
+            ArrayOfCustomDates.append(CustomDateInTable)
+            TableForDates.reloadData()
+        }
         view.endEditing(true)
         if (AnimationDo) {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
@@ -379,6 +388,10 @@ class EditClassController: UIViewController {
                 self.AnimationDo = false
             }, completion: nil)
         }
+    }
+    
+    @objc func ChooseCustomDateInTable (sender:UIDatePicker) {
+        CustomDateInTable.currentDate = sender.date
     }
     
     @objc func ChangePeriodicStartDateField (sender:UIDatePicker) {
@@ -424,6 +437,10 @@ class EditClassController: UIViewController {
         //TeacherTempModel.save()
         navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
     }
+    
+    @IBAction func DeleteClass(_ sender: Any) {
+    }
+    
     
     @IBAction func NumberOfClassChoice(_ sender: Any) {
         BeginTime.text = TimesOfClassBegining[SegmentOfNumberOfClass.selectedSegmentIndex]
@@ -501,6 +518,8 @@ class EditClassController: UIViewController {
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
+        self.ScrollView.delegate = self
+        
         RegularityCustomView.isHidden = true
         
         EndTime.placeholder = "Конец"
@@ -518,8 +537,23 @@ class EditClassController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
 }
 
 
+extension EditClassController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ArrayOfCustomDates.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dd", for: indexPath) 
+        cell.textLabel?.text = ArrayOfCustomDates[indexPath.row].stringFromDate()
+        return cell
+    }
+    
+    
+}
+
+extension EditClassController: UITableViewDelegate {
+    
+}
