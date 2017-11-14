@@ -371,7 +371,7 @@ extension StudyPlaceSelectionViewController: UITableViewDelegate{
             SearchController.dismiss(animated: true, completion: nil)
             searchBar.text = ""
             dismissSearchBar()
-            self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
+            self.performSegue(withIdentifier: "fromLoginToInitialSetup", sender: self)
             return
         }
         

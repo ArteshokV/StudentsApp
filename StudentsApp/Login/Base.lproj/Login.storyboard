@@ -133,26 +133,30 @@
                         <outlet property="connectionSpinner" destination="iCz-Ch-d3r" id="dX7-tL-A9G"/>
                         <outlet property="stackView" destination="VVg-V9-VKJ" id="79v-kK-ZGl"/>
                         <segue destination="oDg-od-BQc" kind="show" identifier="StartUsing" id="EKz-Rt-Uae"/>
-                        <segue destination="tmv-Mp-4xL" kind="show" id="MW0-ZA-OrZ"/>
+                        <segue destination="tmv-Mp-4xL" kind="presentation" identifier="fromLoginToInitialSetup" id="LTH-MU-YZS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qS-7D-Pfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="112.8" y="-48.125937031484263"/>
         </scene>
-        <!--View Controller-->
+        <!--First Setup View Controller-->
         <scene sceneID="PZ9-fT-pPv">
             <objects>
-                <viewController id="tmv-Mp-4xL" sceneMemberID="viewController">
+                <viewController id="tmv-Mp-4xL" customClass="FirstSetupViewController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bgP-2f-izQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVK-8a-sjJ">
+                                <rect key="frame" x="117" y="617" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ввести расписание"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Mib-Vx-gt4"/>
                     </view>
-                    <connections>
-                        <segue destination="mFO-Yr-hKH" kind="show" id="LDV-aV-ycM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0yb-qd-HbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
