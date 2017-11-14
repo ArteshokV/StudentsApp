@@ -10,9 +10,19 @@ import UIKit
 
 class MenuTabViewController: UIViewController {
 
+    
+    @IBOutlet var HeaderLabels: [UILabel]!
+    @IBOutlet weak var underLayerView: UIView!
+    
     @IBOutlet weak var UniversitySelectedLabel: UILabel!
     @IBOutlet weak var FacultySelectedLabel: UILabel!
     @IBOutlet weak var GroupSelectedLabel: UILabel!
+    
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var changeTimetableButton: UIButton!
+    @IBOutlet weak var changeAppDesignButton: UIButton!
     
     let appDesign = CustomApplicationLook()
     
@@ -37,6 +47,37 @@ class MenuTabViewController: UIViewController {
 
         appDesign.initBackground(ofView: self.view)
         
+        underLayerView.backgroundColor = appDesign.underLayerColor
+        underLayerView.layer.cornerRadius = 15.0
+        appDesign.managedLayersContext.append(underLayerView)
+        
+        for label in HeaderLabels{
+            label.textColor = appDesign.mainTextColor
+            appDesign.managedMainLablesContext.append(label)
+        }
+        UniversitySelectedLabel.textColor = appDesign.subTextColor
+        appDesign.managedSubLablesContext.append(UniversitySelectedLabel)
+        FacultySelectedLabel.textColor = appDesign.subTextColor
+        appDesign.managedSubLablesContext.append(FacultySelectedLabel)
+        GroupSelectedLabel.textColor = appDesign.subTextColor
+        appDesign.managedSubLablesContext.append(GroupSelectedLabel)
+        userName.textColor = appDesign.subTextColor
+        appDesign.managedSubLablesContext.append(userName)
+        
+        
+        changeTimetableButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        appDesign.managedMainButonsContext.append(changeTimetableButton)
+        changeTimetableButton.backgroundColor = appDesign.underLayerColor
+        //changeTimetableButton.layer.cornerRadius = 15.0
+        appDesign.managedLayersContext.append(changeTimetableButton)
+        
+        changeAppDesignButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        appDesign.managedMainButonsContext.append(changeAppDesignButton)
+        changeAppDesignButton.backgroundColor = appDesign.underLayerColor
+        //changeAppDesignButton.layer.cornerRadius = 15.0
+        appDesign.managedLayersContext.append(changeAppDesignButton)
+        
+        userImage.layer.cornerRadius = userImage.frame.width / 2
         
         // Do any additional setup after loading the view.
         selectedStudyPlace = getSetectedStudyPlace()
@@ -44,10 +85,19 @@ class MenuTabViewController: UIViewController {
         FacultySelectedLabel.text = selectedStudyPlace[1].name
         GroupSelectedLabel.text = selectedStudyPlace[2].name
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(!(self.navigationController?.navigationBar.isHidden)!){
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+        
+        super.viewWillAppear(animated)
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func changeTimetableButtonPressed(_ sender: Any) { //выбор просмотра заданий
+        self.hidesBottomBarWhenPushed = true
+        self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
+        self.hidesBottomBarWhenPushed = false
     }
     
 

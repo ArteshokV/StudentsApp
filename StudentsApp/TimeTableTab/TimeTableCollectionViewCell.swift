@@ -12,7 +12,9 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
 
     var CurrentTimeTable: [TimetableModel]!//массив занятий в расписании текущего дня
     var TodayDate: CustomDateClass?
+    let appDesign = CustomApplicationLook()
     private var TimetableCellIdentifier = "TimeTableCell"
+    let EmptyCellIdentifier = "EmptyCell"
     
     @IBOutlet weak var TableForClasses: UITableView!
     
@@ -21,6 +23,8 @@ class TimeTableCollectionViewCell: UICollectionViewCell {
         
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableForClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
+        TableForClasses.register(UITableViewCell.self, forCellReuseIdentifier: EmptyCellIdentifier)
+        
         TableForClasses.backgroundColor = UIColor.clear
         TableForClasses.scrollsToTop = true
         TableForClasses.separatorColor = UIColor.clear
@@ -56,7 +60,7 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     
     // Получим количество строк для конкретной секции
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CurrentTimeTable.count
+        return CurrentTimeTable.count != 0 ? CurrentTimeTable.count : 1
     }
     
     // Получим заголовок для секции
@@ -75,9 +79,32 @@ extension TimeTableCollectionViewCell: UITableViewDataSource {
     
     // Получим данные для использования в ячейке
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
-        cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
-        return cell
+        if(CurrentTimeTable.count != 0){
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
+            cell.initWithTimetable(model: CurrentTimeTable[indexPath.item])
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmptyCellIdentifier, for: indexPath)
+            cell.backgroundColor = appDesign.underLayerColor
+            appDesign.managedLayersContext.append(cell)
+            
+            cell.textLabel?.text = "У вас нет пар!"
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.textColor = appDesign.mainTextColor
+            appDesign.managedMainLablesContext.append(cell.textLabel!)
+            
+            let sepLine = UIView()
+            let square = CGRect(
+                origin: CGPoint(x: 15, y: 1),
+                size: CGSize(width: tableView.frame.width - 30, height: 0.5))
+            
+            sepLine.frame = square
+            sepLine.layer.borderWidth = 0.5
+            sepLine.layer.borderColor = UIColor.lightGray.cgColor
+            cell.addSubview(sepLine)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
