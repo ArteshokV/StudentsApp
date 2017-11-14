@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -269,14 +269,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGv-84-kSI">
-                                <rect key="frame" x="10" y="25" width="355" height="282"/>
+                                <rect key="frame" x="0.0" y="25" width="0.0" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="UFx-eu-AMn">
                                 <rect key="frame" x="20" y="35" width="238.5" height="267"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Учебное заведение" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmG-d4-Lb3">
-                                        <rect key="frame" x="0.0" y="0.0" width="210" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="210" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="oH1-2w-fuP"/>
                                         </constraints>
@@ -285,13 +285,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="МГТУ им Баумана" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIL-uQ-abD">
-                                        <rect key="frame" x="0.0" y="44.5" width="144.5" height="44"/>
+                                        <rect key="frame" x="0.0" y="31" width="0.0" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Факультет" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2N-Sc-LCY">
-                                        <rect key="frame" x="0.0" y="89.5" width="114" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="62" width="114" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="XGl-9T-O91"/>
                                         </constraints>
@@ -300,13 +300,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Информатика и системы управления" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vpn-oz-cjQ">
-                                        <rect key="frame" x="0.0" y="134" width="168" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="93" width="0.0" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Учебная группа" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuZ-V8-9UX">
-                                        <rect key="frame" x="0.0" y="178.5" width="168.5" height="44"/>
+                                        <rect key="frame" x="0.0" y="124" width="168.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="mvZ-i7-2GH"/>
                                         </constraints>
@@ -315,7 +315,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ИУ6-72(б)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0H2-vD-sde">
-                                        <rect key="frame" x="0.0" y="223.5" width="82.5" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="155" width="0.0" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -645,7 +645,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4VK-7e-ef9"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Расписание" id="09d-OM-ppP"/>
+                    <tabBarItem key="tabBarItem" title="Расписание" image="iconSchedule" id="09d-OM-ppP"/>
                     <connections>
                         <outlet property="BeginOfWeekLabel" destination="vwW-m1-yXF" id="fp6-wV-G3f"/>
                         <outlet property="CollectionOfTables" destination="ke3-Kx-TPS" id="t4I-of-38r"/>
@@ -703,7 +703,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qa4-2t-oEP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Предметы" id="wz4-HE-GR9"/>
+                    <tabBarItem key="tabBarItem" title="Предметы" image="iconSubjects" id="wz4-HE-GR9"/>
                     <connections>
                         <outlet property="SubjectTabTableView" destination="BuB-io-pxf" id="otP-77-orH"/>
                         <outlet property="titleLabel" destination="fYO-tL-D1M" id="rTE-Og-Uwg"/>
@@ -743,7 +743,7 @@
         <scene sceneID="VDz-gW-mpw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="uUA-6k-0zY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Сегодня" id="S2T-j9-4nk"/>
+                    <tabBarItem key="tabBarItem" title="Сегодня" image="iconToday" id="S2T-j9-4nk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DEf-o0-hQE">
                         <autoresizingMask key="autoresizingMask"/>
@@ -766,10 +766,9 @@
         <scene sceneID="QoE-W9-bzf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AIe-ch-t1J" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Задания" id="wub-ai-uLH"/>
+                    <tabBarItem key="tabBarItem" title="Задания" image="iconTasks" id="wub-ai-uLH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G0G-xj-Ddb">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -785,7 +784,7 @@
         <scene sceneID="Xfm-Ch-BTb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="azi-ZC-9jD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Дополнительно" id="cfn-VT-01P"/>
+                    <tabBarItem key="tabBarItem" title="Дополнительно" image="iconExtra" id="cfn-VT-01P"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jTG-ng-fi6">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -803,6 +802,11 @@
     </scenes>
     <resources>
         <image name="EmptyUser" width="265" height="265"/>
+        <image name="iconExtra" width="30" height="30"/>
+        <image name="iconSchedule" width="30" height="30"/>
+        <image name="iconSubjects" width="30" height="30"/>
+        <image name="iconTasks" width="30" height="30"/>
+        <image name="iconToday" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J2O-j8-uXz"/>

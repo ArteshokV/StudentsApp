@@ -450,13 +450,14 @@
                         <outlet property="BeginTime" destination="pIo-fW-c2c" id="E2P-6e-pRd"/>
                         <outlet property="ClassRoomField" destination="eUq-Bt-QUd" id="B6E-3F-c1k"/>
                         <outlet property="CreateNewDateForTableButton" destination="DoM-8y-Kmw" id="WjF-s9-ruB"/>
+                        <outlet property="CustomClassTypeButton" destination="J77-x7-any" id="Em4-OL-e7U"/>
                         <outlet property="DeleteClassButton" destination="9qf-JI-eKt" id="FH0-M3-H6h"/>
                         <outlet property="EndTime" destination="Eby-jH-WcZ" id="fe5-kU-vYg"/>
                         <outlet property="FridayButton" destination="lAg-Ol-twy" id="bdA-1b-JCH"/>
                         <outlet property="MondayButton" destination="5Qm-hP-zMb" id="SFG-In-i6n"/>
+                        <outlet property="ParitySegment" destination="b2P-iM-LYM" id="yoY-4R-R3O"/>
                         <outlet property="PeriodicEndDate" destination="kFx-U3-8xz" id="JYl-9B-15Q"/>
                         <outlet property="PeriodicEndDateLabel" destination="EBu-eL-8eZ" id="Ag6-pC-9vB"/>
-                        <outlet property="PeriodicSegment" destination="b2P-iM-LYM" id="MV2-24-j9q"/>
                         <outlet property="PeriodicStartDate" destination="pg2-Xd-RCt" id="OYR-Ys-NXk"/>
                         <outlet property="PeriodicStartDateLabel" destination="8Ri-Zw-eOt" id="dND-vQ-Q8P"/>
                         <outlet property="RegularityCustomView" destination="4F9-IZ-rdw" id="sgC-9J-I1u"/>
