@@ -35,6 +35,12 @@ class StudyPlaceSelectionViewController: UIViewController {
     var workingWithPlaceType = 0
     
     // MARK: - initialSetupOfView
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,6 +60,9 @@ class StudyPlaceSelectionViewController: UIViewController {
         
         HeaderLabel.textColor = screenLook.mainTextColor
         screenLook.managedMainLablesContext.append(HeaderLabel)
+        if(self.navigationController != nil){
+            HeaderLabel.text = "Выберите место учебы"
+        }
     }
     
     func setBackGroundAndBlurView(){
@@ -179,8 +188,11 @@ class StudyPlaceSelectionViewController: UIViewController {
                 //Save selected items into UserDefaults
                 let StudyPlace: Array<studyUnit> = [self.selectedUniversity,self.selectedFaculty,self.selectedGroup]
                 self.saveSetected(StudyPlace: StudyPlace)
-                
-                self.performSegue(withIdentifier: "StartUsing", sender: self)
+                if(!(self.navigationController != nil)){
+                    self.performSegue(withIdentifier: "StartUsing", sender: self)
+                }else{
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             }else{
                 self.displayDownloadError()
             }

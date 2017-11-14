@@ -400,7 +400,7 @@ extension TodayTabViewController: UITableViewDataSource{
             if(withChangesNumber > 0){
                 self.TableViewOutlet.insertRows(at: indexPathsToChange, with: .middle)
             }else if(withChangesNumber < 0){
-                indexPathsToChange.removeLast()
+                //indexPathsToChange.removeLast()
                 self.TableViewOutlet.deleteRows(at:indexPathsToChange, with: .middle)
             }
             

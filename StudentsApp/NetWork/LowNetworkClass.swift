@@ -64,8 +64,8 @@ class LowNetworkClass: NSObject {
     func jetRawJson(URL: String, andCompletitionBlock: @escaping (Any?) -> Void){
         
         let sessionConfiguration = URLSessionConfiguration.default
-        sessionConfiguration.timeoutIntervalForRequest = 7.0
-        sessionConfiguration.timeoutIntervalForResource = 7.0
+        sessionConfiguration.timeoutIntervalForRequest = 15.0
+        sessionConfiguration.timeoutIntervalForResource = 15.0
         
         let defaultSession = URLSession(configuration: sessionConfiguration)
         var dataTask: URLSessionDataTask?

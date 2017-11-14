@@ -273,7 +273,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="UFx-eu-AMn">
-                                <rect key="frame" x="20" y="35" width="211.5" height="267"/>
+                                <rect key="frame" x="20" y="35" width="238.5" height="267"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Учебное заведение" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmG-d4-Lb3">
                                         <rect key="frame" x="0.0" y="0.0" width="210" height="43.5"/>
@@ -322,21 +322,21 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="clV-QP-ao2">
-                                <rect key="frame" x="226.5" y="101.5" width="133.5" height="133.5"/>
-                                <color key="backgroundColor" red="0.84644961360000004" green="0.37284656849999998" blue="0.2242520667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyUser" translatesAutoresizingMaskIntoConstraints="NO" id="clV-QP-ao2">
+                                <rect key="frame" x="253.5" y="115" width="106.5" height="106.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="clV-QP-ao2" secondAttribute="height" multiplier="1:1" id="Cdz-gz-sBV"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1V-Ej-nKa">
-                                <rect key="frame" x="226.5" y="245" width="133.5" height="57"/>
+                                <rect key="frame" x="253.5" y="231.5" width="106.5" height="70.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylT-Hy-8KP">
-                                <rect key="frame" x="0.0" y="422" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="423" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="phU-ip-dUa"/>
                                 </constraints>
@@ -346,38 +346,60 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-cm-dDo">
-                                <rect key="frame" x="0.0" y="542" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="543" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="qhV-Dc-d3Z"/>
                                 </constraints>
                                 <state key="normal" title="Выбрать тему приложения"/>
                                 <connections>
-                                    <segue destination="k7K-Ce-8ml" kind="show" id="3S2-HH-4p6"/>
+                                    <action selector="chooseAppDesignPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="C3g-A1-0iD"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKX-Cd-alO">
+                                <rect key="frame" x="10" y="312" width="238.5" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="EXW-ml-aUv"/>
+                                </constraints>
+                                <state key="normal" title="Изменить место учебы"/>
+                                <connections>
+                                    <action selector="changeStudyPlacePressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="Aia-iD-lpe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syv-Ed-NmD">
+                                <rect key="frame" x="253.5" y="312" width="111.5" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Войти"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="bottom" secondItem="UFx-eu-AMn" secondAttribute="bottom" id="1xU-Ag-FEc"/>
+                            <constraint firstItem="syv-Ed-NmD" firstAttribute="leading" secondItem="clV-QP-ao2" secondAttribute="leading" id="2vF-0p-Bki"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="trailing" id="3ZH-Dz-Wx8"/>
-                            <constraint firstItem="ylT-Hy-8KP" firstAttribute="top" secondItem="UFx-eu-AMn" secondAttribute="bottom" constant="120" id="Cqm-ro-VG6"/>
+                            <constraint firstItem="syv-Ed-NmD" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="bottom" constant="5" id="8ol-fm-PvU"/>
+                            <constraint firstItem="syv-Ed-NmD" firstAttribute="height" secondItem="yKX-Cd-alO" secondAttribute="height" id="9Dt-4o-Uxa"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="leading" secondItem="zGv-84-kSI" secondAttribute="leading" constant="10" id="EOH-8P-tmg"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="leading" secondItem="BFM-K7-6HR" secondAttribute="leading" constant="10" id="Eka-mU-3yl"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="top" secondItem="BFM-K7-6HR" secondAttribute="top" constant="5" id="FvD-Jz-zPI"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="ylT-Hy-8KP" secondAttribute="trailing" id="Gym-5G-dcm"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="NKV-cm-dDo" secondAttribute="trailing" id="Km1-Fk-jYV"/>
+                            <constraint firstItem="syv-Ed-NmD" firstAttribute="trailing" secondItem="zGv-84-kSI" secondAttribute="trailing" id="OCt-kn-BeZ"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="top" secondItem="clV-QP-ao2" secondAttribute="bottom" constant="10" id="P6L-H4-asu"/>
                             <constraint firstItem="NKV-cm-dDo" firstAttribute="top" secondItem="ylT-Hy-8KP" secondAttribute="bottom" constant="60" id="PN7-ji-JfZ"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="centerX" secondItem="clV-QP-ao2" secondAttribute="centerX" id="QIJ-ib-e7Y"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="trailing" constant="5" id="TJD-oX-7NT"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="bottom" secondItem="UFx-eu-AMn" secondAttribute="bottom" constant="5" id="V7H-4Z-pnU"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="leading" secondItem="clV-QP-ao2" secondAttribute="leading" id="WOp-By-0W0"/>
+                            <constraint firstItem="yKX-Cd-alO" firstAttribute="leading" secondItem="zGv-84-kSI" secondAttribute="leading" id="Y2O-df-6S3"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="height" secondItem="eQo-Wi-EzY" secondAttribute="height" multiplier="0.4" id="Ygm-MP-d2j"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="leading" constant="5" id="eil-D9-bmW"/>
+                            <constraint firstItem="yKX-Cd-alO" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="bottom" constant="5" id="iv3-NA-ZYT"/>
+                            <constraint firstItem="BFM-K7-6HR" firstAttribute="bottom" secondItem="NKV-cm-dDo" secondAttribute="bottom" constant="15" id="jgL-ir-Vbz"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="top" constant="10" id="k8H-gB-mHk"/>
                             <constraint firstItem="NKV-cm-dDo" firstAttribute="leading" secondItem="BFM-K7-6HR" secondAttribute="leading" id="mzO-cR-IcS"/>
                             <constraint firstItem="clV-QP-ao2" firstAttribute="centerY" secondItem="UFx-eu-AMn" secondAttribute="centerY" id="oRe-c1-4Xh"/>
-                            <constraint firstItem="clV-QP-ao2" firstAttribute="height" secondItem="UFx-eu-AMn" secondAttribute="height" multiplier="0.5" id="qbG-y5-mgY"/>
+                            <constraint firstItem="clV-QP-ao2" firstAttribute="height" secondItem="UFx-eu-AMn" secondAttribute="height" multiplier="0.4" id="qbG-y5-mgY"/>
+                            <constraint firstItem="syv-Ed-NmD" firstAttribute="leading" secondItem="yKX-Cd-alO" secondAttribute="trailing" constant="5" id="sdm-ZB-Y54"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="zGv-84-kSI" secondAttribute="trailing" constant="10" id="y5m-gR-ovu"/>
                             <constraint firstItem="ylT-Hy-8KP" firstAttribute="leading" secondItem="BFM-K7-6HR" secondAttribute="leading" id="yts-IX-VS0"/>
                         </constraints>
@@ -390,7 +412,9 @@
                         <outlet property="GroupSelectedLabel" destination="0H2-vD-sde" id="Kfo-eO-Cle"/>
                         <outlet property="UniversitySelectedLabel" destination="oIL-uQ-abD" id="Gb7-Zh-hlJ"/>
                         <outlet property="changeAppDesignButton" destination="NKV-cm-dDo" id="6J8-my-gFw"/>
+                        <outlet property="changeStudyPlace" destination="yKX-Cd-alO" id="8ev-cn-N4M"/>
                         <outlet property="changeTimetableButton" destination="ylT-Hy-8KP" id="cMu-6w-i9b"/>
+                        <outlet property="registerChangeButton" destination="syv-Ed-NmD" id="UcV-LE-a4p"/>
                         <outlet property="underLayerView" destination="zGv-84-kSI" id="b5t-hD-Tnk"/>
                         <outlet property="userImage" destination="clV-QP-ao2" id="WvF-eM-KCC"/>
                         <outlet property="userName" destination="M1V-Ej-nKa" id="Zv7-Rf-hIv"/>
@@ -398,11 +422,21 @@
                         <outletCollection property="HeaderLabels" destination="U2N-Sc-LCY" collectionClass="NSMutableArray" id="Tg3-Jd-wfM"/>
                         <outletCollection property="HeaderLabels" destination="xuZ-V8-9UX" collectionClass="NSMutableArray" id="bYN-vx-Xkl"/>
                         <segue destination="fBG-KI-vip" kind="show" identifier="fromMenuToEditTimetable" id="2aI-PM-yB1"/>
+                        <segue destination="B5M-Bu-Qi8" kind="show" identifier="changeStudyPlace" id="XIk-ur-98v"/>
+                        <segue destination="k7K-Ce-8ml" kind="show" identifier="changeAppDesign" id="kOB-9c-AKP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLJ-D7-Ikb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-380" y="-448.42578710644682"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="JKE-NC-hBk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="B5M-Bu-Qi8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3GM-MH-7u4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="217" y="-449"/>
         </scene>
         <!--EditTimeTable-->
         <scene sceneID="vDw-iD-FIW">
@@ -410,7 +444,7 @@
                 <viewControllerPlaceholder storyboardName="EditTimeTable" id="fBG-KI-vip" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7an-uw-8Mg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="209" y="-426"/>
+            <point key="canvasLocation" x="217" y="-404"/>
         </scene>
         <!--Today Tab View Controller-->
         <scene sceneID="eon-Ms-HWu">
@@ -767,6 +801,9 @@
             <point key="canvasLocation" x="-1151" y="-448"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="EmptyUser" width="265" height="265"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J2O-j8-uXz"/>
         <segue reference="Zgn-fp-LuR"/>
