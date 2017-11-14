@@ -35,6 +35,7 @@ class TaskModel: NSObject {
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
+        
         //Getting tasks for today and tomorrow
         var searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
         for result in searchResults as [Tasks]{
@@ -101,7 +102,7 @@ class TaskModel: NSObject {
         fetchRequest.predicate = predicate
         
         //Getting expired tasks
-        var searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        let searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
         return "\(searchResults.count)"
     }
     
@@ -146,9 +147,31 @@ class TaskModel: NSObject {
     
     static func getTasksGroupedByDate() -> [[TaskModel]] {
         var returnArray = [[TaskModel]]()
+        
+        let todayDate = CustomDateClass()
+        var selectionCondition: String = "(status == 0) AND (date <= %@)"
+        var predicate:NSPredicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
+        
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
-        let sortDesrt = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
-        fetchRequest.sortDescriptors = [sortDesrt]
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
+        
+        //Getting EXPIRED Not done tasks
+        let searchResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        if(searchResults.count != 0){
+            var tmpArray = [TaskModel]()
+            for result in searchResults as [Tasks]{
+                tmpArray.append(TaskModel(withDatabaseObject: result))
+            }
+            returnArray.append(tmpArray)
+        }
+        
+        //Getting not expired tasks which is not done
+        selectionCondition = "(status == 0) AND (date >= %@)"
+        predicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        fetchRequest.predicate = predicate
+        
         do{
             let tasks = try DatabaseController.getContext().fetch(fetchRequest)
             //---Creating random date to be able to start the loop

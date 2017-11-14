@@ -259,9 +259,9 @@
 		4E94FFF81F9156D700B7C86E /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C539E1F86D0730012329E /* TaskModel.swift */,
 				4E7C53A01F86DD190012329E /* TimetableModel.swift */,
-				4E7C53A21F86DEB80012329E /* SubjectModel.swift */,
 				4E7C53A41F86DECE0012329E /* ActivitiesModel.swift */,
 				4E94FFCC1F8CFF7300B7C86E /* CustomDateClass.swift */,
 				BEEFD4B11FA790F50062385A /* TeacherModel.swift */,

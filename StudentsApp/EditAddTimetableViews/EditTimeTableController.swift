@@ -38,11 +38,6 @@ class EditTimeTableController: UIViewController {
         self.performSegue(withIdentifier: "AddButtonPress", sender: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
-        TableOfClasses.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +52,13 @@ class EditTimeTableController: UIViewController {
         TableOfClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
         TableOfClasses.register(UITableViewCell.self, forCellReuseIdentifier: EmptyCellIdentifier)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillAppear(animated)
+        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
+        TableOfClasses.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,7 +66,7 @@ class EditTimeTableController: UIViewController {
     
     func setupNavigationBar(){
         self.hidesBottomBarWhenPushed = true
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        //self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
         navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
         self.navigationItem.title = "Расписание"

@@ -35,16 +35,10 @@ class AppLookSelectionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        super.viewWillAppear(animated)
     }
-    */
-
 }
 
 // MARK: - UITableViewDelegate protocol
@@ -77,6 +71,10 @@ extension AppLookSelectionViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: appLookCellIdentifier, for: indexPath)
         cell.textLabel?.text = appLooksArray[indexPath.row].lookName
+        cell.backgroundColor = appDesign.underLayerColor
+        cell.textLabel?.textColor = appDesign.mainTextColor
+        appDesign.managedLayersContext.append(cell)
+        appDesign.managedMainLablesContext.append(cell.textLabel)
         return cell
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegate {
+class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegate,  UINavigationControllerDelegate{
 
     // MARK: - Variables
     var tomorrowButton: UIButton!
@@ -42,8 +42,14 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     
     // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
+        if(!(self.navigationController?.navigationBar.isHidden)!){
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        //self.navigationController?.setNavigationBarHidden(true, animated: false)
+        //self.navigationController?.navigationBar.alpha = 0
+        
         if(viewHasChanges){
             viewHasChanges = false
             if(changesController == timeTableFetchController){
@@ -61,8 +67,10 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
             self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
         }
     }
+
     
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
         //shownFirstTime = 1
         if(shownFirstTime == 1){
@@ -335,41 +343,6 @@ extension TodayTabViewController: UITableViewDataSource{
         }
         
         return footer
-        /*
-        let footerView = HeaderFooterViewClass.getViewForFooterInSectionWithLabel(tableView: tableView)
-        
-        if(section != 1){
-            return footerView
-        }
-        
-        todayButton = UIButton()
-        todayButton.frame = CGRect(x: 0, y: 0, width: tableView.frame.width/2, height: 40)
-        todayButton.setTitle("Сегодня", for: .normal)
-        todayButton.addTarget(self, action: #selector(todayButtonPressed), for: .touchUpInside)
-        //todayButton.setTitleColor(UIColor.green, for: .normal)
-        todayButton.layer.cornerRadius = 15
-        
-        tomorrowButton = UIButton()
-        tomorrowButton.frame = CGRect(x: tableView.frame.width/2, y: 0, width: tableView.frame.width/2, height: 40)
-        tomorrowButton.setTitle("Завтра", for: .normal)
-        
-        tomorrowButton.addTarget(self, action: #selector(tomorrowButtonPressed), for: .touchUpInside)
-        tomorrowButton.layer.cornerRadius = 15
-        
-        if(workingWithToday){
-            todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-        }else{
-            tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-        }
-        
-        
-        footerView.addSubview(todayButton)
-        footerView.addSubview(tomorrowButton)
-        
-        appDesign.managedLayersContext.append(footerView)
-        
-        return footerView
- */
     }
     
     
@@ -378,7 +351,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(!workingWithToday){
             todayButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
             tomorrowButton.backgroundColor = UIColor.clear
-            let oldLengthOfSection = timeTableArray.count
+            let oldLengthOfSection = timeTableArray.count != 0 ? timeTableArray.count : 1
             workingWithToday = true
             let today = CustomDateClass()
             self.timeTableArray = TimetableModel.getTimetable(Date: today)
@@ -392,7 +365,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(workingWithToday){
             todayButton.backgroundColor = UIColor.clear
             tomorrowButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            let oldLengthOfSection = timeTableArray.count
+            let oldLengthOfSection = timeTableArray.count != 0 ? timeTableArray.count : 1
             workingWithToday = false
             let nextDay = CustomDateClass()
             nextDay.switchToNextDay()
@@ -427,6 +400,7 @@ extension TodayTabViewController: UITableViewDataSource{
             if(withChangesNumber > 0){
                 self.TableViewOutlet.insertRows(at: indexPathsToChange, with: .middle)
             }else if(withChangesNumber < 0){
+                //indexPathsToChange.removeLast()
                 self.TableViewOutlet.deleteRows(at:indexPathsToChange, with: .middle)
             }
             
