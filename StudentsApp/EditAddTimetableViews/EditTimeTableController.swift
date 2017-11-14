@@ -103,6 +103,7 @@ extension EditTimeTableController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(TimeTableChangesArray[indexPath.section].count != 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCellIdentifier, for: indexPath) as! TimetableTableViewCell
+            cell.EditMode = true
             cell.initWithTimetable(model: TimeTableChangesArray[indexPath.section][indexPath.row])
             return cell
         }else{

@@ -85,11 +85,13 @@ class TeacherModel: NSObject {
     
     init(Name:String, FamilyName:String, FatherName:String?){
         super.init()
-        self.TeacherDatabaseObject = getOrCreateTeacherWith(Name: Name, FamilyName: FamilyName, FatherName: FatherName)
-        
         self.name = Name
         self.familyName = FamilyName
-        self.fatherName = FatherName != nil ? FatherName : nil;
+        self.fatherName = FatherName != nil ? FatherName : nil
+        
+        self.TeacherDatabaseObject = getOrCreateTeacher()
+        
+        
         //self.image = TeacherDatabaseObject?.image != nil ? UIImage(data:(TeacherDatabaseObject?.image!)!,scale:1.0) : nil;
         //self.timeTableEvents = NSSet()
     }
@@ -119,15 +121,15 @@ class TeacherModel: NSObject {
         return true
     }
     
-    private func getOrCreateTeacherWith(Name:String, FamilyName:String, FatherName:String?) -> Teacher? {
+    private func getOrCreateTeacher() -> Teacher? {
         
         let fetchRequest:NSFetchRequest<Teacher> = Teacher.fetchRequest()
         var Predicate:NSPredicate
-        if FatherName == nil {
-            Predicate = NSPredicate(format: "name == %@ AND familyName == %@ AND fatherName == nil", Name, FamilyName)
+        if self.fatherName == nil {
+            Predicate = NSPredicate(format: "name == %@ AND familyName == %@ AND fatherName == nil", self.name!, self.familyName!)
         }
         else{
-            Predicate = NSPredicate(format: "name == %@ AND familyName == %@ AND fatherName == %@", Name, FamilyName, FatherName!)
+            Predicate = NSPredicate(format: "name == %@ AND familyName == %@ AND fatherName == %@", self.name!, self.familyName!, self.fatherName!)
         }
         
         fetchRequest.predicate = Predicate
@@ -151,7 +153,23 @@ class TeacherModel: NSObject {
         return nil;
     }
     
-    func getDataBaseEntity() -> Teacher {
-        return TeacherDatabaseObject!
+    func getDataBaseEntity() -> Teacher? {
+        if TeacherDatabaseObject != nil {
+            return TeacherDatabaseObject!
+        }
+        else{
+            //--- returns nil if ther was an error in getOrCreate
+            return getOrCreateTeacher()
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
