@@ -20,11 +20,11 @@ struct studyPlaceResponse: Codable {
 }
 
 class NetworkClass: NSObject {
-    let apiAdress = "89.179.244.73:8112/stdApp/testEnv"
+    let apiAdress = "89.179.244.73:8112/stdApp"
     let network = LowNetworkClass()
     
     func getUniversities(withCompletition: @escaping ([studyUnit]?) -> ()) {
-        let urlString = "http://\(apiAdress)/api/universities"
+        let urlString = "http://\(apiAdress)/api/studyPlace/universities"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
                 withCompletition(responseStruct?.universities)
@@ -33,7 +33,7 @@ class NetworkClass: NSObject {
     }
     
     func getFaculties(forUniversity: Int, withCompletition: @escaping ([studyUnit]?) -> ()) {
-        let urlString = "http://\(apiAdress)/api/faculties?university=\(forUniversity)"
+        let urlString = "http://\(apiAdress)/api/studyPlace/faculties?university=\(forUniversity)"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
                 withCompletition(responseStruct?.faculties)
@@ -43,7 +43,7 @@ class NetworkClass: NSObject {
 
     
     func getGroups(forUniversity: Int, forFaculty: Int, withCompletition: @escaping ([studyUnit]?) -> ()) {
-        let urlString = "http://\(apiAdress)/api/groups?university=\(forUniversity)&faculty=\(forFaculty)"
+        let urlString = "http://\(apiAdress)/api/studyPlace/groups?university=\(forUniversity)&faculty=\(forFaculty)"
         network.getJsonWith(URL: urlString, type: studyPlaceResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
                 withCompletition(responseStruct?.groups)
@@ -53,7 +53,7 @@ class NetworkClass: NSObject {
     
     func getInitilData(forUniversity: Int, forFaculty: Int, forGroup: Int, withCompletition: @escaping (Any?) -> ()) {
         //let urlString = "http://\(apiAdress)/api/groups?university=\(forUniversity)&faculty=\(forFaculty)&group=\(forGroup)"
-        let urlString = "http://89.179.244.73:8112/stdApp/testEnv/api/getJSONinitialDataForRemoteApp"
+        let urlString = "http://\(apiAdress)/api/studyPlace/getJSONinitialDataForRemoteApp"
         network.jetRawJson(URL: urlString, andCompletitionBlock: {json in
             
             //if(json != nil){
