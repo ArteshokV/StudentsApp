@@ -38,11 +38,6 @@ class EditTimeTableController: UIViewController {
         self.performSegue(withIdentifier: "AddButtonPress", sender: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
-        TableOfClasses.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +56,8 @@ class EditTimeTableController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewWillAppear(animated)
+        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
+        TableOfClasses.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
