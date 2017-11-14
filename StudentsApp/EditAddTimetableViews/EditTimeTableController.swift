@@ -12,6 +12,7 @@ class EditTimeTableController: UIViewController {
     
     private var TimeTableChangesArray: Array<Array<TimetableModel>> = TimetableModel.getTimetableForChanges()
     private var TimetableCellIdentifier = "TimeTableCell"
+    var chosenObject:IndexPath? //IndexPath(row: 0, section: 0)
     
     let WeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Одиночные даты"]
     
@@ -27,11 +28,6 @@ class EditTimeTableController: UIViewController {
     }
     func GetClass (GetterClass: TimetableModel) {
         //TimeTableModelArray.append(GetterClass)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "AddButtonPress") {
-        }
     }
     
     @IBAction func AddButtonPressed (_ sender:Any) {
@@ -81,7 +77,16 @@ class EditTimeTableController: UIViewController {
 // MARK: - UITableViewDelegate protocol
 extension EditTimeTableController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        chosenObject = indexPath
+        self.performSegue(withIdentifier: "AddButtonPress", sender: self)
+        chosenObject = nil
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if((segue.identifier == "AddButtonPress")&&(chosenObject != nil)){
+            let editVC = segue.destination as! EditClassController
+            editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+        }
     }
 }
 

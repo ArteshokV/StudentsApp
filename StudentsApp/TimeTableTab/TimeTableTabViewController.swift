@@ -39,16 +39,15 @@ class TimeTableTabViewController: UIViewController {
             currentIndexPath.item += 1
             PagesControl.isEnabled = false
             CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
-            pageOldValue = PagesControl.currentPage
+            TodayDate?.switchToNextDay()
         }else if((PagesControl.currentPage - pageOldValue) < 0){
             //Промотали влево
             var currentIndexPath = CollectionOfTables.indexPathsForVisibleItems[0]
             currentIndexPath.item -= 1
             PagesControl.isEnabled = false
             CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
-            pageOldValue = PagesControl.currentPage
+            TodayDate?.switchToPreviousDay()
         }
-        
     }
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
@@ -186,6 +185,7 @@ extension TimeTableTabViewController: UICollectionViewDelegate {
         if(visibleCell.CurrentTimeTable.count != 0){
             visibleCell.TableForClasses.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: true)
         }
+
         PagesControl.isEnabled = true
     }
     
@@ -194,6 +194,7 @@ extension TimeTableTabViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        ShowDates(CurrentDate: TodayDate!)
         PagesControl.isEnabled = true
     }
     

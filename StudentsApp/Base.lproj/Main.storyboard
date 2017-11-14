@@ -360,6 +360,9 @@
                                 <rect key="frame" x="253.5" y="312" width="111.5" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Войти"/>
+                                <connections>
+                                    <action selector="enterProfileButtonPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="5vc-fC-wAZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

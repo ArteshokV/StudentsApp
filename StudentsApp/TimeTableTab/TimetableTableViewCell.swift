@@ -70,6 +70,8 @@ class TimetableTableViewCell: UITableViewCell {
                         ParityLabel.isHidden = false
                         ParityLabel.text = "Чет"
                     }
+                }else{
+                    ParityLabel.isHidden = true
                 }
             }
         }
