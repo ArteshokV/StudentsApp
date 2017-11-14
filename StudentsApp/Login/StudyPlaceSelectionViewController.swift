@@ -33,16 +33,26 @@ class StudyPlaceSelectionViewController: UIViewController {
     var selectedGroup: studyUnit!
     
     var workingWithPlaceType = 0
+    var wasPushedFromMenu = false
     
     // MARK: - initialSetupOfView
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        if(wasPushedFromMenu){
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }else{
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
         super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Обход логина (дебаг)
+        //let dbInitor = DataBaseInitiator()
+        //dbInitor.insertInitialData(withJson: nil)
+        //self.performSegue(withIdentifier: "StartUsing", sender: self)
         
         setBackGroundAndBlurView()
         setSearchController()
@@ -60,7 +70,7 @@ class StudyPlaceSelectionViewController: UIViewController {
         
         HeaderLabel.textColor = screenLook.mainTextColor
         screenLook.managedMainLablesContext.append(HeaderLabel)
-        if(self.navigationController != nil){
+        if(wasPushedFromMenu){
             HeaderLabel.text = "Выберите место учебы"
         }
     }
@@ -183,12 +193,12 @@ class StudyPlaceSelectionViewController: UIViewController {
             
             if(response != nil){
                 let dbInitor = DataBaseInitiator()
-                dbInitor.insertInitialData(withJson: response)
+                dbInitor.insertInitialData(withJson: nil)//response)
                 
                 //Save selected items into UserDefaults
                 let StudyPlace: Array<studyUnit> = [self.selectedUniversity,self.selectedFaculty,self.selectedGroup]
                 self.saveSetected(StudyPlace: StudyPlace)
-                if(!(self.navigationController != nil)){
+                if(!self.wasPushedFromMenu){
                     self.performSegue(withIdentifier: "StartUsing", sender: self)
                 }else{
                     self.navigationController?.popToRootViewController(animated: true)
@@ -368,10 +378,11 @@ extension StudyPlaceSelectionViewController: UITableViewDelegate{
         
         if(filteredArray.count == 0){
             //print("ADD SOMETHING")
+            self.performSegue(withIdentifier: "fromLoginToInitialSetup", sender: self)
             SearchController.dismiss(animated: true, completion: nil)
             searchBar.text = ""
             dismissSearchBar()
-            self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
+            
             return
         }
         
