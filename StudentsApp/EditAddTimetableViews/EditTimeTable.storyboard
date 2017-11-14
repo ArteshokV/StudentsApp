@@ -236,32 +236,6 @@
                                                     <action selector="ChooseRegularity:" destination="Kpp-3l-5M5" eventType="valueChanged" id="Dnf-sn-Drz"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4F9-IZ-rdw">
-                                                <rect key="frame" x="0.0" y="384" width="375" height="151"/>
-                                                <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Qb-dh-E6Q">
-                                                        <rect key="frame" x="10" y="0.0" width="355" height="120.5"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </tableView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoM-8y-Kmw">
-                                                        <rect key="frame" x="0.0" y="125" width="375" height="30"/>
-                                                        <state key="normal" title="Добавить дату"/>
-                                                        <connections>
-                                                            <action selector="CreateNewDateInTable:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="m7A-YD-oEs"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="top" secondItem="4F9-IZ-rdw" secondAttribute="top" id="7Ih-9m-2eA"/>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" constant="10" id="Kj6-cl-EOA"/>
-                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="height" secondItem="4F9-IZ-rdw" secondAttribute="height" multiplier="0.8" id="UBp-Fc-TVp"/>
-                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="top" secondItem="2Qb-dh-E6Q" secondAttribute="bottom" constant="5" id="b9C-mN-9Wb"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2Qb-dh-E6Q" secondAttribute="trailing" constant="10" id="d9L-V3-wck"/>
-                                                    <constraint firstAttribute="trailing" secondItem="DoM-8y-Kmw" secondAttribute="trailing" id="mMi-Uy-rKF"/>
-                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" id="z9O-3Z-YZO"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RXV-qa-IAj">
                                                 <rect key="frame" x="0.0" y="384" width="375" height="151"/>
                                                 <subviews>
@@ -392,6 +366,46 @@
                                                     <constraint firstAttribute="bottom" secondItem="o8j-n2-0p3" secondAttribute="bottom" id="nVl-HA-JhI"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4F9-IZ-rdw">
+                                                <rect key="frame" x="0.0" y="384" width="375" height="151"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Qb-dh-E6Q">
+                                                        <rect key="frame" x="10" y="0.0" width="355" height="120.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dd" id="qWh-x8-skH">
+                                                                <rect key="frame" x="0.0" y="28" width="355" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qWh-x8-skH" id="eNu-t4-tY4">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="355" height="43.5"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="Kpp-3l-5M5" id="2Nn-EK-ZLS"/>
+                                                            <outlet property="delegate" destination="Kpp-3l-5M5" id="iDh-m4-yWA"/>
+                                                        </connections>
+                                                    </tableView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoM-8y-Kmw">
+                                                        <rect key="frame" x="0.0" y="125" width="375" height="30"/>
+                                                        <state key="normal" title="Добавить дату"/>
+                                                        <connections>
+                                                            <action selector="CreateNewDateInTable:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="m7A-YD-oEs"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="top" secondItem="4F9-IZ-rdw" secondAttribute="top" id="7Ih-9m-2eA"/>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" constant="10" id="Kj6-cl-EOA"/>
+                                                    <constraint firstItem="2Qb-dh-E6Q" firstAttribute="height" secondItem="4F9-IZ-rdw" secondAttribute="height" multiplier="0.8" id="UBp-Fc-TVp"/>
+                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="top" secondItem="2Qb-dh-E6Q" secondAttribute="bottom" constant="5" id="b9C-mN-9Wb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Qb-dh-E6Q" secondAttribute="trailing" constant="10" id="d9L-V3-wck"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DoM-8y-Kmw" secondAttribute="trailing" id="mMi-Uy-rKF"/>
+                                                    <constraint firstItem="DoM-8y-Kmw" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" id="z9O-3Z-YZO"/>
+                                                </constraints>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-JI-eKt">
                                                 <rect key="frame" x="10" y="560" width="355" height="40"/>
                                                 <color key="backgroundColor" red="0.84644961357116699" green="0.37284656854681453" blue="0.22425206671299361" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -401,6 +415,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Удалить занятие"/>
+                                                <connections>
+                                                    <action selector="DeleteClass:" destination="Kpp-3l-5M5" eventType="touchUpInside" id="GsI-9f-qU9"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -441,6 +458,9 @@
                                     <constraint firstItem="RXf-Wk-JEy" firstAttribute="top" secondItem="6B9-0S-b1a" secondAttribute="top" id="jSg-0Y-KYi"/>
                                     <constraint firstItem="RXf-Wk-JEy" firstAttribute="leading" secondItem="6B9-0S-b1a" secondAttribute="leading" id="m7r-od-G0m"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Kpp-3l-5M5" id="MHS-7t-jtf"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -470,6 +490,7 @@
                         <outlet property="RegularitySegment" destination="Ksa-EH-4MB" id="oPx-m2-zl6"/>
                         <outlet property="RegularityView" destination="RXV-qa-IAj" id="E9V-nh-f59"/>
                         <outlet property="SaturdayButton" destination="AL2-N2-lcw" id="ZaE-Zg-gUs"/>
+                        <outlet property="ScrollView" destination="6B9-0S-b1a" id="JON-af-zhs"/>
                         <outlet property="SegmentClassType1" destination="L9i-x7-KWA" id="7DH-TJ-NbL"/>
                         <outlet property="SegmentClassType2" destination="FMa-85-4yF" id="jvk-KP-cH1"/>
                         <outlet property="SegmentOfNumberOfClass" destination="PBN-c1-q39" id="GRh-2c-Bw5"/>

@@ -54,6 +54,8 @@ class EditTimeTableController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        TimeTableChangesArray = TimetableModel.getTimetableForChanges()
+        TableOfClasses.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewWillAppear(animated)
         TimeTableChangesArray = TimetableModel.getTimetableForChanges()
