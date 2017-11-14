@@ -32,8 +32,20 @@ class DataBaseInitiator: NSObject {
         
         
         if(numberOfSearchResults != 0){
-            print("Первичный загрузчик данных обнаружил данные в базе и завершил работу. Если вы хотели загрузить данные снуля - переустановите приложение...")
-            return
+            for entity in DatabaseController.persistentContainer.managedObjectModel.entities {
+                if let entityName = entity.name {
+                    if(entityName == "AppLook"){continue}
+                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                    do {
+                        try DatabaseController.getContext().execute(NSBatchDeleteRequest(fetchRequest: fetchRequest))
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+            }
+
+            DatabaseController.saveContext()
         }
         
         do{

@@ -406,7 +406,7 @@
                                                     <constraint firstItem="DoM-8y-Kmw" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" id="z9O-3Z-YZO"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-JI-eKt">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-JI-eKt">
                                                 <rect key="frame" x="10" y="560" width="355" height="40"/>
                                                 <color key="backgroundColor" red="0.84644961357116699" green="0.37284656854681453" blue="0.22425206671299361" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>

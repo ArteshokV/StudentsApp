@@ -10,6 +10,7 @@ import UIKit
 
 class EditClassController: UIViewController, UIScrollViewDelegate {
     
+    // MARK: - Переменные
     private var TimesOfClassBegining = ["08:30", "10:15", "12:00", "13:50", "15:40", "17:25", "19:10"]
     private var TimesOfClassEnding = ["10:05", "11:50", "13:35", "15:25", "17:15", "19:00", "20:45"]
     private var DateOfBeginOfSemester = CustomDateClass(withString: "01.09.2017")//дата начала семестра
@@ -28,7 +29,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var OneDayInterval: TimeInterval = 60*60*24
     private var CoorForAnimation:CGFloat = 0
     private var AnimationDo: Bool = false
-    private var ClassTempModel: TimetableModel = TimetableModel()
+    var ClassTempModel: TimetableModel! //= TimetableModel()
     private var SubjectTempModel: SubjectModel = SubjectModel()
     private var TeacherTempModel: TeacherModel = TeacherModel()
     private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
@@ -75,6 +76,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var PeriodicStartDateLabel: UILabel!
     @IBOutlet weak var PeriodicEndDateLabel: UILabel!
     
+    // MARK: - Функции
     
     func ComplectDatePickerView () {
         customViewForDatePicker = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 240, width: self.view.frame.width, height: 240))
@@ -106,84 +108,46 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     
     func ChooseDay (DayNumber: Int) {
         if (DayNumber == 1) {
+            setWhiteColorsToDaysButtons()
             MondayButton.backgroundColor = UIColor.lightGray
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 2) {
-            MondayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             TuesdayButton.backgroundColor = UIColor.lightGray
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 3) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             WednesdayButton.backgroundColor = UIColor.lightGray
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 4) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             ThursdayButton.backgroundColor = UIColor.lightGray
-            FridayButton.backgroundColor = UIColor.white
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 5) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             FridayButton.backgroundColor = UIColor.lightGray
-            SaturdayButton.backgroundColor = UIColor.white
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
         if (DayNumber == 6) {
-            MondayButton.backgroundColor = UIColor.white
-            TuesdayButton.backgroundColor = UIColor.white
-            WednesdayButton.backgroundColor = UIColor.white
-            ThursdayButton.backgroundColor = UIColor.white
-            FridayButton.backgroundColor = UIColor.white
+            setWhiteColorsToDaysButtons()
             SaturdayButton.backgroundColor = UIColor.lightGray
-            ChoosenDay = DayNumber
-            PeriodicStartDateValue = DateOfBeginOfSemester
-            PeriodicEndDateValue = DateOfEndOfSemester
-            PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
-            PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
         }
+        
+        ChoosenDay = DayNumber
+        PeriodicStartDateValue = DateOfBeginOfSemester
+        PeriodicEndDateValue = DateOfEndOfSemester
+        PeriodicStartDate.text = DateOfBeginOfSemester.stringFromDate()
+        PeriodicEndDate.text = DateOfEndOfSemester.stringFromDate()
     }
+    
+    func setWhiteColorsToDaysButtons(){
+        MondayButton.backgroundColor = UIColor.white
+        TuesdayButton.backgroundColor = UIColor.white
+        WednesdayButton.backgroundColor = UIColor.white
+        ThursdayButton.backgroundColor = UIColor.white
+        FridayButton.backgroundColor = UIColor.white
+        SaturdayButton.backgroundColor = UIColor.white
+    }
+    
     @IBAction func ChooseCustomClassType(_ sender: Any) {
         SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
         SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
@@ -263,7 +227,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         CreateNewDateForTableButton.isEnabled = false
     }
     
-    //////////////////////////////////////////////////////////////////////ДАТА ПИКЕРЫ
+    // MARK: - ДАТА ПИКЕРЫ
     @IBAction func ChoosePeriodicStartDate(_ sender: Any) {
         ComplectDatePickerView()
         datePickerInSubview.datePickerMode = UIDatePickerMode.date
@@ -423,7 +387,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         BeginTime.text = dateFormatterForTime.string(from: sender.date)
     }
     
-    //////////////////////////////////////////////////////////////////////ОБРАБОТКА КАСАНИЙ
+    // MARK: - ОБРАБОТКА КАСАНИЙ
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             view.endEditing(true)
@@ -455,7 +419,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    //////////////////////////////////////////////////////////////////////КНОПКА СОХРАНИТЬ
+    // MARK: - КНОПКА СОХРАНИТЬ
     @IBAction func SaveButtonPressed (_ sender: Any) {
         if (CustomDateMode) {
             for CustomDate in ArrayOfCustomDates {
@@ -476,6 +440,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func DeleteClass(_ sender: Any) {
+        ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityView.frame.origin.y), animated: true)
     }
     
     
@@ -517,7 +482,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         CheckSaveButton()
     }
     
-    //////////////////////////////////////////////////////////////////////КОМПЛЕКТАЦИЯ ДАННЫХ
+    // MARK: - КОМПЛЕКТАЦИЯ ДАННЫХ
     func ComplectInformation () {
         ClassTempModel.classPlace = ClassRoomField.text
         SubjectTempModel.subjectName = SubjectField.text
@@ -566,10 +531,29 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(EditClassController.SaveButtonPressed(_:)))
         rightEditBarButtonItem.isEnabled = false
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
+        
+        if(ClassTempModel == nil){
+            ClassTempModel = TimetableModel()
+        }else{
+            initViewWith(Class: ClassTempModel)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func initViewWith(Class: TimetableModel){
+        ClassRoomField.text = ClassTempModel.classPlace
+        SubjectField.text = ClassTempModel.classSubject
+        TeacherField.text = ClassTempModel.classTeacher?.name
+        ChoosenClassType = ClassTempModel.classType!
+        EndTime.text = ClassTempModel.classEndTime
+        BeginTime.text = ClassTempModel.classStartTime
+        ChoosenDay = Int(ClassTempModel.classWeekDay!)
+        ChoosenParity = ClassTempModel.parity
+
+        DeleteClassButton.isHidden = false
     }
 }
 

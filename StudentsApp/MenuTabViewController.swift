@@ -138,5 +138,12 @@ class MenuTabViewController: UIViewController {
         self.hidesBottomBarWhenPushed = false
     }
     
-
+    @IBAction func enterProfileButtonPressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Войти", message:
+            "Здесь будет регистрация!", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }
