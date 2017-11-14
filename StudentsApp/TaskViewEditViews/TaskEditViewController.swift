@@ -148,6 +148,13 @@ class TaskEditViewController: UIViewController {
             self.topYDescr = self.insideView.frame.height - self.newScrolHeight
             
         self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            
+            if let selectedRange = self.DescriptionText.selectedTextRange {
+                
+                let cursorPosition = self.DescriptionText.offset(from: self.DescriptionText.beginningOfDocument, to: selectedRange.start)
+                
+                print("\(cursorPosition)")
+            }
         }
         
         if (counterDate != 0) {
@@ -173,19 +180,6 @@ class TaskEditViewController: UIViewController {
     @objc func doneDescriptionEditing() {
       self.navigationItem.rightBarButtonItem = nil
         view.endEditing(true)
-       // self.scrollView.isUserInteractionEnabled = true
-        //self.scrollView.isScrollEnabled = true
-       
-        
-      /*  UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            self.DescriptionText.frame.origin.y = self.DesrY
-            var oldFrame = self.DescriptionText.frame
-            let h = self.stackView.frame.origin.y - self.DesrY - 8
-            oldFrame.size = CGSize(width: self.DescriptionText.frame.width, height: h)
-            self.DescriptionText.frame = oldFrame
-            
-        }, completion: nil )
-        */
         
         if (self.searchBar.alpha == 0) {
             var oldFrame = self.scrollView.frame
@@ -230,10 +224,9 @@ class TaskEditViewController: UIViewController {
         
         if (self.counterD == 0){
         var newFrame = self.scrollView.frame
-        self.newScrolHeight = self.scrollView.frame.height - self.keyHeight
+        self.newScrolHeight = self.oldScrolHeight - self.keyHeight
         newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
         self.scrollView.frame = newFrame
-        //self.topYDescr = self.DescriptionLabel.frame.origin.y
         self.topYDescr = self.insideView.frame.height - self.newScrolHeight
         self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
         }
@@ -242,44 +235,7 @@ class TaskEditViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
-     /*   if (self.searchBar.alpha == 0) {
-            UIView.animate(withDuration: 0.1, delay: 0.4, options: .curveEaseInOut, animations: {
-                self.SubjectLabel.alpha = 0
-            }, completion: nil )
-            UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseInOut, animations: {
-                self.SubjectText.alpha = 0
-            }, completion: nil )
-            UIView.animate(withDuration: 0.3, delay: 0.2, options: .curveEaseInOut, animations: {
-                self.DescriptionLabel.alpha = 0
-            }, completion: nil )
-            UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseInOut, animations: {
-                self.NameShortText.alpha = 0
-            }, completion: nil )
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
-                self.NameShortLabel.alpha = 0
-            }, completion: nil )
-        } else {
-            self.DescriptionLabel.alpha = 0
-            self.SubjectLabel.alpha = 0
-            self.SubjectText.alpha = 0
-            self.NameShortText.alpha = 0
-            self.NameShortLabel.alpha = 0 }
-        self.dateLabel.alpha = 0
-        self.DateField.alpha = 0
-        
-        self.priorityLabel.alpha = 0
-        UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseInOut, animations: {
-            self.DescriptionText.frame.origin.y = 18 + (self.navigationController?.navigationBar.frame.height)!
-            
-            var newFrame = self.DescriptionText.frame
-            newFrame.size = CGSize(width: self.DescriptionText.frame.width, height: self.view.frame.height - (18 + (self.navigationController?.navigationBar.frame.height)!) - self.keyHeight)
-            self.DescriptionText.frame = newFrame
-            
-            self.navigationItem.rightBarButtonItem = nil
-            let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
-            self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
-        }, completion: nil)
-      */
+     
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -345,14 +301,9 @@ class TaskEditViewController: UIViewController {
         
         datePicker.addTarget(self, action: #selector(TaskEditViewController.ChangeTaskDate), for: UIControlEvents.valueChanged)
       
-           /* UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.stackView.center.y - self.stackView.frame.height/2)
-                self.stackView.center.y -= self.CoorForAnimation
-                
-            }, completion: nil) */
         if (self.counterDate == 0){
             var newFrame = self.scrollView.frame
-            self.newScrolHeight = self.scrollView.frame.height - customView.frame.height
+            self.newScrolHeight = self.oldScrolHeight - customView.frame.height
             newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
             self.scrollView.frame = newFrame
             self.topYDescr = self.insideView.frame.height - self.newScrolHeight
