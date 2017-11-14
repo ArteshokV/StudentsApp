@@ -625,5 +625,13 @@ extension EditClassController: UITableViewDataSource {
 }
 
 extension EditClassController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {
+            _, indexPath in
+            self.ArrayOfCustomDates.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.CheckSaveButton()
+        }
+        return [deleteAction]
+    }
 }
