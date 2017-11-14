@@ -13,6 +13,7 @@ class EditTimeTableController: UIViewController {
     private var TimeTableChangesArray: Array<Array<TimetableModel>> = TimetableModel.getTimetableForChanges()
     private var TimetableCellIdentifier = "TimeTableCell"
     var chosenObject:IndexPath? //IndexPath(row: 0, section: 0)
+    var shouldShowStartButton = false
     
     let WeekDaysNamesInString = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье", "Одиночные даты"]
     
@@ -36,10 +37,9 @@ class EditTimeTableController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CompleteButton.isHidden = true
         appDesign.initBackground(ofView: self.view)
         TableOfClasses.backgroundColor = UIColor.clear
-        CompleteButton.isHidden = true
         if(!UserDefaults.standard.bool(forKey: "databaseIsInited")){CompleteButton.setTitle("Начать работу", for: .normal)}
         
         setupNavigationBar()
@@ -56,6 +56,10 @@ class EditTimeTableController: UIViewController {
         super.viewWillAppear(animated)
         TimeTableChangesArray = TimetableModel.getTimetableForChanges()
         TableOfClasses.reloadData()
+        
+        if(shouldShowStartButton){
+            CompleteButton.isHidden = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,7 +89,12 @@ extension EditTimeTableController: UITableViewDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if((segue.identifier == "AddButtonPress")&&(chosenObject != nil)){
             let editVC = segue.destination as! EditClassController
-            editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+            if (TimeTableChangesArray[chosenObject!.section].count != 0) {
+                editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+            }
+            else {
+                editVC.ClassTempModel = nil
+            }
         }
     }
 }

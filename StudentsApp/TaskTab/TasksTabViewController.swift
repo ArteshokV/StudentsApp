@@ -11,6 +11,13 @@ import CoreData
 
 class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelegate{
     // MARK: - Variables
+    var prosrButton: UIButton!
+    var doneButton: UIButton!
+    var workingWithDone: Bool = false
+    var workingWithProsr: Bool = false
+    var counterd = 0
+    var counterp = 0
+    
     var parametr: String! // переменная для выбота типа сортировки
     var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
     var counter: Int!
@@ -250,14 +257,14 @@ extension TasksTabViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
         if taskOrActivity == "task" { // для вывода заданий
             if parametr == "time" {
-            return TasksAtDayArray.count
+            return TasksAtDayArray.count + 1
         }
         
             else { if parametr == "subject" {
-                return TasksAtSubjectArray.count
+                return TasksAtSubjectArray.count + 1
             }
                   else { if parametr == "priority" {
-                return (TasksAtPriorityArray.count - 1)
+                return (TasksAtPriorityArray.count - 1) + 1
                 }
                     else { return 0 }
                 }
@@ -267,11 +274,11 @@ extension TasksTabViewController: UITableViewDataSource {
         
         else { //для вывода мероприятий
              if parametr == "time" {
-                return ActivitiesAtDayArray.count
+                return ActivitiesAtDayArray.count + 1
             }
                 
             else { if parametr == "subject" {
-                return ActivitiesAtSubjectArray.count
+                return ActivitiesAtSubjectArray.count + 1
             }
             else {  return 0  }
             
@@ -284,7 +291,7 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
-      
+        if (section != (tableView.numberOfSections - 1)) {
       if taskOrActivity == "task" {  // для вывода заданий
         if parametr == "time" {
         return TasksAtDayArray[section].count
@@ -313,14 +320,16 @@ extension TasksTabViewController: UITableViewDataSource {
             else {return 0}
         }
         }
-        
+        } else {
+            return 0
+        }
     }
   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
         
-        
+     
         if taskOrActivity == "task" { // для вывода заданий
         if parametr == "time" { // Вывод данных для сортировки заданий по дате
              cell.initWithTask(model: TasksAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
@@ -358,67 +367,151 @@ extension TasksTabViewController: UITableViewDataSource {
         let header = HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
         header.mainHeaderLabel?.textAlignment = .left
         //var headerLabel = ""
+        
+        if (section != (tableView.numberOfSections - 1)) {
+        header.viewCornerRadius = 8.0
+            if taskOrActivity == "task" {
+        
         switch parametr {
         case "time":
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
         case "subject":
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
         case "priority":
             switch TasksAtPriorityArray[section][0].taskPriority! {
             case 2:
                 header.mainHeaderLabel?.text = "Высокий приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
             case 1:
                 header.mainHeaderLabel?.text = "Средний приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
             case 0:
                 header.mainHeaderLabel?.text = "Низкий приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
             default:
                 header.mainHeaderLabel?.text = " "
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
             }
         default:
             header.mainHeaderLabel?.text = " "
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
         }
-        header.viewCornerRadius = 8.0
+            }
+            else {
+                switch parametr {
+                case "time":
+                    header.mainHeaderLabel?.text = (ActivitiesAtDayArray[section][0].activityDate?.stringFromDate())!
+                    break
+                case "subject":
+                    header.mainHeaderLabel?.text = ActivitiesAtSubjectArray[section][0].activitySubject! == "" ? "Дополнительно" : ActivitiesAtSubjectArray[section][0].activitySubject!
+                    break
+                default:
+                    header.mainHeaderLabel?.text = " "
+                    break
+                }
+            }
+        } else {
+            header.mainHeaderLabel?.text = "Доп. возможности"
+            header.mainHeaderLabel?.textAlignment = .center
+            header.viewCornerRadius = 15.0
+        }
+       
+        
         return header
         
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
        
         let footer = HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
-       /* if(section == 1){
-            footer.leftFooterButton?.addTarget(self, action: #selector(todayButtonPressed), for: .touchUpInside)
+        if (section == (tableView.numberOfSections - 1)) {
+            //footer.leftFooterButton?.isHidden = false
+          //  footer.rightFooterButton?.isHidden = false
+            footer.leftFooterButton?.setTitle("Сделанные", for: .normal)
+            footer.rightFooterButton?.setTitle("Просроченные", for: .normal)
+            footer.leftFooterButton?.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
             footer.leftFooterButton?.isHidden = false
-            todayButton = footer.leftFooterButton!
+            doneButton = footer.leftFooterButton!
             
-            footer.rightFooterButton?.addTarget(self, action: #selector(tomorrowButtonPressed), for: .touchUpInside)
+            footer.rightFooterButton?.addTarget(self, action: #selector(prosrButtonPressed), for: .touchUpInside)
             footer.rightFooterButton?.isHidden = false
-            tomorrowButton = footer.rightFooterButton!
+            prosrButton = footer.rightFooterButton!
             
-            if(workingWithToday){
+       /*     if(workingWithDone){
                 footer.leftFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            }else{
-                footer.rightFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
             }
-        }*/
+            if(workingWithProsr){
+                footer.rightFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            } */
+        }
         footer.viewCornerRadius = 15.0
+        
         return footer
     }
     
+    @objc func doneButtonPressed(_ sender: UIButton!){
+       // if(!workingWithToday){
+        counterp = 0
+        if (counterd == 0) {
+            doneButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            prosrButton.backgroundColor = UIColor.clear
+          //  let oldLengthOfSection = timeTableArray.count
+            workingWithDone = true
+            workingWithProsr = false
+            counterd+=1
+        }
+        else {
+            doneButton.backgroundColor = UIColor.clear
+            prosrButton.backgroundColor = UIColor.clear
+            //  let oldLengthOfSection = timeTableArray.count
+            workingWithDone = false
+            workingWithProsr = false
+            counterd = 0
+        }
+           /* let today = CustomDateClass()
+            self.timeTableArray = TimetableModel.getTimetable(Date: today)
+            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: today)
+            self.timeTableFetchController.delegate = self
+            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection) */
+       // }
+    }
+    
+    @objc func prosrButtonPressed(_ sender: UIButton!){
+       // if(workingWithToday){
+        counterd = 0
+        if (counterp == 0) {
+            doneButton.backgroundColor = UIColor.clear
+            prosrButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+            //let oldLengthOfSection = timeTableArray.count
+            workingWithDone = false
+            workingWithProsr = true
+            counterp+=1
+        }
+        else {
+            doneButton.backgroundColor = UIColor.clear
+            prosrButton.backgroundColor = UIColor.clear
+            //let oldLengthOfSection = timeTableArray.count
+            workingWithDone = false
+            workingWithProsr = false
+            counterp = 0
+        }
+        
+           /* let nextDay = CustomDateClass()
+            nextDay.switchToNextDay()
+            timeTableArray = TimetableModel.getTimetable(Date: nextDay)
+            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: nextDay)
+            self.timeTableFetchController.delegate = self
+            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection) */
+      //  }
+    }
+    
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 25
+        if (section == (tableView.numberOfSections - 1)) {
+            return 50
+        }
+        else {return 25}
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
