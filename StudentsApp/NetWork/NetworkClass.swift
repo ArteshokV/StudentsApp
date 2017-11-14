@@ -21,11 +21,11 @@ struct studyPlaceResponse: Codable {
 
 struct initalDataResponse: Codable {
 //    {"teachers":[],"activities":[],"subjects":[],"tasks":[],"timeTableEvents":[]}
-    let teachers: [teacher]
-    let activities: [activity]
-    let subjects: [subject]
-    let tasks: [task]
-    let timeTableEvents: [timeTableEvent]
+    let subjects: [subject]?
+    let timeTableEvents: [timeTableEvent]?
+    let teachers: [teacher]?
+    let activities: [activity]?
+    let tasks: [task]?
 }
 
 struct teacher: Codable {
@@ -53,19 +53,19 @@ struct task: Codable {
     let date: String
     let subject: String
     let description: String
-    let priority: String
-    let status: String
+    let priority: Int16
+    let status: Int16
 }
 
 struct timeTableEvent: Codable {
     let id: Int
-    let beginDate: String
-    let endDate: String
-    let date: String
-    let dayOfWeek: Int
-    let startTime: Int
-    let endTime: Int
-    let parity: Int
+    let beginDate: String?
+    let endDate: String?
+    let date: String?
+    let dayOfWeek: Int16?
+    let startTime: Int16
+    let endTime: Int16
+    let parity: Bool?
     let place: String
     let type: String
     let subject: String
@@ -105,6 +105,7 @@ class NetworkClass: NSObject {
     }
     
     func getInitilData(forUniversity: Int, forFaculty: Int, forGroup: Int, withCompletition: @escaping (initalDataResponse?) -> ()) {
+        print("Starting init data fetch for group \(forGroup)")
         let urlString = "http://\(apiAdress)/api/dataInit?groupId=\(forGroup)"
         network.getJsonWith(URL: urlString, type: initalDataResponse.self, andCompletitionBlock: {responseStruct in
             DispatchQueue.main.async {
