@@ -370,39 +370,48 @@ extension TasksTabViewController: UITableViewDataSource {
         
         if (section != (tableView.numberOfSections - 1)) {
         header.viewCornerRadius = 8.0
+            if taskOrActivity == "task" {
+        
         switch parametr {
         case "time":
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: (TasksAtDayArray[section][0].taskDate?.stringFromDate())!, aligment: .center, tableView: tableView)
         case "subject":
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!, aligment: .center, tableView: tableView)
         case "priority":
             switch TasksAtPriorityArray[section][0].taskPriority! {
             case 2:
                 header.mainHeaderLabel?.text = "Высокий приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Высокий приоритет", aligment: .center, tableView: tableView)
             case 1:
                 header.mainHeaderLabel?.text = "Средний приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Средний приоритет", aligment: .center, tableView: tableView)
             case 0:
                 header.mainHeaderLabel?.text = "Низкий приоритет"
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: "Низкий приоритет", aligment: .center, tableView: tableView)
             default:
                 header.mainHeaderLabel?.text = " "
                 break
-                //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
             }
         default:
             header.mainHeaderLabel?.text = " "
             break
-            //return HeaderFooterViewClass.getViewForHeaderInSectionWithLabel(textFronLabel: " ", aligment: .center, tableView: tableView)
         }
+            }
+            else {
+                switch parametr {
+                case "time":
+                    header.mainHeaderLabel?.text = (ActivitiesAtDayArray[section][0].activityDate?.stringFromDate())!
+                    break
+                case "subject":
+                    header.mainHeaderLabel?.text = ActivitiesAtSubjectArray[section][0].activitySubject! == "" ? "Дополнительно" : ActivitiesAtSubjectArray[section][0].activitySubject!
+                    break
+                default:
+                    header.mainHeaderLabel?.text = " "
+                    break
+                }
+            }
         } else {
             header.mainHeaderLabel?.text = "Доп. возможности"
             header.mainHeaderLabel?.textAlignment = .center

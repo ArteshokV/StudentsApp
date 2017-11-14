@@ -21,8 +21,11 @@ class TaskEditViewController: UIViewController {
     @IBOutlet weak var SubjectLabel: UILabel!
     @IBOutlet weak var DescriptionLabel: UILabel!
     @IBOutlet weak var HiddenDescription: UITextView!
-    @IBOutlet weak var PriorityButton: UIButton!
-    @IBOutlet weak var DateButton: UIButton!
+    
+    @IBOutlet weak var priorityLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var priorityField: UITextField!
+    @IBOutlet weak var DateField: UITextField!
     @IBOutlet weak var DescriptionText: UITextView!
     
     @IBOutlet weak var NameShortText: UITextView!
@@ -34,6 +37,10 @@ class TaskEditViewController: UIViewController {
     var filteredSubject: [String] = []
     var searchSubject: [String] = []
     var searchActive : Bool = false
+    var keyHeight: CGFloat = 0
+    var counterS: Int = 0
+    private var dateFormatterForDate = DateFormatter()
+    private var CoorForAnimation:CGFloat = 0
     
     let appDesign = CustomApplicationLook()
     
@@ -50,14 +57,34 @@ class TaskEditViewController: UIViewController {
         DescriptionText.textColor = appDesign.mainTextColor
         SubjectText.textColor = appDesign.mainTextColor
         NameShortText.textColor = appDesign.mainTextColor
+        dateLabel.textColor = appDesign.subTextColor
+        DateField.textColor = appDesign.mainTextColor
+        priorityLabel.textColor = appDesign.subTextColor
+        priorityField.textColor = appDesign.mainTextColor
+        
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
         SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
         NameShortText.text = taskEditObject?.taskNameShort
         DescriptionText.text = taskEditObject?.taskDescription
-        DateButton.setTitle(taskEditObject?.taskDate?.stringFromDate(), for: .normal)
-        PriorityButton.setTitle(taskEditObject?.taskPriority?.description, for: .normal)
-    
+        DateField.text = taskEditObject?.taskDate?.stringFromDate()
+        //priorityField.text = taskEditObject?.taskPriority
+        switch taskEditObject?.taskPriority {
+        case 0?:
+            priorityField.text = "Низкий"
+            break
+        case 1?:
+            priorityField.text = "Средний"
+            break
+        case 2?:
+            priorityField.text = "Высокий"
+            break
+        default:
+            priorityField.text = "Не установлен"
+            break
+        }
+        
+        
         self.view.bringSubview(toFront: DescriptionText)
         DesrY = self.DescriptionText.frame.origin.y
        
@@ -85,6 +112,16 @@ class TaskEditViewController: UIViewController {
         let taskCellNib = UINib(nibName: "TaskTapViewCell", bundle: nil)
         subjectTable.register(taskCellNib, forCellReuseIdentifier: "subject")
         self.subjectTable.reloadData()
+        
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillShow,
+            object: nil
+        )
+        
+        dateFormatterForDate.dateFormat = "dd.MM.yyyy"
     }
 
     override func didReceiveMemoryWarning() {
@@ -148,10 +185,12 @@ class TaskEditViewController: UIViewController {
         self.SubjectText.alpha = 1
         self.NameShortText.alpha = 1
         self.NameShortLabel.alpha = 1 }
-        self.DateButton.alpha = 1
-        self.PriorityButton.alpha = 1
+        self.dateLabel.alpha = 1
+        self.DateField.alpha = 1
+        self.priorityField.alpha = 1
+        self.priorityLabel.alpha = 1
         
-        self.view.bringSubview(toFront: self.bottomView)
+        //self.view.bringSubview(toFront: self.bottomView)
         
         //subject
         self.searchBar.alpha = 0
@@ -192,13 +231,15 @@ class TaskEditViewController: UIViewController {
             self.SubjectText.alpha = 0
             self.NameShortText.alpha = 0
             self.NameShortLabel.alpha = 0 }
-        self.DateButton.alpha = 0
-        self.PriorityButton.alpha = 0
+        self.dateLabel.alpha = 0
+        self.DateField.alpha = 0
+        self.priorityField.alpha = 0
+        self.priorityLabel.alpha = 0
         UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseInOut, animations: {
             self.DescriptionText.frame.origin.y = 18 + (self.navigationController?.navigationBar.frame.height)!
             
             var newFrame = self.DescriptionText.frame
-            newFrame.size = CGSize(width: self.DescriptionText.frame.width, height: self.view.frame.height - (18 + (self.navigationController?.navigationBar.frame.height)!) - 250)
+            newFrame.size = CGSize(width: self.DescriptionText.frame.width, height: self.view.frame.height - (18 + (self.navigationController?.navigationBar.frame.height)!) - self.keyHeight)
             self.DescriptionText.frame = newFrame
             
             self.navigationItem.rightBarButtonItem = nil
@@ -208,6 +249,15 @@ class TaskEditViewController: UIViewController {
         
     }
     
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.keyHeight = keyboardRectangle.height
+           // print("\(self.keyHeight)")
+        }
+    }
+    
+    
     func touchSubject() {
         searchBar.becomeFirstResponder()
         self.DescriptionText.alpha = 0
@@ -216,17 +266,73 @@ class TaskEditViewController: UIViewController {
         self.SubjectText.alpha = 0
         self.NameShortText.alpha = 0
         self.NameShortLabel.alpha = 0
-        self.DateButton.alpha = 0
-        self.PriorityButton.alpha = 0
+        self.dateLabel.alpha = 0
+        self.DateField.alpha = 0
+        self.priorityField.alpha = 0
+        self.priorityLabel.alpha = 0
         
         self.navigationItem.hidesBackButton = true
         self.searchBar.alpha = 1
         self.subjectTable.alpha = 1
+        
+        
+        if (counterS == 0) {
+        var newFrameForSubjectTable = self.subjectTable.frame
+        newFrameForSubjectTable.size = CGSize(width: self.subjectTable.frame.width, height: self.subjectTable.frame.height - self.keyHeight + 30)
+        self.subjectTable.frame = newFrameForSubjectTable
+        }
+        counterS+=1
+         
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
     }
     
+    func touchDate() {
+       print("fghfdjfjd")
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
+        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
+        doneButton.setTitle("Done", for: UIControlState.normal)
+        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+        doneButton.setTitle("Done", for: UIControlState.highlighted)
+        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
+        doneButton.addTarget(self, action: #selector(TaskEditViewController.pickerDoneButtonPressed), for: UIControlEvents.touchUpInside)
+        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
+        customView.addSubview(datePicker)
+        customView.addSubview(doneButton)
+        datePicker.datePickerMode = UIDatePickerMode.date
+        DateField.inputView = customView
+        //PeriodicStartDate.tintColor = UIColor.clear
+        //datePicker.minimumDate = EditClassController.DateOfBeginOfSemester.currentDate
+        if (DateField.text != "") {
+            datePicker.setDate((taskEditObject?.taskDate?.currentDate)!, animated: false)
+        }
+        
+        datePicker.addTarget(self, action: #selector(TaskEditViewController.ChangeTaskDate), for: UIControlEvents.valueChanged)
+        self.stackView.layer.backgroundColor = UIColor.darkGray.cgColor
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.CoorForAnimation = customView.frame.height - (self.view.frame.height - self.stackView.center.y - self.stackView.frame.height/2)
+                self.stackView.center.y -= self.CoorForAnimation
+                
+            }, completion: nil)
+        
+    }
+    
+    @objc func pickerDoneButtonPressed (sender:UIButton) {
+        view.endEditing(true)
+        
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.stackView.center.y += self.CoorForAnimation
+                self.CoorForAnimation = 0
+                
+            }, completion: nil)
+        
+    }
+    
+    
+    @objc func ChangeTaskDate (sender:UIDatePicker) {
+        DateField.text = dateFormatterForDate.string(from: sender.date)
+    }
     /*
     // MARK: - Navigation
 
@@ -289,9 +395,18 @@ extension TaskEditViewController: UITextViewDelegate {
         if textView == SubjectText {
             touchSubject()
         }
+       
     }
     
     
+}
+
+extension TaskEditViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == DateField {
+            touchDate()
+        }
+    }
 }
 
 extension TaskEditViewController: UITableViewDelegate {
