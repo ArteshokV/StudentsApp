@@ -85,7 +85,12 @@ extension EditTimeTableController: UITableViewDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if((segue.identifier == "AddButtonPress")&&(chosenObject != nil)){
             let editVC = segue.destination as! EditClassController
-            editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+            if (TimeTableChangesArray[chosenObject!.section].count != 0) {
+                editVC.ClassTempModel = TimeTableChangesArray[chosenObject!.section][chosenObject!.row]
+            }
+            else {
+                editVC.ClassTempModel = nil
+            }
         }
     }
 }
