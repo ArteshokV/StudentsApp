@@ -27,7 +27,6 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var WeekInterval: TimeInterval = 60*60*24*7
     private var FiveMinutesInterval: TimeInterval = 5*60
     private var OneDayInterval: TimeInterval = 60*60*24
-    private var CoorForAnimation:CGFloat = 0
     private var AnimationDo: Bool = false
     var ClassTempModel: TimetableModel! //= TimetableModel()
     private var SubjectTempModel: SubjectModel = SubjectModel()
@@ -310,7 +309,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityView.frame.origin.y), animated: true)
+            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
@@ -331,7 +330,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityView.frame.origin.y), animated: true)
+            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
@@ -442,26 +441,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         BeginTimeInDate.currentDate = sender.date
         BeginTime.text = dateFormatterForTime.string(from: sender.date)
     }
-    
-    // MARK: - ОБРАБОТКА КАСАНИЙ
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.first != nil {
-            view.endEditing(true)
-        }
-        if (CustomDateMode) {
-            customViewForDatePicker.removeFromSuperview()
-            if (CheckDateInTable(DateForCheck: CustomDateInTable)) {
-                ArrayOfCustomDates.append(CustomDateInTable)
-            }
-            TableForDates.reloadData()
-            CreateNewDateForTableButton.isEnabled = true
-        }
-        super.touchesBegan(touches, with: event)
-        if (AnimationDo) {
-            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            self.AnimationDo = false
-        }
-    }
+
     
     // MARK: - КНОПКА СОХРАНИТЬ
     @IBAction func SaveButtonPressed (_ sender: Any) {
@@ -490,6 +470,14 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    func SetClassNumber (StartTime: String, EndTime: String) {
+        let endIndex = TimesOfClassBegining.count - 1
+        for i in 0 ... endIndex {
+            if ((TimesOfClassBegining[i] == StartTime)&&(TimesOfClassEnding[i] == EndTime)) {
+                SegmentOfNumberOfClass.selectedSegmentIndex = i
+            }
+        }
+    }
     
     @IBAction func NumberOfClassChoice(_ sender: Any) {
         BeginTime.text = TimesOfClassBegining[SegmentOfNumberOfClass.selectedSegmentIndex]
@@ -600,6 +588,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         SetClassType(CurrentClassType: ChoosenClassType)
         EndTime.text = ClassTempModel.classEndTime
         BeginTime.text = ClassTempModel.classStartTime
+        SetClassNumber(StartTime: ClassTempModel.classStartTime!, EndTime: ClassTempModel.classEndTime!)
         ChoosenDay = Int(ClassTempModel.classWeekDay!)
         ChooseDay(DayNumber: ChoosenDay)
         PeriodicEndDate.text = ClassTempModel.classEndDate?.stringFromDate()
@@ -622,8 +611,6 @@ extension EditClassController: UITableViewDataSource {
         cell.textLabel?.text = ArrayOfCustomDates[indexPath.row].stringFromDate()
         return cell
     }
-    
-    
 }
 
 extension EditClassController: UITableViewDelegate {
