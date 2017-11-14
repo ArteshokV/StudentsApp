@@ -480,12 +480,14 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
                 ClassTempModel.save()
             }
         }
-        navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        //navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func DeleteClass(_ sender: Any) {
         ClassTempModel.delete()
-        navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        //navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     
