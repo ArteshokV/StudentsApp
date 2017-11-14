@@ -155,7 +155,6 @@ class TaskEditViewController: UIViewController {
             newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
             self.scrollView.frame = newFrame
             self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            
             self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
         }
     }
@@ -236,6 +235,7 @@ class TaskEditViewController: UIViewController {
         self.scrollView.frame = newFrame
         //self.topYDescr = self.DescriptionLabel.frame.origin.y
         self.topYDescr = self.insideView.frame.height - self.newScrolHeight
+        self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
         }
         self.counterD+=1
         
@@ -323,7 +323,7 @@ class TaskEditViewController: UIViewController {
     
     func touchDate() {
        
-        self.stackView.backgroundColor = appDesign.secondGradientColor
+       // self.stackView.backgroundColor = appDesign.secondGradientColor
         
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
         let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
@@ -356,6 +356,7 @@ class TaskEditViewController: UIViewController {
             newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
             self.scrollView.frame = newFrame
             self.topYDescr = self.insideView.frame.height - self.newScrolHeight
+            self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
         }
         self.counterDate+=1
         
@@ -367,7 +368,7 @@ class TaskEditViewController: UIViewController {
         oldFrame.size = CGSize(width: self.oldScrolWidth, height: self.oldScrolHeight)
         self.scrollView.frame = oldFrame
         self.scrollView.setContentOffset(CGPoint.zero, animated: true)
-     
+        counterDate = 0
     }
     
     
