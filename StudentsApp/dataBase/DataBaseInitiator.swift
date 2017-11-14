@@ -12,8 +12,16 @@ import CoreData
 
 
 class DataBaseInitiator: NSObject {
+    
+    let subjectsDatabaseName = String(describing: Subjects.self)
+    let timeTableDatabaseName = String(describing: TimeTable.self)
+    let activitiesDatabaseName = String(describing: Activities.self)
+    let tasksDatabaseName = String(describing: Tasks.self)
+
+    
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
-    func insertInitialData(withJson: Any?) {
+    func insertInitialData(withParsedStruct: initalDataResponse?) {
+        let dataStruct = withParsedStruct!
         var numberOfSearchResults = 0
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
@@ -48,127 +56,86 @@ class DataBaseInitiator: NSObject {
             DatabaseController.saveContext()
         }
         
-        do{
-            var json: [String: Any]!
-            if (withJson == nil){
-                let url = Bundle.main.url(forResource: "InitialDataForDB", withExtension: "json")
-                let data = try Data(contentsOf: url!)
-                json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-            }else{
-                json = withJson as! [String: Any]
-            }
-            let timeTableDatabaseName:String = String(describing: TimeTable.self)
-            let subjectsInitalData = json["Subjects"] as! [String: [String:Any]]
-            let subjectsDatabaseName:String = String(describing: Subjects.self)
-            for record in subjectsInitalData.values{
+        //FIXME: store teachers maybe....
+        //--- Storing Subjects
+        for subject in dataStruct.subjects!{
                 //print(DatabaseController.getContext())
                 let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
-                Subject.name = record["Name"] as? String
+                Subject.name = subject.name
             }
             DatabaseController.saveContext()
             
             //---Storing TimeTable
-            let timeTableJson = json["Timetable"] as! [String: [String:Any]]
-            //json = json["1"] as! [String: Any]
-            //print(json["Date"] as! NSNull)
-            
-            for record in timeTableJson.values{
+        
+        for eventData in dataStruct.timeTableEvents!{
                 
                 let event:TimeTable = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! TimeTable
-                /*
-                 "Date": null,
-                 "StartTime": "10:15",
-                 "EndTime": "11:50",
-                 "Subject": "Экономика",
-                 "Teacher": "Павлов В.А.",
-                 "Place": "515ю",
-                 "classType": "Лекция",
-                 "StartDate": "01.09.2017",
-                 "EndDate": "31.12.2017",
-                 "weekDay": 2,
-                 "Parity": true
-                 */
-                event.startTime = record["StartTime"] as! Int16
-                event.endTime = record["EndTime"] as! Int16
+                
+                event.startTime = eventData.startTime
+                event.endTime = eventData.endTime
                 
                 
-                event.place = record["Place"] as? String
-                event.type = record["classType"] as? String
-                if !(record["StartDate"] is NSNull){
-                    event.beginDate = CustomDateClass(withString: record["StartDate"] as! String).currentDate
+                event.place = eventData.place
+                event.type = eventData.type
+                if !(eventData.beginDate == nil){
+                    event.beginDate = CustomDateClass(withString: eventData.beginDate!).currentDate
                 }
-                if !(record["EndDate"] is NSNull){
-                    event.endDate = CustomDateClass(withString: record["EndDate"] as! String).currentDate
+                if !(eventData.endDate == nil){
+                    event.endDate = CustomDateClass(withString: eventData.endDate!).currentDate
                 }
-                if !(record["weekDay"] is NSNull){
-                    event.dayOfWeek = record["weekDay"] as! Int16 as NSNumber
+                if !(eventData.dayOfWeek == nil){
+                    event.dayOfWeek = eventData.dayOfWeek! as NSNumber
                 }
-                if !(record["Parity"] is NSNull){
-                    event.parity = record["Parity"] as! Bool as NSNumber
+                if !(eventData.parity == nil){
+                    event.parity = eventData.parity! as NSNumber
                 }
-                if !(record["Date"] is NSNull){
-                    event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
+                if !(eventData.date == nil){
+                    event.date = CustomDateClass(withString: eventData.date!).currentDate
                 }
                 
-                event.subject = getSubjectBy(Name: record["Subject"] as! String)
-                if record["Teacher"] is NSNull {
+                event.subject = getSubjectBy(Name: eventData.subject)
+                if eventData.teacher == nil {
                     event.teacher = nil
                     DatabaseController.saveContext()
                 }
                 else{
-                    let teacher:TeacherModel = TeacherModel(Name: record["Teacher"] as! String, FamilyName: "", FatherName:nil)
+                    let teacher:TeacherModel = TeacherModel(Name: (eventData.teacher)!.name, FamilyName: (eventData.teacher?.familyName)!, FatherName: eventData.teacher?.fatherName == nil ? nil : eventData.teacher?.fatherName)
                     teacher.save()
                     event.teacher = teacher.getDataBaseEntity()
                     
                 }
             }
             DatabaseController.saveContext()
-            
+ 
             //---Storing Activities
-            let activitiesDatabaseName:String = String(describing: Activities.self)
-            let activities = json["Activities"] as! [String: [String:Any]]
-            //json = json["1"] as! [String: Any]
-            //print(json["Date"] as! NSNull)
-            
-            for record in activities.values{
+        
+        for activity in dataStruct.activities!{
                 
                 let event:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
                 
-                if !(record["Date"] is NSNull){
-                    event.date = CustomDateClass(withString: record["Date"] as! String).currentDate
-                }
+                event.date = CustomDateClass(withString: activity.date).currentDate
                 
-                event.shortName = record["nameShort"] as? String
+                event.shortName = activity.shortName
                 
-                event.subject = getSubjectBy(Name: record["Subject"] as! String)
+                event.subject = getSubjectBy(Name: activity.subject)
             }
-            
+        
             //---Storing Tasks
-            let tasksDatabaseName:String = String(describing: Tasks.self)
-            let tasks = json["Tasks"] as! [String: [String:Any]]
-            //json = json["1"] as! [String: Any]
-            //print(json["Date"] as! NSNull)
-            
-            for record in tasks.values{
+        for task in dataStruct.tasks!{
                 
                 let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
                 
-                if !(record["edgeDate"] is NSNull){
-                    event.date = CustomDateClass(withString: record["edgeDate"] as! String).currentDate
-                }
-                event.shortName = record["nameShort"] as? String
-                event.descrp = record["descriptionOfTask"] as? String
-                event.priority = (record["Priority"] as? Int16)!
-                event.status = (record["Status"] as? Int16)!
+                event.date = CustomDateClass(withString: task.date).currentDate
+                event.shortName = task.shortName
+                event.descrp = task.description
+                event.priority = (task.priority)
+                event.status = (task.status )
                 
-                event.subject = getSubjectBy(Name: record["Subject"] as! String)
+                event.subject = getSubjectBy(Name: task.subject)
             }
-            
+        
             DatabaseController.saveContext()
-        }
-        catch{
-            print(error.localizedDescription)
-        }
+        
         UserDefaults.standard.set(true, forKey: "databaseIsInited")
         
         //doCheck()
