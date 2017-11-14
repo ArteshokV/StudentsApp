@@ -183,7 +183,7 @@ class StudyPlaceSelectionViewController: UIViewController {
             
             if(response != nil){
                 let dbInitor = DataBaseInitiator()
-                dbInitor.insertInitialData(withJson: response)
+                dbInitor.insertInitialData(withParsedStruct: response)
                 
                 //Save selected items into UserDefaults
                 let StudyPlace: Array<studyUnit> = [self.selectedUniversity,self.selectedFaculty,self.selectedGroup]

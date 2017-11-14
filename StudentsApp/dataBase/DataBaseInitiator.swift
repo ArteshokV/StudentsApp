@@ -13,7 +13,7 @@ import CoreData
 
 class DataBaseInitiator: NSObject {
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
-    func insertInitialData(withJson: Any?) {
+    func insertInitialData(withParsedStruct: initalDataResponse?) {
         var numberOfSearchResults = 0
         
         let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
