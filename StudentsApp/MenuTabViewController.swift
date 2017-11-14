@@ -128,7 +128,10 @@ class MenuTabViewController: UIViewController {
     
     @IBAction func changeStudyPlacePressed(_ sender: UIButton) {
         self.hidesBottomBarWhenPushed = true
-        self.performSegue(withIdentifier: "changeStudyPlace", sender: self)
+        let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! StudyPlaceSelectionViewController
+        vc.wasPushedFromMenu = true
+        self.navigationController?.pushViewController(vc, animated: true)
         self.hidesBottomBarWhenPushed = false
     }
     
