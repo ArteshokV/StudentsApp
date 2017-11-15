@@ -51,6 +51,19 @@ class DataBaseInitiator: NSObject {
         updateClasses.delete()
     }
     
+    func databaseIsEmpty() -> Bool{
+        let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            if(searchResults.count != 0){return false}
+        }
+        catch{
+            print("Error: \(error)")
+        }
+        return true
+    }
+    
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
     func insertInitialData(withParsedStruct: initalDataResponse?) {
         let dataStruct = withParsedStruct!
