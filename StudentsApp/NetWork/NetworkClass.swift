@@ -19,6 +19,59 @@ struct studyPlaceResponse: Codable {
     let groups: [studyUnit]?
 }
 
+struct initalDataResponse: Codable {
+//    {"teachers":[],"activities":[],"subjects":[],"tasks":[],"timeTableEvents":[]}
+    let subjects: [subject]?
+    let timeTableEvents: [timeTableEvent]?
+    let teachers: [teacher]?
+    let activities: [activity]?
+    let tasks: [task]?
+}
+
+struct teacher: Codable {
+    let id: Int
+    let name: String
+    let familyName: String
+    let fatherName: String?
+}
+
+struct activity: Codable {
+    let id: Int
+    let shortName: String
+    let date: String
+    let subject: String
+}
+
+struct subject: Codable {
+    let id: Int
+    let name: String
+}
+
+struct task: Codable {
+    let id: Int
+    let shortName: String
+    let date: String
+    let subject: String
+    let description: String
+    let priority: Int16
+    let status: Int16
+}
+
+struct timeTableEvent: Codable {
+    let id: Int
+    let beginDate: String?
+    let endDate: String?
+    let date: String?
+    let dayOfWeek: Int16?
+    let startTime: Int16
+    let endTime: Int16
+    let parity: Bool?
+    let place: String
+    let type: String
+    let subject: String
+    let teacher: teacher?
+}
+
 class NetworkClass: NSObject {
     let apiAdress = "89.179.244.73:8112/stdApp"
     let network = LowNetworkClass()
@@ -51,8 +104,15 @@ class NetworkClass: NSObject {
         })
     }
     
-    func getInitilData(forUniversity: Int, forFaculty: Int, forGroup: Int, withCompletition: @escaping (Any?) -> ()) {
-        //let urlString = "http://\(apiAdress)/api/groups?university=\(forUniversity)&faculty=\(forFaculty)&group=\(forGroup)"
+    func getInitilData(forUniversity: Int, forFaculty: Int, forGroup: Int, withCompletition: @escaping (initalDataResponse?) -> ()) {
+        print("Starting init data fetch for group \(forGroup)")
+        let urlString = "http://\(apiAdress)/api/dataInit?groupId=\(forGroup)"
+        network.getJsonWith(URL: urlString, type: initalDataResponse.self, andCompletitionBlock: {responseStruct in
+            DispatchQueue.main.async {
+                withCompletition(responseStruct)
+            }
+        })
+        /*
         let urlString = "http://\(apiAdress)/api/studyPlace/getJSONinitialDataForRemoteApp"
         network.jetRawJson(URL: urlString, andCompletitionBlock: {json in
             
@@ -69,5 +129,6 @@ class NetworkClass: NSObject {
             }
             */
         })
+ */
     }
 }

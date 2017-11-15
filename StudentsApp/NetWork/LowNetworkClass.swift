@@ -42,11 +42,12 @@ class LowNetworkClass: NSObject {
                     response.statusCode == 200 {
                     do{
                         let decoder = JSONDecoder()
+                        print("Init data respons \(data)")
                         let studyPlaceUnit = try decoder.decode(type, from: data)
                         //print(studyPlaceUnit)
                         andCompletitionBlock(studyPlaceUnit)
                     } catch{
-                        print("Error with parsing json")
+                        print("Error with parsing json. \(error.localizedDescription)")
                         andCompletitionBlock(nil)
                     }
                 }else{
