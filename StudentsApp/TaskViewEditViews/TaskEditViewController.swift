@@ -19,16 +19,16 @@ class TaskEditViewController: UIViewController {
     @IBOutlet weak var subjectTable: UITableView!
     
     @IBOutlet weak var prioritySegment: UISegmentedControl!
-    @IBOutlet weak var bottomView: UIView!
+  
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var NameShortLabel: UILabel!
     @IBOutlet weak var SubjectLabel: UILabel!
     @IBOutlet weak var DescriptionLabel: UILabel!
-    @IBOutlet weak var HiddenDescription: UITextView!
+    
     
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var priorityField: UITextField!
+    
     @IBOutlet weak var DateField: UITextField!
     @IBOutlet weak var DescriptionText: UITextView!
     
@@ -65,20 +65,21 @@ class TaskEditViewController: UIViewController {
         oldScrolWidth = self.scrollView.frame.width
         //customization
         appDesign.initBackground(ofView: self.view)
-        DescriptionLabel.textColor = appDesign.subTextColor
-        SubjectLabel.textColor = appDesign.subTextColor
-        NameShortLabel.textColor = appDesign.subTextColor
-        DescriptionText.textColor = appDesign.mainTextColor
-        SubjectText.textColor = appDesign.mainTextColor
-        NameShortText.textColor = appDesign.mainTextColor
-        dateLabel.textColor = appDesign.subTextColor
-        DateField.textColor = appDesign.mainTextColor
-        priorityLabel.textColor = appDesign.subTextColor
-       
+        DescriptionLabel.textColor = appDesign.mainTextColor
+        SubjectLabel.textColor = appDesign.mainTextColor
+        NameShortLabel.textColor = appDesign.mainTextColor
+        DescriptionText.textColor = appDesign.subTextColor
+        SubjectText.textColor = appDesign.subTextColor
+        NameShortText.textColor = appDesign.subTextColor
+        //dateLabel.textColor = appDesign.subTextColor
+        DateField.textColor = appDesign.subTextColor
+        DateField.font = UIFont.boldSystemFont(ofSize: 23)
+        priorityLabel.textColor = appDesign.mainTextColor
+       prioritySegment.tintColor = appDesign.subTextColor
         
         // Do any additional setup after loading the view.
         SubjectText.text = taskEditObject?.taskSubject
-        SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
+       // SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
         NameShortText.text = taskEditObject?.taskNameShort
         DescriptionText.text = taskEditObject?.taskDescription
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
@@ -87,7 +88,12 @@ class TaskEditViewController: UIViewController {
      
         
         self.view.bringSubview(toFront: DescriptionText)
+        self.view.bringSubview(toFront: searchBar)
+        self.view.bringSubview(toFront: subjectTable)
         DesrY = self.DescriptionText.frame.origin.y
+        
+       // NameShortText.textContainer.maximumNumberOfLines = 3
+        
        
         //Ищем предмет
         self.searchBar.alpha = 0
@@ -123,7 +129,7 @@ class TaskEditViewController: UIViewController {
         )
         
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
-        self.view.bringSubview(toFront: stackView)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -162,7 +168,8 @@ class TaskEditViewController: UIViewController {
             newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
             self.scrollView.frame = newFrame
             self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            //self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+           // self.scrollView.setContentOffset(CGPoint.zero, animated: false)
         }
     }
     
@@ -180,20 +187,17 @@ class TaskEditViewController: UIViewController {
     @objc func doneDescriptionEditing() {
       self.navigationItem.rightBarButtonItem = nil
         view.endEditing(true)
+        UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseInOut], animations: {
+            self.scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+        }, completion: nil)
         
-        if (self.searchBar.alpha == 0) {
-            var oldFrame = self.scrollView.frame
-            oldFrame.size = CGSize(width: self.oldScrolWidth, height: self.oldScrolHeight)
-            self.scrollView.frame = oldFrame
-        self.scrollView.setContentOffset(CGPoint.zero, animated: true)
-        
-        } else {
+        if (self.searchBar.alpha != 0) {
         self.DescriptionLabel.alpha = 1
         self.SubjectLabel.alpha = 1
         self.SubjectText.alpha = 1
         self.NameShortText.alpha = 1
         self.NameShortLabel.alpha = 1
-        self.dateLabel.alpha = 1
+        //self.dateLabel.alpha = 1
         self.DateField.alpha = 1
         self.priorityLabel.alpha = 1
         self.searchBar.alpha = 0
@@ -201,20 +205,29 @@ class TaskEditViewController: UIViewController {
         self.DescriptionText.alpha = 1
         }
         
+        var oldFrame = self.scrollView.frame
+        oldFrame.size = CGSize(width: self.oldScrolWidth, height: self.oldScrolHeight)
+        self.scrollView.frame = oldFrame
+        
+      
+        
         
         
         
         //self.view.bringSubview(toFront: self.bottomView)
         
         //subject
-        
+        self.counterD = 0
+        self.counterDate = 0
+        self.counterS = 0
         
         self.navigationItem.hidesBackButton = false
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
-        self.DescriptionText.setContentOffset(CGPoint.zero, animated: false)
-        self.counterD = 0
-        self.counterDate = 0
+        
+        
+        
+       
         
     }
     
@@ -228,7 +241,10 @@ class TaskEditViewController: UIViewController {
         newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
         self.scrollView.frame = newFrame
         self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-        self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseInOut], animations: {
+                self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            }, completion: nil)
+        
         }
         self.counterD+=1
         
@@ -255,7 +271,7 @@ class TaskEditViewController: UIViewController {
         self.SubjectText.alpha = 0
         self.NameShortText.alpha = 0
         self.NameShortLabel.alpha = 0
-        self.dateLabel.alpha = 0
+        //self.dateLabel.alpha = 0
         self.DateField.alpha = 0
         
         self.priorityLabel.alpha = 0
@@ -267,7 +283,7 @@ class TaskEditViewController: UIViewController {
         
         if (counterS == 0) {
         var newFrameForSubjectTable = self.subjectTable.frame
-        newFrameForSubjectTable.size = CGSize(width: self.subjectTable.frame.width, height: self.subjectTable.frame.height - self.keyHeight + 30)
+        newFrameForSubjectTable.size = CGSize(width: self.subjectTable.frame.width, height: self.oldScrolHeight - self.keyHeight - self.searchBar.frame.height)
         self.subjectTable.frame = newFrameForSubjectTable
         }
         counterS+=1
@@ -277,26 +293,26 @@ class TaskEditViewController: UIViewController {
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
     }
     
+    func touchName() {
+        self.navigationItem.rightBarButtonItem = nil
+        let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
+        self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
+    }
+    
+    
     func touchDate() {
        
        // self.stackView.backgroundColor = appDesign.secondGradientColor
-        
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 240))
-        let doneButton:UIButton = UIButton(frame: CGRect(x: (self.view.frame.size.width/2 - 50), y: 0, width: 100, height: 50))
-        doneButton.setTitle("Done", for: UIControlState.normal)
-        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-        doneButton.setTitle("Done", for: UIControlState.highlighted)
-        doneButton.setTitleColor(UIColor.white, for: UIControlState.highlighted)
-        doneButton.addTarget(self, action: #selector(TaskEditViewController.pickerDoneButtonPressed), for: UIControlEvents.touchUpInside)
-        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 40, width: 0, height: 0))
+       
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 200))
+        let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 0, width: 0, height: 0))
         customView.addSubview(datePicker)
-        customView.addSubview(doneButton)
         datePicker.datePickerMode = UIDatePickerMode.date
         DateField.inputView = customView
-        //PeriodicStartDate.tintColor = UIColor.clear
-        //datePicker.minimumDate = EditClassController.DateOfBeginOfSemester.currentDate
+    
         if (DateField.text != "") {
             datePicker.setDate((taskEditObject?.taskDate?.currentDate)!, animated: false)
+     
         }
         
         datePicker.addTarget(self, action: #selector(TaskEditViewController.ChangeTaskDate), for: UIControlEvents.valueChanged)
@@ -306,10 +322,15 @@ class TaskEditViewController: UIViewController {
             self.newScrolHeight = self.oldScrolHeight - customView.frame.height
             newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
             self.scrollView.frame = newFrame
-            self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            //self.topYDescr = self.insideView.frame.height - self.newScrolHeight
+            //self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
+            self.scrollView.setContentOffset(CGPoint.zero, animated: true)
         }
         self.counterDate+=1
+        self.navigationItem.rightBarButtonItem = nil
+        let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
+        self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
+        
         
     }
     
@@ -390,7 +411,9 @@ extension TaskEditViewController: UITextViewDelegate {
         if textView == SubjectText {
             touchSubject()
         }
-       
+        if textView == NameShortText {
+            touchName()
+        }
     }
     
     
