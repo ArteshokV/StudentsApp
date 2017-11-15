@@ -10,8 +10,9 @@ import UIKit
 
 class TaskEditViewController: UIViewController {
     
-    var taskEditObject: TaskModel?
+    var taskEditObject: TaskModel? = TaskModel()
     
+    @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var stackView: UIView!
     @IBOutlet weak var insideView: UIView!
@@ -36,7 +37,11 @@ class TaskEditViewController: UIViewController {
     
     @IBOutlet weak var SubjectText: UITextView!
   
+    var isChanging = false
+    var isDeleted = false
+    
     var DesrY: CGFloat!
+    
     
     var oldScrolHeight: CGFloat!
     var newScrolHeight: CGFloat!
@@ -58,6 +63,9 @@ class TaskEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.barTintColor = appDesign.tabBarColor
+        
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
@@ -68,24 +76,39 @@ class TaskEditViewController: UIViewController {
         DescriptionLabel.textColor = appDesign.mainTextColor
         SubjectLabel.textColor = appDesign.mainTextColor
         NameShortLabel.textColor = appDesign.mainTextColor
-        DescriptionText.textColor = appDesign.subTextColor
-        SubjectText.textColor = appDesign.subTextColor
-        NameShortText.textColor = appDesign.subTextColor
-        //dateLabel.textColor = appDesign.subTextColor
-        DateField.textColor = appDesign.subTextColor
         DateField.font = UIFont.boldSystemFont(ofSize: 23)
         priorityLabel.textColor = appDesign.mainTextColor
        prioritySegment.tintColor = appDesign.subTextColor
         
-        // Do any additional setup after loading the view.
-        SubjectText.text = taskEditObject?.taskSubject
-       // SubjectText.font = UIFont.boldSystemFont(ofSize: 18)
-        NameShortText.text = taskEditObject?.taskNameShort
-        DescriptionText.text = taskEditObject?.taskDescription
+        if (isEditing) {
+        DescriptionText.textColor = appDesign.subTextColor
+        SubjectText.textColor = appDesign.subTextColor
+        NameShortText.textColor = appDesign.subTextColor
+        DateField.textColor = appDesign.subTextColor  }
+        else {
+        DescriptionText.textColor = UIColor.darkGray
+        SubjectText.textColor = UIColor.darkGray
+        NameShortText.textColor = UIColor.darkGray
+        DateField.textColor = UIColor.darkGray
+        }
+        deleteButton.isHidden = true
+        
+        if (isEditing) {
+            if SubjectText.text != "" {
+                SubjectText.text = taskEditObject?.taskSubject
+            } else {SubjectText.text = "Выберите предмет"}
+            if NameShortText.text != "" {
+                 NameShortText.text = taskEditObject?.taskNameShort
+            } else {NameShortText.text = "Введите краткое описание задания"}
+            if DescriptionText.text != "" {
+                DescriptionText.text = taskEditObject?.taskDescription
+            } else {DescriptionText.text = "Введите полное описание задания"}
+       
+        
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
-        //priorityField.text = taskEditObject?.taskPriority
         prioritySegment.selectedSegmentIndex = (taskEditObject?.taskPriority)!
-     
+        deleteButton.isHidden = false
+        }
         
         self.view.bringSubview(toFront: DescriptionText)
         self.view.bringSubview(toFront: searchBar)
@@ -173,12 +196,49 @@ class TaskEditViewController: UIViewController {
         }
     }
     
+    @IBAction func deleteTask(_ sender: Any) {
+        let alertController: UIAlertController = UIAlertController(title: "Удалить задание", message: "Вы действительно хотите удалить данное задание?", preferredStyle: .alert)
+        
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Нет", style: .default) { action -> Void in
+        }
+        let deleteAction: UIAlertAction = UIAlertAction(title: "Да", style: .destructive) { action -> Void in
+            self.taskEditObject?.delete()
+            self.isDeleted = true
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+    
     @objc func saveChanges() {
-        taskEditObject?.taskDescription = self.DescriptionText.text
-        taskEditObject?.taskSubject = self.SubjectText.text
-        taskEditObject?.taskNameShort = self.NameShortText.text
+        if (self.DescriptionText.text != "Введите полное описание задания") {
+            taskEditObject?.taskDescription = self.DescriptionText.text
+        } else {
+            taskEditObject?.taskDescription = ""
+        }
+        
+        if (self.SubjectText.text != "Выберите предмет")&&(self.SubjectText.text != "Без названия") {
+            taskEditObject?.taskSubject = self.SubjectText.text
+        } else {
+            taskEditObject?.taskSubject = ""
+        }
+        
+        if (self.NameShortText.text != "Введите краткое описание задания") {
+            taskEditObject?.taskNameShort = self.NameShortText.text
+        } else {
+            taskEditObject?.taskNameShort = ""
+        }
+        
+        
         taskEditObject?.taskPriority = self.prioritySegment.selectedSegmentIndex
         taskEditObject?.taskDate = CustomDateClass(withString: self.DateField.text!)
+        if (!isEditing) {
+            taskEditObject?.taskStatus = 0
+        }
         taskEditObject?.save()
         self.navigationController?.popViewController(animated: true)
         
@@ -200,6 +260,7 @@ class TaskEditViewController: UIViewController {
         //self.dateLabel.alpha = 1
         self.DateField.alpha = 1
         self.priorityLabel.alpha = 1
+        self.prioritySegment.alpha = 1
         self.searchBar.alpha = 0
         self.subjectTable.alpha = 0
         self.DescriptionText.alpha = 1
@@ -225,7 +286,7 @@ class TaskEditViewController: UIViewController {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
-        
+       
         
        
         
@@ -273,7 +334,7 @@ class TaskEditViewController: UIViewController {
         self.NameShortLabel.alpha = 0
         //self.dateLabel.alpha = 0
         self.DateField.alpha = 0
-        
+        self.prioritySegment.alpha = 0
         self.priorityLabel.alpha = 0
         
         self.navigationItem.hidesBackButton = true
@@ -310,7 +371,7 @@ class TaskEditViewController: UIViewController {
         datePicker.datePickerMode = UIDatePickerMode.date
         DateField.inputView = customView
     
-        if (DateField.text != "") {
+        if (DateField.text != "Введите дату") {
             datePicker.setDate((taskEditObject?.taskDate?.currentDate)!, animated: false)
      
         }
@@ -347,6 +408,8 @@ class TaskEditViewController: UIViewController {
     @objc func ChangeTaskDate (sender:UIDatePicker) {
         DateField.text = dateFormatterForDate.string(from: sender.date)
         self.pickerDate = sender.date
+        taskEditObject?.taskDate = CustomDateClass(withString: self.DateField.text!)
+        DateField.textColor = appDesign.subTextColor
         //print ("\(string(self.pickerDate))")
     }
     /*
@@ -406,25 +469,69 @@ extension TaskEditViewController: UISearchBarDelegate {
 extension TaskEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView == DescriptionText {
+            if (self.DescriptionText.textColor == UIColor.darkGray) {
+                self.DescriptionText.text = ""
+                self.DescriptionText.textColor = self.appDesign.subTextColor
+            }
             touchDescription()
+            
         }
         if textView == SubjectText {
+            if (self.SubjectText.textColor == UIColor.darkGray) {
+                self.SubjectText.text = ""
+                self.SubjectText.textColor = self.appDesign.subTextColor
+            }
             touchSubject()
         }
         if textView == NameShortText {
+            if (self.NameShortText.textColor == UIColor.darkGray) {
+                self.NameShortText.text = ""
+                self.NameShortText.textColor = self.appDesign.subTextColor
+            }
             touchName()
         }
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == DescriptionText {
+            if (self.DescriptionText.text == "") {
+                self.DescriptionText.textColor = UIColor.darkGray
+                self.DescriptionText.text = "Введите полное описание задания"
+            }
+            else {
+               self.DescriptionText.textColor = self.appDesign.subTextColor
+            }
+            
+        }
+        if textView == SubjectText {
+            if (self.SubjectText.text == "") {
+                self.SubjectText.textColor = UIColor.darkGray
+                self.SubjectText.text = "Выберите предмет"
+            }
+            else {
+                self.SubjectText.textColor = self.appDesign.subTextColor
+            }
+        }
+        if textView == NameShortText {
+            if (self.NameShortText.text == "") {
+                self.NameShortText.textColor = UIColor.darkGray
+                self.NameShortText.text = "Введите краткое описание задания"
+            }
+            else {
+                self.NameShortText.textColor = self.appDesign.subTextColor
+            }
+    }
+}
+    
     
 }
-
 extension TaskEditViewController: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == DateField {
             touchDate()
         }
     }
+    
 }
 
 extension TaskEditViewController: UITableViewDelegate {
@@ -435,6 +542,7 @@ extension TaskEditViewController: UITableViewDelegate {
         print("Добавить новый предмет")
         } else {
            self.SubjectText.text = subText
+            self.SubjectText.textColor = appDesign.subTextColor
         }
         doneDescriptionEditing()
     }
