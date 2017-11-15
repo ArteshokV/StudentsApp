@@ -52,17 +52,17 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         
         if(viewHasChanges){
             viewHasChanges = false
-            if(changesController == timeTableFetchController){
+            //if(changesController == timeTableFetchController){
                 let cust = CustomDateClass()
                 timeTableArray = TimetableModel.getTimetable(Date: cust)
-            }
-            if(changesController == tasksFetchController){
+            //}
+            //if(changesController == tasksFetchController){
                 tasksArray = TaskModel.getTasksForToday()
-            }
+            //}
             
-            if(changesController == activitiesFetchController){
+            //if(changesController == activitiesFetchController){
                 activitiesArray = ActivitiesModel.getActivitiesForToday()
-            }
+            //}
             TableViewOutlet.reloadData()
             self.TableViewOutlet.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top , animated: false)
         }
@@ -357,7 +357,13 @@ extension TodayTabViewController: UITableViewDataSource{
             self.timeTableArray = TimetableModel.getTimetable(Date: today)
             self.timeTableFetchController = TimetableModel.setupFetchController(forDate: today)
             self.timeTableFetchController.delegate = self
-            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
+            var changesNumber: Int
+            if(timeTableArray.count == 0)&&(oldLengthOfSection == 1){
+                changesNumber = 0
+            }else{
+                changesNumber = timeTableArray.count - oldLengthOfSection
+            }
+            updateTimetableSection(withChangesNumber: changesNumber)
         }
     }
     
@@ -372,7 +378,13 @@ extension TodayTabViewController: UITableViewDataSource{
             timeTableArray = TimetableModel.getTimetable(Date: nextDay)
             self.timeTableFetchController = TimetableModel.setupFetchController(forDate: nextDay)
             self.timeTableFetchController.delegate = self
-            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection)
+            var changesNumber: Int
+            if(timeTableArray.count == 0)&&(oldLengthOfSection == 1){
+                changesNumber = 0
+            }else{
+                changesNumber = timeTableArray.count - oldLengthOfSection
+            }
+            updateTimetableSection(withChangesNumber: changesNumber)
         }
     }
     

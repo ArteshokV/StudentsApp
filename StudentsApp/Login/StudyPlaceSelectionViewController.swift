@@ -378,11 +378,11 @@ extension StudyPlaceSelectionViewController: UITableViewDelegate{
         
         if(filteredArray.count == 0){
             //print("ADD SOMETHING")
+            self.hidesBottomBarWhenPushed = true
             self.performSegue(withIdentifier: "fromLoginToInitialSetup", sender: self)
             SearchController.dismiss(animated: true, completion: nil)
             searchBar.text = ""
             dismissSearchBar()
-            
             return
         }
         

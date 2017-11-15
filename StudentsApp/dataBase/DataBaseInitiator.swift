@@ -18,6 +18,38 @@ class DataBaseInitiator: NSObject {
     let activitiesDatabaseName = String(describing: Activities.self)
     let tasksDatabaseName = String(describing: Tasks.self)
 
+    func deleteDatabase(){
+        for entity in DatabaseController.persistentContainer.managedObjectModel.entities {
+            if let entityName = entity.name {
+                if(entityName == "AppLook"){continue}
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                do {
+                    try DatabaseController.getContext().execute(NSBatchDeleteRequest(fetchRequest: fetchRequest))
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
+        
+        DatabaseController.saveContext()
+    }
+    
+    func updateViews(){
+        //For updating views
+        let updateTasks = TaskModel()
+        updateTasks.taskPriority = 0
+        updateTasks.taskStatus = 0
+        updateTasks.taskSubject = "NO"
+        updateTasks.save()
+        updateTasks.delete()
+        let updateClasses = TimetableModel()
+        updateClasses.classStartTime = "08:20"
+        updateClasses.classEndTime = "08:20"
+        updateClasses.classSubject = "NO"
+        updateClasses.save()
+        updateClasses.delete()
+    }
     
     //---if check isnot nil and is true the stored data will be dumped to console for manual verification
     func insertInitialData(withParsedStruct: initalDataResponse?) {
@@ -40,20 +72,7 @@ class DataBaseInitiator: NSObject {
         
         
         if(numberOfSearchResults != 0){
-            for entity in DatabaseController.persistentContainer.managedObjectModel.entities {
-                if let entityName = entity.name {
-                    if(entityName == "AppLook"){continue}
-                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-                    do {
-                        try DatabaseController.getContext().execute(NSBatchDeleteRequest(fetchRequest: fetchRequest))
-                    }
-                    catch {
-                        print(error)
-                    }
-                }
-            }
-
-            DatabaseController.saveContext()
+            deleteDatabase()
         }
         
         //FIXME: store teachers maybe....
@@ -136,8 +155,9 @@ class DataBaseInitiator: NSObject {
         
             DatabaseController.saveContext()
         
-        UserDefaults.standard.set(true, forKey: "databaseIsInited")
+        updateViews()
         
+        UserDefaults.standard.set(true, forKey: "databaseIsInited")
         //doCheck()
     }
     
