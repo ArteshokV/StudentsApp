@@ -14,7 +14,7 @@
         <!--Edit Time Table Controller-->
         <scene sceneID="wrh-SD-XHQ">
             <objects>
-                <viewController id="Lb8-8Y-bxt" customClass="EditTimeTableController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangeTimetable" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Lb8-8Y-bxt" customClass="EditTimeTableController" customModule="StudentsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2KQ-nT-MCV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
