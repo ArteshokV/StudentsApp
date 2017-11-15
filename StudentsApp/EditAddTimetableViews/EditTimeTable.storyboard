@@ -122,6 +122,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="ChooseTeacher:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="Z6Z-zK-PfB"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Room" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-Bt-QUd">
                                                         <rect key="frame" x="274" y="0.0" width="81" height="29"/>
@@ -382,7 +385,7 @@
                                                         <rect key="frame" x="10" y="0.0" width="355" height="120.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dd" id="qWh-x8-skH">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellForDate" id="qWh-x8-skH">
                                                                 <rect key="frame" x="0.0" y="28" width="355" height="44"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qWh-x8-skH" id="eNu-t4-tY4">
@@ -471,12 +474,34 @@
                                     <outlet property="delegate" destination="Kpp-3l-5M5" id="MHS-7t-jtf"/>
                                 </connections>
                             </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x6J-m0-ATP">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellForChoice" id="ilN-Ln-QFF">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ilN-Ln-QFF" id="Iyg-M8-Fsq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Kpp-3l-5M5" id="Ta9-xi-4Xf"/>
+                                    <outlet property="delegate" destination="Kpp-3l-5M5" id="Vna-p1-3Lc"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fRF-Rj-kif" firstAttribute="bottom" secondItem="6B9-0S-b1a" secondAttribute="bottom" id="4h9-8B-CAY"/>
+                            <constraint firstItem="x6J-m0-ATP" firstAttribute="bottom" secondItem="fRF-Rj-kif" secondAttribute="bottom" id="PoE-Dj-TbD"/>
+                            <constraint firstItem="x6J-m0-ATP" firstAttribute="top" secondItem="fRF-Rj-kif" secondAttribute="top" id="RVh-Am-dGu"/>
+                            <constraint firstItem="x6J-m0-ATP" firstAttribute="trailing" secondItem="fRF-Rj-kif" secondAttribute="trailing" id="SVO-mz-xzr"/>
                             <constraint firstItem="6B9-0S-b1a" firstAttribute="top" secondItem="fRF-Rj-kif" secondAttribute="top" id="TFI-lA-0rb"/>
                             <constraint firstItem="fRF-Rj-kif" firstAttribute="trailing" secondItem="6B9-0S-b1a" secondAttribute="trailing" id="bft-64-eKx"/>
+                            <constraint firstItem="x6J-m0-ATP" firstAttribute="leading" secondItem="fRF-Rj-kif" secondAttribute="leading" id="gc1-9N-nZs"/>
                             <constraint firstItem="6B9-0S-b1a" firstAttribute="leading" secondItem="fRF-Rj-kif" secondAttribute="leading" id="yYH-ns-zDb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fRF-Rj-kif"/>
@@ -505,6 +530,7 @@
                         <outlet property="SegmentOfNumberOfClass" destination="PBN-c1-q39" id="GRh-2c-Bw5"/>
                         <outlet property="SubjectField" destination="A0s-1Y-TyS" id="xYE-de-WUs"/>
                         <outlet property="TableForDates" destination="2Qb-dh-E6Q" id="SwU-Ns-4ZM"/>
+                        <outlet property="TableToChoose" destination="x6J-m0-ATP" id="R9e-sk-dgx"/>
                         <outlet property="TeacherField" destination="6HT-qz-pmU" id="3yO-Qo-v7h"/>
                         <outlet property="ThursdayButton" destination="eiL-Ez-PCf" id="fe9-iy-p5A"/>
                         <outlet property="TuesdayButton" destination="chY-rm-8ms" id="XS1-qJ-PPH"/>
