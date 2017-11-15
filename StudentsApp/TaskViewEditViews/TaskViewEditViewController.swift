@@ -79,6 +79,7 @@ class TaskViewEditViewController: UIViewController {
         if(segue.identifier == "fromTaskViewToTaskEdit"){
             let taskEC = segue.destination as! TaskEditViewController
             taskEC.taskEditObject = taskModelObject
+            taskEC.isEditing = true
         }
     }
     
@@ -88,6 +89,9 @@ class TaskViewEditViewController: UIViewController {
     
             self.hidesBottomBarWhenPushed = true
             self.performSegue(withIdentifier: "fromTaskViewToTaskEdit", sender: self)
+        if (taskModelObject == nil) {
+            self.navigationController?.popViewController(animated: false)
+        }
     }
    
     

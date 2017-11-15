@@ -11,6 +11,7 @@ import CoreData
 
 class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelegate{
     // MARK: - Variables
+   
     var prosrButton: UIButton!
     var doneButton: UIButton!
     var workingWithDone: Bool = false
@@ -24,6 +25,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     var chosenObject: TaskModel?
     
     var ActivitiesAtSubjectArray: [[ActivitiesModel]] = []
+    
     var ActivitiesAtDayArray: [[ActivitiesModel]] = []
     var TasksAtDayArray: [[TaskModel]] = []
     var TasksAtSubjectArray: [[TaskModel]] = []
@@ -40,7 +42,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     @IBOutlet weak var taskButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
-    
+     @IBOutlet weak var addTaskButton: UIButton!
     
     @IBOutlet weak var Segment: UISegmentedControl!
     
@@ -116,7 +118,11 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     }
         
    
-    
+    @IBAction func addTaskButtonTouch(_ sender: Any) {
+        self.hidesBottomBarWhenPushed = true
+        self.performSegue(withIdentifier: "fromTasksToTaskEdit", sender: self)
+        self.hidesBottomBarWhenPushed = false
+    }
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         
@@ -195,6 +201,10 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             let taskVC = segue.destination as! TaskViewEditViewController
             taskVC.taskModelObject = chosenObject
         }
+      /*  if(segue.identifier == "fromTasksToTaskEdit"){
+            let taskVC = segue.destination as! TaskEditViewController
+          //  taskVC.taskModelObject = chosenObject
+        } */
     }
     
 }
@@ -438,12 +448,6 @@ extension TasksTabViewController: UITableViewDataSource {
             footer.rightFooterButton?.isHidden = false
             prosrButton = footer.rightFooterButton!
             
-       /*     if(workingWithDone){
-                footer.leftFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            }
-            if(workingWithProsr){
-                footer.rightFooterButton?.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            } */
         }
         footer.viewCornerRadius = 15.0
         
@@ -469,12 +473,7 @@ extension TasksTabViewController: UITableViewDataSource {
             workingWithProsr = false
             counterd = 0
         }
-           /* let today = CustomDateClass()
-            self.timeTableArray = TimetableModel.getTimetable(Date: today)
-            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: today)
-            self.timeTableFetchController.delegate = self
-            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection) */
-       // }
+        
     }
     
     @objc func prosrButtonPressed(_ sender: UIButton!){
@@ -497,13 +496,7 @@ extension TasksTabViewController: UITableViewDataSource {
             counterp = 0
         }
         
-           /* let nextDay = CustomDateClass()
-            nextDay.switchToNextDay()
-            timeTableArray = TimetableModel.getTimetable(Date: nextDay)
-            self.timeTableFetchController = TimetableModel.setupFetchController(forDate: nextDay)
-            self.timeTableFetchController.delegate = self
-            updateTimetableSection(withChangesNumber: timeTableArray.count - oldLengthOfSection) */
-      //  }
+        
     }
     
     
