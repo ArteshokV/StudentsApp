@@ -31,6 +31,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     var ClassTempModel: TimetableModel! //= TimetableModel()
     private var SubjectTempModel: SubjectModel = SubjectModel()
     private var TeacherTempModel: TeacherModel = TeacherModel()
+    private var ArrayOfSubjects: Array<SubjectModel> = SubjectModel.getSubjects()
+    private var ArrayOfTeachers: Array<TeacherModel> = TeacherModel.getTeachers()
     private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
     private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
     private var RoomHelpArray: Array<String> = Array()
@@ -44,6 +46,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var TextChoosingMode: String?
     private var KeyHeight: CGFloat = 0
 
+    @IBOutlet weak var StackViewIS: UIStackView!
+    @IBOutlet weak var StackViewTR: UIStackView!
     @IBOutlet weak var ScrollView: UIScrollView!
     
     @IBOutlet weak var RegularityCustomView: UIView!
@@ -95,13 +99,9 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         customViewForDatePicker.addSubview(doneButtonInSubview)
     }
     
-    func showTableToChooseForTextField (TextField: UIView) {
-        //TableToChoose.frame.origin.y = TextField.frame.origin.y + TextField.frame.height
-        var newFrameForTableToChoose = self.TableToChoose.frame
-        print ("\(TextField.frame.origin.y)")
-        newFrameForTableToChoose.origin.y = 200 //TextField.frame.origin.y + TextField.frame.height
-        newFrameForTableToChoose.size = CGSize(width: self.TableToChoose.frame.width, height: self.view.frame.height - (TextField.frame.origin.y + TextField.frame.height) - KeyHeight)
-        self.TableToChoose.frame = newFrameForTableToChoose
+    func showTableToChooseForTextField (Stack: UIStackView) {
+        self.TableToChoose.frame.origin.y = Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y
+        self.TableToChoose.frame.size = CGSize(width: self.view.frame.width, height: self.view.bounds.height - (Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y) - KeyHeight)
         TableToChoose.isHidden = false
     }
     
@@ -111,10 +111,10 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            self.KeyHeight = keyboardRectangle.height
-            print("K \(self.KeyHeight)")
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameBeginUserInfoKey) as? NSValue)?.cgRectValue {
+            self.KeyHeight = keyboardFrame.height
+            //print("K \(self.KeyHeight)")
         }
     }
     
@@ -319,10 +319,43 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         CreateNewDateForTableButton.isEnabled = false
     }
     
+    func filterToShowTeachers (FilterString: String, ArrayToComplect: Array<TeacherModel>) -> Array<TeacherModel> {
+        var returnArray:Array<TeacherModel> = Array()
+        for i in 0 ... ArrayToComplect.count - 1 {
+            if (ArrayToComplect[i].name?.lowercased().contains(FilterString.lowercased()))! {
+                returnArray.append(ArrayToComplect[i])
+            }
+        }
+        return returnArray
+    }
+    
+    func filterToShowSubjects (FilterString: String, ArrayToComplect: Array<SubjectModel>) -> Array<SubjectModel> {
+        var returnArray:Array<SubjectModel> = Array()
+        for i in 0 ... ArrayToComplect.count - 1 {
+            if (ArrayToComplect[i].subjectName?.lowercased().contains(FilterString.lowercased()))! {
+                returnArray.append(ArrayToComplect[i])
+            }
+        }
+        return returnArray
+    }
+    
+    @IBAction func EditingTeacher(_ sender: Any) {
+        showTableToChooseForTextField(Stack: StackViewTR)
+        if (TeacherField.text != "") {
+            TeacherHelpArray = filterToShowTeachers(FilterString: TeacherField.text!, ArrayToComplect: ArrayOfTeachers)
+            TableToChoose.reloadData()
+        }
+        else
+        {
+            TeacherHelpArray = ArrayOfTeachers
+            TableToChoose.reloadData()
+        }
+    }
+    
     @IBAction func ChooseTeacher(_ sender: Any) {
-        //print ("\(TeacherField.)")
-        showTableToChooseForTextField(TextField: TeacherField)
+       showTableToChooseForTextField(Stack: StackViewTR)
         TextChoosingMode = "Teacher"
+        TeacherHelpArray = ArrayOfTeachers
         TableToChoose.reloadData()
     }
 
@@ -587,11 +620,15 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
         self.ScrollView.delegate = self
+        self.SubjectField.delegate = self
+        
         TableToChoose.isHidden = true
         RegularityCustomView.isHidden = true
         
         EndTime.placeholder = "Конец"
         BeginTime.placeholder = "Начало"
+        TeacherField.placeholder = "Преподаватель"
+        ClassRoomField.placeholder = "Ауд"
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
@@ -604,7 +641,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.keyboardWillShow),
-            name: NSNotification.Name.UIKeyboardWillShow,
+            name: .UIKeyboardWillShow,
             object: nil
         )
         
@@ -688,6 +725,7 @@ extension EditClassController: UITableViewDelegate {
         if (tableView == TableToChoose) {
             if (TextChoosingMode == "Subject") {
                 SubjectField.text = SubjectHelpArray[indexPath.row].subjectName
+                self.hideTableToChoose()
             }
             if (TextChoosingMode == "Teacher") {
                 TeacherField.text = TeacherHelpArray[indexPath.row].name
@@ -707,5 +745,32 @@ extension EditClassController: UITableViewDelegate {
             self.CheckSaveButton()
         }
         return [deleteAction]
+    }
+}
+
+extension EditClassController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        showTableToChooseForTextField(Stack: StackViewIS)
+        TextChoosingMode = "Subject"
+        SubjectHelpArray = ArrayOfSubjects
+        TableToChoose.reloadData()
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            self.hideTableToChoose()
+            return true
+        }
+        showTableToChooseForTextField(Stack: StackViewIS)
+        if (SubjectField.text != "") {
+            SubjectHelpArray = self.filterToShowSubjects(FilterString: SubjectField.text, ArrayToComplect: ArrayOfSubjects)
+            TableToChoose.reloadData()
+        }
+        else
+        {
+            SubjectHelpArray = ArrayOfSubjects
+            TableToChoose.reloadData()
+        }
+        return true
     }
 }

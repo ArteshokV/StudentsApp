@@ -99,11 +99,14 @@
                                                             <constraint firstAttribute="width" secondItem="Ix5-4f-tGG" secondAttribute="height" multiplier="1:1" id="cfH-qD-QaJ"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="61" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Предмет" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A0s-1Y-TyS">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="61" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A0s-1Y-TyS">
                                                         <rect key="frame" x="58" y="0.0" width="297" height="58"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="Kpp-3l-5M5" id="3fd-nv-4uu"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                                 <constraints>
@@ -114,7 +117,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hqr-ML-JUG" userLabel="TeacherRoom">
                                                 <rect key="frame" x="10" y="73" width="355" height="29"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="236" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Преподаватель" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6HT-qz-pmU">
+                                                    <textField opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="236" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6HT-qz-pmU">
                                                         <rect key="frame" x="0.0" y="0.0" width="271" height="29"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="29" id="OIP-02-1u2"/>
@@ -124,9 +127,10 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
                                                             <action selector="ChooseTeacher:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="Z6Z-zK-PfB"/>
+                                                            <action selector="EditingTeacher:" destination="Kpp-3l-5M5" eventType="editingChanged" id="H4i-8h-H8j"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Room" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-Bt-QUd">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-Bt-QUd">
                                                         <rect key="frame" x="274" y="0.0" width="81" height="29"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -474,8 +478,9 @@
                                     <outlet property="delegate" destination="Kpp-3l-5M5" id="MHS-7t-jtf"/>
                                 </connections>
                             </scrollView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x6J-m0-ATP">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x6J-m0-ATP">
+                                <rect key="frame" x="0.0" y="181" width="375" height="486"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellForChoice" id="ilN-Ln-QFF">
@@ -496,12 +501,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fRF-Rj-kif" firstAttribute="bottom" secondItem="6B9-0S-b1a" secondAttribute="bottom" id="4h9-8B-CAY"/>
-                            <constraint firstItem="x6J-m0-ATP" firstAttribute="bottom" secondItem="fRF-Rj-kif" secondAttribute="bottom" id="PoE-Dj-TbD"/>
-                            <constraint firstItem="x6J-m0-ATP" firstAttribute="top" secondItem="fRF-Rj-kif" secondAttribute="top" id="RVh-Am-dGu"/>
-                            <constraint firstItem="x6J-m0-ATP" firstAttribute="trailing" secondItem="fRF-Rj-kif" secondAttribute="trailing" id="SVO-mz-xzr"/>
                             <constraint firstItem="6B9-0S-b1a" firstAttribute="top" secondItem="fRF-Rj-kif" secondAttribute="top" id="TFI-lA-0rb"/>
                             <constraint firstItem="fRF-Rj-kif" firstAttribute="trailing" secondItem="6B9-0S-b1a" secondAttribute="trailing" id="bft-64-eKx"/>
-                            <constraint firstItem="x6J-m0-ATP" firstAttribute="leading" secondItem="fRF-Rj-kif" secondAttribute="leading" id="gc1-9N-nZs"/>
                             <constraint firstItem="6B9-0S-b1a" firstAttribute="leading" secondItem="fRF-Rj-kif" secondAttribute="leading" id="yYH-ns-zDb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fRF-Rj-kif"/>
@@ -528,6 +529,8 @@
                         <outlet property="SegmentClassType1" destination="L9i-x7-KWA" id="7DH-TJ-NbL"/>
                         <outlet property="SegmentClassType2" destination="FMa-85-4yF" id="jvk-KP-cH1"/>
                         <outlet property="SegmentOfNumberOfClass" destination="PBN-c1-q39" id="GRh-2c-Bw5"/>
+                        <outlet property="StackViewIS" destination="2PG-Ga-G3L" id="q3c-Hf-gwy"/>
+                        <outlet property="StackViewTR" destination="hqr-ML-JUG" id="cdm-ea-gMV"/>
                         <outlet property="SubjectField" destination="A0s-1Y-TyS" id="xYE-de-WUs"/>
                         <outlet property="TableForDates" destination="2Qb-dh-E6Q" id="SwU-Ns-4ZM"/>
                         <outlet property="TableToChoose" destination="x6J-m0-ATP" id="R9e-sk-dgx"/>
