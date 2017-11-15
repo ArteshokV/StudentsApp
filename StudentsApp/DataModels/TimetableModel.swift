@@ -25,6 +25,26 @@ class TimetableModel: NSObject {
     var classWeekDay: Int16?
     var parity: Bool?
     
+    
+    static func getDistinctPlaces() -> [String]?{
+        var ret:[String] = []
+        let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        
+        do{
+            let res = try DatabaseController.getContext().fetch(fetchRequest)
+            for item in res {
+                if ( !ret.contains(item.place!)){
+                    ret.append(item.place!)
+                }
+            }
+            return ret
+        }
+        catch{
+            print("Error selecting distinct places \(error.localizedDescription)")
+        }
+        return nil
+    }
+    
     // MARK: - Static getting of timetable
     static func getTimetable(Date: CustomDateClass) -> Array<TimetableModel>{
         var returnArray: Array<TimetableModel> = Array()
