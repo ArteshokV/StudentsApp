@@ -108,6 +108,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     
     func hideTableToChoose () {
         TableToChoose.isHidden = true
+        CheckSaveButton()
         view.endEditing(true)
     }
     
