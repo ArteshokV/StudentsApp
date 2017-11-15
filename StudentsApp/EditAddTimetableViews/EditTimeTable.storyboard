@@ -135,6 +135,10 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="ChooseRoom:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="i7z-YC-fRT"/>
+                                                            <action selector="EditingRoom:" destination="Kpp-3l-5M5" eventType="editingChanged" id="pyz-DT-UK2"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>

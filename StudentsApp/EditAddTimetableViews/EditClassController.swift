@@ -33,9 +33,10 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var TeacherTempModel: TeacherModel = TeacherModel()
     private var ArrayOfSubjects: Array<SubjectModel> = SubjectModel.getSubjects()
     private var ArrayOfTeachers: Array<TeacherModel> = TeacherModel.getTeachers()
+    private var ArrayOfRooms: Array<String> = TimetableModel.getDistinctPlaces()!
     private var SubjectHelpArray: Array<SubjectModel> = SubjectModel.getSubjects()
     private var TeacherHelpArray: Array<TeacherModel> = TeacherModel.getTeachers()
-    private var RoomHelpArray: Array<String> = Array()
+    private var RoomHelpArray: Array<String> = TimetableModel.getDistinctPlaces()!
     private var CustomDateInTable: CustomDateClass = CustomDateClass()
     private var ArrayOfCustomDates: Array<CustomDateClass> = Array()
     private var CustomClassTypeButtonMode: Bool = false
@@ -339,8 +340,42 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         return returnArray
     }
     
-    @IBAction func EditingTeacher(_ sender: Any) {
+    func filterToShowRooms (FilterString: String, ArrayToComplect: Array<String>) -> Array<String> {
+        var returnArray:Array<String> = Array()
+        for i in 0 ... ArrayToComplect.count - 1 {
+            if (ArrayToComplect[i].lowercased().contains(FilterString.lowercased())) {
+                returnArray.append(ArrayToComplect[i])
+            }
+        }
+        return returnArray
+    }
+    
+    @IBAction func EditingRoom(_ sender: Any) {
+        if (ClassRoomField.text == "\n") {
+            self.hideTableToChoose()
+        }
+        if (ClassRoomField.text != "") {
+            RoomHelpArray = filterToShowRooms(FilterString: ClassRoomField.text!, ArrayToComplect: ArrayOfRooms)
+            TableToChoose.reloadData()
+        }
+        else
+        {
+            RoomHelpArray = ArrayOfRooms
+            TableToChoose.reloadData()
+        }
+    }
+    
+    @IBAction func ChooseRoom(_ sender: Any) {
         showTableToChooseForTextField(Stack: StackViewTR)
+        TextChoosingMode = "Room"
+        RoomHelpArray = ArrayOfRooms
+        TableToChoose.reloadData()
+    }
+    
+    @IBAction func EditingTeacher(_ sender: Any) {
+        if (TeacherField.text == "\n") {
+            self.hideTableToChoose()
+        }
         if (TeacherField.text != "") {
             TeacherHelpArray = filterToShowTeachers(FilterString: TeacherField.text!, ArrayToComplect: ArrayOfTeachers)
             TableToChoose.reloadData()
@@ -733,6 +768,7 @@ extension EditClassController: UITableViewDelegate {
             }
             if (TextChoosingMode == "Room") {
                 ClassRoomField.text = RoomHelpArray[indexPath.row]
+                self.hideTableToChoose()
             }
         }
     }
