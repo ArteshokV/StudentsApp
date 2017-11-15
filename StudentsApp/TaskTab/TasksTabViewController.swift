@@ -384,7 +384,10 @@ extension TasksTabViewController: UITableViewDataSource {
         
         switch parametr {
         case "time":
+            let todayD = CustomDateClass()
+            if (TasksAtDayArray[section][0].taskDate! >= todayD) {
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
+            } else {header.mainHeaderLabel?.text = "Просрочено"}
             break
         case "subject":
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!

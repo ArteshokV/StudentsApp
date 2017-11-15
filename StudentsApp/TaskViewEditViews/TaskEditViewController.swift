@@ -94,15 +94,24 @@ class TaskEditViewController: UIViewController {
         deleteButton.isHidden = true
         
         if (isEditing) {
-            if SubjectText.text != "" {
+            if (SubjectText.text != "")&&(taskEditObject?.taskSubject != "") {
                 SubjectText.text = taskEditObject?.taskSubject
-            } else {SubjectText.text = "Выберите предмет"}
-            if NameShortText.text != "" {
+            } else {
+                SubjectText.text = "Выберите предмет"
+                SubjectText.textColor = UIColor.darkGray
+            }
+            if (NameShortText.text != "")&&(taskEditObject?.taskNameShort != "")  {
                  NameShortText.text = taskEditObject?.taskNameShort
-            } else {NameShortText.text = "Введите краткое описание задания"}
-            if DescriptionText.text != "" {
+            } else {
+                NameShortText.text = "Введите краткое описание задания"
+                NameShortText.textColor = UIColor.darkGray
+            }
+            if (DescriptionText.text != "")&&(taskEditObject?.taskDescription != "")  {
                 DescriptionText.text = taskEditObject?.taskDescription
-            } else {DescriptionText.text = "Введите полное описание задания"}
+            } else {
+                DescriptionText.text = "Введите полное описание задания"
+                DescriptionText.textColor = UIColor.darkGray
+            }
        
         
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
@@ -235,13 +244,25 @@ class TaskEditViewController: UIViewController {
         
         
         taskEditObject?.taskPriority = self.prioritySegment.selectedSegmentIndex
-        taskEditObject?.taskDate = CustomDateClass(withString: self.DateField.text!)
+        
         if (!isEditing) {
             taskEditObject?.taskStatus = 0
         }
+        
+        if (taskEditObject?.taskNameShort == "")||(self.DateField.text == "Введите дату") {
+        let alertController: UIAlertController = UIAlertController(title: "Ошибка сохранения", message: "Необходимо заполнить поля 'Дата' и 'Описание задания'", preferredStyle: .alert)
+        
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Нет", style: .default) { action -> Void in
+        }
+        
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+        } else {
+        taskEditObject?.taskDate = CustomDateClass(withString: self.DateField.text!)
         taskEditObject?.save()
         self.navigationController?.popViewController(animated: true)
-        
+        }
     }
     
     @objc func doneDescriptionEditing() {
