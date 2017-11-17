@@ -135,7 +135,7 @@ extension TaskViewEditViewController: UITableViewDataSource {
             break
         case 1:
             cell.label.textColor = appDesign.mainTextColor
-            cell.label.text = " " + (taskModelObject?.taskDescription)!
+            cell.label.text = (taskModelObject?.taskDescription)! == "" ? "Подробное описание задания отсутствует" : " " + (taskModelObject?.taskDescription)!
             cell.label.textAlignment = .justified
             break
         case 2:
