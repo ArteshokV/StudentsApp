@@ -158,8 +158,8 @@
                                     <outlet property="delegate" destination="mRm-T6-Bsb" id="CtG-ej-ztv"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wj5-zX-0os">
-                                <rect key="frame" x="0.0" y="120" width="375" height="109"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wj5-zX-0os">
+                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="mRm-T6-Bsb" id="rWW-GF-bxy"/>
@@ -193,7 +193,7 @@
                                                 <color key="textColor" red="0.033376528174457576" green="0.10585450398039209" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Выберите предмет" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Выберите предмет" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
                                                 <rect key="frame" x="8" y="85" width="359" height="55"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -302,17 +302,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="trailing" secondItem="Ete-Gn-W8p" secondAttribute="trailing" id="9Ba-Jh-J4x"/>
+                            <constraint firstItem="Ete-Gn-W8p" firstAttribute="bottom" secondItem="wj5-zX-0os" secondAttribute="bottom" id="IaO-9A-J3U"/>
                             <constraint firstItem="CyH-1J-aJm" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" id="KPC-UJ-p4M"/>
-                            <constraint firstItem="wj5-zX-0os" firstAttribute="trailing" secondItem="Ete-Gn-W8p" secondAttribute="trailing" id="R9t-JM-R9a"/>
+                            <constraint firstItem="wj5-zX-0os" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" id="Rl8-Vb-I9X"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="trailing" secondItem="CyH-1J-aJm" secondAttribute="trailing" id="RnH-xx-bHy"/>
-                            <constraint firstItem="wj5-zX-0os" firstAttribute="top" secondItem="4ch-tv-CHZ" secondAttribute="bottom" id="Wwh-7R-hyX"/>
-                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" id="eJK-8a-Ggn"/>
+                            <constraint firstItem="wj5-zX-0os" firstAttribute="trailing" secondItem="Ete-Gn-W8p" secondAttribute="trailing" id="cRS-JX-NMs"/>
                             <constraint firstItem="Ete-Gn-W8p" firstAttribute="bottom" secondItem="CyH-1J-aJm" secondAttribute="bottom" id="ehm-E9-cAs"/>
-                            <constraint firstAttribute="bottom" secondItem="wj5-zX-0os" secondAttribute="bottom" id="fOV-Tj-Whw"/>
-                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="trailing" secondItem="Ete-Gn-W8p" secondAttribute="trailing" id="pGa-UQ-dQV"/>
-                            <constraint firstItem="wj5-zX-0os" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" id="spo-3o-Klm"/>
-                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" id="sqi-fL-oAC"/>
+                            <constraint firstItem="wj5-zX-0os" firstAttribute="top" secondItem="4ch-tv-CHZ" secondAttribute="bottom" id="fB6-3g-y8W"/>
+                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" id="iXl-zf-bqq"/>
                             <constraint firstItem="CyH-1J-aJm" firstAttribute="top" secondItem="Ete-Gn-W8p" secondAttribute="top" id="vX5-YZ-bmt"/>
+                            <constraint firstItem="4ch-tv-CHZ" firstAttribute="leading" secondItem="Ete-Gn-W8p" secondAttribute="leading" id="wbn-kn-TZt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ete-Gn-W8p"/>
                     </view>
