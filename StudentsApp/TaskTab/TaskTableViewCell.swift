@@ -51,7 +51,7 @@ class TaskTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         rounedView = UIView(frame: self.frame)
-        self.selectionStyle = .none
+        //self.selectionStyle = .none
         sepLine = UIView(frame: self.frame)
         
         // Add the view to the view hierarchy so that it shows up on screen

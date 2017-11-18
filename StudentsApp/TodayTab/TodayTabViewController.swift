@@ -151,7 +151,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if(indexPath.section == 2){
+        if((indexPath.section == 3)||(activitiesArray.count == 0)){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
             self.performSegue(withIdentifier: "fromTodayToTasksView", sender: self)
@@ -288,10 +288,10 @@ extension TodayTabViewController: UITableViewDataSource{
             return  self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
             
         case 1:
-            return 120
+            return 100//120
             
         case 2,3:
-            return UITableViewAutomaticDimension
+            return 80//UITableViewAutomaticDimension
             
         default:
             return 1
@@ -412,7 +412,7 @@ extension TodayTabViewController: UITableViewDataSource{
             if(withChangesNumber > 0){
                 self.TableViewOutlet.insertRows(at: indexPathsToChange, with: .middle)
             }else if(withChangesNumber < 0){
-                //indexPathsToChange.removeLast()
+                indexPathsToChange.removeLast()
                 self.TableViewOutlet.deleteRows(at:indexPathsToChange, with: .middle)
             }
             
