@@ -37,6 +37,7 @@ class DataBaseInitiator: NSObject {
     
     func updateViews(){
         //For updating views
+        /*
         let updateTasks = TaskModel()
         updateTasks.taskPriority = 0
         updateTasks.taskStatus = 0
@@ -49,18 +50,40 @@ class DataBaseInitiator: NSObject {
         updateClasses.classSubject = "NO"
         updateClasses.save()
         updateClasses.delete()
+ */
+        let event:TimeTable = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! TimeTable
+        event.type = "LECTURE"
+        DatabaseController.saveContext()
+        DatabaseController.getContext().delete(event)
+        
+        let eventAct:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
+        DatabaseController.saveContext()
+        DatabaseController.getContext().delete(eventAct)
+        
+        let eventTask:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
+        DatabaseController.saveContext()
+        DatabaseController.getContext().delete(eventTask)
+        
+        let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
+        DatabaseController.saveContext()
+        DatabaseController.getContext().delete(Subject)
+        
+        
     }
     
     func databaseIsEmpty() -> Bool{
-        let fetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        let timeFetchRequest:NSFetchRequest<TimeTable> = TimeTable.fetchRequest()
+        let taskFetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        let activityFetchRequest:NSFetchRequest<Activities> = Activities.fetchRequest()
+        let teacherFetchRequest:NSFetchRequest<Teacher> = Teacher.fetchRequest()
+        let subjectsFetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
         
-        do{
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+        let fetchesArray = [timeFetchRequest,taskFetchRequest,activityFetchRequest,teacherFetchRequest,subjectsFetchRequest]
+        for fetchRequest in fetchesArray{
+            let searchResults = try! DatabaseController.getContext().fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
             if(searchResults.count != 0){return false}
         }
-        catch{
-            print("Error: \(error)")
-        }
+        
         return true
     }
     
@@ -328,6 +351,24 @@ class DataBaseInitiator: NSObject {
         lightLook.blurViewStyle = "light"
         
         lightLook.isSelected = false
+        
+        //StartImage LOOK
+        let standartImageLook:AppLook = NSEntityDescription.insertNewObject(forEntityName: appLookTableDatabaseName, into: DatabaseController.getContext()) as! AppLook
+        
+        standartImageLook.lookName = "Standart Image"
+        standartImageLook.backGroundImage = UIImage(named: "BackGroundImage")
+        
+        standartImageLook.gradientUpperColor = nil
+        standartImageLook.gradientLowerColor = nil
+        
+        standartImageLook.mainTextColor = UIColor.white
+        standartImageLook.subTextColor = UIColor.lightGray
+        
+        standartImageLook.tabBarColor = UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 0.6)
+        standartImageLook.underLayerColor = UIColor.lightGray.withAlphaComponent(0.4)
+        standartImageLook.blurViewStyle = "dark"
+        
+        standartImageLook.isSelected = false
         
         DatabaseController.saveContext()
         UserDefaults.standard.set(true, forKey: "appLooksInited")

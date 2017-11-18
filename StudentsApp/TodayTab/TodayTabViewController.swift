@@ -151,7 +151,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if((indexPath.section == 3)||(activitiesArray.count == 0)){
+        if((indexPath.section == 3)||(activitiesArray.count == 0)&&(indexPath.section != 1))&&(tasksArray.count != 0){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
             self.performSegue(withIdentifier: "fromTodayToTasksView", sender: self)
