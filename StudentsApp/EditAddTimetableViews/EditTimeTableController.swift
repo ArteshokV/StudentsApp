@@ -97,6 +97,20 @@ extension EditTimeTableController: UITableViewDelegate{
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if (TimeTableChangesArray[indexPath.section].count != 0) {
+            let deleteAction = UITableViewRowAction(style: .destructive, title: "Удалить") {
+                _, indexPath in
+                self.TimeTableChangesArray[indexPath.section].remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            return [deleteAction]
+        }
+        else {
+            return []
+        }
+    }
 }
 
 extension EditTimeTableController: UITableViewDataSource {

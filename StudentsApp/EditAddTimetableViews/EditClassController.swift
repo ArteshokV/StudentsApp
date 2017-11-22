@@ -316,7 +316,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(customViewForDatePicker)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityCustomView.frame.origin.y), animated: true)
+            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
         }
         CreateNewDateForTableButton.isEnabled = false
     }
