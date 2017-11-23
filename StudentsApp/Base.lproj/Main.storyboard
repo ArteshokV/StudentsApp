@@ -74,7 +74,8 @@
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz">
-                        <barButtonItem key="leftBarButtonItem" title="DoneTasks" id="Qac-4M-x9W"/>
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Don" id="Qac-4M-x9W"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gkg-Cz-wUd">
                             <connections>
                                 <action selector="addTaskButtonTouch:" destination="8Gb-dM-rGE" id="N7z-fP-iFN"/>

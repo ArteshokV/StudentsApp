@@ -77,6 +77,49 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let navView = UIView()
+        //let pageControl = UIPageControl()
+        let label = UILabel()
+        label.text = "TEXTIC"
+        //navView.addSubview(pageControl)
+        navView.addSubview(label)
+        
+        label.sizeToFit()
+        
+        //navigationItem.titleView = navView
+        navView.sizeToFit()
+        label.sizeToFit()
+        let height = self.navigationController!.navigationBar.frame.height
+ 
+        let titleView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 170, height: height) )
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 170, height: height*0.7))
+        let pageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: 170, height: height*0.3))
+        pageControl.numberOfPages = 2
+        pageControl.currentPage = 0
+        titleView.addSubview(title)
+        titleView.addSubview(pageControl)
+        //pageControl.backgroundColor = UIColor.green
+        //title.backgroundColor = UIColor.red
+        title.numberOfLines = 1
+        title.textAlignment = .center
+        title.text = "Задания"
+        
+        
+        
+        navigationItem.titleView = titleView
+        
+        /*
+        let navView = UIView()
+        let pageControl = UIPageControl()
+        let label = UILabel()
+        
+        navView.frame = CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+        let logo = UIImage(named: "BackGroundImage")
+        let imageView = UIImageView(image:logo)
+        print(self.navigationItem.titleView)
+        self.navigationItem.titleView = imageView
+        */
         tasksFetchController = TaskModel.setupFetchController()
         tasksFetchController.delegate = self
         activitiesFetchController = ActivitiesModel.setupFetchController()
