@@ -48,7 +48,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
         //self.navigationController?.setNavigationBarHidden(true, animated: false)

@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
-                                <rect key="frame" x="10" y="150" width="355" height="468"/>
+                                <rect key="frame" x="10" y="194" width="355" height="424"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <connections>
@@ -29,7 +29,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5a-11-JxK">
-                                <rect key="frame" x="215" y="65" width="144" height="40"/>
+                                <rect key="frame" x="215" y="109" width="144" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Мероприятия"/>
                                 <connections>
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oJW-Ys-kHo">
-                                <rect key="frame" x="16" y="114" width="343" height="29"/>
+                                <rect key="frame" x="16" y="158" width="343" height="29"/>
                                 <segments>
                                     <segment title="Предметы"/>
                                     <segment title="Сроки"/>
@@ -49,34 +49,18 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-7J-ya8">
-                                <rect key="frame" x="250" y="38" width="89" height="40"/>
+                                <rect key="frame" x="250" y="82" width="89" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Задания"/>
                                 <connections>
                                     <action selector="taskChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="J9Q-C6-HMV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8V9-Sk-gEC">
-                                <rect key="frame" x="20" y="48" width="25" height="25"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="LHC-2b-VHP"/>
-                                    <constraint firstAttribute="width" secondItem="8V9-Sk-gEC" secondAttribute="height" multiplier="1:1" id="TOi-OT-rQL"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="addTaskIcon">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="addTaskButtonTouch:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="JtN-QR-dYK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="mCb-7J-ya8" secondAttribute="trailing" constant="36" id="22h-Lc-B31"/>
-                            <constraint firstItem="8V9-Sk-gEC" firstAttribute="top" secondItem="EKH-md-aEO" secondAttribute="top" constant="48" id="3Bn-I5-qng"/>
                             <constraint firstItem="Liy-Zh-tzU" firstAttribute="bottom" secondItem="rG3-ym-2mr" secondAttribute="bottom" id="60R-XV-iag"/>
-                            <constraint firstItem="8V9-Sk-gEC" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="20" id="9eB-WH-L2X"/>
                             <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="9" id="Bta-fV-4Ob"/>
                             <constraint firstItem="oJW-Ys-kHo" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="CN1-wx-gaj"/>
                             <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="45" id="Eou-hJ-snj"/>
@@ -89,12 +73,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="5N1-wN-DCz"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="5N1-wN-DCz">
+                        <barButtonItem key="leftBarButtonItem" title="DoneTasks" id="Qac-4M-x9W"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gkg-Cz-wUd">
+                            <connections>
+                                <action selector="addTaskButtonTouch:" destination="8Gb-dM-rGE" id="N7z-fP-iFN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="Segment" destination="oJW-Ys-kHo" id="g9q-DV-hyf"/>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
-                        <outlet property="addTaskButton" destination="8V9-Sk-gEC" id="OD4-x5-Gy3"/>
                         <outlet property="taskButton" destination="mCb-7J-ya8" id="Cep-BF-hMz"/>
                         <outlet property="taskTable" destination="Liy-Zh-tzU" id="0hz-hS-LBk"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTasksToTasksView" id="Zgn-fp-LuR"/>
@@ -915,7 +904,6 @@
     </scenes>
     <resources>
         <image name="EmptyUser" width="265" height="265"/>
-        <image name="addTaskIcon" width="360" height="360"/>
         <image name="iconExtra" width="30" height="30"/>
         <image name="iconSchedule" width="30" height="30"/>
         <image name="iconSubjects" width="30" height="30"/>
@@ -924,6 +912,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J2O-j8-uXz"/>
-        <segue reference="CYU-7Q-vF8"/>
+        <segue reference="Zgn-fp-LuR"/>
     </inferredMetricsTieBreakers>
 </document>
