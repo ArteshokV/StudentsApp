@@ -154,10 +154,18 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEF-wY-RmB">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="414"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="395.5"/>
                                         <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wj5-zX-0os">
+                                                <rect key="frame" x="0.0" y="129.5" width="375" height="266"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="mRm-T6-Bsb" id="rWW-GF-bxy"/>
+                                                    <outlet property="delegate" destination="mRm-T6-Bsb" id="75H-nL-qe7"/>
+                                                </connections>
+                                            </tableView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Введите полное описание задания" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="87x-Et-hWI">
-                                                <rect key="frame" x="8" y="253" width="359" height="36.5"/>
+                                                <rect key="frame" x="8" y="234.5" width="359" height="36.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -166,7 +174,7 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Задание" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spK-1d-Err">
-                                                <rect key="frame" x="8" y="222.5" width="359" height="23"/>
+                                                <rect key="frame" x="8" y="204" width="359" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <color key="textColor" red="0.048378645238088436" green="0.11699169093997874" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -177,20 +185,9 @@
                                                 <color key="textColor" red="0.033376528174457576" green="0.10585450398039209" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wj5-zX-0os">
-                                                <rect key="frame" x="0.0" y="145" width="375" height="269"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="mRm-T6-Bsb" id="rWW-GF-bxy"/>
-                                                    <outlet property="delegate" destination="mRm-T6-Bsb" id="75H-nL-qe7"/>
-                                                </connections>
-                                            </tableView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Выберите предмет" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dha-HB-dHM">
-                                                <rect key="frame" x="8" y="85" width="359" height="55"/>
+                                                <rect key="frame" x="8" y="85" width="359" height="36.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="55" id="Viu-rN-E1x"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <connections>
@@ -198,13 +195,13 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание задания" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhB-6i-B3J">
-                                                <rect key="frame" x="8" y="147.5" width="359" height="23"/>
+                                                <rect key="frame" x="8" y="129" width="359" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <color key="textColor" red="0.050605719512876957" green="0.13314812909533158" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9x2-Ro-lVx">
-                                                <rect key="frame" x="8" y="328" width="359" height="29"/>
+                                                <rect key="frame" x="8" y="309.5" width="359" height="29"/>
                                                 <segments>
                                                     <segment title="Низкий"/>
                                                     <segment title="Средний"/>
@@ -212,7 +209,7 @@
                                                 </segments>
                                             </segmentedControl>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Введите краткое описание задания" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="Ksb-3o-rbt">
-                                                <rect key="frame" x="8" y="178" width="359" height="36.5"/>
+                                                <rect key="frame" x="8" y="159.5" width="359" height="36.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -221,7 +218,7 @@
                                                 </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Приоритет" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbL-d5-9yw">
-                                                <rect key="frame" x="0.0" y="297.5" width="375" height="23"/>
+                                                <rect key="frame" x="0.0" y="279" width="375" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -237,7 +234,7 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g96-6c-xWE">
-                                                <rect key="frame" x="8" y="376" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="357.5" width="359" height="30"/>
                                                 <color key="backgroundColor" red="0.6163981541450777" green="0.042007973512508796" blue="0.0019549504411807386" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Удалить задание">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,13 +246,13 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="wj5-zX-0os" secondAttribute="trailing" id="0hZ-fI-eOr"/>
                                             <constraint firstItem="9x2-Ro-lVx" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="1y0-kJ-y0i"/>
-                                            <constraint firstItem="wj5-zX-0os" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" id="2Ct-bZ-P4g"/>
                                             <constraint firstItem="JhB-6i-B3J" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="8" id="4He-ce-ALV"/>
                                             <constraint firstAttribute="trailing" secondItem="Gjz-1I-sgs" secondAttribute="trailing" constant="8" id="6jU-c4-ZyU"/>
                                             <constraint firstAttribute="trailing" secondItem="g96-6c-xWE" secondAttribute="trailing" constant="8" id="6xZ-kB-ubU"/>
-                                            <constraint firstItem="wj5-zX-0os" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="5" id="73h-uY-BwF"/>
                                             <constraint firstItem="dha-HB-dHM" firstAttribute="top" secondItem="0DO-Ng-nA4" secondAttribute="bottom" constant="8" id="9Gz-W1-Wb6"/>
+                                            <constraint firstItem="wj5-zX-0os" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" id="9ik-rT-D5H"/>
                                             <constraint firstItem="g96-6c-xWE" firstAttribute="top" secondItem="9x2-Ro-lVx" secondAttribute="bottom" constant="20" id="BCF-rD-qps"/>
                                             <constraint firstAttribute="trailing" secondItem="Ksb-3o-rbt" secondAttribute="trailing" constant="8" id="Dmm-7C-aYG"/>
                                             <constraint firstItem="Gjz-1I-sgs" firstAttribute="top" secondItem="yEF-wY-RmB" secondAttribute="top" constant="8" id="EHg-4x-uy8"/>
@@ -265,16 +262,16 @@
                                             <constraint firstItem="87x-Et-hWI" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="Ha5-MG-fMA"/>
                                             <constraint firstItem="0DO-Ng-nA4" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" id="LA4-yP-elE"/>
                                             <constraint firstItem="Ksb-3o-rbt" firstAttribute="top" secondItem="JhB-6i-B3J" secondAttribute="bottom" constant="8" id="N7x-HM-Wxe"/>
-                                            <constraint firstAttribute="trailing" secondItem="wj5-zX-0os" secondAttribute="trailing" id="NAP-aO-vkD"/>
                                             <constraint firstAttribute="trailing" secondItem="JhB-6i-B3J" secondAttribute="trailing" constant="8" id="VnX-Er-mjE"/>
                                             <constraint firstItem="PbL-d5-9yw" firstAttribute="top" secondItem="87x-Et-hWI" secondAttribute="bottom" constant="8" id="Vv6-BK-bP2"/>
                                             <constraint firstItem="spK-1d-Err" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="YZE-Ds-Vr3"/>
                                             <constraint firstItem="PbL-d5-9yw" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" id="YnU-Uj-lYJ"/>
+                                            <constraint firstItem="wj5-zX-0os" firstAttribute="top" secondItem="dha-HB-dHM" secondAttribute="bottom" constant="8" id="b0P-dI-o8B"/>
                                             <constraint firstItem="9x2-Ro-lVx" firstAttribute="top" secondItem="PbL-d5-9yw" secondAttribute="bottom" constant="8" id="bBB-Ug-nYR"/>
                                             <constraint firstAttribute="trailing" secondItem="9x2-Ro-lVx" secondAttribute="trailing" constant="8" id="ckW-A3-I5F"/>
                                             <constraint firstItem="spK-1d-Err" firstAttribute="top" secondItem="Ksb-3o-rbt" secondAttribute="bottom" constant="8" id="eh0-xD-hvb"/>
+                                            <constraint firstAttribute="bottom" secondItem="wj5-zX-0os" secondAttribute="bottom" id="fa9-1u-xQe"/>
                                             <constraint firstItem="Ksb-3o-rbt" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="fte-Op-Be9"/>
-                                            <constraint firstAttribute="bottom" secondItem="wj5-zX-0os" secondAttribute="bottom" id="ieP-NG-CJJ"/>
                                             <constraint firstItem="g96-6c-xWE" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="mgX-eF-zF9"/>
                                             <constraint firstItem="JhB-6i-B3J" firstAttribute="leading" secondItem="yEF-wY-RmB" secondAttribute="leading" constant="8" id="ndX-Op-SAu"/>
                                             <constraint firstAttribute="trailing" secondItem="spK-1d-Err" secondAttribute="trailing" constant="8" id="oIA-9s-Agh"/>
@@ -924,6 +921,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="J2O-j8-uXz"/>
-        <segue reference="CYU-7Q-vF8"/>
+        <segue reference="Zgn-fp-LuR"/>
     </inferredMetricsTieBreakers>
 </document>
