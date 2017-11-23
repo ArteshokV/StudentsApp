@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+// MARK: - Gradient View
+
 @IBDesignable class GradientView: UIView {
     @IBInspectable var firstColor: UIColor = UIColor.white
     @IBInspectable var secondColor: UIColor = UIColor.black
@@ -22,7 +24,9 @@ import CoreData
     }
 }
 
+// MARK: - App Look Class
 class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
+    // MARK: Variables
     var backgroundImageView: UIImageView?
     var backgroundBlurView: UIVisualEffectView?
     var gradientView: GradientView?
@@ -44,6 +48,7 @@ class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
     
     var fetchController: NSFetchedResultsController<AppLook>!
     
+    // MARK: - Init functions
     override init(){
         super.init()
         
@@ -109,6 +114,7 @@ class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
         underLayerColor = DatabaseObject.underLayerColor as! UIColor
     }
     
+    // MARK: - Updating Context
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         initWith(DatabaseObject: fetchController.fetchedObjects![0])
         
@@ -140,6 +146,7 @@ class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
         }
     }
     
+    // MARK: - Background Views
     func initBackground(ofView: UIView) {
         makeFramesForViews()
         updateBackGroundViews()
@@ -178,6 +185,7 @@ class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
         backgroundBlurView?.effect = blurEffectBackground
     }
     
+    // MARK: - Unused
     static func getUnderLayerColor() -> UIColor{
         let predicate:NSPredicate = NSPredicate(format: "(isSelected == 1)")
         let appLooksFetchRequest: NSFetchRequest<AppLook> = AppLook.fetchRequest()

@@ -196,18 +196,14 @@ class FirstSetupViewController: UIViewController,UITextViewDelegate,UITextFieldD
     
     @IBAction func ContinueButtonPressed(_ sender: Any) {
         //Сохраняем выбранные значения
-        var StudyPlace = [studyUnit(id: -1, name: UniversityTextView.text, description: nil), studyUnit(id: -2, name: FacultyTextView.text, description: nil), studyUnit(id: -3, name: GroupTextView.text, description: nil)]
-        do{
-            let university = try JSONEncoder().encode(StudyPlace[0])
-            let faculty = try JSONEncoder().encode(StudyPlace[1])
-            let group = try JSONEncoder().encode(StudyPlace[2])
-            UserDefaults.standard.set(university, forKey: "selectedUniversity")
-            UserDefaults.standard.set(faculty, forKey: "selectedFaculty")
-            UserDefaults.standard.set(group, forKey: "selectedGroup")
-        }catch{
-            print("Unable to encode selectedJson")
-        }
         self.hidesBottomBarWhenPushed = true
         self.performSegue(withIdentifier: "fromFirstToSecondSetup", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "fromFirstToSecondSetup"){
+            let taskVC = segue.destination as! SecondSetupViewController
+            taskVC.StudyPlace = [studyUnit(id: -1, name: UniversityTextView.text, description: nil), studyUnit(id: -2, name: FacultyTextView.text, description: nil), studyUnit(id: -3, name: GroupTextView.text, description: nil)]
+        }
     }
 }

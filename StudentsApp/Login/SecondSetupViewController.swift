@@ -10,8 +10,12 @@ import UIKit
 
 class SecondSetupViewController: UIViewController {
 
+    let appDesign = CustomApplicationLook()
+    var StudyPlace: [studyUnit]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDesign.initBackground(ofView: self.view)
 
         // Do any additional setup after loading the view.
     }
@@ -25,6 +29,7 @@ class SecondSetupViewController: UIViewController {
     @IBAction func enterTimetablePressed(_ sender: UIButton) {
         let initor = DataBaseInitiator()
         if(initor.databaseIsEmpty()){
+            saveSelectedStudyPlace()
             self.hidesBottomBarWhenPushed = true
             self.performSegue(withIdentifier: "toEditTimetable", sender: self)
         }else{
@@ -43,6 +48,7 @@ class SecondSetupViewController: UIViewController {
             let initor = DataBaseInitiator()
             initor.deleteDatabase()
             initor.updateViews()
+            self.saveSelectedStudyPlace()
             self.hidesBottomBarWhenPushed = true
             let appdelegate = UIApplication.shared.delegate as! AppDelegate
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "EditTimeTable", bundle: nil)
@@ -61,6 +67,19 @@ class SecondSetupViewController: UIViewController {
             let editVC = segue.destination as! EditTimeTableController
             editVC.shouldShowStartButton = true
             
+        }
+    }
+    
+    func saveSelectedStudyPlace(){
+        do{
+            let university = try JSONEncoder().encode(StudyPlace[0])
+            let faculty = try JSONEncoder().encode(StudyPlace[1])
+            let group = try JSONEncoder().encode(StudyPlace[2])
+            UserDefaults.standard.set(university, forKey: "selectedUniversity")
+            UserDefaults.standard.set(faculty, forKey: "selectedFaculty")
+            UserDefaults.standard.set(group, forKey: "selectedGroup")
+        }catch{
+            print("Unable to encode selectedJson")
         }
     }
 

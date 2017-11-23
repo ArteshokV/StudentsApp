@@ -19,14 +19,15 @@ class TimeTableTabViewController: UIViewController {
     
     let appDesign = CustomApplicationLook()
     
-    @IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
-    @IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
+    //@IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
+    //@IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
+    @IBOutlet weak var navigationBarClone: UIView! //кнопка перехода на предыдущую неделю
     @IBOutlet weak var PreviousWeekButton: UIButton! //кнопка перехода на предыдущую неделю
     @IBOutlet weak var BeginOfWeekLabel: UILabel! //Label для начала недели
     @IBOutlet weak var EndOfWeekLabel: UILabel! //Label для конца недели
     @IBOutlet weak var WeekNumberLabel: UILabel! //Label для номера недели
     @IBOutlet weak var NextWeekButton: UIButton! //кнопка перехода на следующую неделю
-    @IBOutlet weak var TickLabel: UILabel!
+    //@IBOutlet weak var TickLabel: UILabel!
     @IBOutlet weak var CollectionOfTables: UICollectionView!//коллекция таблиц
     @IBOutlet weak var PagesControl: UIPageControl!
     var pageOldValue: Int = 0
@@ -51,8 +52,8 @@ class TimeTableTabViewController: UIViewController {
     }
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
-        DayLabel.text = TodayDate?.weekDayString()
-        CurrentDayLabel.text = TodayDate?.stringFromDate()
+        //DayLabel.text = TodayDate?.weekDayString()
+        //CurrentDayLabel.text = TodayDate?.stringFromDate()
         EndOfWeekLabel.text = TodayDate?.weekEndString()
         BeginOfWeekLabel.text = TodayDate?.weekBeginSting()
         WeekNumberLabel.text = "\(TodayDate!.weekNumber(fromStartDate: "01.09.2017")) неделя"
@@ -108,12 +109,13 @@ class TimeTableTabViewController: UIViewController {
         
         CollectionOfTables.backgroundColor = UIColor.clear
         
-        appDesign.managedMainLablesContext.append(DayLabel)
-        DayLabel.textColor = appDesign.mainTextColor
-        appDesign.managedMainLablesContext.append(TickLabel)
-        TickLabel.textColor = appDesign.mainTextColor
-        appDesign.managedMainLablesContext.append(CurrentDayLabel)
-        CurrentDayLabel.textColor = appDesign.mainTextColor
+        navigationBarClone.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
+        //appDesign.managedMainLablesContext.append(DayLabel)
+        //DayLabel.textColor = appDesign.mainTextColor
+        //appDesign.managedMainLablesContext.append(TickLabel)
+        //TickLabel.textColor = appDesign.mainTextColor
+        //appDesign.managedMainLablesContext.append(CurrentDayLabel)
+        //CurrentDayLabel.textColor = appDesign.mainTextColor
         appDesign.managedMainLablesContext.append(BeginOfWeekLabel)
         BeginOfWeekLabel.textColor = appDesign.mainTextColor
         appDesign.managedMainButonsContext.append(PreviousWeekButton)
@@ -127,6 +129,7 @@ class TimeTableTabViewController: UIViewController {
         
         
         //constraints and other parametrs
+        /*
         DayLabel.adjustsFontSizeToFitWidth = true
         DayLabel.adjustsFontForContentSizeCategory = true
         DayLabel.minimumScaleFactor = 0.2
@@ -136,6 +139,7 @@ class TimeTableTabViewController: UIViewController {
         CurrentDayLabel.adjustsFontForContentSizeCategory = true
         CurrentDayLabel.minimumScaleFactor = 0.2
         CurrentDayLabel.numberOfLines = 0
+        */
         
         BeginOfWeekLabel.adjustsFontSizeToFitWidth = true
         BeginOfWeekLabel.adjustsFontForContentSizeCategory = true

@@ -43,7 +43,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
         
@@ -76,7 +76,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         if(shownFirstTime == 1){
             UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut], animations: {
                 let startCell = IndexPath(row: 0, section: 1)
-                self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
+                //self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
                 }, completion: nil)
             shownFirstTime = 0
         }
@@ -84,6 +84,11 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //title = "Среда, 28 ноября"
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+        //TableViewOutlet.contentInset = UIEdgeInsetsMake(0, 10, 0, -20)
         //print(TimetableModel.getTimetableForChanges())
         //Полуение массива предметов
         let cust = CustomDateClass()
@@ -98,9 +103,10 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         activitiesFetchController = ActivitiesModel.setupFetchController()
         activitiesFetchController.delegate = self
         
-        appDesign.initBackground(ofView: self.view)
+        TableViewOutlet.backgroundView = UIView(frame: TableViewOutlet.frame)
+        appDesign.initBackground(ofView: TableViewOutlet.backgroundView!)
         blurEffectView = appDesign.backgroundBlurView
-        blurEffectView!.alpha = 0.0;
+        blurEffectView?.alpha = 0.0;
         
         TableViewOutlet.backgroundColor = UIColor.clear
         
@@ -117,6 +123,11 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         TableViewOutlet.register(topCellNib, forCellReuseIdentifier: TopCellIdentifier)
         TableViewOutlet.register(UITableViewCell.self, forCellReuseIdentifier: EmptyCellIdentifier)
 
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.red
+        headerView.frame = CGRect(x: 0, y: 0, width: TableViewOutlet.frame.width, height: 50)
+        //TableViewOutlet.tableHeaderView = headerView
+        headerView.sizeToFit()
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -142,7 +153,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
         //TableViewOutlet.layer.removeAllAnimations()
         
         
-        blurEffectView!.alpha = scrollView.contentOffset.y/240///180;
+        blurEffectView?.alpha = scrollView.contentOffset.y/240///180;
         //self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
     }
 }
@@ -209,7 +220,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(indexPath.section == 0){
             let identifier = TopCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UpperTodayTableViewCell
-            
+            cell.DateLabel.isHidden = true
             return cell
         }
         
@@ -280,24 +291,26 @@ extension TodayTabViewController: UITableViewDataSource{
 
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         switch indexPath.section {
         case 0:
             
-            return  self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
+            return  1//self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
             
         case 1:
-            return 100//120
+            return 120
             
         case 2,3:
-            return 80//UITableViewAutomaticDimension
+            return UITableViewAutomaticDimension
             
         default:
             return 1
         }
     }
  
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(section == 0){
             return nil

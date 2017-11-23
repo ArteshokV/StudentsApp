@@ -57,6 +57,12 @@ class MenuTabViewController: UIViewController {
             label.textColor = appDesign.mainTextColor
             appDesign.managedMainLablesContext.append(label)
         }
+        
+        navigationController?.navigationBar.barTintColor = UIColor.darkGray//appDesign.underLayerColor
+        navigationController?.navigationBar.largeTitleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+        //self.preferredStatusBarStyle = .lightContent
+        
         UniversitySelectedLabel.textColor = appDesign.subTextColor
         appDesign.managedSubLablesContext.append(UniversitySelectedLabel)
         FacultySelectedLabel.textColor = appDesign.subTextColor
@@ -105,7 +111,7 @@ class MenuTabViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
         
