@@ -19,17 +19,82 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
-                                <rect key="frame" x="10" y="194" width="355" height="424"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5u-ph-v3n">
+                                <rect key="frame" x="0.0" y="153" width="375" height="465"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Gn-Z2-pAj">
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="465"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eTP-n5-v6m">
+                                                <rect key="frame" x="10" y="0.0" width="730" height="30"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="xj4-fc-Q1C">
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="31"/>
+                                                        <segments>
+                                                            <segment title="Предметы"/>
+                                                            <segment title="Сроки"/>
+                                                            <segment title="Приоритет"/>
+                                                        </segments>
+                                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </segmentedControl>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="aC3-cM-shk">
+                                                        <rect key="frame" x="375" y="0.0" width="355" height="31"/>
+                                                        <segments>
+                                                            <segment title="Предметы"/>
+                                                            <segment title="Сроки"/>
+                                                        </segments>
+                                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="tyN-am-a1O"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-JO-1X2">
+                                                <rect key="frame" x="10" y="40" width="730" height="425"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="425"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="8Gb-dM-rGE" id="Tgc-90-QG1"/>
+                                                            <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
+                                                        </connections>
+                                                    </tableView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EWW-qS-GVD">
+                                                        <rect key="frame" x="375" y="0.0" width="355" height="425"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </tableView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="fbF-JO-1X2" secondAttribute="trailing" constant="10" id="5c3-GR-R2N"/>
+                                            <constraint firstItem="fbF-JO-1X2" firstAttribute="leading" secondItem="5Gn-Z2-pAj" secondAttribute="leading" constant="10" id="6cY-27-KkS"/>
+                                            <constraint firstItem="fbF-JO-1X2" firstAttribute="top" secondItem="eTP-n5-v6m" secondAttribute="bottom" constant="10" id="80C-VU-91m"/>
+                                            <constraint firstAttribute="trailing" secondItem="eTP-n5-v6m" secondAttribute="trailing" constant="10" id="Jyp-bX-huh"/>
+                                            <constraint firstAttribute="bottom" secondItem="fbF-JO-1X2" secondAttribute="bottom" id="ed5-Ll-tMN"/>
+                                            <constraint firstItem="eTP-n5-v6m" firstAttribute="leading" secondItem="5Gn-Z2-pAj" secondAttribute="leading" constant="10" id="hKj-SH-2br"/>
+                                            <constraint firstItem="eTP-n5-v6m" firstAttribute="top" secondItem="5Gn-Z2-pAj" secondAttribute="top" id="ukb-fV-c5D"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5Gn-Z2-pAj" firstAttribute="leading" secondItem="b5u-ph-v3n" secondAttribute="leading" id="2ag-Zu-ITS"/>
+                                    <constraint firstItem="5Gn-Z2-pAj" firstAttribute="width" secondItem="b5u-ph-v3n" secondAttribute="width" multiplier="2" id="5R2-Oi-xXB"/>
+                                    <constraint firstItem="5Gn-Z2-pAj" firstAttribute="top" secondItem="b5u-ph-v3n" secondAttribute="top" id="MA6-tl-YDA"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Gn-Z2-pAj" secondAttribute="trailing" id="gkz-Rq-9lW"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Gn-Z2-pAj" secondAttribute="bottom" id="kgO-6O-Az0"/>
+                                    <constraint firstItem="5Gn-Z2-pAj" firstAttribute="height" secondItem="b5u-ph-v3n" secondAttribute="height" id="u1k-62-SdK"/>
+                                </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="8Gb-dM-rGE" id="Tgc-90-QG1"/>
-                                    <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
+                                    <outlet property="delegate" destination="8Gb-dM-rGE" id="5Xl-Xf-gDS"/>
                                 </connections>
-                            </tableView>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5a-11-JxK">
-                                <rect key="frame" x="215" y="109" width="144" height="40"/>
+                                <rect key="frame" x="215" y="109" width="144" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Мероприятия"/>
                                 <connections>
@@ -37,7 +102,10 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oJW-Ys-kHo">
-                                <rect key="frame" x="16" y="158" width="343" height="29"/>
+                                <rect key="frame" x="16" y="118" width="343" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="qvv-em-ogr"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Предметы"/>
                                     <segment title="Сроки"/>
@@ -60,21 +128,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="mCb-7J-ya8" secondAttribute="trailing" constant="36" id="22h-Lc-B31"/>
-                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="bottom" secondItem="rG3-ym-2mr" secondAttribute="bottom" id="60R-XV-iag"/>
                             <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="9" id="Bta-fV-4Ob"/>
                             <constraint firstItem="oJW-Ys-kHo" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="CN1-wx-gaj"/>
                             <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="45" id="Eou-hJ-snj"/>
                             <constraint firstItem="mCb-7J-ya8" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="18" id="JSY-gb-s9C"/>
-                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="8" id="Je2-Xf-geu"/>
-                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="Liy-Zh-tzU" secondAttribute="trailing" constant="10" id="Y8B-xe-mS0"/>
-                            <constraint firstItem="Liy-Zh-tzU" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="10" id="ds7-NI-AxH"/>
+                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="b5u-ph-v3n" secondAttribute="trailing" id="Oso-X1-etV"/>
+                            <constraint firstItem="rG3-ym-2mr" firstAttribute="bottom" secondItem="b5u-ph-v3n" secondAttribute="bottom" id="Upy-Bn-tfP"/>
+                            <constraint firstItem="b5u-ph-v3n" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="5" id="dpe-T8-6CP"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="oJW-Ys-kHo" secondAttribute="trailing" constant="16" id="now-47-S17"/>
+                            <constraint firstItem="b5u-ph-v3n" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" id="r6X-37-0ML"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="I5a-11-JxK" secondAttribute="trailing" constant="16" id="xh7-8w-nZZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz">
-                        <barButtonItem key="leftBarButtonItem" title="DoneTasks" id="Qac-4M-x9W"/>
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Don" id="Qac-4M-x9W"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gkg-Cz-wUd">
                             <connections>
                                 <action selector="addTaskButtonTouch:" destination="8Gb-dM-rGE" id="N7z-fP-iFN"/>
@@ -82,6 +151,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="MainScrollView" destination="b5u-ph-v3n" id="zNw-Se-qTb"/>
                         <outlet property="Segment" destination="oJW-Ys-kHo" id="g9q-DV-hyf"/>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
                         <outlet property="taskButton" destination="mCb-7J-ya8" id="Cep-BF-hMz"/>
