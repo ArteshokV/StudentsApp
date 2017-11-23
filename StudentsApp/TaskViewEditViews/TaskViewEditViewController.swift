@@ -17,6 +17,8 @@ class TaskViewEditViewController: UIViewController {
     var rounedView: UIView?
     let appDesign = CustomApplicationLook()
     
+     // MARK: - Navigation
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -54,13 +56,13 @@ class TaskViewEditViewController: UIViewController {
         self.TaskViewTable.reloadData()
     }
     
-    @objc func move(_ sender: UIGestureRecognizer!){
+   /* @objc func move(_ sender: UIGestureRecognizer!){
         //print(sender.location(in: self.view))
         let alphaBar = abs(sender.location(in: self.view).x) / self.view.frame.width
         //print((self.navigationController?.navigationBar.frame.height)! * alphaBar)
         //self.navigationController?.navigationBar.alpha = alphaBar
         self.navigationController?.navigationBar.frame.origin.y = 85//(self.navigationController?.navigationBar.frame.height)! * alphaBar
-    }
+    } */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,7 +72,7 @@ class TaskViewEditViewController: UIViewController {
     
 
 
-    // MARK: - Navigation
+   
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,7 +81,7 @@ class TaskViewEditViewController: UIViewController {
         if(segue.identifier == "fromTaskViewToTaskEdit"){
             let taskEC = segue.destination as! TaskEditViewController
             taskEC.taskEditObject = taskModelObject
-            taskEC.isEditing = true
+            taskEC.isEdit = true
         }
     }
     
@@ -97,6 +99,8 @@ class TaskViewEditViewController: UIViewController {
     
    
 }
+
+ // MARK: - TableView
 
 extension TaskViewEditViewController: UITableViewDelegate {
     

@@ -58,6 +58,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             taskTable.reloadData()
         }
     }
+ 
+     // MARK: - Navigation
     
     func updateData(){
         if(changesController == tasksFetchController){
@@ -117,12 +119,15 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         changesController = controller
     }
         
-   
+
+    
     @IBAction func addTaskButtonTouch(_ sender: Any) {
         self.hidesBottomBarWhenPushed = true
         self.performSegue(withIdentifier: "fromTasksToTaskEdit", sender: self)
         self.hidesBottomBarWhenPushed = false
     }
+    
+     // MARK: - Buttons
     
     @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
         
@@ -201,16 +206,17 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             let taskVC = segue.destination as! TaskViewEditViewController
             taskVC.taskModelObject = chosenObject
         }
-      /*  if(segue.identifier == "fromTasksToTaskEdit"){
-            let taskVC = segue.destination as! TaskEditViewController
-          //  taskVC.taskModelObject = chosenObject
-        } */
+        if(segue.identifier == "fromTasksToTaskEdit"){
+            let tOa = segue.destination as! TaskEditViewController
+            tOa.taskOrActivity = taskOrActivity
+        }
+      
     }
     
 }
 
 
-
+ // MARK: - TableView
 
 extension TasksTabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
