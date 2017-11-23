@@ -14,6 +14,8 @@ class SubjectModel: NSObject {
     var SubjectsDatabaseObject: Subjects?
     var subjectName: String?
     var subjectImage: UIImage?
+    var dateCreated: Double?
+    var dateUpdated: Double?
     
     static func getSubjects() -> Array<SubjectModel>{
         //Получаем список предметов
@@ -46,6 +48,55 @@ class SubjectModel: NSObject {
         
         self.subjectName = SubjectsDatabaseObject?.name != nil ? SubjectsDatabaseObject?.name! : nil;
         self.subjectImage = SubjectsDatabaseObject?.image != nil ? UIImage(data:(SubjectsDatabaseObject?.image!)!,scale:1.0) : nil;
+        
+        self.dateCreated = SubjectsDatabaseObject?.dateCreated != nil ? SubjectsDatabaseObject?.dateCreated : nil;
+        self.dateUpdated = SubjectsDatabaseObject?.dateUpdated != nil ? SubjectsDatabaseObject?.dateUpdated : nil;
+    }
+    
+    // MARK: - Subject CRUD Methods
+    func save() -> Bool {
+        
+        if SubjectsDatabaseObject == nil {
+            return insertSubject()
+        }else{
+            return updateSubject()
+        }
+        
+    }
+    
+    private func insertSubject() -> Bool {
+        //Добавляем задание в БД
+        SubjectsDatabaseObject = (NSEntityDescription.insertNewObject(forEntityName: SubjectModel.coreDataTabelName, into: DatabaseController.getContext()) as! Subjects)
+        return updateSubject()
+    }
+    
+    private func updateSubject() -> Bool {
+        //--- Populating entity with data from this object and if successful - saving context
+        if self.dateCreated == nil {
+            self.dateCreated = Date().timeIntervalSince1970
+        }
+        self.dateUpdated = Date().timeIntervalSince1970
+        if populateEntityWithObjectData(){
+            DatabaseController.saveContext()
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    
+    func delete() -> Bool {
+        //Удаляем задание из БД
+        if SubjectsDatabaseObject != nil {
+            DatabaseController.getContext().delete(SubjectsDatabaseObject!)
+            DatabaseController.saveContext()
+            SubjectsDatabaseObject = nil
+            return true
+        }
+        else{
+            return false
+        }
+        
     }
     
     //---Mind you, this function does not save DB context and is intended to be used with CRUD functions of other data models!
@@ -59,6 +110,8 @@ class SubjectModel: NSObject {
         else{
             let returnObject = (NSEntityDescription.insertNewObject(forEntityName: coreDataTabelName, into: DatabaseController.getContext()) as! Subjects)
             returnObject.name = Name
+            returnObject.dateCreated = Date().timeIntervalSince1970
+            returnObject.dateUpdated = Date().timeIntervalSince1970
             return returnObject
         }
     }
@@ -79,6 +132,16 @@ class SubjectModel: NSObject {
         }
         
         return returnArray
+    }
+    
+    //--- Before calling this make sure DB object is not nil, please)
+    private func populateEntityWithObjectData() -> Bool {
+        SubjectsDatabaseObject?.dateCreated = self.dateCreated!
+        SubjectsDatabaseObject?.dateUpdated = self.dateUpdated!
+        
+        SubjectsDatabaseObject?.name = self.subjectName
+        
+        return true
     }
     
     // MARK: FetchController Setup

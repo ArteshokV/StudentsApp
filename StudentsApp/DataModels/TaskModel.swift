@@ -19,6 +19,8 @@ class TaskModel: NSObject {
     var taskPriority: Int?
     var taskDescription: String?
     var taskStatus: Int?
+    var dateCreated: Double?
+    var dateUpdated: Double?
     
     // MARK: - Static getting of tasks
     static func getTasksForToday() -> Array<TaskModel>{
@@ -248,7 +250,7 @@ class TaskModel: NSObject {
         return fetchController
     }
     
-    // MARK: - Task Update Methods
+    // MARK: - Task CRUD Methods
     func save() -> Bool {
         
         if TasksDatabaseObject == nil {
@@ -267,6 +269,10 @@ class TaskModel: NSObject {
     
     private func updateTask() -> Bool {
         //--- Populating entity with data from this object and if successful - saving context
+        if self.dateCreated == nil {
+            self.dateCreated = Date().timeIntervalSince1970
+        }
+        self.dateUpdated = Date().timeIntervalSince1970
         if populateEntityWithObjectData(){
             DatabaseController.saveContext()
             return true
@@ -306,10 +312,16 @@ class TaskModel: NSObject {
         self.taskStatus = TasksDatabaseObject?.status != nil ? Int(TasksDatabaseObject!.status) : nil;
         self.taskSubject = TasksDatabaseObject?.subject != nil ? TasksDatabaseObject?.subject!.name! : nil;
         self.taskDate = TasksDatabaseObject?.date != nil ? CustomDateClass(withDate: (TasksDatabaseObject?.date)!) : nil;
+        
+        self.dateCreated = TasksDatabaseObject?.dateCreated != nil ? TasksDatabaseObject?.dateCreated : nil;
+        self.dateUpdated = TasksDatabaseObject?.dateUpdated != nil ? TasksDatabaseObject?.dateUpdated : nil;
     }
 
     //--- Before calling this make sure DB object is not nil, please)
     private func populateEntityWithObjectData() -> Bool {
+        TasksDatabaseObject?.dateCreated = self.dateCreated!
+        TasksDatabaseObject?.dateUpdated = self.dateUpdated!
+        
         TasksDatabaseObject?.shortName = self.taskNameShort
         TasksDatabaseObject?.priority = Int16(self.taskPriority!)
         TasksDatabaseObject?.descrp = self.taskDescription
