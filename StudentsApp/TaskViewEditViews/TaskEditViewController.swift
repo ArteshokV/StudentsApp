@@ -11,12 +11,14 @@ import UIKit
 class TaskEditViewController: UIViewController {
     
     var taskEditObject: TaskModel? = TaskModel()
-    
+    var taskOrActivity = String()
+    var isEdit: Bool = false
+
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var stackView: UIView!
     @IBOutlet weak var insideView: UIView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    //@IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var subjectTable: UITableView!
     
     @IBOutlet weak var prioritySegment: UISegmentedControl!
@@ -52,14 +54,20 @@ class TaskEditViewController: UIViewController {
     
     var TasksAtSubjectArray: [[TaskModel]] = []
     var filteredSubject: [String] = []
+    
+    var subjects: [SubjectModel] = []
+    var SubjectsHelpArray: [String] = []
+    
     var searchSubject: [String] = []
     var searchActive : Bool = false
-    var keyHeight: CGFloat = 0
+    var keyHeight: CGFloat = 0.0
     var counterS: Int = 0
     private var dateFormatterForDate = DateFormatter()
     private var CoorForAnimation:CGFloat = 0
     var pickerDate: Date?
     let appDesign = CustomApplicationLook()
+    
+    // MARK: - Navigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +77,8 @@ class TaskEditViewController: UIViewController {
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
-        oldScrolHeight = self.scrollView.frame.height
-        oldScrolWidth = self.scrollView.frame.width
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        
         //customization
         appDesign.initBackground(ofView: self.view)
         DescriptionLabel.textColor = appDesign.mainTextColor
@@ -78,9 +86,9 @@ class TaskEditViewController: UIViewController {
         NameShortLabel.textColor = appDesign.mainTextColor
         DateField.font = UIFont.boldSystemFont(ofSize: 23)
         priorityLabel.textColor = appDesign.mainTextColor
-       prioritySegment.tintColor = appDesign.subTextColor
+        prioritySegment.tintColor = appDesign.subTextColor
         
-        if (isEditing) {
+        if (isEdit) {
         DescriptionText.textColor = appDesign.subTextColor
         SubjectText.textColor = appDesign.subTextColor
         NameShortText.textColor = appDesign.subTextColor
@@ -93,7 +101,7 @@ class TaskEditViewController: UIViewController {
         }
         deleteButton.isHidden = true
         
-        if (isEditing) {
+        if (isEdit) {
             if (SubjectText.text != "")&&(taskEditObject?.taskSubject != "") {
                 SubjectText.text = taskEditObject?.taskSubject
             } else {
@@ -117,22 +125,25 @@ class TaskEditViewController: UIViewController {
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
         prioritySegment.selectedSegmentIndex = (taskEditObject?.taskPriority)!
         deleteButton.isHidden = false
+            
+            let toolbar = UIToolbar()
+            toolbar.sizeToFit()
+            let doneButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(doneDescriptionEditing))
+            toolbar.setItems([doneButton], animated: false)
+            
+            DescriptionText.inputAccessoryView = toolbar
         }
         
-        self.view.bringSubview(toFront: DescriptionText)
-        self.view.bringSubview(toFront: searchBar)
-        self.view.bringSubview(toFront: subjectTable)
-        DesrY = self.DescriptionText.frame.origin.y
-        
-       // NameShortText.textContainer.maximumNumberOfLines = 3
         
        
         //Ищем предмет
-        self.searchBar.alpha = 0
+       // self.searchBar.alpha = 0
         self.subjectTable.alpha = 0
         
+        subjects = SubjectModel.getSubjects()
+        
         definesPresentationContext = true
-        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
+       /* TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
         filteredSubject.append(TasksAtSubjectArray[0][0].taskSubject!)
         var counter = 0
         for task in TasksAtSubjectArray {
@@ -147,6 +158,23 @@ class TaskEditViewController: UIViewController {
                 print ("\(task[0].taskSubject!)")
             }
         }
+        */
+        
+        filteredSubject.append(subjects[0].subjectName!)
+        var counter = 0
+        for sub in subjects {
+            counter = 0
+            for fSub in filteredSubject {
+                if (sub.subjectName == fSub) {
+                    counter+=1
+                }
+            }
+            if counter == 0 {
+                filteredSubject.append(sub.subjectName!)
+                print ("\(sub.subjectName!)")
+            }
+        }
+        
         
         let taskCellNib = UINib(nibName: "TaskTapViewCell", bundle: nil)
         subjectTable.register(taskCellNib, forCellReuseIdentifier: "subject")
@@ -169,6 +197,15 @@ class TaskEditViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+   
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DescriptionText.setContentOffset(CGPoint.zero, animated: false)
+    
+    }
+    
+    // MARK: - subFunctions
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             view.endEditing(true)
@@ -176,34 +213,41 @@ class TaskEditViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        DescriptionText.setContentOffset(CGPoint.zero, animated: false)
-        if (counterD != 0) {
-            var newFrame = self.scrollView.frame
-            newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
-            self.scrollView.frame = newFrame
-            self.topYDescr = self.insideView.frame.height - self.newScrolHeight
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.keyHeight = keyboardRectangle.height
             
-        self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
-            
-            if let selectedRange = self.DescriptionText.selectedTextRange {
-                
-                let cursorPosition = self.DescriptionText.offset(from: self.DescriptionText.beginningOfDocument, to: selectedRange.start)
-                
-                print("\(cursorPosition)")
-            }
-        }
-        
-        if (counterDate != 0) {
-            var newFrame = self.scrollView.frame
-            newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
-            self.scrollView.frame = newFrame
-            self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            //self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
-           // self.scrollView.setContentOffset(CGPoint.zero, animated: false)
         }
     }
+    
+    func filterToShowSubjects (FilterString: String, ArrayToComplect: Array<String>) -> Array<String> {
+       /* var returnArray:Array<SubjectModel> = Array()
+        for i in 0 ... ArrayToComplect.count - 1 {
+            if (ArrayToComplect[i].subjectName?.lowercased().contains(FilterString.lowercased()))! {
+                returnArray.append(ArrayToComplect[i])
+            }
+        }
+        */
+        
+       
+            searchSubject = ArrayToComplect.filter({ (text) -> Bool in
+                let tmp: NSString = text as NSString
+                let range = tmp.range(of: FilterString, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            if(searchSubject.count == 0){
+                searchActive = false;
+            } else {
+                searchActive = true;
+            }
+        
+        //self.subjectTable.reloadData()
+        return searchSubject
+    }
+    
+    // MARK: - Save/Delete object
     
     @IBAction func deleteTask(_ sender: Any) {
         let alertController: UIAlertController = UIAlertController(title: "Удалить задание", message: "Вы действительно хотите удалить данное задание?", preferredStyle: .alert)
@@ -224,6 +268,7 @@ class TaskEditViewController: UIViewController {
     }
     
     @objc func saveChanges() {
+        
         if (self.DescriptionText.text != "Введите полное описание задания") {
             taskEditObject?.taskDescription = self.DescriptionText.text
         } else {
@@ -245,7 +290,7 @@ class TaskEditViewController: UIViewController {
         
         taskEditObject?.taskPriority = self.prioritySegment.selectedSegmentIndex
         
-        if (!isEditing) {
+        if (!isEdit) {
             taskEditObject?.taskStatus = 0
         }
         
@@ -265,43 +310,28 @@ class TaskEditViewController: UIViewController {
         }
     }
     
+    // MARK: - End Editing (done button pressed)
+    
     @objc func doneDescriptionEditing() {
       self.navigationItem.rightBarButtonItem = nil
         view.endEditing(true)
-        UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseInOut], animations: {
-            self.scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
-        }, completion: nil)
         
-        if (self.searchBar.alpha != 0) {
+        if (self.subjectTable.alpha != 0) {
         self.DescriptionLabel.alpha = 1
         self.SubjectLabel.alpha = 1
         self.SubjectText.alpha = 1
         self.NameShortText.alpha = 1
         self.NameShortLabel.alpha = 1
-        //self.dateLabel.alpha = 1
+        self.deleteButton.alpha = 1
         self.DateField.alpha = 1
         self.priorityLabel.alpha = 1
         self.prioritySegment.alpha = 1
-        self.searchBar.alpha = 0
+        //self.searchBar.alpha = 0
         self.subjectTable.alpha = 0
         self.DescriptionText.alpha = 1
         }
         
-        var oldFrame = self.scrollView.frame
-        oldFrame.size = CGSize(width: self.oldScrolWidth, height: self.oldScrolHeight)
-        self.scrollView.frame = oldFrame
-        
-      
-        
-        
-        
-        
-        //self.view.bringSubview(toFront: self.bottomView)
-        
-        //subject
-        self.counterD = 0
-        self.counterDate = 0
-        self.counterS = 0
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         
         self.navigationItem.hidesBackButton = false
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
@@ -312,23 +342,14 @@ class TaskEditViewController: UIViewController {
        
         
     }
+   
+    // MARK: - Touches
     
     func touchDescription() {
      
         self.navigationItem.hidesBackButton = true
         
-        if (self.counterD == 0){
-        var newFrame = self.scrollView.frame
-        self.newScrolHeight = self.oldScrolHeight - self.keyHeight
-        newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
-        self.scrollView.frame = newFrame
-        self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            UIView.animate(withDuration: 0.7, delay: 0, options: [.curveEaseInOut], animations: {
-                self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
-            }, completion: nil)
-        
-        }
-        self.counterD+=1
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, self.keyHeight, 0.0)
         
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
@@ -336,56 +357,48 @@ class TaskEditViewController: UIViewController {
      
     }
     
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            self.keyHeight = keyboardRectangle.height
-           // print("\(self.keyHeight)")
-        }
-    }
+  
     
     
     func touchSubject() {
-        searchBar.becomeFirstResponder()
+        self.scrollView.contentOffset = CGPoint(x: 0, y: self.SubjectLabel.frame.origin.y)
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, self.keyHeight, 0.0)
+        //searchBar.becomeFirstResponder()
         self.DescriptionText.alpha = 0
         self.DescriptionLabel.alpha = 0
-        self.SubjectLabel.alpha = 0
-        self.SubjectText.alpha = 0
+       //self.SubjectLabel.alpha = 0
+        //self.SubjectText.alpha = 0
         self.NameShortText.alpha = 0
         self.NameShortLabel.alpha = 0
-        //self.dateLabel.alpha = 0
+        self.deleteButton.alpha = 0
         self.DateField.alpha = 0
         self.prioritySegment.alpha = 0
         self.priorityLabel.alpha = 0
         
         self.navigationItem.hidesBackButton = true
-        self.searchBar.alpha = 1
+       // self.searchBar.alpha = 1
         self.subjectTable.alpha = 1
         
+       // self.view.bringSubview(toFront: searchBar)
+        self.view.bringSubview(toFront: subjectTable)
         
-        if (counterS == 0) {
-        var newFrameForSubjectTable = self.subjectTable.frame
-        newFrameForSubjectTable.size = CGSize(width: self.subjectTable.frame.width, height: self.oldScrolHeight - self.keyHeight - self.searchBar.frame.height)
-        self.subjectTable.frame = newFrameForSubjectTable
-        }
-        counterS+=1
-         
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
     }
     
     func touchName() {
+        self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
+        
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, self.keyHeight, 0.0)
     }
     
     
     func touchDate() {
-       
-       // self.stackView.backgroundColor = appDesign.secondGradientColor
-       
+      
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 200))
         let datePicker:UIDatePicker = UIDatePicker(frame: CGRect(x: (self.view.frame.size.width/2 - 160), y: 0, width: 0, height: 0))
         customView.addSubview(datePicker)
@@ -399,32 +412,15 @@ class TaskEditViewController: UIViewController {
         
         datePicker.addTarget(self, action: #selector(TaskEditViewController.ChangeTaskDate), for: UIControlEvents.valueChanged)
       
-        if (self.counterDate == 0){
-            var newFrame = self.scrollView.frame
-            self.newScrolHeight = self.oldScrolHeight - customView.frame.height
-            newFrame.size = CGSize(width: self.scrollView.frame.width, height: self.newScrolHeight)
-            self.scrollView.frame = newFrame
-            //self.topYDescr = self.insideView.frame.height - self.newScrolHeight
-            //self.scrollView.setContentOffset(CGPoint.init(x: 0, y: self.topYDescr), animated: false)
-            self.scrollView.setContentOffset(CGPoint.zero, animated: true)
-        }
-        self.counterDate+=1
+        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, customView.frame.height, 0.0)
+        
         self.navigationItem.rightBarButtonItem = nil
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(TaskEditViewController.doneDescriptionEditing))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
         
     }
-    
-    @objc func pickerDoneButtonPressed (sender:UIButton) {
-        view.endEditing(true)
-        var oldFrame = self.scrollView.frame
-        oldFrame.size = CGSize(width: self.oldScrolWidth, height: self.oldScrolHeight)
-        self.scrollView.frame = oldFrame
-        self.scrollView.setContentOffset(CGPoint.zero, animated: true)
-        counterDate = 0
-    }
-    
+  
     
     @objc func ChangeTaskDate (sender:UIDatePicker) {
         DateField.text = dateFormatterForDate.string(from: sender.date)
@@ -433,20 +429,13 @@ class TaskEditViewController: UIViewController {
         DateField.textColor = appDesign.subTextColor
         //print ("\(string(self.pickerDate))")
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }
 
+ // MARK: - SearchBar
 
-extension TaskEditViewController: UISearchBarDelegate {
+/*extension TaskEditViewController: UISearchBarDelegate {
    
     
     
@@ -485,9 +474,42 @@ extension TaskEditViewController: UISearchBarDelegate {
     
     
 }
-
+*/
+// MARK: - Delegates
 
 extension TaskEditViewController: UITextViewDelegate {
+    
+/*  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+      /*  if (text == "\n") {
+            //self.hideTableToChoose() what is it
+            return true
+        }*/
+        //showTableToChooseForTextField(Stack: StackViewIS)
+        if (self.SubjectText.text != "") {
+            self.SubjectsHelpArray = self.filterToShowSubjects(FilterString: SubjectText.text, ArrayToComplect: self.filteredSubject)
+            self.subjectTable.reloadData()
+        }
+        else
+        {
+            self.SubjectsHelpArray = self.filteredSubject
+            self.subjectTable.reloadData()
+        }
+        
+        return true
+    } */
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if (self.SubjectText.text != "") {
+            self.SubjectsHelpArray = self.filterToShowSubjects(FilterString: SubjectText.text, ArrayToComplect: self.filteredSubject)
+            self.subjectTable.reloadData()
+        }
+        else
+        {
+            self.SubjectsHelpArray = self.filteredSubject
+            self.subjectTable.reloadData()
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView == DescriptionText {
             if (self.DescriptionText.textColor == UIColor.darkGray) {
@@ -502,7 +524,10 @@ extension TaskEditViewController: UITextViewDelegate {
                 self.SubjectText.text = ""
                 self.SubjectText.textColor = self.appDesign.subTextColor
             }
+            self.SubjectsHelpArray = filteredSubject
+            self.subjectTable.reloadData()
             touchSubject()
+            
         }
         if textView == NameShortText {
             if (self.NameShortText.textColor == UIColor.darkGray) {
@@ -543,6 +568,7 @@ extension TaskEditViewController: UITextViewDelegate {
             }
     }
 }
+ 
     
     
 }
@@ -554,6 +580,8 @@ extension TaskEditViewController: UITextFieldDelegate{
     }
     
 }
+
+// MARK: - SearchTable
 
 extension TaskEditViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -578,13 +606,14 @@ extension TaskEditViewController: UITableViewDataSource {
  
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searchActive && (searchBar.text != "")) {
-            if (searchSubject.count == 0) {
-                return 1
-            }
-            else { return searchSubject.count}
-        }
-        return filteredSubject.count;
+       // if(searchActive && (searchBar.text != "")) {
+           // if (SubjectsHelpArray.count == 0) {
+           //     return 1
+           // }
+          //  else { return SubjectsHelpArray.count}
+        //}
+       // return subjects.count;
+        return SubjectsHelpArray.count
     }
     
     
@@ -592,17 +621,22 @@ extension TaskEditViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // Получим данные для использования в ячейке
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "subject", for: indexPath) as! TaskTapViewCell
-        if ((searchSubject.count == 0) && searchActive && (searchBar.text != "")) {
+        //if ((searchSubject.count == 0) && searchActive && (searchBar.text != "")) {
+        if (SubjectsHelpArray.count == 0) {
           cell.label.text = "Такого предмета не нашлось, но вы можете создать новый"
         } else {
-        if(searchActive && (searchBar.text != "")){
+      /*  if(searchActive && (searchBar.text != "")){
             cell.label.text = searchSubject[indexPath.row]
         } else {
             cell.label.text = filteredSubject[indexPath.row];
         }
         if (cell.label.text == ""){
             cell.label.text = "Без названия"
-        }
+        } */
+           cell.label.text = SubjectsHelpArray[indexPath.row]
+            if (cell.label.text == ""){
+                cell.label.text = "Без названия"
+            }
         }
         
         return cell
