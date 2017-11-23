@@ -12,6 +12,14 @@ import CoreData
 class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelegate{
     // MARK: - Variables
    
+    //NavigationView titles
+    let navigationViewWidth: CGFloat = 170
+    var navigationTitleView: UIView!
+    var navigationLeftTitle: UILabel!
+    var navigationRightTitle: UILabel!
+    var navigationPageControl: UIPageControl!
+    
+    //Other variables
     var prosrButton: UIButton!
     var doneButton: UIButton!
     var workingWithDone: Bool = false
@@ -38,6 +46,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     let appDesign = CustomApplicationLook()
     
+    @IBOutlet weak var MainScrollView: UIScrollView!
     @IBOutlet weak var taskTable: UITableView!
     
     @IBOutlet weak var taskButton: UIButton!
@@ -76,50 +85,30 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let navView = UIView()
-        //let pageControl = UIPageControl()
-        let label = UILabel()
-        label.text = "TEXTIC"
-        //navView.addSubview(pageControl)
-        navView.addSubview(label)
-        
-        label.sizeToFit()
-        
-        //navigationItem.titleView = navView
-        navView.sizeToFit()
-        label.sizeToFit()
-        let height = self.navigationController!.navigationBar.frame.height
  
-        let titleView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 170, height: height) )
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 170, height: height*0.7))
-        let pageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: 170, height: height*0.3))
-        pageControl.numberOfPages = 2
-        pageControl.currentPage = 0
-        titleView.addSubview(title)
-        titleView.addSubview(pageControl)
-        //pageControl.backgroundColor = UIColor.green
-        //title.backgroundColor = UIColor.red
-        title.numberOfLines = 1
-        title.textAlignment = .center
-        title.text = "Задания"
+        //Setting navigation control
+        let height = self.navigationController!.navigationBar.frame.height
+        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
+        navigationTitleView.clipsToBounds = true
+        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
         
+        navigationPageControl.numberOfPages = 2
+        navigationPageControl.currentPage = 0
+        navigationTitleView.addSubview(navigationLeftTitle)
+        navigationTitleView.addSubview(navigationRightTitle)
+        navigationTitleView.addSubview(navigationPageControl)
+        navigationLeftTitle.numberOfLines = 1
+        navigationLeftTitle.textAlignment = .center
+        navigationLeftTitle.text = "Задания"
+        navigationRightTitle.numberOfLines = 1
+        navigationRightTitle.textAlignment = .center
+        navigationRightTitle.text = "Мероприятия"
+
+        navigationItem.titleView = navigationTitleView
         
-        
-        navigationItem.titleView = titleView
-        
-        /*
-        let navView = UIView()
-        let pageControl = UIPageControl()
-        let label = UILabel()
-        
-        navView.frame = CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
-        let logo = UIImage(named: "BackGroundImage")
-        let imageView = UIImageView(image:logo)
-        print(self.navigationItem.titleView)
-        self.navigationItem.titleView = imageView
-        */
+        //Setting other views
         tasksFetchController = TaskModel.setupFetchController()
         tasksFetchController.delegate = self
         activitiesFetchController = ActivitiesModel.setupFetchController()
@@ -130,8 +119,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
+        //appDesign.managedMainButonsContext.removeAll()
+        //appDesign.managedSubButonsContext.removeAll()
         appDesign.managedMainButonsContext.append(taskButton)
         appDesign.managedSubButonsContext.append(activityButton)
         taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
@@ -256,6 +245,25 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
       
     }
     
+}
+
+// MARK: - UIScrollViewDelegate protocol
+extension TasksTabViewController: UIScrollViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView == MainScrollView){
+            let scrollPercent = scrollView.contentOffset.x/(scrollView.frame.width)
+                //scrollView.contentSize.width/2 - (scrollView.contentOffset.x + scrollView.contentSize.width/2)
+            navigationLeftTitle.frame.origin.x = -navigationViewWidth*scrollPercent
+            navigationRightTitle.frame.origin.x = navigationViewWidth-navigationViewWidth*scrollPercent
+            if(scrollPercent > 0.5){
+                navigationPageControl.currentPage = 1
+            }else{
+                navigationPageControl.currentPage = 0
+            }
+            //print(scrollPercent)
+            //navigationTitle.frame.origin.x =
+        }
+    }
 }
 
 
