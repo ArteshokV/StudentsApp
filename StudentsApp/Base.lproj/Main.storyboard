@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5u-ph-v3n">
-                                <rect key="frame" x="0.0" y="153" width="375" height="465"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="546"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Gn-Z2-pAj">
-                                        <rect key="frame" x="0.0" y="0.0" width="750" height="465"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="546"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eTP-n5-v6m">
                                                 <rect key="frame" x="10" y="0.0" width="730" height="30"/>
@@ -36,6 +36,9 @@
                                                             <segment title="Приоритет"/>
                                                         </segments>
                                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="taskSegmentChanged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="Uxa-kR-7aF"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="aC3-cM-shk">
                                                         <rect key="frame" x="375" y="0.0" width="355" height="31"/>
@@ -44,6 +47,9 @@
                                                             <segment title="Сроки"/>
                                                         </segments>
                                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="activitiesSegmentChanged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="0I7-UV-JdZ"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <constraints>
@@ -51,10 +57,10 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fbF-JO-1X2">
-                                                <rect key="frame" x="10" y="40" width="730" height="425"/>
+                                                <rect key="frame" x="10" y="40" width="730" height="506"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Liy-Zh-tzU">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="425"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="506"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                         <connections>
@@ -62,9 +68,14 @@
                                                             <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
                                                         </connections>
                                                     </tableView>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EWW-qS-GVD">
-                                                        <rect key="frame" x="375" y="0.0" width="355" height="425"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EWW-qS-GVD">
+                                                        <rect key="frame" x="375" y="0.0" width="355" height="506"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="8Gb-dM-rGE" id="DeP-mi-GaS"/>
+                                                            <outlet property="delegate" destination="8Gb-dM-rGE" id="W1Y-5x-h77"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                             </stackView>
@@ -93,57 +104,23 @@
                                     <outlet property="delegate" destination="8Gb-dM-rGE" id="5Xl-Xf-gDS"/>
                                 </connections>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5a-11-JxK">
-                                <rect key="frame" x="215" y="109" width="144" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title="Мероприятия"/>
-                                <connections>
-                                    <action selector="acrivityChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="Rul-AN-Pyp"/>
-                                </connections>
-                            </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oJW-Ys-kHo">
-                                <rect key="frame" x="16" y="118" width="343" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="qvv-em-ogr"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Предметы"/>
-                                    <segment title="Сроки"/>
-                                    <segment title="Приоритет"/>
-                                </segments>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="SegmentChenged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="ae4-56-StU"/>
-                                </connections>
-                            </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCb-7J-ya8">
-                                <rect key="frame" x="250" y="82" width="89" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title="Задания"/>
-                                <connections>
-                                    <action selector="taskChooseButton:" destination="8Gb-dM-rGE" eventType="touchUpInside" id="J9Q-C6-HMV"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="mCb-7J-ya8" secondAttribute="trailing" constant="36" id="22h-Lc-B31"/>
-                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="top" secondItem="I5a-11-JxK" secondAttribute="bottom" constant="9" id="Bta-fV-4Ob"/>
-                            <constraint firstItem="oJW-Ys-kHo" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" constant="16" id="CN1-wx-gaj"/>
-                            <constraint firstItem="I5a-11-JxK" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="45" id="Eou-hJ-snj"/>
-                            <constraint firstItem="mCb-7J-ya8" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="18" id="JSY-gb-s9C"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="b5u-ph-v3n" secondAttribute="trailing" id="Oso-X1-etV"/>
                             <constraint firstItem="rG3-ym-2mr" firstAttribute="bottom" secondItem="b5u-ph-v3n" secondAttribute="bottom" id="Upy-Bn-tfP"/>
-                            <constraint firstItem="b5u-ph-v3n" firstAttribute="top" secondItem="oJW-Ys-kHo" secondAttribute="bottom" constant="5" id="dpe-T8-6CP"/>
-                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="oJW-Ys-kHo" secondAttribute="trailing" constant="16" id="now-47-S17"/>
                             <constraint firstItem="b5u-ph-v3n" firstAttribute="leading" secondItem="rG3-ym-2mr" secondAttribute="leading" id="r6X-37-0ML"/>
-                            <constraint firstItem="rG3-ym-2mr" firstAttribute="trailing" secondItem="I5a-11-JxK" secondAttribute="trailing" constant="16" id="xh7-8w-nZZ"/>
+                            <constraint firstItem="b5u-ph-v3n" firstAttribute="top" secondItem="rG3-ym-2mr" secondAttribute="top" constant="8" id="rQs-HC-YmG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rG3-ym-2mr"/>
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Don" id="Qac-4M-x9W"/>
+                        <barButtonItem key="leftBarButtonItem" title="Don" id="Qac-4M-x9W">
+                            <connections>
+                                <action selector="showDoneTasks:" destination="8Gb-dM-rGE" id="r7l-IS-xbo"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gkg-Cz-wUd">
                             <connections>
                                 <action selector="addTaskButtonTouch:" destination="8Gb-dM-rGE" id="N7z-fP-iFN"/>
@@ -152,9 +129,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="MainScrollView" destination="b5u-ph-v3n" id="zNw-Se-qTb"/>
-                        <outlet property="Segment" destination="oJW-Ys-kHo" id="g9q-DV-hyf"/>
-                        <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
-                        <outlet property="taskButton" destination="mCb-7J-ya8" id="Cep-BF-hMz"/>
+                        <outlet property="activitiesSegment" destination="aC3-cM-shk" id="4N1-Ew-2Sf"/>
+                        <outlet property="activitiesTable" destination="EWW-qS-GVD" id="pbz-pG-lTl"/>
+                        <outlet property="showDoneTasksButton" destination="Qac-4M-x9W" id="RO4-Xd-RT0"/>
+                        <outlet property="taskSegment" destination="xj4-fc-Q1C" id="W1r-9F-qam"/>
                         <outlet property="taskTable" destination="Liy-Zh-tzU" id="0hz-hS-LBk"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTasksToTasksView" id="Zgn-fp-LuR"/>
                         <segue destination="mRm-T6-Bsb" kind="show" identifier="fromTasksToTaskEdit" id="J2O-j8-uXz"/>
