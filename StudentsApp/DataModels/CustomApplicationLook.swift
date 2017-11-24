@@ -123,6 +123,12 @@ class CustomApplicationLook: NSObject, NSFetchedResultsControllerDelegate{
             managedTabBar!.barTintColor = tabBarColor
             let blurEffectBackground = UIBlurEffect(style: blurEffectStyle)
             backgroundBlurView?.effect = blurEffectBackground
+            
+            if(blurEffectStyle == UIBlurEffectStyle.light){
+                UIApplication.shared.statusBarStyle = .default
+            }else{
+                UIApplication.shared.statusBarStyle = .lightContent
+            }
         }
         
         updateManagedContext()

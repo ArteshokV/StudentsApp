@@ -114,11 +114,19 @@ class MenuTabViewController: UIViewController {
             //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         
         selectedStudyPlace = getSetectedStudyPlace()
         UniversitySelectedLabel.text = selectedStudyPlace[0].name
         FacultySelectedLabel.text = selectedStudyPlace[1].name
         GroupSelectedLabel.text = selectedStudyPlace[2].name
+    }
+    
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
     }
     
     override func viewDidLayoutSubviews() {

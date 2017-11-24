@@ -17,22 +17,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vzd-ch-aeh">
-                                <rect key="frame" x="56" y="223" width="262" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vzd-ch-aeh">
+                                <rect key="frame" x="50" y="215" width="275" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5BV-eZ-1cZ"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Введите название предмета" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-Dt-xLx">
-                                <rect key="frame" x="73" y="150" width="228" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите название предмета" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-Dt-xLx">
+                                <rect key="frame" x="50" y="144" width="275" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TAY-3t-RUg" firstAttribute="trailing" secondItem="5Lq-Dt-xLx" secondAttribute="trailing" constant="50" id="4JS-rd-X1K"/>
+                            <constraint firstItem="5Lq-Dt-xLx" firstAttribute="top" secondItem="TAY-3t-RUg" secondAttribute="top" constant="80" id="8qQ-CF-Vr6"/>
+                            <constraint firstItem="5Lq-Dt-xLx" firstAttribute="leading" secondItem="TAY-3t-RUg" secondAttribute="leading" constant="50" id="E6S-8Z-F6t"/>
+                            <constraint firstItem="TAY-3t-RUg" firstAttribute="trailing" secondItem="vzd-ch-aeh" secondAttribute="trailing" constant="50" id="EHj-5W-SBG"/>
+                            <constraint firstItem="vzd-ch-aeh" firstAttribute="top" secondItem="5Lq-Dt-xLx" secondAttribute="bottom" constant="50" id="fq9-Jc-kUe"/>
+                            <constraint firstItem="vzd-ch-aeh" firstAttribute="leading" secondItem="TAY-3t-RUg" secondAttribute="leading" constant="50" id="h1m-Uq-2SM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="TAY-3t-RUg"/>
                     </view>
                     <toolbarItems/>

@@ -42,11 +42,19 @@ class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         if(viewHasChanges){
             viewHasChanges = false
             subjectsArray = SubjectModel.getSubjects()
             SubjectTabTableView.reloadData()
         }
+    }
+    
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
