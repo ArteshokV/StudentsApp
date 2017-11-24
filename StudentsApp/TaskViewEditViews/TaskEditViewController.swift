@@ -175,7 +175,7 @@ class TaskEditViewController: UIViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             self.keyHeight = keyboardRectangle.height
-            
+            //print("\(keyHeight)")
         }
     }
     
@@ -269,12 +269,10 @@ class TaskEditViewController: UIViewController {
         
         if (self.subjectTable.alpha != 0) {
             self.subjectTable.frame.size = CGSize(width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-           
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-            }, completion: { _ in
-                
-            })
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
+                self.scrollView.contentOffset = CGPoint.zero
+        }, completion: nil)
+            
         self.DescriptionLabel.alpha = 1
         self.SubjectLabel.alpha = 1
         self.SubjectText.alpha = 1
@@ -288,8 +286,8 @@ class TaskEditViewController: UIViewController {
         self.DescriptionText.alpha = 1
         }
        
-        
-        self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+            self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+       
         
         self.navigationItem.hidesBackButton = false
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(TaskEditViewController.saveChanges))
@@ -326,6 +324,7 @@ class TaskEditViewController: UIViewController {
         UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.scrollView.contentOffset = CGPoint(x: 0, y: self.SubjectLabel.frame.origin.y)
         }, completion: { _ in
+            print("\(self.keyHeight)")
             self.subjectTable.frame.size = CGSize(width: self.scrollView.frame.width, height: self.scrollView.frame.height - self.NameShortLabel.frame.origin.y + self.SubjectLabel.frame.origin.y  - self.keyHeight)
             self.scrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, self.keyHeight, 0.0)
         })
@@ -436,6 +435,14 @@ extension TaskEditViewController: UITextViewDelegate {
             }
             touchName()
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            self.doneDescriptionEditing()
+            return true
+        }
+        return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

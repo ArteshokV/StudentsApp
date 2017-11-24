@@ -49,10 +49,14 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     @IBOutlet weak var MainScrollView: UIScrollView!
     @IBOutlet weak var taskTable: UITableView!
     
+    
+    @IBOutlet weak var activitiesTable: UITableView!
+    
     @IBOutlet weak var taskButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
      @IBOutlet weak var addTaskButton: UIButton!
     
+    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
     @IBOutlet weak var Segment: UISegmentedControl!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +119,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         activitiesFetchController.delegate = self
         
         taskTable.backgroundColor = UIColor.clear
-       
+        activitiesTable.backgroundColor = UIColor.clear
+        
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
@@ -131,7 +136,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
         taskTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
-        
+        activitiesTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
         // Задаем страртове цета кнопок
         
        
@@ -152,6 +157,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     }
         
 
+    @IBAction func showDoneTasks(_ sender: Any) {
+    }
     
     @IBAction func addTaskButtonTouch(_ sender: Any) {
         self.hidesBottomBarWhenPushed = true
