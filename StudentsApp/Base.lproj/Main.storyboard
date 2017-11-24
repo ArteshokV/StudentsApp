@@ -36,6 +36,9 @@
                                                             <segment title="Приоритет"/>
                                                         </segments>
                                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="taskSegmentChanged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="Uxa-kR-7aF"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="aC3-cM-shk">
                                                         <rect key="frame" x="375" y="0.0" width="355" height="31"/>
@@ -44,6 +47,9 @@
                                                             <segment title="Сроки"/>
                                                         </segments>
                                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="activitiesSegmentChanged:" destination="8Gb-dM-rGE" eventType="valueChanged" id="0I7-UV-JdZ"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <constraints>
@@ -62,9 +68,10 @@
                                                             <outlet property="delegate" destination="8Gb-dM-rGE" id="Hoh-gG-Rzh"/>
                                                         </connections>
                                                     </tableView>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EWW-qS-GVD">
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EWW-qS-GVD">
                                                         <rect key="frame" x="375" y="0.0" width="355" height="425"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                         <connections>
                                                             <outlet property="dataSource" destination="8Gb-dM-rGE" id="DeP-mi-GaS"/>
                                                             <outlet property="delegate" destination="8Gb-dM-rGE" id="W1Y-5x-h77"/>
@@ -161,10 +168,12 @@
                     <connections>
                         <outlet property="MainScrollView" destination="b5u-ph-v3n" id="zNw-Se-qTb"/>
                         <outlet property="Segment" destination="oJW-Ys-kHo" id="g9q-DV-hyf"/>
+                        <outlet property="activitiesSegment" destination="aC3-cM-shk" id="4N1-Ew-2Sf"/>
                         <outlet property="activitiesTable" destination="EWW-qS-GVD" id="pbz-pG-lTl"/>
                         <outlet property="activityButton" destination="I5a-11-JxK" id="ACk-aP-MsB"/>
                         <outlet property="showDoneTasksButton" destination="Qac-4M-x9W" id="RO4-Xd-RT0"/>
                         <outlet property="taskButton" destination="mCb-7J-ya8" id="Cep-BF-hMz"/>
+                        <outlet property="taskSegment" destination="xj4-fc-Q1C" id="W1r-9F-qam"/>
                         <outlet property="taskTable" destination="Liy-Zh-tzU" id="0hz-hS-LBk"/>
                         <segue destination="UNc-rm-Xv7" kind="show" identifier="fromTasksToTasksView" id="Zgn-fp-LuR"/>
                         <segue destination="mRm-T6-Bsb" kind="show" identifier="fromTasksToTaskEdit" id="J2O-j8-uXz"/>
