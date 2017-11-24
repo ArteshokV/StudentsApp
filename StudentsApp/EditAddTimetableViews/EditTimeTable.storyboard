@@ -99,7 +99,7 @@
                                                             <constraint firstAttribute="width" secondItem="Ix5-4f-tGG" secondAttribute="height" multiplier="1:1" id="cfH-qD-QaJ"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="61" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A0s-1Y-TyS">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="61" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A0s-1Y-TyS">
                                                         <rect key="frame" x="58" y="0.0" width="297" height="58"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -126,8 +126,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
-                                                            <action selector="ChooseTeacher:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="Z6Z-zK-PfB"/>
+                                                            <action selector="ChooseTeacher:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="1Mp-a5-m1h"/>
                                                             <action selector="EditingTeacher:" destination="Kpp-3l-5M5" eventType="editingChanged" id="H4i-8h-H8j"/>
+                                                            <outlet property="delegate" destination="Kpp-3l-5M5" id="TlE-xH-BCr"/>
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-Bt-QUd">
@@ -136,8 +137,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
-                                                            <action selector="ChooseRoom:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="i7z-YC-fRT"/>
+                                                            <action selector="ChooseRoom:" destination="Kpp-3l-5M5" eventType="editingDidBegin" id="qi6-WJ-49C"/>
                                                             <action selector="EditingRoom:" destination="Kpp-3l-5M5" eventType="editingChanged" id="pyz-DT-UK2"/>
+                                                            <outlet property="delegate" destination="Kpp-3l-5M5" id="hPv-Pq-ywD"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
