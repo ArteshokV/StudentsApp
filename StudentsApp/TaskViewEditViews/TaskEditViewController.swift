@@ -446,10 +446,11 @@ extension TaskEditViewController: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (textView == SubjectText) {
         if (text == "\n") {
             self.doneDescriptionEditing()
             return true
-        }
+            } }
         return true
     }
     

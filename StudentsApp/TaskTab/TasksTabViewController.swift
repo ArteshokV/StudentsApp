@@ -20,19 +20,18 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     var navigationPageControl: UIPageControl!
     
     //Other variables
-    var prosrButton: UIButton!
-    var doneButton: UIButton!
+    
     var workingWithDone: Bool = false
     var workingWithProsr: Bool = false
     var counterd = 0
     var counterp = 0
     
-    var parametr: String! // переменная для выбота типа сортировки
+     // переменная для выбота типа сортировки
     var taskParametr: String!
     var activitiesParametr: String!
     
     
-    var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
+     // переменная для выбора заданий или мереоприятий
     var counter: Int!
     var chosenObject: TaskModel?
     
@@ -56,12 +55,11 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     @IBOutlet weak var activitiesTable: UITableView!
     
-    @IBOutlet weak var taskButton: UIButton!
-    @IBOutlet weak var activityButton: UIButton!
+    
      @IBOutlet weak var addTaskButton: UIButton!
     
     @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
-    @IBOutlet weak var Segment: UISegmentedControl!
+    
    
     @IBOutlet weak var taskSegment: UISegmentedControl!
     
@@ -134,13 +132,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         appDesign.initBackground(ofView: self.view)
         //appDesign.managedMainButonsContext.removeAll()
         //appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(taskButton)
-        appDesign.managedSubButonsContext.append(activityButton)
-        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        
-        taskOrActivity = "task"//выбираем просмотр заданий
-        parametr = "time" //выбираем сортировку по времени
+      
         taskParametr = "time"
         activitiesParametr = "time"
         
@@ -178,46 +170,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
      // MARK: - Buttons
     
-    @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
-        
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(taskButton)
-        appDesign.managedSubButonsContext.append(activityButton)
-        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        taskOrActivity = "task"
-        if counter == 0 {
-        Segment.insertSegment(withTitle: "Приоритет", at: 2, animated: true)
-            counter = 1
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-    }
     
     
-    @IBAction func acrivityChooseButton(_ sender: Any) {//выбор просмотра мероприятий
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(activityButton)
-        appDesign.managedSubButonsContext.append(taskButton)
-        activityButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        taskButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        taskOrActivity = "activity"
-        if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
-            Segment.selectedSegmentIndex = 1
-            parametr = "time"
-        }
-        if counter == 1 {
-        Segment.removeSegment(at: 2, animated: true)
-            counter = 0
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-        
-    }
+   
     
     
     @IBAction func taskSegmentChanged(_ sender: Any) {
@@ -268,29 +223,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     }
     
     
-    @IBAction func SegmentChenged(_ sender: Any) {
-        switch Segment.selectedSegmentIndex {
-        case 0:
-            parametr = "subject"
-            break
-        case 1:
-            parametr = "time"
-            break
-        case 2:
-            parametr = "priority"
-            break
-        default:
-            parametr = "time"
-            break
-        }
-        if(viewHasChanges){
-            viewHasChanges = false
-            updateData()
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-    }
+   
     
     
     override func didReceiveMemoryWarning() {
@@ -304,8 +237,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             taskVC.taskModelObject = chosenObject
         }
         if(segue.identifier == "fromTasksToTaskEdit"){
-            let tOa = segue.destination as! TaskEditViewController
-            tOa.taskOrActivity = taskOrActivity
+            //let tOa = segue.destination as! TaskEditViewController
+           // tOa.taskOrActivity = taskOrActivity
         }
       
     }
