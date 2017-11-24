@@ -31,6 +31,8 @@ class TaskEditViewController: UIViewController {
     @IBOutlet weak var NameShortText: UITextView!
     @IBOutlet weak var SubjectText: UITextView!
   
+    
+    //var oldSubject = ""
     var isDeleted = false
     var isSubjectCanceled = false
     var counterD: Int = 0
@@ -83,6 +85,7 @@ class TaskEditViewController: UIViewController {
         if (isEdit) {
             if (SubjectText.text != "")&&(taskEditObject?.taskSubject != "") {
                 SubjectText.text = taskEditObject?.taskSubject
+                //oldSubject = (taskEditObject?.taskSubject)!
             } else {
                 SubjectText.text = "Выберите предмет"
                 SubjectText.textColor = UIColor.darkGray
@@ -261,6 +264,7 @@ class TaskEditViewController: UIViewController {
         
         if (isSubjectCanceled == true) {
             self.SubjectText.textColor = UIColor.darkGray
+            
             self.SubjectText.text = "Выберите предмет"
             isSubjectCanceled = false
         }
@@ -398,15 +402,19 @@ class TaskEditViewController: UIViewController {
 extension TaskEditViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
+        if (textView == SubjectText) {
         if (self.SubjectText.text != "") {
             self.SubjectsHelpArray = self.filterToShowSubjects(FilterString: SubjectText.text, ArrayToComplect: self.filteredSubject)
+            print("\(self.SubjectsHelpArray.count)")
             self.subjectTable.reloadData()
         }
         else
         {
             self.SubjectsHelpArray = self.filteredSubject
+            print("\(self.SubjectsHelpArray.count)")
             self.subjectTable.reloadData()
         }
+    }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -499,8 +507,9 @@ extension TaskEditViewController: UITableViewDelegate {
         } else {
            self.SubjectText.text = subText
             self.SubjectText.textColor = appDesign.subTextColor
+            isSubjectCanceled = false
         }
-        isSubjectCanceled = false
+        
          doneDescriptionEditing()
     }
 }
@@ -514,7 +523,11 @@ extension TaskEditViewController: UITableViewDataSource {
  
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (SubjectsHelpArray.count != 0){
         return SubjectsHelpArray.count
+        } else {
+            return 1
+        }
     }
     
     
