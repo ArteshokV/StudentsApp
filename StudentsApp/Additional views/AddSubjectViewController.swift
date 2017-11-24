@@ -18,6 +18,7 @@ class AddSubjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appDesign.initBackground(ofView: self.view)
+        enterSubjectLabel.textColor = appDesign.mainTextColor
         // Do any additional setup after loading the view.
     }
 

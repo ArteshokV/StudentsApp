@@ -84,6 +84,7 @@ class TimeTableTabViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         CollectionOfTables.reloadData()
     }
     
@@ -109,7 +110,7 @@ class TimeTableTabViewController: UIViewController {
         
         CollectionOfTables.backgroundColor = UIColor.clear
         
-        navigationBarClone.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
+        //navigationBarClone.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
         //appDesign.managedMainLablesContext.append(DayLabel)
         //DayLabel.textColor = appDesign.mainTextColor
         //appDesign.managedMainLablesContext.append(TickLabel)
@@ -157,7 +158,15 @@ class TimeTableTabViewController: UIViewController {
         WeekNumberLabel.numberOfLines = 1
     }
 
-    
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationBarClone.backgroundColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

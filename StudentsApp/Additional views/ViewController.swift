@@ -57,6 +57,14 @@ class BaseTabBarController: UITabBarController {
         self.tabBar.insertSubview(frost, at: 0)
         appLook.backgroundBlurView = frost
         
+        //Setting status bar!!!
+        if(appLook.blurEffectStyle == UIBlurEffectStyle.light){
+            UIApplication.shared.statusBarStyle = .default
+        }else{
+            UIApplication.shared.statusBarStyle = .lightContent
+        }
+        
+        
         self.selectedIndex = defaultIndex
     }
 }

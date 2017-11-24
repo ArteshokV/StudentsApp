@@ -46,7 +46,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
             //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
-        
+        setUpNavigationBars()
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
         //self.navigationController?.navigationBar.alpha = 0
         
@@ -82,6 +82,13 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         }
     }
     
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //title = "Среда, 28 ноября"
@@ -104,7 +111,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         activitiesFetchController.delegate = self
         
         TableViewOutlet.backgroundView = UIView(frame: TableViewOutlet.frame)
-        appDesign.initBackground(ofView: TableViewOutlet.backgroundView!)
+        appDesign.initBackground(ofView: self.view)
         blurEffectView = appDesign.backgroundBlurView
         blurEffectView?.alpha = 0.0;
         
@@ -220,7 +227,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(indexPath.section == 0){
             let identifier = TopCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UpperTodayTableViewCell
-            cell.DateLabel.isHidden = true
+            //cell.DateLabel.isHidden = true
             return cell
         }
         
@@ -297,7 +304,7 @@ extension TodayTabViewController: UITableViewDataSource{
         switch indexPath.section {
         case 0:
             
-            return  1//self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
+            return  50//self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
             
         case 1:
             return 120
