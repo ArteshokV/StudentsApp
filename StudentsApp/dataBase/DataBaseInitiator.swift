@@ -157,13 +157,13 @@ class DataBaseInitiator: NSObject {
                 
                 let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
                 
-                event.date = CustomDateClass(withString: task.date).currentDate
+            event.date = CustomDateClass(withString: task.date!).currentDate
                 event.shortName = task.shortName
                 event.descrp = task.description
-                event.priority = (task.priority)
-                event.status = (task.status )
+            event.priority = (task.priority)!
+            event.status = (task.status )!
                 
-                event.subject = getSubjectBy(Name: task.subject)
+            event.subject = getSubjectBy(Name: task.subject!)
             }
         
             DatabaseController.saveContext()

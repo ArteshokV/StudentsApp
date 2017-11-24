@@ -16,13 +16,27 @@ class TaskModel: NSObject {
     var taskDate: CustomDateClass?
     var taskNameShort: String?
     var taskSubject: String?
-    var taskPriority: Int?
+    var taskPriority: Int16?
     var taskDescription: String?
-    var taskStatus: Int?
+    var taskStatus: Int16?
     var dateCreated: Double?
     var dateUpdated: Double?
     
     // MARK: - Static getting of tasks
+    static func getTasksForSync() -> Array<TaskModel> {
+        var returnArray: Array<TaskModel> = Array()
+        let selectionCondition = "dateUpdated >= \(UserDefaults.standard.double(forKey: "lastSyncDate"))"
+        let predicate = NSPredicate(format: selectionCondition)
+        let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        fetchRequest.predicate = predicate
+        let requestResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for task in requestResults {
+            returnArray.append(TaskModel(withDatabaseObject: task))
+        }
+        
+        return returnArray
+    }
+    
     static func getTasksForToday() -> Array<TaskModel>{
         //Получаем список заданий
         var returnArray: Array<TaskModel> = Array()
@@ -275,6 +289,7 @@ class TaskModel: NSObject {
         self.dateUpdated = Date().timeIntervalSince1970
         if populateEntityWithObjectData(){
             DatabaseController.saveContext()
+            SyncController.sync()
             return true
         }else{
             return false
@@ -307,9 +322,9 @@ class TaskModel: NSObject {
         self.TasksDatabaseObject = withDatabaseObject
         
         self.taskNameShort = TasksDatabaseObject?.shortName != nil ? TasksDatabaseObject?.shortName! : nil;
-        self.taskPriority = TasksDatabaseObject?.priority != nil ? Int(TasksDatabaseObject!.priority) : nil;
+        self.taskPriority = TasksDatabaseObject?.priority != nil ? TasksDatabaseObject!.priority : nil;
         self.taskDescription = TasksDatabaseObject?.descrp != nil ? TasksDatabaseObject?.descrp! : nil;
-        self.taskStatus = TasksDatabaseObject?.status != nil ? Int(TasksDatabaseObject!.status) : nil;
+        self.taskStatus = TasksDatabaseObject?.status != nil ? TasksDatabaseObject!.status : nil;
         self.taskSubject = TasksDatabaseObject?.subject != nil ? TasksDatabaseObject?.subject!.name! : nil;
         self.taskDate = TasksDatabaseObject?.date != nil ? CustomDateClass(withDate: (TasksDatabaseObject?.date)!) : nil;
         

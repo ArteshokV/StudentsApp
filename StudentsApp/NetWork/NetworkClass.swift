@@ -21,11 +21,11 @@ struct studyPlaceResponse: Codable {
 
 struct initalDataResponse: Codable {
 //    {"teachers":[],"activities":[],"subjects":[],"tasks":[],"timeTableEvents":[]}
-    let subjects: [subject]?
-    let timeTableEvents: [timeTableEvent]?
-    let teachers: [teacher]?
-    let activities: [activity]?
-    let tasks: [task]?
+    var subjects: [subject]?
+    var timeTableEvents: [timeTableEvent]?
+    var teachers: [teacher]?
+    var activities: [activity]?
+    var tasks: [task]?
 }
 
 struct teacher: Codable {
@@ -48,13 +48,13 @@ struct subject: Codable {
 }
 
 struct task: Codable {
-    let id: Int
-    let shortName: String
-    let date: String
-    let subject: String
-    let description: String
-    let priority: Int16
-    let status: Int16
+    var id: Int?
+    var shortName: String?
+    var date: String?
+    var subject: String?
+    var description: String?
+    var priority: Int16?
+    var status: Int16?
 }
 
 struct timeTableEvent: Codable {
@@ -73,7 +73,7 @@ struct timeTableEvent: Codable {
 }
 
 class NetworkClass: NSObject {
-    let apiAdress = "89.179.244.73:8112/stdApp" //"172.20.10.11:8080/SSA"
+    let apiAdress = "192.168.1.102:8080/SSA" //"172.20.10.11:8080/SSA"
     let network = LowNetworkClass()
     
     func getUniversities(withCompletition: @escaping ([studyUnit]?) -> ()) {
@@ -112,23 +112,15 @@ class NetworkClass: NSObject {
                 withCompletition(responseStruct)
             }
         })
-        /*
-        let urlString = "http://\(apiAdress)/api/studyPlace/getJSONinitialDataForRemoteApp"
-        network.jetRawJson(URL: urlString, andCompletitionBlock: {json in
-            
-            //if(json != nil){
+    }
+        
+    func doSync(withCompletition: @escaping (initalDataResponse?) -> (), dataToSend:String?) {
+            print("Starting sync")
+            let urlString = "http://\(apiAdress)/api/sync"
+            network.sendDataWith(URL: urlString, type: initalDataResponse.self, andCompletitionBlock: {responseStruct in
                 DispatchQueue.main.async {
-                    withCompletition(json)
+                    withCompletition(responseStruct)
                 }
-            /*
-            }else{
-                //print("json = nil")
-                DispatchQueue.main.async {
-                    withCompletition(nil)
-                }
-            }
-            */
-        })
- */
+            }, dataToSend: dataToSend)
     }
 }
