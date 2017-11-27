@@ -34,6 +34,7 @@ class StudyPlaceSelectionViewController: UIViewController {
     
     var workingWithPlaceType = 0
     var wasPushedFromMenu = false
+    var numberOfDownloadErrors = 0
     
     // MARK: - initialSetupOfView
     
@@ -228,8 +229,16 @@ class StudyPlaceSelectionViewController: UIViewController {
     }
     
     func displayDownloadError(){
+        numberOfDownloadErrors += 1
         let alertController = UIAlertController(title: "Ошибка", message:
             "Произошла ошибка при загрузке списка, попробуйте позже!", preferredStyle: UIAlertControllerStyle.alert)
+        if(numberOfDownloadErrors == 2){
+            numberOfDownloadErrors = 0
+            alertController.addAction(UIAlertAction(title: "Ввести расписание вручную", style: UIAlertActionStyle.default,handler: { _ in
+                self.hidesBottomBarWhenPushed = true
+                self.performSegue(withIdentifier: "fromLoginToInitialSetup", sender: self)
+            }))
+        }
         alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)

@@ -32,12 +32,6 @@
                                     <constraint firstAttribute="width" secondItem="eN1-Rt-ZDB" secondAttribute="height" multiplier="1:1" id="hp7-Vr-gwg"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlv-Qt-or8" userLabel="ButtonLeft">
-                                <rect key="frame" x="27.5" y="43" width="216" height="216"/>
-                                <connections>
-                                    <action selector="ButtonLeftPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OGJ-2m-0lu"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LuY-5T-Vjn" userLabel="Blur">
                                 <rect key="frame" x="28" y="205" width="216" height="53.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -48,6 +42,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlv-Qt-or8" userLabel="ButtonLeft">
+                                <rect key="frame" x="27" y="43" width="216" height="216"/>
+                                <connections>
+                                    <action selector="ButtonLeftPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OGJ-2m-0lu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -77,12 +77,6 @@
                                     <constraint firstAttribute="width" secondItem="qxX-WP-CnG" secondAttribute="height" multiplier="1:1" id="eK3-Nw-jzJ"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43m-gP-qsm" userLabel="ButtonRight">
-                                <rect key="frame" x="26.5" y="43" width="216.5" height="216"/>
-                                <connections>
-                                    <action selector="ButtonRightPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KU9-Qt-ApD"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnA-Od-Vgv" userLabel="Blur">
                                 <rect key="frame" x="26.5" y="205" width="216" height="54"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -93,6 +87,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43m-gP-qsm" userLabel="ButtonRight">
+                                <rect key="frame" x="26.5" y="43" width="216.5" height="216"/>
+                                <connections>
+                                    <action selector="ButtonRightPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KU9-Qt-ApD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>

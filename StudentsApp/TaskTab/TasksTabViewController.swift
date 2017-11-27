@@ -12,15 +12,26 @@ import CoreData
 class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelegate{
     // MARK: - Variables
    
-    var prosrButton: UIButton!
-    var doneButton: UIButton!
+    //NavigationView titles
+    let navigationViewWidth: CGFloat = 170
+    var navigationTitleView: UIView!
+    var navigationLeftTitle: UILabel!
+    var navigationRightTitle: UILabel!
+    var navigationPageControl: UIPageControl!
+    
+    //Other variables
+    
     var workingWithDone: Bool = false
     var workingWithProsr: Bool = false
     var counterd = 0
     var counterp = 0
     
-    var parametr: String! // переменная для выбота типа сортировки
-    var taskOrActivity: String! // переменная для выбора заданий или мереоприятий
+     // переменная для выбота типа сортировки
+    var taskParametr: String!
+    var activitiesParametr: String!
+    
+    
+     // переменная для выбора заданий или мереоприятий
     var counter: Int!
     var chosenObject: TaskModel?
     
@@ -38,17 +49,24 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     let appDesign = CustomApplicationLook()
     
+    @IBOutlet weak var MainScrollView: UIScrollView!
     @IBOutlet weak var taskTable: UITableView!
     
-    @IBOutlet weak var taskButton: UIButton!
-    @IBOutlet weak var activityButton: UIButton!
+    
+    @IBOutlet weak var activitiesTable: UITableView!
+    
+    
      @IBOutlet weak var addTaskButton: UIButton!
     
-    @IBOutlet weak var Segment: UISegmentedControl!
+    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
     
+   
+    @IBOutlet weak var taskSegment: UISegmentedControl!
+    
+    @IBOutlet weak var activitiesSegment: UISegmentedControl!
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -56,8 +74,11 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             viewHasChanges = false
             updateData()
             taskTable.reloadData()
+            activitiesTable.reloadData()
         }
     }
+ 
+     // MARK: - Navigation
     
     func updateData(){
         if(changesController == tasksFetchController){
@@ -74,31 +95,51 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+        //Setting navigation control
+        let height = self.navigationController!.navigationBar.frame.height
+        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
+        navigationTitleView.clipsToBounds = true
+        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
         
+        navigationPageControl.numberOfPages = 2
+        navigationPageControl.currentPage = 0
+        navigationTitleView.addSubview(navigationLeftTitle)
+        navigationTitleView.addSubview(navigationRightTitle)
+        navigationTitleView.addSubview(navigationPageControl)
+        navigationLeftTitle.numberOfLines = 1
+        navigationLeftTitle.textAlignment = .center
+        navigationLeftTitle.text = "Задания"
+        navigationRightTitle.numberOfLines = 1
+        navigationRightTitle.textAlignment = .center
+        navigationRightTitle.text = "Мероприятия"
+
+        navigationItem.titleView = navigationTitleView
+        
+        //Setting other views
         tasksFetchController = TaskModel.setupFetchController()
         tasksFetchController.delegate = self
         activitiesFetchController = ActivitiesModel.setupFetchController()
         activitiesFetchController.delegate = self
         
         taskTable.backgroundColor = UIColor.clear
-       
+        activitiesTable.backgroundColor = UIColor.clear
+        
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(taskButton)
-        appDesign.managedSubButonsContext.append(activityButton)
-        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        
-        taskOrActivity = "task"//выбираем просмотр заданий
-        parametr = "time" //выбираем сортировку по времени
+        //appDesign.managedMainButonsContext.removeAll()
+        //appDesign.managedSubButonsContext.removeAll()
+      
+        taskParametr = "time"
+        activitiesParametr = "time"
         
         let taskCellNib = UINib(nibName: "TaskTableViewCell", bundle: nil)
         taskTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
+        activitiesTable.register(taskCellNib, forCellReuseIdentifier: "TasksCell")
         
-        // Задаем страртове цета кнопок
         
        
         
@@ -117,68 +158,36 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         changesController = controller
     }
         
-   
+
+    @IBAction func showDoneTasks(_ sender: Any) {
+    }
+    
     @IBAction func addTaskButtonTouch(_ sender: Any) {
         self.hidesBottomBarWhenPushed = true
         self.performSegue(withIdentifier: "fromTasksToTaskEdit", sender: self)
         self.hidesBottomBarWhenPushed = false
     }
     
-    @IBAction func taskChooseButton(_ sender: Any) { //выбор просмотра заданий
-        
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(taskButton)
-        appDesign.managedSubButonsContext.append(activityButton)
-        taskButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        activityButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        taskOrActivity = "task"
-        if counter == 0 {
-        Segment.insertSegment(withTitle: "Приоритет", at: 2, animated: true)
-            counter = 1
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-    }
+     // MARK: - Buttons
     
     
-    @IBAction func acrivityChooseButton(_ sender: Any) {//выбор просмотра мероприятий
-        appDesign.managedMainButonsContext.removeAll()
-        appDesign.managedSubButonsContext.removeAll()
-        appDesign.managedMainButonsContext.append(activityButton)
-        appDesign.managedSubButonsContext.append(taskButton)
-        activityButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        taskButton.setTitleColor(appDesign.subTextColor, for: .normal)
-        taskOrActivity = "activity"
-        if parametr == "priority"  { //так как в мероприятиях нет сортировки по приоритетам - перейдем в сортировку по датам
-            Segment.selectedSegmentIndex = 1
-            parametr = "time"
-        }
-        if counter == 1 {
-        Segment.removeSegment(at: 2, animated: true)
-            counter = 0
-        }
-        taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
-        
-    }
+    
+   
     
     
-    @IBAction func SegmentChenged(_ sender: Any) {
-        switch Segment.selectedSegmentIndex {
+    @IBAction func taskSegmentChanged(_ sender: Any) {
+        switch taskSegment.selectedSegmentIndex {
         case 0:
-            parametr = "subject"
+            taskParametr = "subject"
             break
         case 1:
-            parametr = "time"
+            taskParametr = "time"
             break
         case 2:
-            parametr = "priority"
+            taskParametr = "priority"
             break
         default:
-            parametr = "time"
+            taskParametr = "time"
             break
         }
         if(viewHasChanges){
@@ -189,6 +198,32 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         taskTable.scrollToRow(at: index, at: .top, animated: true)
     }
+    
+    @IBAction func activitiesSegmentChanged(_ sender: Any) {
+        switch activitiesSegment.selectedSegmentIndex {
+        case 0:
+            activitiesParametr = "subject"
+            print ("\(activitiesParametr)")
+            break
+        case 1:
+            activitiesParametr = "time"
+            print ("\(activitiesParametr)")
+            break
+        default:
+            activitiesParametr = "time"
+            break
+        }
+        if(viewHasChanges){
+            viewHasChanges = false
+            updateData()
+        }
+        activitiesTable.reloadData()
+        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        activitiesTable.scrollToRow(at: index, at: .top, animated: true)
+    }
+    
+    
+   
     
     
     override func didReceiveMemoryWarning() {
@@ -201,24 +236,44 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             let taskVC = segue.destination as! TaskViewEditViewController
             taskVC.taskModelObject = chosenObject
         }
-      /*  if(segue.identifier == "fromTasksToTaskEdit"){
-            let taskVC = segue.destination as! TaskEditViewController
-          //  taskVC.taskModelObject = chosenObject
-        } */
+        if(segue.identifier == "fromTasksToTaskEdit"){
+            //let tOa = segue.destination as! TaskEditViewController
+           // tOa.taskOrActivity = taskOrActivity
+        }
+      
     }
     
 }
 
+// MARK: - UIScrollViewDelegate protocol
+extension TasksTabViewController: UIScrollViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView == MainScrollView){
+            let scrollPercent = scrollView.contentOffset.x/(scrollView.frame.width)
+                //scrollView.contentSize.width/2 - (scrollView.contentOffset.x + scrollView.contentSize.width/2)
+            navigationLeftTitle.frame.origin.x = -navigationViewWidth*scrollPercent
+            navigationRightTitle.frame.origin.x = navigationViewWidth-navigationViewWidth*scrollPercent
+            if(scrollPercent > 0.5){
+                navigationPageControl.currentPage = 1
+            }else{
+                navigationPageControl.currentPage = 0
+            }
+            //print(scrollPercent)
+            //navigationTitle.frame.origin.x =
+        }
+    }
+}
 
 
+ // MARK: - TableView
 
 extension TasksTabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        if(taskOrActivity == "task"){
+        if(tableView == taskTable){
             self.hidesBottomBarWhenPushed = true
-            switch parametr {
+            switch taskParametr {
             case "time":
                 chosenObject = TasksAtDayArray[indexPath.section][indexPath.row]
                 break
@@ -237,7 +292,7 @@ extension TasksTabViewController: UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        if(taskOrActivity == "task"){
+        if(tableView == taskTable){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
             selectedTaskCell.setHighlighted(false, animated: false)
             selectedTaskCell.MiddleDescriptionLabel.textColor = UIColor.red
@@ -248,7 +303,7 @@ extension TasksTabViewController: UITableViewDelegate {
         
     }
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        if(taskOrActivity == "task"){
+        if(tableView == taskTable){
             let selectedTaskCell = tableView.cellForRow(at: indexPath) as! TaskTableViewCell
             selectedTaskCell.setHighlighted(false, animated: false)
             selectedTaskCell.MiddleDescriptionLabel.textColor = appDesign.mainTextColor
@@ -257,7 +312,12 @@ extension TasksTabViewController: UITableViewDelegate {
     }
     
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (tableView == taskTable) {
         return taskTable.estimatedRowHeight
+    }
+        else {
+            return activitiesTable.estimatedRowHeight
+        }
     }
 }
 
@@ -265,16 +325,16 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
-        if taskOrActivity == "task" { // для вывода заданий
-            if parametr == "time" {
-            return TasksAtDayArray.count + 1
+        if (tableView == taskTable) { // для вывода заданий
+            if taskParametr == "time" {
+            return TasksAtDayArray.count
         }
         
-            else { if parametr == "subject" {
-                return TasksAtSubjectArray.count + 1
+            else { if taskParametr == "subject" {
+                return TasksAtSubjectArray.count
             }
-                  else { if parametr == "priority" {
-                return (TasksAtPriorityArray.count - 1) + 1
+                  else { if taskParametr == "priority" {
+                return TasksAtPriorityArray.count - 1
                 }
                     else { return 0 }
                 }
@@ -283,12 +343,12 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         
         else { //для вывода мероприятий
-             if parametr == "time" {
-                return ActivitiesAtDayArray.count + 1
+             if activitiesParametr == "time" {
+                return ActivitiesAtDayArray.count
             }
                 
-            else { if parametr == "subject" {
-                return ActivitiesAtSubjectArray.count + 1
+            else { if activitiesParametr == "subject" {
+                return ActivitiesAtSubjectArray.count
             }
             else {  return 0  }
             
@@ -301,18 +361,18 @@ extension TasksTabViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { // Получим количество строк для конкретной секции
-        if (section != (tableView.numberOfSections - 1)) {
-      if taskOrActivity == "task" {  // для вывода заданий
-        if parametr == "time" {
+        
+      if (tableView == taskTable) {  // для вывода заданий
+        if taskParametr == "time" {
         return TasksAtDayArray[section].count
         }
        else {
-        if parametr == "subject" {
+        if taskParametr == "subject" {
            
             return TasksAtSubjectArray[section].count
         }
         else {
-            if parametr == "priority" {
+            if taskParametr == "priority" {
                 return TasksAtPriorityArray[section].count
             }
             else {return 0}
@@ -320,19 +380,17 @@ extension TasksTabViewController: UITableViewDataSource {
         }
         }
      else { //для вывода мероприятий
-        if parametr == "time" {
+        if activitiesParametr == "time" {
             return ActivitiesAtDayArray[section].count
         }
         else {
-            if parametr == "subject" {
+            if activitiesParametr == "subject" {
                 return ActivitiesAtSubjectArray[section].count
             }
             else {return 0}
         }
         }
-        } else {
-            return 0
-        }
+        
     }
   
     
@@ -340,27 +398,27 @@ extension TasksTabViewController: UITableViewDataSource {
          let cell = tableView.dequeueReusableCell(withIdentifier: "TasksCell", for: indexPath) as! TaskTableViewCell
         
      
-        if taskOrActivity == "task" { // для вывода заданий
-        if parametr == "time" { // Вывод данных для сортировки заданий по дате
+        if (tableView == taskTable) { // для вывода заданий
+        if taskParametr == "time" { // Вывод данных для сортировки заданий по дате
              cell.initWithTask(model: TasksAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
             
         }
         
-        if parametr == "subject" { // Вывод данных для сортировки заданий по предметам
+        if taskParametr == "subject" { // Вывод данных для сортировки заданий по предметам
             cell.initWithTask(model: TasksAtSubjectArray[indexPath.section][indexPath.row], forSortingType: "Предметы")
         }
         
-        if parametr == "priority" { // Вывод данных для сортировки заданий по приоритету
+        if taskParametr == "priority" { // Вывод данных для сортировки заданий по приоритету
             cell.initWithTask(model: TasksAtPriorityArray[indexPath.section][indexPath.row], forSortingType: "Приоритет")
         }
         }
  
         else {
-            if parametr == "time" { // Вывод данных для сортировки мероприятий по дате
+            if activitiesParametr == "time" { // Вывод данных для сортировки мероприятий по дате
                 cell.initWithActivity(model: ActivitiesAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
             }
             
-            if parametr == "subject" { // Вывод данных для сортировки мероприятий по предметам
+            if activitiesParametr == "subject" { // Вывод данных для сортировки мероприятий по предметам
                 cell.initWithActivity(model: ActivitiesAtSubjectArray[indexPath.section][indexPath.row], forSortingType: "Предметы")
             }
         }
@@ -378,11 +436,11 @@ extension TasksTabViewController: UITableViewDataSource {
         header.mainHeaderLabel?.textAlignment = .left
         //var headerLabel = ""
         
-        if (section != (tableView.numberOfSections - 1)) {
-        header.viewCornerRadius = 8.0
-            if taskOrActivity == "task" {
         
-        switch parametr {
+        header.viewCornerRadius = 8.0
+    if (tableView == taskTable) {
+        
+        switch taskParametr {
         case "time":
             let todayD = CustomDateClass()
             if (TasksAtDayArray[section][0].taskDate! >= todayD) {
@@ -413,7 +471,7 @@ extension TasksTabViewController: UITableViewDataSource {
         }
             }
             else {
-                switch parametr {
+                switch activitiesParametr {
                 case "time":
                     header.mainHeaderLabel?.text = (ActivitiesAtDayArray[section][0].activityDate?.stringFromDate())!
                     break
@@ -425,11 +483,7 @@ extension TasksTabViewController: UITableViewDataSource {
                     break
                 }
             }
-        } else {
-            header.mainHeaderLabel?.text = "Доп. возможности"
-            header.mainHeaderLabel?.textAlignment = .center
-            header.viewCornerRadius = 15.0
-        }
+        
        
         
         return header
@@ -438,69 +492,13 @@ extension TasksTabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
        
         let footer = HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
-        if (section == (tableView.numberOfSections - 1)) {
-            //footer.leftFooterButton?.isHidden = false
-          //  footer.rightFooterButton?.isHidden = false
-            footer.leftFooterButton?.setTitle("Сделанные", for: .normal)
-            footer.rightFooterButton?.setTitle("Просроченные", for: .normal)
-            footer.leftFooterButton?.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-            footer.leftFooterButton?.isHidden = false
-            doneButton = footer.leftFooterButton!
-            
-            footer.rightFooterButton?.addTarget(self, action: #selector(prosrButtonPressed), for: .touchUpInside)
-            footer.rightFooterButton?.isHidden = false
-            prosrButton = footer.rightFooterButton!
-            
-        }
+        
         footer.viewCornerRadius = 15.0
         
         return footer
     }
     
-    @objc func doneButtonPressed(_ sender: UIButton!){
-       // if(!workingWithToday){
-        counterp = 0
-        if (counterd == 0) {
-            doneButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            prosrButton.backgroundColor = UIColor.clear
-          //  let oldLengthOfSection = timeTableArray.count
-            workingWithDone = true
-            workingWithProsr = false
-            counterd+=1
-        }
-        else {
-            doneButton.backgroundColor = UIColor.clear
-            prosrButton.backgroundColor = UIColor.clear
-            //  let oldLengthOfSection = timeTableArray.count
-            workingWithDone = false
-            workingWithProsr = false
-            counterd = 0
-        }
-        
-    }
     
-    @objc func prosrButtonPressed(_ sender: UIButton!){
-       // if(workingWithToday){
-        counterd = 0
-        if (counterp == 0) {
-            doneButton.backgroundColor = UIColor.clear
-            prosrButton.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            //let oldLengthOfSection = timeTableArray.count
-            workingWithDone = false
-            workingWithProsr = true
-            counterp+=1
-        }
-        else {
-            doneButton.backgroundColor = UIColor.clear
-            prosrButton.backgroundColor = UIColor.clear
-            //let oldLengthOfSection = timeTableArray.count
-            workingWithDone = false
-            workingWithProsr = false
-            counterp = 0
-        }
-        
-        
-    }
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

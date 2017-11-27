@@ -43,10 +43,10 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
-        
+        setUpNavigationBars()
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
         //self.navigationController?.navigationBar.alpha = 0
         
@@ -76,14 +76,26 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         if(shownFirstTime == 1){
             UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut], animations: {
                 let startCell = IndexPath(row: 0, section: 1)
-                self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
+                //self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
                 }, completion: nil)
             shownFirstTime = 0
         }
     }
     
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //title = "Среда, 28 ноября"
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.navigationItem.largeTitleDisplayMode = .always
+        //TableViewOutlet.contentInset = UIEdgeInsetsMake(0, 10, 0, -20)
         //print(TimetableModel.getTimetableForChanges())
         //Полуение массива предметов
         let cust = CustomDateClass()
@@ -98,9 +110,10 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         activitiesFetchController = ActivitiesModel.setupFetchController()
         activitiesFetchController.delegate = self
         
+        TableViewOutlet.backgroundView = UIView(frame: TableViewOutlet.frame)
         appDesign.initBackground(ofView: self.view)
         blurEffectView = appDesign.backgroundBlurView
-        blurEffectView!.alpha = 0.0;
+        blurEffectView?.alpha = 0.0;
         
         TableViewOutlet.backgroundColor = UIColor.clear
         
@@ -117,6 +130,11 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         TableViewOutlet.register(topCellNib, forCellReuseIdentifier: TopCellIdentifier)
         TableViewOutlet.register(UITableViewCell.self, forCellReuseIdentifier: EmptyCellIdentifier)
 
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.red
+        headerView.frame = CGRect(x: 0, y: 0, width: TableViewOutlet.frame.width, height: 50)
+        //TableViewOutlet.tableHeaderView = headerView
+        headerView.sizeToFit()
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -142,7 +160,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
         //TableViewOutlet.layer.removeAllAnimations()
         
         
-        blurEffectView!.alpha = scrollView.contentOffset.y/240///180;
+        blurEffectView?.alpha = scrollView.contentOffset.y/240///180;
         //self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
     }
 }
@@ -151,7 +169,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
 extension TodayTabViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if(indexPath.section == 2){
+        if((indexPath.section == 3)||(activitiesArray.count == 0)&&(indexPath.section != 1))&&(tasksArray.count != 0){
             self.hidesBottomBarWhenPushed = true
             chosenObject = indexPath.item
             self.performSegue(withIdentifier: "fromTodayToTasksView", sender: self)
@@ -209,7 +227,7 @@ extension TodayTabViewController: UITableViewDataSource{
         if(indexPath.section == 0){
             let identifier = TopCellIdentifier
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! UpperTodayTableViewCell
-            
+            //cell.DateLabel.isHidden = true
             return cell
         }
         
@@ -280,12 +298,13 @@ extension TodayTabViewController: UITableViewDataSource{
 
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         switch indexPath.section {
         case 0:
             
-            return  self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
+            return  50//self.view.frame.height - (self.tabBarController?.tabBar.frame.height)! - 50
             
         case 1:
             return 120
@@ -298,6 +317,7 @@ extension TodayTabViewController: UITableViewDataSource{
         }
     }
  
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if(section == 0){
             return nil
@@ -412,7 +432,7 @@ extension TodayTabViewController: UITableViewDataSource{
             if(withChangesNumber > 0){
                 self.TableViewOutlet.insertRows(at: indexPathsToChange, with: .middle)
             }else if(withChangesNumber < 0){
-                //indexPathsToChange.removeLast()
+                indexPathsToChange.removeLast()
                 self.TableViewOutlet.deleteRows(at:indexPathsToChange, with: .middle)
             }
             

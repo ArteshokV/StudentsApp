@@ -16,7 +16,7 @@ class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDel
     var subjectsFetchController: NSFetchedResultsController<Subjects>!
     var viewHasChanges: Bool = false
     
-    @IBOutlet weak var titleLabel: UILabel!
+    //@IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var SubjectTabTableView: UITableView!
     let subjectsTabCellIdentifier = "SubjectsTabTableViewCell" //Идентификатор ячейки
     
@@ -24,12 +24,12 @@ class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         appDesign.initBackground(ofView: self.view)
         
         SubjectTabTableView.backgroundColor = UIColor.clear
-        titleLabel.textColor = appDesign.mainTextColor
-        appDesign.managedMainLablesContext.append(titleLabel)
+        //titleLabel.textColor = appDesign.mainTextColor
+        //appDesign.managedMainLablesContext.append(titleLabel)
         
         //Полуение массива предметов
         subjectsArray = SubjectModel.getSubjects()
@@ -42,6 +42,7 @@ class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         if(viewHasChanges){
             viewHasChanges = false
             subjectsArray = SubjectModel.getSubjects()
@@ -49,10 +50,16 @@ class SubjectsTabViewController: UIViewController, NSFetchedResultsControllerDel
         }
     }
     
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+    }
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         viewHasChanges = true
     }
-
 }
 
 
@@ -87,6 +94,8 @@ extension SubjectsTabViewController: UITableViewDataSource{
         let identifier = subjectsTabCellIdentifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SubjectsTabTableViewCell
         
+        cell.parentController = self
+        
         //Вычисляем количество предметов в ячейке - 1 или 2?
         if(subjectsArray.count / 2 + 1 == indexPath.row+1){ // Если последний ряд
             if(subjectsArray.count % 2 == 0){ // В последнем ряду одна кнока ADD
@@ -103,43 +112,9 @@ extension SubjectsTabViewController: UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        /*
-        let sectionHeaderView = UIView()
-        sectionHeaderView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:10)
-        sectionHeaderView.layer.mask = makeRoundedMask(forTop: true, bounds: sectionHeaderView.bounds)
-        sectionHeaderView.backgroundColor = CustomApplicationLook.getUnderLayerColor()
-            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        
-        let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:10)
-        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        
-        sectionHeaderLabel.text = ""
-        
-        sectionHeaderView.addSubview(sectionHeaderLabel)
-        
-        return sectionHeaderView
- */
-        
         return HeaderFooterViewClass.initHeader(withWidth: tableView.frame.width, andMainText: "")
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        /*
-        let sectionFooterView = UIView()
-        sectionFooterView.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:50)
-        sectionFooterView.backgroundColor = UIColor.clear
-        
-        let sectionHeaderLabel = UILabel()
-        sectionHeaderLabel.frame = CGRect(x:0,y:0,width:tableView.frame.width,height:40)
-        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.black)
-        sectionHeaderLabel.backgroundColor = CustomApplicationLook.getUnderLayerColor()
-            //UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.25)
-        sectionHeaderLabel.layer.mask = makeRoundedMask(forTop: false, bounds: sectionHeaderLabel.bounds)
-        
-        sectionFooterView.addSubview(sectionHeaderLabel)
-        
-        return sectionFooterView
- */
         return HeaderFooterViewClass.initFooter(withWidth: tableView.frame.width)
     }
     

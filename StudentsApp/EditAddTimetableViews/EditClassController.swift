@@ -46,6 +46,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var datePickerInSubview = UIDatePicker()
     private var TextChoosingMode: String?
     private var KeyHeight: CGFloat = 0
+    private var WantToAdd: Bool = false
 
     @IBOutlet weak var StackViewIS: UIStackView!
     @IBOutlet weak var StackViewTR: UIStackView!
@@ -84,7 +85,16 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var PeriodicStartDateLabel: UILabel!
     @IBOutlet weak var PeriodicEndDateLabel: UILabel!
     
-    // MARK: - Функции
+    // MARK: - Вспомогательные функции
+    func setPlaceHolderForSubject () {
+        SubjectField.textColor = UIColor.lightGray
+        SubjectField.text = "Предмет"
+    }
+    
+    func hidePlaceHolderForSubject () {
+        SubjectField.textColor = UIColor.black
+        SubjectField.text = ""
+    }
     
     func ComplectDatePickerView () {
         customViewForDatePicker = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 240, width: self.view.frame.width, height: 240))
@@ -101,22 +111,27 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     func showTableToChooseForTextField (Stack: UIStackView) {
-        self.TableToChoose.frame.origin.y = Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y
-        self.TableToChoose.frame.size = CGSize(width: self.view.frame.width, height: self.view.bounds.height - (Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y) - KeyHeight)
         TableToChoose.isHidden = false
+        self.TableToChoose.frame.origin.y = Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y
+        self.TableToChoose.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height - (Stack.frame.origin.y + Stack.frame.height + ScrollView.frame.origin.y) - KeyHeight)
+        ScrollView.isScrollEnabled = false
     }
     
     func hideTableToChoose () {
         TableToChoose.isHidden = true
         CheckSaveButton()
         view.endEditing(true)
+        ScrollView.isScrollEnabled = true
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameBeginUserInfoKey) as? NSValue)?.cgRectValue {
+        if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue {
             self.KeyHeight = keyboardFrame.height
-            //print("K \(self.KeyHeight)")
+            //print("C \(self.KeyHeight)")
+        }
+        if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
+            showTableToChooseForTextField(Stack: StackViewTR)
         }
     }
     
@@ -178,6 +193,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         FridayButton.backgroundColor = UIColor.white
         SaturdayButton.backgroundColor = UIColor.white
     }
+    
+    // MARK: - Функции выбора и подставновки значений
     
     func SetClassType (CurrentClassType: String?) {
         if (CurrentClassType == nil) {
@@ -316,7 +333,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(customViewForDatePicker)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: RegularityCustomView.frame.origin.y), animated: true)
+            ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, customViewForDatePicker.frame.height, 0.0)
+            ScrollView.setContentOffset(CGPoint (x:0 , y: customViewForDatePicker.frame.height + RegularityCustomView.frame.height - (ScrollView.frame.height - RegularityCustomView.frame.origin.y)), animated: true)
         }
         CreateNewDateForTableButton.isEnabled = false
     }
@@ -367,7 +385,6 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func ChooseRoom(_ sender: Any) {
-        showTableToChooseForTextField(Stack: StackViewTR)
         TextChoosingMode = "Room"
         RoomHelpArray = ArrayOfRooms
         TableToChoose.reloadData()
@@ -389,7 +406,6 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func ChooseTeacher(_ sender: Any) {
-       showTableToChooseForTextField(Stack: StackViewTR)
         TextChoosingMode = "Teacher"
         TeacherHelpArray = ArrayOfTeachers
         TableToChoose.reloadData()
@@ -412,7 +428,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicStartDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
+            ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, customViewForDatePicker.frame.height, 0.0)
+            ScrollView.setContentOffset(CGPoint (x:0 , y: customViewForDatePicker.frame.height + RegularityView.frame.height - (ScrollView.frame.height - RegularityView.frame.origin.y)), animated: true)
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
@@ -433,7 +450,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangePeriodicEndDateField), for: UIControlEvents.valueChanged)
         if (!AnimationDo) {
             self.AnimationDo = true
-            ScrollView.setContentOffset(CGPoint(x: 0, y: customViewForDatePicker.frame.height), animated: true)
+            ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, customViewForDatePicker.frame.height, 0.0)
+            ScrollView.setContentOffset(CGPoint (x:0 , y: customViewForDatePicker.frame.height + RegularityView.frame.height - (ScrollView.frame.height - RegularityView.frame.origin.y)), animated: true)
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
@@ -573,6 +591,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - Функции выбора и подстановки (2)
+    
     func SetClassNumber (StartTime: String, EndTime: String) {
         let endIndex = TimesOfClassBegining.count - 1
         for i in 0 ... endIndex {
@@ -650,13 +670,18 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
+        setPlaceHolderForSubject()
+        
         self.ScrollView.delegate = self
         self.SubjectField.delegate = self
+        
+        self.ScrollView.contentInset =  UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         
         TableToChoose.isHidden = true
         RegularityCustomView.isHidden = true
@@ -715,6 +740,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
 }
 
 
+// MARK: - Extension
 extension EditClassController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == TableForDates) {
@@ -722,15 +748,25 @@ extension EditClassController: UITableViewDataSource {
         }
         else {
             if (TextChoosingMode == "Subject") {
-                return SubjectHelpArray.count
+                 if (SubjectHelpArray.count != 0) {
+                    return SubjectHelpArray.count
+                }
+                 else {
+                    return 1
+                }
             }
             if (TextChoosingMode == "Teacher") {
-                return TeacherHelpArray.count
+                if (TeacherHelpArray.count != 0) {
+                    return TeacherHelpArray.count
+                }
+                else {
+                    return 1
+                }
             }
             if (TextChoosingMode == "Room") {
                 return RoomHelpArray.count
             }
-            return 0
+            return 1
         }
     }
     
@@ -743,10 +779,22 @@ extension EditClassController: UITableViewDataSource {
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForChoice", for: indexPath)
             if (TextChoosingMode == "Subject") {
-                cell.textLabel?.text = SubjectHelpArray[indexPath.row].subjectName
+                if (SubjectHelpArray.count != 0) {
+                    cell.textLabel?.text = SubjectHelpArray[indexPath.row].subjectName
+                }
+                else {
+                    WantToAdd = true
+                    cell.textLabel?.text = "Добавить новый предмет"
+                }
             }
             if (TextChoosingMode == "Teacher") {
-                cell.textLabel?.text = TeacherHelpArray[indexPath.row].name
+                if (TeacherHelpArray.count != 0) {
+                    cell.textLabel?.text = TeacherHelpArray[indexPath.row].name
+                }
+                else {
+                    WantToAdd = true
+                    cell.textLabel?.text = "Добавить нового преподавателя"
+                }
             }
             if (TextChoosingMode == "Room") {
                 cell.textLabel?.text = RoomHelpArray[indexPath.row]
@@ -760,12 +808,28 @@ extension EditClassController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView == TableToChoose) {
             if (TextChoosingMode == "Subject") {
-                SubjectField.text = SubjectHelpArray[indexPath.row].subjectName
-                self.hideTableToChoose()
+                if (!WantToAdd) {
+                    SubjectField.text = SubjectHelpArray[indexPath.row].subjectName
+                    self.hideTableToChoose()
+                }
+                else {
+                    WantToAdd = false
+                    SubjectField.text = ""
+                    self.hideTableToChoose()
+                    print ("Добавить предмет")
+                }
             }
             if (TextChoosingMode == "Teacher") {
-                TeacherField.text = TeacherHelpArray[indexPath.row].name
-                self.hideTableToChoose()
+                if (!WantToAdd) {
+                    TeacherField.text = TeacherHelpArray[indexPath.row].name
+                    self.hideTableToChoose()
+                }
+                else {
+                    WantToAdd = false
+                    TeacherField.text = ""
+                    self.hideTableToChoose()
+                    print ("Добавить предмет")
+                }
             }
             if (TextChoosingMode == "Room") {
                 ClassRoomField.text = RoomHelpArray[indexPath.row]
@@ -785,19 +849,26 @@ extension EditClassController: UITableViewDelegate {
     }
 }
 
+extension EditClassController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string == "\n") {
+            textField.text = ""
+            self.hideTableToChoose()
+        }
+        return true
+    }
+}
+
 extension EditClassController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         showTableToChooseForTextField(Stack: StackViewIS)
         TextChoosingMode = "Subject"
         SubjectHelpArray = ArrayOfSubjects
         TableToChoose.reloadData()
+        hidePlaceHolderForSubject()
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n") {
-            self.hideTableToChoose()
-            return true
-        }
+    func textViewDidChange(_ textView: UITextView) {
         showTableToChooseForTextField(Stack: StackViewIS)
         if (SubjectField.text != "") {
             SubjectHelpArray = self.filterToShowSubjects(FilterString: SubjectField.text, ArrayToComplect: ArrayOfSubjects)
@@ -807,6 +878,13 @@ extension EditClassController: UITextViewDelegate {
         {
             SubjectHelpArray = ArrayOfSubjects
             TableToChoose.reloadData()
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            setPlaceHolderForSubject()
+            self.hideTableToChoose()
         }
         return true
     }

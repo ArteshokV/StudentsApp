@@ -12,6 +12,10 @@ class SubjectsTabTableViewCell: UITableViewCell {
     
     var subjectLeftModel:SubjectModel?
     var subjectRightModel:SubjectModel?
+    
+    var parentController: UIViewController!
+    
+    let bookImage = UIImage(named: "CopyBook")
 
     @IBOutlet weak var LeftCoverImage: UIImageView!
     @IBOutlet weak var LeftNameLabel: UILabel!
@@ -22,10 +26,31 @@ class SubjectsTabTableViewCell: UITableViewCell {
     @IBOutlet weak var BlurViewRight: UIView!
     
     @IBAction func ButtonLeftPressed(_ sender: Any) {
-        print(subjectLeftModel?.subjectName as Any)
+        if(subjectLeftModel?.subjectName == nil){
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "AdditionalViews", bundle: nil)
+            let addViewController = mainStoryboard.instantiateViewController(withIdentifier: "addSubject") as! AddSubjectViewController
+            //self.navigationController?.pushViewController(addViewController, animated: true)
+            let nav = UINavigationController(rootViewController: addViewController)
+            parentController.present(nav, animated: true, completion: nil)
+        }else{
+            let alertController = UIAlertController(title: "Позже", message:
+                "Переход к экрану предмета \(subjectLeftModel!.subjectName!)", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
+            parentController.present(alertController, animated: true, completion: nil)
+        }
     }
     @IBAction func ButtonRightPressed(_ sender: Any) {
-        print(subjectRightModel?.subjectName as Any)
+        if(subjectRightModel?.subjectName == nil){
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "AdditionalViews", bundle: nil)
+            let addViewController = mainStoryboard.instantiateViewController(withIdentifier: "addSubject") as! AddSubjectViewController
+            //self.navigationController?.pushViewController(addViewController, animated: true)
+            let nav = UINavigationController(rootViewController: addViewController)
+            parentController.present(nav, animated: true, completion: nil)
+        }else{
+            let alertController = UIAlertController(title: "Позже", message:
+                "Переход к экрану предмета \(subjectRightModel!.subjectName!)", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
+            parentController.present(alertController, animated: true, completion: nil)        }
     }
     
     let customAppLook = CustomApplicationLook()
@@ -60,12 +85,14 @@ class SubjectsTabTableViewCell: UITableViewCell {
     func initRowWith(leftModel: SubjectModel, rightModel: SubjectModel){
         self.subjectLeftModel = leftModel
         self.subjectRightModel = rightModel
+        self.LeftCoverImage.backgroundColor = UIColor.clear
+        self.RightCoverImage.backgroundColor = UIColor.clear
         
         self.BlurViewRight.alpha = 1
         
-        self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? UIImage(named: "BackGroundImage")
+        self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? bookImage
         self.LeftNameLabel.text = subjectLeftModel?.subjectName
-        self.RightCoverImage.image = subjectRightModel?.subjectImage ?? UIImage(named: "BackGroundImage")
+        self.RightCoverImage.image = subjectRightModel?.subjectImage ?? bookImage
         self.RightNameLabel.text = subjectRightModel?.subjectName
     }
     
@@ -75,11 +102,12 @@ class SubjectsTabTableViewCell: UITableViewCell {
         
         self.BlurViewRight.alpha = 1
         
-        self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? UIImage(named: "BackGroundImage")
+        self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? bookImage
         self.LeftNameLabel.text = subjectLeftModel?.subjectName
         
         self.RightCoverImage.image = nil
         self.RightCoverImage.backgroundColor = UIColor.cyan
+        self.LeftCoverImage.backgroundColor = UIColor.clear
         self.RightNameLabel.text = "Добавить"
     }
     
@@ -90,6 +118,7 @@ class SubjectsTabTableViewCell: UITableViewCell {
         self.BlurViewRight.alpha = 0
         
         self.LeftCoverImage.backgroundColor = UIColor.cyan
+        self.LeftCoverImage.image = nil
         self.LeftNameLabel.text = "Добавить"
         
         self.RightCoverImage.backgroundColor = UIColor.clear

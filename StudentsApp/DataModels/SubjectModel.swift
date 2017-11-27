@@ -27,7 +27,9 @@ class SubjectModel: NSObject {
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
             
             for result in searchResults as [Subjects]{
-                returnArray.append(SubjectModel(withDatabaseObject: result))
+                if(result.name != nil){
+                    returnArray.append(SubjectModel(withDatabaseObject: result))
+                }
             }
         }
         catch{
