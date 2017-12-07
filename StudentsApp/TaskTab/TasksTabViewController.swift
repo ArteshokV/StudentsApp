@@ -13,6 +13,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     // MARK: - Variables
    
     //NavigationView titles
+    @IBOutlet weak var navigationCloneView: UIView!
     let navigationViewWidth: CGFloat = 170
     var navigationTitleView: UIView!
     var navigationLeftTitle: UILabel!
@@ -64,11 +65,13 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     @IBOutlet weak var taskSegment: UISegmentedControl!
     
     @IBOutlet weak var activitiesSegment: UISegmentedControl!
+    
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
             //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
         if(viewHasChanges){
             viewHasChanges = false
@@ -76,6 +79,16 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             taskTable.reloadData()
             activitiesTable.reloadData()
         }
+    }
+    
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        navigationCloneView.backgroundColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        navigationLeftTitle.textColor = appDesign.mainTextColor
+        navigationRightTitle.textColor = appDesign.mainTextColor
+        //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
     }
  
      // MARK: - Navigation
@@ -96,27 +109,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        //Setting navigation control
-        let height = self.navigationController!.navigationBar.frame.height
-        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
-        navigationTitleView.clipsToBounds = true
-        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
-        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
-        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
-        
-        navigationPageControl.numberOfPages = 2
-        navigationPageControl.currentPage = 0
-        navigationTitleView.addSubview(navigationLeftTitle)
-        navigationTitleView.addSubview(navigationRightTitle)
-        navigationTitleView.addSubview(navigationPageControl)
-        navigationLeftTitle.numberOfLines = 1
-        navigationLeftTitle.textAlignment = .center
-        navigationLeftTitle.text = "Задания"
-        navigationRightTitle.numberOfLines = 1
-        navigationRightTitle.textAlignment = .center
-        navigationRightTitle.text = "Мероприятия"
-
-        navigationItem.titleView = navigationTitleView
+        configureNavigationBarTitleAndControls()
         
         //Setting other views
         tasksFetchController = TaskModel.setupFetchController()
@@ -151,6 +144,31 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
         
         // Do any additional setup after loading the view.
+    }
+    
+    func configureNavigationBarTitleAndControls(){
+        //Setting navigation control
+        let height = self.navigationController!.navigationBar.frame.height
+        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
+        navigationTitleView.clipsToBounds = true
+        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
+        
+        navigationPageControl.numberOfPages = 2
+        navigationPageControl.currentPage = 0
+        navigationPageControl.isEnabled = false
+        navigationTitleView.addSubview(navigationLeftTitle)
+        navigationTitleView.addSubview(navigationRightTitle)
+        navigationTitleView.addSubview(navigationPageControl)
+        navigationLeftTitle.numberOfLines = 1
+        navigationLeftTitle.textAlignment = .center
+        navigationLeftTitle.text = "Задания"
+        navigationRightTitle.numberOfLines = 1
+        navigationRightTitle.textAlignment = .center
+        navigationRightTitle.text = "Мероприятия"
+        
+        navigationItem.titleView = navigationTitleView
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
