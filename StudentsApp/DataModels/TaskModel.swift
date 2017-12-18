@@ -21,6 +21,7 @@ class TaskModel: NSObject {
     var taskStatus: Int16?
     var dateCreated: Double?
     var dateUpdated: Double?
+    var idOnServer:Int?
     
     // MARK: - Static getting of tasks
     static func getTasksForSync() -> Array<TaskModel> {
@@ -473,10 +474,14 @@ class TaskModel: NSObject {
         
         self.dateCreated = TasksDatabaseObject?.dateCreated != nil ? TasksDatabaseObject?.dateCreated : nil;
         self.dateUpdated = TasksDatabaseObject?.dateUpdated != nil ? TasksDatabaseObject?.dateUpdated : nil;
+        self.idOnServer = TasksDatabaseObject?.idOnRemoteServer != nil ? Int(TasksDatabaseObject!.idOnRemoteServer) : nil;
     }
 
     //--- Before calling this make sure DB object is not nil, please)
     private func populateEntityWithObjectData() -> Bool {
+        if self.idOnServer != nil{
+            TasksDatabaseObject?.idOnRemoteServer = Int64(self.idOnServer!)
+        }
         TasksDatabaseObject?.dateCreated = self.dateCreated!
         TasksDatabaseObject?.dateUpdated = self.dateUpdated!
         
