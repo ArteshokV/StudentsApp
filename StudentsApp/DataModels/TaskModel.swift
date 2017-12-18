@@ -167,7 +167,7 @@ class TaskModel: NSObject {
         
         let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
         
-        let selectionCondition: String = "(status == \(forDoneTasks))"
+        let selectionCondition: String = "(status == \(Int(forDoneTasks)))"
         let predicate:NSPredicate = NSPredicate(format: selectionCondition)
         let sortDesrt = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
         fetchRequest.sortDescriptors = [sortDesrt]
@@ -269,7 +269,9 @@ class TaskModel: NSObject {
         var returnArray = [[TaskModel]]()
         
         let todayDate = CustomDateClass()
-        var selectionCondition: String = "(status == \(forDoneTasks) AND (date <= %@)"
+       
+        var selectionCondition: String = "(status == \(Int(forDoneTasks))) AND (date <= %@)"
+       // var selectionCondition: String = "(status == \(Int(forDoneTasks)))"
         var predicate:NSPredicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
         let sortDescriptor = NSSortDescriptor(key: #keyPath(Tasks.date), ascending: true)
         
@@ -288,15 +290,15 @@ class TaskModel: NSObject {
             }
             
             //Getting not expired tasks
-            selectionCondition = "(status == \(forDoneTasks))"
-            predicate = NSPredicate(format: selectionCondition)
-        }else{
             //Getting not expired tasks
-            selectionCondition = "(status == \(forDoneTasks)) AND (date >= %@)"
+            selectionCondition = "(status == \(Int(forDoneTasks))) AND (date >= %@)"
             predicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        }else{
+            selectionCondition = "(status == \(Int(forDoneTasks)))"
+            predicate = NSPredicate(format: selectionCondition)
         }
         
-        predicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
+        //predicate = NSPredicate(format: selectionCondition,todayDate.startOfDay() as NSDate)
         fetchRequest.predicate = predicate
         
         do{
@@ -365,10 +367,10 @@ class TaskModel: NSObject {
     static func getTasksGroupedBySubject(forDoneTasks: Bool) -> [[TaskModel]] {
         var returnArray = [[TaskModel]]()
         
-        let selectionCondition: String = "(status == \(forDoneTasks)"
-        let predicate:NSPredicate = NSPredicate(format: selectionCondition)
+       // let selectionCondition: String = "(status == \(Int(forDoneTasks)))"
+        //let predicate:NSPredicate = NSPredicate(format: selectionCondition)
         let fetchRequest:NSFetchRequest<Subjects> = Subjects.fetchRequest()
-        fetchRequest.predicate = predicate
+        //fetchRequest.predicate = predicate
         
         do{
             //---Get all subjects... sorted, etc.
@@ -382,9 +384,15 @@ class TaskModel: NSObject {
                 let tasks = (subject.tasks?.allObjects as! [Tasks]).sorted(by: {$0.date! < $1.date!})
                 if tasks.count > 0 {
                     for task in tasks as [Tasks]{
-                        tmpArray.append(TaskModel(withDatabaseObject: task))
+                        if (task.status == Int(forDoneTasks)) {
+                            tmpArray.append(TaskModel(withDatabaseObject: task))
+                        }
+                        
                     }
-                    returnArray.append(tmpArray)
+                    if (tmpArray.count != 0) {
+                        returnArray.append(tmpArray)
+                        
+                    }
                 }
             }
         }

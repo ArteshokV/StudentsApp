@@ -13,6 +13,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     // MARK: - Variables
    
     //NavigationView titles
+    @IBOutlet weak var navigationCloneView: UIView!
     let navigationViewWidth: CGFloat = 170
     var navigationTitleView: UIView!
     var navigationLeftTitle: UILabel!
@@ -25,7 +26,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     var workingWithProsr: Bool = false
     var counterd = 0
     var counterp = 0
-    
+    var showDone = false
+    var counterDone = 0
+   // var defaultColorDoneButton:UIColor = UIColor.clear
      // переменная для выбота типа сортировки
     var taskParametr: String!
     var activitiesParametr: String!
@@ -55,20 +58,24 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     @IBOutlet weak var activitiesTable: UITableView!
     
+    @IBOutlet weak var addTaskBarButton: UIBarButtonItem!
+    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
     
      @IBOutlet weak var addTaskButton: UIButton!
     
-    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
+    
     
    
     @IBOutlet weak var taskSegment: UISegmentedControl!
     
     @IBOutlet weak var activitiesSegment: UISegmentedControl!
+    
     override func viewWillAppear(_ animated: Bool) {
         if(!(self.navigationController?.navigationBar.isHidden)!){
             //self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
         super.viewWillAppear(animated)
+        setUpNavigationBars()
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
         if(viewHasChanges){
             viewHasChanges = false
@@ -76,15 +83,31 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             taskTable.reloadData()
             activitiesTable.reloadData()
         }
+        if (counterDone == 0) {
+            showDoneTasksButton.tintColor = appDesign.mainTextColor
+        }
+    }
+    
+    func setUpNavigationBars(){
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        navigationCloneView.backgroundColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        navigationLeftTitle.textColor = appDesign.mainTextColor
+        navigationRightTitle.textColor = appDesign.mainTextColor
+        //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
     }
  
      // MARK: - Navigation
     
     func updateData(){
+        //defaultColorDoneButton = showDoneTasksButton.tintColor!
+        
+        
         if(changesController == tasksFetchController){
-            TasksAtDayArray = TaskModel.getTasksGroupedByDate()
-            TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
-            TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+            TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+            TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+            TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
         }
         
         if(changesController == activitiesFetchController){
@@ -96,27 +119,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        //Setting navigation control
-        let height = self.navigationController!.navigationBar.frame.height
-        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
-        navigationTitleView.clipsToBounds = true
-        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
-        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
-        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
-        
-        navigationPageControl.numberOfPages = 2
-        navigationPageControl.currentPage = 0
-        navigationTitleView.addSubview(navigationLeftTitle)
-        navigationTitleView.addSubview(navigationRightTitle)
-        navigationTitleView.addSubview(navigationPageControl)
-        navigationLeftTitle.numberOfLines = 1
-        navigationLeftTitle.textAlignment = .center
-        navigationLeftTitle.text = "Задания"
-        navigationRightTitle.numberOfLines = 1
-        navigationRightTitle.textAlignment = .center
-        navigationRightTitle.text = "Мероприятия"
-
-        navigationItem.titleView = navigationTitleView
+        configureNavigationBarTitleAndControls()
         
         //Setting other views
         tasksFetchController = TaskModel.setupFetchController()
@@ -130,6 +133,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
+        self.navigationItem.largeTitleDisplayMode = .never
         //appDesign.managedMainButonsContext.removeAll()
         //appDesign.managedSubButonsContext.removeAll()
       
@@ -145,12 +149,37 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
         ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
         ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
-        TasksAtDayArray = TaskModel.getTasksGroupedByDate()
-        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
-        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+        TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
     
-        
+       // defaultColorDoneButton = showDoneTasksButton.tintColor!
         // Do any additional setup after loading the view.
+    }
+    
+    func configureNavigationBarTitleAndControls(){
+        //Setting navigation control
+        let height = self.navigationController!.navigationBar.frame.height
+        navigationTitleView = UIView(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height) )
+        navigationTitleView.clipsToBounds = true
+        navigationLeftTitle = UILabel(frame: CGRect(x: 0, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationRightTitle = UILabel(frame: CGRect(x: navigationViewWidth, y: 0, width: navigationViewWidth, height: height*0.7))
+        navigationPageControl = UIPageControl(frame: CGRect(x: 0, y: height*0.7, width: navigationViewWidth, height: height*0.3))
+        
+        navigationPageControl.numberOfPages = 2
+        navigationPageControl.currentPage = 0
+        navigationPageControl.isEnabled = false
+        navigationTitleView.addSubview(navigationLeftTitle)
+        navigationTitleView.addSubview(navigationRightTitle)
+        navigationTitleView.addSubview(navigationPageControl)
+        navigationLeftTitle.numberOfLines = 1
+        navigationLeftTitle.textAlignment = .center
+        navigationLeftTitle.text = "Задания"
+        navigationRightTitle.numberOfLines = 1
+        navigationRightTitle.textAlignment = .center
+        navigationRightTitle.text = "Мероприятия"
+        
+        navigationItem.titleView = navigationTitleView
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -160,6 +189,24 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
 
     @IBAction func showDoneTasks(_ sender: Any) {
+        showDone = !showDone
+        if (counterDone == 0) {
+            showDoneTasksButton.tintColor = UIColor.red
+            counterDone += 1
+        } else {
+            showDoneTasksButton.tintColor = appDesign.mainTextColor
+            counterDone = 0
+        }
+        TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
+        
+        taskTable.reloadData()
+        
+        if (taskTable.numberOfSections != 0) {
+            let index = IndexPath.init(row: 0, section: 0)
+            taskTable.scrollToRow(at: index, at: .top, animated: true)
+        }
     }
     
     @IBAction func addTaskButtonTouch(_ sender: Any) {
@@ -196,7 +243,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         }
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        if (taskTable.numberOfSections != 0) {
         taskTable.scrollToRow(at: index, at: .top, animated: true)
+        }
     }
     
     @IBAction func activitiesSegmentChanged(_ sender: Any) {
@@ -251,12 +300,21 @@ extension TasksTabViewController: UIScrollViewDelegate{
         if(scrollView == MainScrollView){
             let scrollPercent = scrollView.contentOffset.x/(scrollView.frame.width)
                 //scrollView.contentSize.width/2 - (scrollView.contentOffset.x + scrollView.contentSize.width/2)
+            
             navigationLeftTitle.frame.origin.x = -navigationViewWidth*scrollPercent
             navigationRightTitle.frame.origin.x = navigationViewWidth-navigationViewWidth*scrollPercent
             if(scrollPercent > 0.5){
                 navigationPageControl.currentPage = 1
+                self.showDoneTasksButton.isEnabled = false
+                self.addTaskBarButton.isEnabled = false
+                
+                
+                
             }else{
                 navigationPageControl.currentPage = 0
+                self.addTaskBarButton.isEnabled = true
+                self.showDoneTasksButton.isEnabled = true
+                
             }
             //print(scrollPercent)
             //navigationTitle.frame.origin.x =
@@ -443,11 +501,16 @@ extension TasksTabViewController: UITableViewDataSource {
         switch taskParametr {
         case "time":
             let todayD = CustomDateClass()
+            if (showDone == false) {
             if (TasksAtDayArray[section][0].taskDate! >= todayD) {
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
-            } else {header.mainHeaderLabel?.text = "Просрочено"}
+            } else {header.mainHeaderLabel?.text = "Просрочено"} }
+            else {
+               header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
+            }
             break
         case "subject":
+            print("\(TasksAtSubjectArray[section][0].taskSubject!)")
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
             break
         case "priority":
