@@ -75,7 +75,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         //shownFirstTime = 1
         if(shownFirstTime == 1){
             UIView.animate(withDuration: 1.0, delay: 0.5, options: [.curveEaseInOut], animations: {
-                let startCell = IndexPath(row: 0, section: 1)
+                //let startCell = IndexPath(row: 0, section: 1)
                 //self.TableViewOutlet.scrollToRow(at: startCell, at: .bottom , animated: false)
                 }, completion: nil)
             shownFirstTime = 0
@@ -87,6 +87,7 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         self.navigationController?.navigationBar.barTintColor = barsColor
         self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
     }
     
     override func viewDidLoad() {
