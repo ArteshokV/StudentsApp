@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class MenuTabViewController: UIViewController {
+class MenuTabViewController: UIViewController , MFMailComposeViewControllerDelegate {
 
     
     @IBOutlet var HeaderLabels: [UILabel]!
@@ -22,8 +23,9 @@ class MenuTabViewController: UIViewController {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var changeStudyPlace: UIButton!
     @IBOutlet weak var registerChangeButton: UIButton!
+    @IBOutlet weak var SyncButton: UIButton!
     
-    @IBOutlet weak var changeTimetableButton: UIButton!
+    @IBOutlet weak var connectWithDevelopersButton: UIButton!
     @IBOutlet weak var changeAppDesignButton: UIButton!
     
     let appDesign = CustomApplicationLook()
@@ -73,11 +75,11 @@ class MenuTabViewController: UIViewController {
         appDesign.managedSubLablesContext.append(userName)
         
         
-        changeTimetableButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        appDesign.managedMainButonsContext.append(changeTimetableButton)
-        changeTimetableButton.backgroundColor = appDesign.underLayerColor
+        connectWithDevelopersButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        appDesign.managedMainButonsContext.append(connectWithDevelopersButton)
+        connectWithDevelopersButton.backgroundColor = appDesign.underLayerColor
         //changeTimetableButton.layer.cornerRadius = 15.0
-        appDesign.managedLayersContext.append(changeTimetableButton)
+        appDesign.managedLayersContext.append(connectWithDevelopersButton)
         
         changeAppDesignButton.setTitleColor(appDesign.mainTextColor, for: .normal)
         appDesign.managedMainButonsContext.append(changeAppDesignButton)
@@ -96,6 +98,12 @@ class MenuTabViewController: UIViewController {
         registerChangeButton.backgroundColor = appDesign.underLayerColor
         registerChangeButton.layer.cornerRadius = 15.0
         appDesign.managedLayersContext.append(registerChangeButton)
+        
+        SyncButton.setTitleColor(appDesign.mainTextColor, for: .normal)
+        appDesign.managedMainButonsContext.append(SyncButton)
+        SyncButton.backgroundColor = appDesign.underLayerColor
+        //SyncButton.layer.cornerRadius = 15.0
+        appDesign.managedLayersContext.append(SyncButton)
         
         //userImage.layer.cornerRadius = userImage.frame.height / 2
         userImage.layer.borderWidth = 0.5
@@ -134,10 +142,28 @@ class MenuTabViewController: UIViewController {
         userImage.layer.cornerRadius = userImage.frame.height / 2 - 1
     }
 
-    @IBAction func changeTimetableButtonPressed(_ sender: Any) { //выбор просмотра заданий
+    @IBAction func connectWithDevelopersPressed(_ sender: Any) { //выбор просмотра заданий
         self.hidesBottomBarWhenPushed = true
-        self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["vlad@zakharov.com"])
+            mail.setMessageBody("<p>Здравствуйте! хочу обратиться к вам:</p>", isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+            let alertController = UIAlertController(title: "Ошибка", message:
+                "Почта недоступна!", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        //self.performSegue(withIdentifier: "fromMenuToEditTimetable", sender: self)
         self.hidesBottomBarWhenPushed = false
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
     
     @IBAction func changeStudyPlacePressed(_ sender: UIButton) {
@@ -161,6 +187,28 @@ class MenuTabViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    @IBAction func SyncButtonPressed(_ sender: UIButton) {
+        let query = NetworkClass()
+        query.getInitilData(forUniversity: selectedStudyPlace[0].id, forFaculty: selectedStudyPlace[1].id, forGroup: selectedStudyPlace[2].id, withCompletition: {(response) in
+            var alertTitleText = ""
+            var alertMessageText = ""
+            if(response != nil){
+                let dbInitor = DataBaseInitiator()
+                dbInitor.insertInitialData(withParsedStruct: response)
+                alertTitleText = "Готово"
+                alertMessageText = "Синхронизация прошла успешно!"
+            }else{
+                alertTitleText = "Ошибка"
+                alertMessageText = "Произошла ошибка при синхронизации, попробуйте позже!"
+            }
+            
+            let alertController = UIAlertController(title: alertTitleText, message:
+                alertMessageText, preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Закрыть", style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        })
     }
     
 }
