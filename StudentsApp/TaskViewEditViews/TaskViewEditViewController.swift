@@ -32,7 +32,8 @@ class TaskViewEditViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = appDesign.tabBarColor
         
        
-        let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:)))
+       let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(TaskViewEditViewController.EditButtonPressed(_:)))
+       
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)
         
         let item = UINavigationItem(title: "EDIT")

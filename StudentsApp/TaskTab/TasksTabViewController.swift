@@ -26,7 +26,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     var workingWithProsr: Bool = false
     var counterd = 0
     var counterp = 0
-    
+    var showDone = false
+    var counterDone = 0
+   // var defaultColorDoneButton:UIColor = UIColor.clear
      // переменная для выбота типа сортировки
     var taskParametr: String!
     var activitiesParametr: String!
@@ -56,10 +58,12 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     @IBOutlet weak var activitiesTable: UITableView!
     
+    @IBOutlet weak var addTaskBarButton: UIBarButtonItem!
+    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
     
      @IBOutlet weak var addTaskButton: UIButton!
     
-    @IBOutlet weak var showDoneTasksButton: UIBarButtonItem!
+    
     
    
     @IBOutlet weak var taskSegment: UISegmentedControl!
@@ -79,6 +83,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             taskTable.reloadData()
             activitiesTable.reloadData()
         }
+        if (counterDone == 0) {
+            showDoneTasksButton.tintColor = appDesign.mainTextColor
+        }
     }
     
     func setUpNavigationBars(){
@@ -94,10 +101,13 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
      // MARK: - Navigation
     
     func updateData(){
+        //defaultColorDoneButton = showDoneTasksButton.tintColor!
+        
+        
         if(changesController == tasksFetchController){
-            TasksAtDayArray = TaskModel.getTasksGroupedByDate()
-            TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
-            TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+            TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+            TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+            TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
         }
         
         if(changesController == activitiesFetchController){
@@ -123,6 +133,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         counter = 1
         
         appDesign.initBackground(ofView: self.view)
+        self.navigationItem.largeTitleDisplayMode = .never
         //appDesign.managedMainButonsContext.removeAll()
         //appDesign.managedSubButonsContext.removeAll()
       
@@ -138,11 +149,11 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
         ActivitiesAtSubjectArray = ActivitiesModel.getActivitiesGroupedBySubject()
         ActivitiesAtDayArray = ActivitiesModel.getActivitiesGroupedByDate()
-        TasksAtDayArray = TaskModel.getTasksGroupedByDate()
-        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject()
-        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority()
+        TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
     
-        
+       // defaultColorDoneButton = showDoneTasksButton.tintColor!
         // Do any additional setup after loading the view.
     }
     
@@ -178,6 +189,24 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
 
     @IBAction func showDoneTasks(_ sender: Any) {
+        showDone = !showDone
+        if (counterDone == 0) {
+            showDoneTasksButton.tintColor = UIColor.red
+            counterDone += 1
+        } else {
+            showDoneTasksButton.tintColor = appDesign.mainTextColor
+            counterDone = 0
+        }
+        TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
+        TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
+        TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
+        
+        taskTable.reloadData()
+        
+        if (taskTable.numberOfSections != 0) {
+            let index = IndexPath.init(row: 0, section: 0)
+            taskTable.scrollToRow(at: index, at: .top, animated: true)
+        }
     }
     
     @IBAction func addTaskButtonTouch(_ sender: Any) {
@@ -214,7 +243,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         }
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        if (taskTable.numberOfSections != 0) {
         taskTable.scrollToRow(at: index, at: .top, animated: true)
+        }
     }
     
     @IBAction func activitiesSegmentChanged(_ sender: Any) {
@@ -269,12 +300,21 @@ extension TasksTabViewController: UIScrollViewDelegate{
         if(scrollView == MainScrollView){
             let scrollPercent = scrollView.contentOffset.x/(scrollView.frame.width)
                 //scrollView.contentSize.width/2 - (scrollView.contentOffset.x + scrollView.contentSize.width/2)
+            
             navigationLeftTitle.frame.origin.x = -navigationViewWidth*scrollPercent
             navigationRightTitle.frame.origin.x = navigationViewWidth-navigationViewWidth*scrollPercent
             if(scrollPercent > 0.5){
                 navigationPageControl.currentPage = 1
+                self.showDoneTasksButton.isEnabled = false
+                self.addTaskBarButton.isEnabled = false
+                
+                
+                
             }else{
                 navigationPageControl.currentPage = 0
+                self.addTaskBarButton.isEnabled = true
+                self.showDoneTasksButton.isEnabled = true
+                
             }
             //print(scrollPercent)
             //navigationTitle.frame.origin.x =
@@ -461,11 +501,16 @@ extension TasksTabViewController: UITableViewDataSource {
         switch taskParametr {
         case "time":
             let todayD = CustomDateClass()
+            if (showDone == false) {
             if (TasksAtDayArray[section][0].taskDate! >= todayD) {
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
-            } else {header.mainHeaderLabel?.text = "Просрочено"}
+            } else {header.mainHeaderLabel?.text = "Просрочено"} }
+            else {
+               header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
+            }
             break
         case "subject":
+            print("\(TasksAtSubjectArray[section][0].taskSubject!)")
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
             break
         case "priority":

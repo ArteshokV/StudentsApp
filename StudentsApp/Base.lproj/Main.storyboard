@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -156,7 +156,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5N1-wN-DCz">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Don" id="Qac-4M-x9W">
+                        <barButtonItem key="leftBarButtonItem" title="Don" image="MB__tasks" id="Qac-4M-x9W">
                             <connections>
                                 <action selector="showDoneTasks:" destination="8Gb-dM-rGE" id="r7l-IS-xbo"/>
                             </connections>
@@ -171,6 +171,7 @@
                         <outlet property="MainScrollView" destination="b5u-ph-v3n" id="zNw-Se-qTb"/>
                         <outlet property="activitiesSegment" destination="aC3-cM-shk" id="4N1-Ew-2Sf"/>
                         <outlet property="activitiesTable" destination="EWW-qS-GVD" id="pbz-pG-lTl"/>
+                        <outlet property="addTaskBarButton" destination="Gkg-Cz-wUd" id="zcH-Gp-kyT"/>
                         <outlet property="navigationCloneView" destination="J0n-wL-jmH" id="1zw-Ag-bNd"/>
                         <outlet property="showDoneTasksButton" destination="Qac-4M-x9W" id="RO4-Xd-RT0"/>
                         <outlet property="taskSegment" destination="xj4-fc-Q1C" id="W1r-9F-qam"/>
@@ -984,6 +985,7 @@
     </scenes>
     <resources>
         <image name="EmptyUser" width="265" height="265"/>
+        <image name="MB__tasks" width="25" height="25"/>
         <image name="iconExtra" width="30" height="30"/>
         <image name="iconSchedule" width="30" height="30"/>
         <image name="iconSubjects" width="30" height="30"/>
