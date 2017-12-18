@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hn-tt-og8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -792,7 +792,7 @@
                     <navigationItem key="navigationItem" title="Расписание" id="8Q8-3p-QQe">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="3iz-QN-7y5">
                             <connections>
-                                <segue destination="7cO-OX-KN3" kind="show" id="9c0-yh-nY6"/>
+                                <action selector="EditButtonPressed:" destination="rUT-mW-xIp" id="2mT-Pb-yau"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -805,6 +805,7 @@
                         <outlet property="PreviousWeekButton" destination="lR4-ck-G2D" id="sGR-4P-non"/>
                         <outlet property="WeekNumberLabel" destination="peV-6b-Pcl" id="bhK-jT-QY4"/>
                         <outlet property="navigationBarClone" destination="m8z-9g-m7n" id="DDO-se-Rzd"/>
+                        <segue destination="7cO-OX-KN3" kind="show" identifier="fromTimetableToEdit" id="Gno-Id-7Hd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFl-n7-NeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
