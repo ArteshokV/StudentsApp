@@ -48,10 +48,19 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var KeyHeight: CGFloat = 0
     private var WantToAdd: Bool = false
 
+    
+    @IBOutlet weak var ClassTimeStackInside: UIStackView!
+    @IBOutlet weak var EndDateStack: UIStackView!
+    @IBOutlet weak var StartDateStack: UIStackView!
+    @IBOutlet weak var DaysButtonStack: UIStackView!
+    @IBOutlet weak var RegularityStack: UIStackView!
+    @IBOutlet weak var ClassTimeStack: UIStackView!
+    @IBOutlet weak var ClassTypeStack: UIStackView!
     @IBOutlet weak var StackViewIS: UIStackView!
     @IBOutlet weak var StackViewTR: UIStackView!
     @IBOutlet weak var ScrollView: UIScrollView!
     
+    @IBOutlet weak var SupportView: UIView!
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
     
@@ -82,17 +91,22 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var BeginTime: UITextField!
     @IBOutlet weak var EndTime: UITextField!
     
+    @IBOutlet weak var ClassTimeLabel: UILabel!
     @IBOutlet weak var PeriodicStartDateLabel: UILabel!
     @IBOutlet weak var PeriodicEndDateLabel: UILabel!
     
+    private var blurEffectView: UIVisualEffectView?
+    
+    let appDesign = CustomApplicationLook()
+    
     // MARK: - Вспомогательные функции
     func setPlaceHolderForSubject () {
-        SubjectField.textColor = UIColor.lightGray
+        SubjectField.textColor = appDesign.subTextColor
         SubjectField.text = "Предмет"
     }
     
     func hidePlaceHolderForSubject () {
-        SubjectField.textColor = UIColor.black
+        SubjectField.textColor = appDesign.mainTextColor
         SubjectField.text = ""
     }
     
@@ -128,11 +142,12 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue {
             self.KeyHeight = keyboardFrame.height
+            if (((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room"))&&(!AnimationDo)) {
+                showTableToChooseForTextField(Stack: StackViewTR)
+            }
             //print("C \(self.KeyHeight)")
         }
-        if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
-            showTableToChooseForTextField(Stack: StackViewTR)
-        }
+        
     }
     
     func CheckDateInTable (DateForCheck: CustomDateClass) -> Bool {
@@ -186,12 +201,12 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     }
     
     func setWhiteColorsToDaysButtons(){
-        MondayButton.backgroundColor = UIColor.white
-        TuesdayButton.backgroundColor = UIColor.white
-        WednesdayButton.backgroundColor = UIColor.white
-        ThursdayButton.backgroundColor = UIColor.white
-        FridayButton.backgroundColor = UIColor.white
-        SaturdayButton.backgroundColor = UIColor.white
+        MondayButton.backgroundColor = UIColor.clear
+        TuesdayButton.backgroundColor = UIColor.clear
+        WednesdayButton.backgroundColor = UIColor.clear
+        ThursdayButton.backgroundColor = UIColor.clear
+        FridayButton.backgroundColor = UIColor.clear
+        SaturdayButton.backgroundColor = UIColor.clear
     }
     
     // MARK: - Функции выбора и подставновки значений
@@ -221,8 +236,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             if !((CurrentClassType == "Лекция")||(CurrentClassType == "Семинар")||(CurrentClassType == "Лабораторная")||(CurrentClassType == "Консультация")) {
                 SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
                 SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
-                CustomClassTypeButton.backgroundColor = UIColor.blue
-                CustomClassTypeButton.setTitleColor(UIColor.white, for: .normal)
+                CustomClassTypeButton.backgroundColor = UIColor.lightGray
+                CustomClassTypeButton.setTitleColor(appDesign.mainTextColor, for: .normal)
                 CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
                 CustomClassTypeButtonMode = true
                 CustomClassTypeButton.titleLabel?.text = CurrentClassType
@@ -233,7 +248,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     @IBAction func ChooseCustomClassType(_ sender: Any) {
         SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
         SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
-        CustomClassTypeButton.backgroundColor = UIColor.blue
+        CustomClassTypeButton.backgroundColor = UIColor.lightGray
         CustomClassTypeButton.setTitleColor(UIColor.white, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = true
@@ -531,11 +546,14 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             PeriodicEndDate.text = ""
             ParitySegment.selectedSegmentIndex = 0
             CheckSaveButton()
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         }
         view.endEditing(true)
         if (AnimationDo) {
             ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             self.AnimationDo = false
+            ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         }
     }
     
@@ -612,8 +630,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func SelectSegmentClassType1(_ sender: Any) {
         SegmentClassType2.selectedSegmentIndex = UISegmentedControlNoSegment
-        CustomClassTypeButton.backgroundColor = UIColor.white
-        CustomClassTypeButton.setTitleColor(UIColor.blue, for: .normal)
+        CustomClassTypeButton.backgroundColor = UIColor.clear
+        CustomClassTypeButton.setTitleColor(appDesign.mainTextColor, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = false
         if (SegmentClassType1.selectedSegmentIndex == 0) {
@@ -627,8 +645,8 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func SelectSegmentClassType2(_ sender: Any) {
         SegmentClassType1.selectedSegmentIndex = UISegmentedControlNoSegment
-        CustomClassTypeButton.backgroundColor = UIColor.white
-        CustomClassTypeButton.setTitleColor(UIColor.blue, for: .normal)
+        CustomClassTypeButton.backgroundColor = UIColor.clear
+        CustomClassTypeButton.setTitleColor(appDesign.mainTextColor, for: .normal)
         CustomClassTypeButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         CustomClassTypeButtonMode = false
         if (SegmentClassType2.selectedSegmentIndex == 0) {
@@ -673,6 +691,60 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDesign.initBackground(ofView: self.view)
+        ParitySegment.tintColor = appDesign.mainTextColor
+        RegularitySegment.tintColor = appDesign.mainTextColor
+        SegmentClassType1.tintColor = appDesign.mainTextColor
+        SegmentClassType2.tintColor = appDesign.mainTextColor
+        SegmentOfNumberOfClass.tintColor = appDesign.mainTextColor
+        ScrollView.backgroundColor = appDesign.underLayerColor
+        SupportView.backgroundColor = UIColor.clear
+        ClassTimeStackInside.backgroundColor = appDesign.underLayerColor
+        EndDateStack.backgroundColor = appDesign.underLayerColor
+        StartDateStack.backgroundColor = appDesign.underLayerColor
+        DaysButtonStack.backgroundColor = UIColor.clear
+        RegularityStack.backgroundColor = appDesign.underLayerColor
+        ClassTimeStack.backgroundColor = appDesign.underLayerColor
+        ClassTypeStack.backgroundColor = appDesign.underLayerColor
+        RegularityView.backgroundColor = UIColor.clear
+        RegularityCustomView.backgroundColor = UIColor.clear
+        SubjectField.backgroundColor = UIColor.clear
+        TeacherField.backgroundColor = UIColor.clear
+        ClassRoomField.backgroundColor = UIColor.clear
+        PeriodicStartDate.backgroundColor = UIColor.clear
+        PeriodicEndDate.backgroundColor = UIColor.clear
+        BeginTime.backgroundColor = UIColor.clear
+        EndTime.backgroundColor = UIColor.clear
+        EndTime.textColor = appDesign.mainTextColor
+        BeginTime.textColor = appDesign.mainTextColor
+        TeacherField.textColor = appDesign.mainTextColor
+        ClassRoomField.textColor = appDesign.mainTextColor
+        PeriodicStartDate.textColor = appDesign.mainTextColor
+        PeriodicEndDate.textColor = appDesign.mainTextColor
+        MondayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        TuesdayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        WednesdayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        ThursdayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        FridayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        SaturdayButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        CreateNewDateForTableButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        DeleteClassButton.setTitleColor(UIColor.red, for: UIControlState.normal)
+        CustomClassTypeButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        MondayButton.backgroundColor = UIColor.clear
+        TuesdayButton.backgroundColor = UIColor.clear
+        WednesdayButton.backgroundColor = UIColor.clear
+        ThursdayButton.backgroundColor = UIColor.clear
+        FridayButton.backgroundColor = UIColor.clear
+        SaturdayButton.backgroundColor = UIColor.clear
+        CreateNewDateForTableButton.backgroundColor = UIColor.clear
+        DeleteClassButton.backgroundColor = UIColor.clear
+        CustomClassTypeButton.backgroundColor = UIColor.clear
+        TableToChoose.backgroundColor = appDesign.underLayerColor.withAlphaComponent(1.0)
+        TableForDates.backgroundColor = UIColor.clear
+        ClassTimeLabel.textColor = appDesign.mainTextColor
+        PeriodicStartDateLabel.textColor = appDesign.mainTextColor
+        PeriodicEndDateLabel.textColor = appDesign.mainTextColor
+        
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
@@ -693,7 +765,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
+        //navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
         self.navigationItem.title = "Добавление"
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(EditClassController.SaveButtonPressed(_:)))
         rightEditBarButtonItem.isEnabled = false
@@ -774,11 +846,16 @@ extension EditClassController: UITableViewDataSource {
         if (tableView == TableForDates) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForDate", for: indexPath)
             cell.textLabel?.text = ArrayOfCustomDates[indexPath.row].stringFromDate()
+            cell.textLabel?.textColor = appDesign.mainTextColor
+            cell.backgroundColor = appDesign.underLayerColor
             return cell
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForChoice", for: indexPath)
+            cell.textLabel?.textColor = appDesign.mainTextColor
+            cell.backgroundColor = appDesign.underLayerColor
             if (TextChoosingMode == "Subject") {
+                cell.textLabel?.textColor = appDesign.mainTextColor
                 if (SubjectHelpArray.count != 0) {
                     cell.textLabel?.text = SubjectHelpArray[indexPath.row].subjectName
                 }
@@ -788,6 +865,7 @@ extension EditClassController: UITableViewDataSource {
                 }
             }
             if (TextChoosingMode == "Teacher") {
+                cell.textLabel?.textColor = appDesign.mainTextColor
                 if (TeacherHelpArray.count != 0) {
                     cell.textLabel?.text = TeacherHelpArray[indexPath.row].name
                 }

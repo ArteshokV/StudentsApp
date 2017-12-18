@@ -109,6 +109,7 @@
                                                         </connections>
                                                     </textView>
                                                 </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="A0s-1Y-TyS" firstAttribute="leading" secondItem="Ix5-4f-tGG" secondAttribute="trailing" id="3wO-ok-nis"/>
                                                     <constraint firstAttribute="height" constant="58" id="Mp4-jF-9gf"/>
@@ -143,6 +144,7 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="eUq-Bt-QUd" firstAttribute="width" secondItem="6HT-qz-pmU" secondAttribute="width" multiplier="0.3" id="dde-YH-FmM"/>
                                                 </constraints>
@@ -181,6 +183,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="FQc-hP-lZR" userLabel="ClassTime">
                                                 <rect key="frame" x="10" y="209" width="355" height="101"/>
@@ -244,6 +247,7 @@
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </stackView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-EH-4MB">
                                                 <rect key="frame" x="10" y="340" width="355" height="30"/>
@@ -378,9 +382,10 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="o8j-n2-0p3" secondAttribute="trailing" constant="10" id="65V-hE-PW9"/>
                                                     <constraint firstItem="o8j-n2-0p3" firstAttribute="leading" secondItem="RXV-qa-IAj" secondAttribute="leading" constant="10" id="CoF-WV-4k4"/>
@@ -417,7 +422,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="2Qb-dh-E6Q" firstAttribute="top" secondItem="4F9-IZ-rdw" secondAttribute="top" id="7Ih-9m-2eA"/>
                                                     <constraint firstItem="2Qb-dh-E6Q" firstAttribute="leading" secondItem="4F9-IZ-rdw" secondAttribute="leading" constant="10" id="Kj6-cl-EOA"/>
@@ -516,9 +521,15 @@
                     <connections>
                         <outlet property="BeginTime" destination="pIo-fW-c2c" id="E2P-6e-pRd"/>
                         <outlet property="ClassRoomField" destination="eUq-Bt-QUd" id="B6E-3F-c1k"/>
+                        <outlet property="ClassTimeLabel" destination="v2J-sk-q64" id="p5a-tH-nlp"/>
+                        <outlet property="ClassTimeStack" destination="FQc-hP-lZR" id="Stt-yT-ya6"/>
+                        <outlet property="ClassTimeStackInside" destination="t06-GY-xYC" id="IhZ-m6-ZJQ"/>
+                        <outlet property="ClassTypeStack" destination="TGh-rY-8XB" id="b1L-ZF-0i7"/>
                         <outlet property="CreateNewDateForTableButton" destination="DoM-8y-Kmw" id="WjF-s9-ruB"/>
                         <outlet property="CustomClassTypeButton" destination="J77-x7-any" id="Em4-OL-e7U"/>
+                        <outlet property="DaysButtonStack" destination="ald-WV-007" id="9gi-In-XJE"/>
                         <outlet property="DeleteClassButton" destination="9qf-JI-eKt" id="FH0-M3-H6h"/>
+                        <outlet property="EndDateStack" destination="UEv-W0-h4b" id="GBS-JV-Ogd"/>
                         <outlet property="EndTime" destination="Eby-jH-WcZ" id="fe5-kU-vYg"/>
                         <outlet property="FridayButton" destination="lAg-Ol-twy" id="bdA-1b-JCH"/>
                         <outlet property="MondayButton" destination="5Qm-hP-zMb" id="SFG-In-i6n"/>
@@ -529,6 +540,7 @@
                         <outlet property="PeriodicStartDateLabel" destination="8Ri-Zw-eOt" id="dND-vQ-Q8P"/>
                         <outlet property="RegularityCustomView" destination="4F9-IZ-rdw" id="sgC-9J-I1u"/>
                         <outlet property="RegularitySegment" destination="Ksa-EH-4MB" id="oPx-m2-zl6"/>
+                        <outlet property="RegularityStack" destination="o8j-n2-0p3" id="t5G-uW-W1p"/>
                         <outlet property="RegularityView" destination="RXV-qa-IAj" id="E9V-nh-f59"/>
                         <outlet property="SaturdayButton" destination="AL2-N2-lcw" id="ZaE-Zg-gUs"/>
                         <outlet property="ScrollView" destination="6B9-0S-b1a" id="JON-af-zhs"/>
@@ -537,7 +549,9 @@
                         <outlet property="SegmentOfNumberOfClass" destination="PBN-c1-q39" id="GRh-2c-Bw5"/>
                         <outlet property="StackViewIS" destination="2PG-Ga-G3L" id="q3c-Hf-gwy"/>
                         <outlet property="StackViewTR" destination="hqr-ML-JUG" id="cdm-ea-gMV"/>
+                        <outlet property="StartDateStack" destination="wka-Sa-vF0" id="1GP-dz-gCZ"/>
                         <outlet property="SubjectField" destination="A0s-1Y-TyS" id="xYE-de-WUs"/>
+                        <outlet property="SupportView" destination="RXf-Wk-JEy" id="X4m-5h-1Sw"/>
                         <outlet property="TableForDates" destination="2Qb-dh-E6Q" id="SwU-Ns-4ZM"/>
                         <outlet property="TableToChoose" destination="x6J-m0-ATP" id="R9e-sk-dgx"/>
                         <outlet property="TeacherField" destination="6HT-qz-pmU" id="3yO-Qo-v7h"/>

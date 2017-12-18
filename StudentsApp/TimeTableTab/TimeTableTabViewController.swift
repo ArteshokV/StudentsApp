@@ -19,8 +19,6 @@ class TimeTableTabViewController: UIViewController {
     
     let appDesign = CustomApplicationLook()
     
-    //@IBOutlet weak var DayLabel: UILabel! //Label для дня недели (понедельник, вторник...)
-    //@IBOutlet weak var CurrentDayLabel: UILabel! //Label для текущей даты просмотра
     @IBOutlet weak var navigationBarClone: UIView! //кнопка перехода на предыдущую неделю
     @IBOutlet weak var PreviousWeekButton: UIButton! //кнопка перехода на предыдущую неделю
     @IBOutlet weak var BeginOfWeekLabel: UILabel! //Label для начала недели
@@ -52,8 +50,6 @@ class TimeTableTabViewController: UIViewController {
     }
     //функция отображения параметров в Label'ы
     func ShowDates (CurrentDate: CustomDateClass) {
-        //DayLabel.text = TodayDate?.weekDayString()
-        //CurrentDayLabel.text = TodayDate?.stringFromDate()
         EndOfWeekLabel.text = TodayDate?.weekEndString()
         BeginOfWeekLabel.text = TodayDate?.weekBeginSting()
         WeekNumberLabel.text = "\(TodayDate!.weekNumber(fromStartDate: "01.09.2017")) неделя"
@@ -110,13 +106,6 @@ class TimeTableTabViewController: UIViewController {
         
         CollectionOfTables.backgroundColor = UIColor.clear
         
-        //navigationBarClone.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
-        //appDesign.managedMainLablesContext.append(DayLabel)
-        //DayLabel.textColor = appDesign.mainTextColor
-        //appDesign.managedMainLablesContext.append(TickLabel)
-        //TickLabel.textColor = appDesign.mainTextColor
-        //appDesign.managedMainLablesContext.append(CurrentDayLabel)
-        //CurrentDayLabel.textColor = appDesign.mainTextColor
         appDesign.managedMainLablesContext.append(BeginOfWeekLabel)
         BeginOfWeekLabel.textColor = appDesign.mainTextColor
         appDesign.managedMainButonsContext.append(PreviousWeekButton)
@@ -127,20 +116,6 @@ class TimeTableTabViewController: UIViewController {
         WeekNumberLabel.textColor = appDesign.mainTextColor
         appDesign.managedMainButonsContext.append(NextWeekButton)
         NextWeekButton.setTitleColor(appDesign.mainTextColor, for: .normal)
-        
-        
-        //constraints and other parametrs
-        /*
-        DayLabel.adjustsFontSizeToFitWidth = true
-        DayLabel.adjustsFontForContentSizeCategory = true
-        DayLabel.minimumScaleFactor = 0.2
-        DayLabel.numberOfLines = 0
-        
-        CurrentDayLabel.adjustsFontSizeToFitWidth = true
-        CurrentDayLabel.adjustsFontForContentSizeCategory = true
-        CurrentDayLabel.minimumScaleFactor = 0.2
-        CurrentDayLabel.numberOfLines = 0
-        */
         
         BeginOfWeekLabel.adjustsFontSizeToFitWidth = true
         BeginOfWeekLabel.adjustsFontForContentSizeCategory = true
