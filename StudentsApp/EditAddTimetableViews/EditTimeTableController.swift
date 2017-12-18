@@ -37,12 +37,14 @@ class EditTimeTableController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         CompleteButton.isHidden = true
         appDesign.initBackground(ofView: self.view)
         TableOfClasses.backgroundColor = UIColor.clear
         if(!UserDefaults.standard.bool(forKey: "databaseIsInited")){CompleteButton.setTitle("Начать работу", for: .normal)}
         
         setupNavigationBar()
+        self.hidesBottomBarWhenPushed = true
         
         let timetableCellNib = UINib(nibName: "TimetableTableViewCell", bundle: nil)
         TableOfClasses.register(timetableCellNib, forCellReuseIdentifier: TimetableCellIdentifier)
@@ -53,6 +55,7 @@ class EditTimeTableController: UIViewController {
         TimeTableChangesArray = TimetableModel.getTimetableForChanges()
         TableOfClasses.reloadData()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //self.tabBarController?.hidesBottomBarWhenPushed = true
         super.viewWillAppear(animated)
         TimeTableChangesArray = TimetableModel.getTimetableForChanges()
         TableOfClasses.reloadData()
@@ -67,10 +70,10 @@ class EditTimeTableController: UIViewController {
     }
     
     func setupNavigationBar(){
-        self.hidesBottomBarWhenPushed = true
+        //self.hidesBottomBarWhenPushed = true
         //self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
+        //navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
         self.navigationItem.title = "Расписание"
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(EditTimeTableController.AddButtonPressed(_:)))
         self.navigationItem.setRightBarButtonItems([rightEditBarButtonItem], animated: true)

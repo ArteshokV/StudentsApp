@@ -8,23 +8,68 @@
 
 import UIKit
 
-class SecondSetupViewController: UIViewController {
+class SecondSetupViewController: UIViewController, UITextFieldDelegate {
 
     let appDesign = CustomApplicationLook()
+    let pickerView = UIDatePicker()
     var StudyPlace: [studyUnit]!
+    
+    @IBOutlet weak var ContinueButton: UIButton!
+    @IBOutlet var Labels: [UILabel]!
+    
+    @IBOutlet var TextFields: [UITextField]!
+    var editingTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         appDesign.initBackground(ofView: self.view)
+        
+        for label in Labels{
+            label.textColor = appDesign.mainTextColor
+        }
+        
+        ContinueButton.backgroundColor = appDesign.underLayerColor
+        ContinueButton.layer.cornerRadius = 15.0
+        ContinueButton.setTitleColor(appDesign.subTextColor, for: .normal)
 
         // Do any additional setup after loading the view.
+        setupPickerView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setupPickerView(){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
+        toolbar.setItems([doneButton], animated: false)
+        
+        for textField in TextFields{
+            textField.inputAccessoryView = toolbar
+            textField.inputView = pickerView
+            textField.delegate = self
+            textField.textAlignment = .center
+        }
+        
+        pickerView.datePickerMode = .time
+        
+        pickerView.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        editingTextField = textField
+        dateChanged(pickerView)
+    }
+    
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        let componenets = Calendar.current.dateComponents([.hour, .minute,], from: sender.date)
+        if let hour = componenets.hour, let minutes = componenets.minute {
+            editingTextField.text = "\(hour):\(minutes)"
+        }
+    }
+    
+    @objc func donePressed(){
+        view.endEditing(true)
+    }
 
     @IBAction func enterTimetablePressed(_ sender: UIButton) {
         let initor = DataBaseInitiator()

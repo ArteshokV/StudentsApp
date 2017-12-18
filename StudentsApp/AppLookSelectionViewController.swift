@@ -19,6 +19,7 @@ class AppLookSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.largeTitleDisplayMode = .never
 
         appDesign.initBackground(ofView: self.view)
         
@@ -45,6 +46,8 @@ class AppLookSelectionViewController: UIViewController {
 extension AppLookSelectionViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         let predicate:NSPredicate = NSPredicate(format: "(isSelected == 1)")
         let appLooksFetchRequest: NSFetchRequest<AppLook> = AppLook.fetchRequest()
         appLooksFetchRequest.predicate = predicate
@@ -53,6 +56,10 @@ extension AppLookSelectionViewController: UITableViewDelegate{
         
         appLooksArray[indexPath.row].isSelected = true
         DatabaseController.saveContext()
+        
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

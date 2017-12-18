@@ -42,9 +42,8 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
     
     // MARK: - View Functions
     override func viewWillAppear(_ animated: Bool) {
-        if(!(self.navigationController?.navigationBar.isHidden)!){
-            //self.navigationController?.setNavigationBarHidden(true, animated: true)
-        }
+        let cust = CustomDateClass()
+        self.navigationItem.title = cust.todayString()
         super.viewWillAppear(animated)
         setUpNavigationBars()
         //self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -94,7 +93,6 @@ class TodayTabViewController: UIViewController,NSFetchedResultsControllerDelegat
         super.viewDidLoad()
         //title = "Среда, 28 ноября"
         //self.navigationController?.navigationBar.prefersLargeTitles = true
-        
         self.navigationItem.largeTitleDisplayMode = .always
         //TableViewOutlet.contentInset = UIEdgeInsetsMake(0, 10, 0, -20)
         //print(TimetableModel.getTimetableForChanges())
@@ -161,7 +159,7 @@ extension TodayTabViewController: UIScrollViewDelegate{
         //TableViewOutlet.layer.removeAllAnimations()
         
         
-        blurEffectView?.alpha = scrollView.contentOffset.y/240///180;
+        //blurEffectView?.alpha = scrollView.contentOffset.y/240///180;
         //self.tabBarController?.tabBar.alpha = scrollView.contentOffset.y/240
     }
 }

@@ -55,6 +55,8 @@ class StudyPlaceSelectionViewController: UIViewController {
         //dbInitor.insertInitialData(withJson: nil)
         //self.performSegue(withIdentifier: "StartUsing", sender: self)
         
+        self.navigationItem.largeTitleDisplayMode = .never
+        
         setBackGroundAndBlurView()
         setSearchController()
         

@@ -410,44 +410,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGv-84-kSI">
-                                <rect key="frame" x="10" y="5" width="355" height="153"/>
+                                <rect key="frame" x="0.0" y="5" width="0.0" height="678"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="UFx-eu-AMn">
-                                <rect key="frame" x="20" y="15" width="290" height="138"/>
+                                <rect key="frame" x="0.0" y="15" width="0.0" height="663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Учебное заведение" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmG-d4-Lb3">
-                                        <rect key="frame" x="0.0" y="0.0" width="210" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="210" height="109.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="20"/>
                                         <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="МГТУ им Баумана" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIL-uQ-abD">
-                                        <rect key="frame" x="0.0" y="23" width="0.0" height="22.5"/>
+                                        <rect key="frame" x="0.0" y="110.5" width="0.0" height="110"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Факультет" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2N-Sc-LCY">
-                                        <rect key="frame" x="0.0" y="46.5" width="114" height="22"/>
+                                        <rect key="frame" x="0.0" y="221.5" width="114" height="109.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="20"/>
                                         <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Информатика и системы управления" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vpn-oz-cjQ">
-                                        <rect key="frame" x="0.0" y="69.5" width="0.0" height="22"/>
+                                        <rect key="frame" x="0.0" y="332" width="0.0" height="109.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Учебная группа" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuZ-V8-9UX">
-                                        <rect key="frame" x="0.0" y="92.5" width="168.5" height="22"/>
+                                        <rect key="frame" x="0.0" y="442.5" width="168.5" height="110"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="20"/>
                                         <color key="textColor" red="0.20852898319999999" green="0.20852898319999999" blue="0.20852898319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ИУ6-72(б)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0H2-vD-sde">
-                                        <rect key="frame" x="0.0" y="115.5" width="0.0" height="22.5"/>
+                                        <rect key="frame" x="0.0" y="553.5" width="0.0" height="109.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -455,30 +455,30 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyUser" translatesAutoresizingMaskIntoConstraints="NO" id="clV-QP-ao2">
-                                <rect key="frame" x="305" y="56" width="55" height="55"/>
+                                <rect key="frame" x="0.0" y="214" width="40.5" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="clV-QP-ao2" secondAttribute="height" multiplier="1:1" id="Cdz-gz-sBV"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1V-Ej-nKa">
-                                <rect key="frame" x="305" y="121" width="55" height="32"/>
+                                <rect key="frame" x="0.0" y="489" width="40.5" height="189"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylT-Hy-8KP">
-                                <rect key="frame" x="0.0" y="307" width="375" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylT-Hy-8KP">
+                                <rect key="frame" x="0.0" y="2437" width="0.0" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="phU-ip-dUa"/>
                                 </constraints>
-                                <state key="normal" title="Изменить расписание"/>
+                                <state key="normal" title="Связь с разработчиками"/>
                                 <connections>
-                                    <action selector="changeTimetableButtonPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="WcF-Z7-FqS"/>
+                                    <action selector="connectWithDevelopersPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="Yz8-ga-rec"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-cm-dDo">
-                                <rect key="frame" x="0.0" y="427" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="2527" width="0.0" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="qhV-Dc-d3Z"/>
                                 </constraints>
@@ -488,7 +488,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKX-Cd-alO">
-                                <rect key="frame" x="10" y="163" width="290" height="40"/>
+                                <rect key="frame" x="0.0" y="688" width="0.0" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="EXW-ml-aUv"/>
                                 </constraints>
@@ -498,11 +498,21 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syv-Ed-NmD">
-                                <rect key="frame" x="305" y="163" width="60" height="40"/>
+                                <rect key="frame" x="0.0" y="688" width="45.5" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Войти"/>
                                 <connections>
                                     <action selector="enterProfileButtonPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="5vc-fC-wAZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7G-Zx-0iY">
+                                <rect key="frame" x="0.0" y="2347" width="0.0" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="yGh-NE-gdW"/>
+                                </constraints>
+                                <state key="normal" title="Синхронизировать с сервером"/>
+                                <connections>
+                                    <action selector="SyncButtonPressed:" destination="5fy-0V-GQ7" eventType="touchUpInside" id="hnv-OC-gz1"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -511,6 +521,7 @@
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="bottom" secondItem="UFx-eu-AMn" secondAttribute="bottom" id="1xU-Ag-FEc"/>
                             <constraint firstItem="syv-Ed-NmD" firstAttribute="leading" secondItem="clV-QP-ao2" secondAttribute="leading" id="2vF-0p-Bki"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="trailing" id="3ZH-Dz-Wx8"/>
+                            <constraint firstItem="ylT-Hy-8KP" firstAttribute="top" secondItem="i7G-Zx-0iY" secondAttribute="bottom" constant="30" id="7xf-Oc-ODD"/>
                             <constraint firstItem="syv-Ed-NmD" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="bottom" constant="5" id="8ol-fm-PvU"/>
                             <constraint firstItem="syv-Ed-NmD" firstAttribute="height" secondItem="yKX-Cd-alO" secondAttribute="height" id="9Dt-4o-Uxa"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="leading" secondItem="zGv-84-kSI" secondAttribute="leading" constant="10" id="EOH-8P-tmg"/>
@@ -518,9 +529,10 @@
                             <constraint firstItem="zGv-84-kSI" firstAttribute="top" secondItem="BFM-K7-6HR" secondAttribute="top" constant="5" id="FvD-Jz-zPI"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="ylT-Hy-8KP" secondAttribute="trailing" id="Gym-5G-dcm"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="NKV-cm-dDo" secondAttribute="trailing" id="Km1-Fk-jYV"/>
+                            <constraint firstItem="BFM-K7-6HR" firstAttribute="trailing" secondItem="i7G-Zx-0iY" secondAttribute="trailing" id="NDy-Mr-N4w"/>
                             <constraint firstItem="syv-Ed-NmD" firstAttribute="trailing" secondItem="zGv-84-kSI" secondAttribute="trailing" id="OCt-kn-BeZ"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="top" secondItem="clV-QP-ao2" secondAttribute="bottom" constant="10" id="P6L-H4-asu"/>
-                            <constraint firstItem="NKV-cm-dDo" firstAttribute="top" secondItem="ylT-Hy-8KP" secondAttribute="bottom" constant="60" id="PN7-ji-JfZ"/>
+                            <constraint firstItem="NKV-cm-dDo" firstAttribute="top" secondItem="ylT-Hy-8KP" secondAttribute="bottom" constant="30" id="PN7-ji-JfZ"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="trailing" constant="5" id="TJD-oX-7NT"/>
                             <constraint firstItem="zGv-84-kSI" firstAttribute="bottom" secondItem="UFx-eu-AMn" secondAttribute="bottom" constant="5" id="V7H-4Z-pnU"/>
                             <constraint firstItem="M1V-Ej-nKa" firstAttribute="leading" secondItem="clV-QP-ao2" secondAttribute="leading" id="WOp-By-0W0"/>
@@ -528,6 +540,7 @@
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="height" secondItem="eQo-Wi-EzY" secondAttribute="height" multiplier="0.25" id="Ygm-MP-d2j"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="trailing" secondItem="clV-QP-ao2" secondAttribute="leading" constant="5" id="eil-D9-bmW"/>
                             <constraint firstItem="yKX-Cd-alO" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="bottom" constant="5" id="iv3-NA-ZYT"/>
+                            <constraint firstItem="i7G-Zx-0iY" firstAttribute="leading" secondItem="BFM-K7-6HR" secondAttribute="leading" id="jRx-HH-UI1"/>
                             <constraint firstItem="BFM-K7-6HR" firstAttribute="bottom" secondItem="NKV-cm-dDo" secondAttribute="bottom" constant="15" id="jgL-ir-Vbz"/>
                             <constraint firstItem="UFx-eu-AMn" firstAttribute="top" secondItem="zGv-84-kSI" secondAttribute="top" constant="10" id="k8H-gB-mHk"/>
                             <constraint firstItem="NKV-cm-dDo" firstAttribute="leading" secondItem="BFM-K7-6HR" secondAttribute="leading" id="mzO-cR-IcS"/>
@@ -543,10 +556,11 @@
                     <connections>
                         <outlet property="FacultySelectedLabel" destination="Vpn-oz-cjQ" id="Ef4-IY-Py2"/>
                         <outlet property="GroupSelectedLabel" destination="0H2-vD-sde" id="Kfo-eO-Cle"/>
+                        <outlet property="SyncButton" destination="i7G-Zx-0iY" id="YGJ-q2-aJ4"/>
                         <outlet property="UniversitySelectedLabel" destination="oIL-uQ-abD" id="Gb7-Zh-hlJ"/>
                         <outlet property="changeAppDesignButton" destination="NKV-cm-dDo" id="6J8-my-gFw"/>
                         <outlet property="changeStudyPlace" destination="yKX-Cd-alO" id="8ev-cn-N4M"/>
-                        <outlet property="changeTimetableButton" destination="ylT-Hy-8KP" id="cMu-6w-i9b"/>
+                        <outlet property="connectWithDevelopersButton" destination="ylT-Hy-8KP" id="4M2-Kv-211"/>
                         <outlet property="registerChangeButton" destination="syv-Ed-NmD" id="UcV-LE-a4p"/>
                         <outlet property="underLayerView" destination="zGv-84-kSI" id="b5t-hD-Tnk"/>
                         <outlet property="userImage" destination="clV-QP-ao2" id="WvF-eM-KCC"/>
