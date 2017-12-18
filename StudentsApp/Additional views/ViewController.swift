@@ -79,4 +79,10 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+}
+extension Int {
+    init(_ bool:Bool) {
+        self = bool ? 1 : 0
+    }
 }
