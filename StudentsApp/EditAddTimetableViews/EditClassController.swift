@@ -48,10 +48,19 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var KeyHeight: CGFloat = 0
     private var WantToAdd: Bool = false
 
+    
+    @IBOutlet weak var ClassTimeStackInside: UIStackView!
+    @IBOutlet weak var EndDateStack: UIStackView!
+    @IBOutlet weak var StartDateStack: UIStackView!
+    @IBOutlet weak var DaysButtonStack: UIStackView!
+    @IBOutlet weak var RegularityStack: UIStackView!
+    @IBOutlet weak var ClassTimeStack: UIStackView!
+    @IBOutlet weak var ClassTypeStack: UIStackView!
     @IBOutlet weak var StackViewIS: UIStackView!
     @IBOutlet weak var StackViewTR: UIStackView!
     @IBOutlet weak var ScrollView: UIScrollView!
     
+    @IBOutlet weak var SupportView: UIView!
     @IBOutlet weak var RegularityCustomView: UIView!
     @IBOutlet weak var RegularityView: UIView!
     
@@ -85,14 +94,18 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var PeriodicStartDateLabel: UILabel!
     @IBOutlet weak var PeriodicEndDateLabel: UILabel!
     
+    private var blurEffectView: UIVisualEffectView?
+    
+    let appDesign = CustomApplicationLook()
+    
     // MARK: - Вспомогательные функции
     func setPlaceHolderForSubject () {
-        SubjectField.textColor = UIColor.lightGray
+        SubjectField.textColor = appDesign.subTextColor
         SubjectField.text = "Предмет"
     }
     
     func hidePlaceHolderForSubject () {
-        SubjectField.textColor = UIColor.black
+        SubjectField.textColor = appDesign.mainTextColor
         SubjectField.text = ""
     }
     
@@ -674,6 +687,34 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDesign.initBackground(ofView: self.view)
+        ParitySegment.tintColor = appDesign.mainTextColor
+        RegularitySegment.tintColor = appDesign.mainTextColor
+        SegmentClassType1.tintColor = appDesign.mainTextColor
+        SegmentClassType2.tintColor = appDesign.mainTextColor
+        SegmentOfNumberOfClass.tintColor = appDesign.mainTextColor
+        ScrollView.backgroundColor = appDesign.underLayerColor
+        SupportView.backgroundColor = UIColor.clear
+        ClassTimeStackInside.backgroundColor = appDesign.underLayerColor
+        EndDateStack.backgroundColor = appDesign.underLayerColor
+        StartDateStack.backgroundColor = appDesign.underLayerColor
+        DaysButtonStack.backgroundColor = appDesign.underLayerColor
+        RegularityStack.backgroundColor = appDesign.underLayerColor
+        ClassTimeStack.backgroundColor = appDesign.underLayerColor
+        ClassTypeStack.backgroundColor = appDesign.underLayerColor
+        RegularityView.backgroundColor = UIColor.clear
+        RegularityCustomView.backgroundColor = UIColor.clear
+        SubjectField.backgroundColor = UIColor.clear
+        TeacherField.backgroundColor = UIColor.clear
+        ClassRoomField.backgroundColor = UIColor.clear
+        PeriodicStartDate.backgroundColor = UIColor.clear
+        PeriodicEndDate.backgroundColor = UIColor.clear
+        BeginTime.backgroundColor = UIColor.clear
+        EndTime.backgroundColor = UIColor.clear
+        EndTime.textColor = appDesign.mainTextColor
+        BeginTime.textColor = appDesign.mainTextColor
+        TeacherField.textColor = appDesign.mainTextColor
+        ClassRoomField.textColor = appDesign.mainTextColor
         dateFormatterForTime.dateFormat = "HH:mm"
         dateFormatterForDate.dateFormat = "dd.MM.yyyy"
         
@@ -694,7 +735,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
+        //navigationController?.navigationBar.barTintColor = UIColor(red: 153/255, green: 157/255, blue: 163/255, alpha: 0.005)
         self.navigationItem.title = "Добавление"
         let rightEditBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(EditClassController.SaveButtonPressed(_:)))
         rightEditBarButtonItem.isEnabled = false
