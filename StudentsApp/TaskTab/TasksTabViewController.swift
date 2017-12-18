@@ -58,6 +58,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     
     @IBOutlet weak var activitiesTable: UITableView!
     
+    @IBOutlet weak var addTaskBarButton: UIBarButtonItem!
     
      @IBOutlet weak var addTaskButton: UIButton!
     
@@ -304,9 +305,11 @@ extension TasksTabViewController: UIScrollViewDelegate{
             if(scrollPercent > 0.5){
                 navigationPageControl.currentPage = 1
                 self.showDoneTasksButton.isEnabled = false
+                self.addTaskBarButton.isEnabled = false
             }else{
                 navigationPageControl.currentPage = 0
                 self.showDoneTasksButton.isEnabled = true
+                self.addTaskBarButton.isEnabled = true
             }
             //print(scrollPercent)
             //navigationTitle.frame.origin.x =

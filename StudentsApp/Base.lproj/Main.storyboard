@@ -171,6 +171,7 @@
                         <outlet property="MainScrollView" destination="b5u-ph-v3n" id="zNw-Se-qTb"/>
                         <outlet property="activitiesSegment" destination="aC3-cM-shk" id="4N1-Ew-2Sf"/>
                         <outlet property="activitiesTable" destination="EWW-qS-GVD" id="pbz-pG-lTl"/>
+                        <outlet property="addTaskBarButton" destination="Gkg-Cz-wUd" id="zcH-Gp-kyT"/>
                         <outlet property="navigationCloneView" destination="J0n-wL-jmH" id="1zw-Ag-bNd"/>
                         <outlet property="showDoneTasksButton" destination="Qac-4M-x9W" id="RO4-Xd-RT0"/>
                         <outlet property="taskSegment" destination="xj4-fc-Q1C" id="W1r-9F-qam"/>
