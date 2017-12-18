@@ -130,8 +130,18 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             self.KeyHeight = keyboardFrame.height
             //print("C \(self.KeyHeight)")
         }
-        if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
-            showTableToChooseForTextField(Stack: StackViewTR)
+        if (!AnimationDo) {
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            self.AnimationDo = false
+            view.endEditing(true)
+            if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
+                showTableToChooseForTextField(Stack: StackViewTR)
+            }
+        }
+        else {
+            if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
+                showTableToChooseForTextField(Stack: StackViewTR)
+            }
         }
     }
     
