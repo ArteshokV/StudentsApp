@@ -304,8 +304,10 @@ extension TasksTabViewController: UIScrollViewDelegate{
             navigationRightTitle.frame.origin.x = navigationViewWidth-navigationViewWidth*scrollPercent
             if(scrollPercent > 0.5){
                 navigationPageControl.currentPage = 1
-                self.showDoneTasksButton.isEnabled = false
                 self.addTaskBarButton.isEnabled = false
+                self.showDoneTasksButton.isEnabled = false
+                
+                
             }else{
                 navigationPageControl.currentPage = 0
                 self.showDoneTasksButton.isEnabled = true
