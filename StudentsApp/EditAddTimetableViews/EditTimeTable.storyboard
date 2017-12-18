@@ -521,6 +521,7 @@
                     <connections>
                         <outlet property="BeginTime" destination="pIo-fW-c2c" id="E2P-6e-pRd"/>
                         <outlet property="ClassRoomField" destination="eUq-Bt-QUd" id="B6E-3F-c1k"/>
+                        <outlet property="ClassTimeLabel" destination="v2J-sk-q64" id="p5a-tH-nlp"/>
                         <outlet property="ClassTimeStack" destination="FQc-hP-lZR" id="Stt-yT-ya6"/>
                         <outlet property="ClassTimeStackInside" destination="t06-GY-xYC" id="IhZ-m6-ZJQ"/>
                         <outlet property="ClassTypeStack" destination="TGh-rY-8XB" id="b1L-ZF-0i7"/>
