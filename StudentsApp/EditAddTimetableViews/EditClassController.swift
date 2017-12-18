@@ -128,21 +128,12 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue {
             self.KeyHeight = keyboardFrame.height
+            if (((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room"))&&(!AnimationDo)) {
+                showTableToChooseForTextField(Stack: StackViewTR)
+            }
             //print("C \(self.KeyHeight)")
         }
-        if (!AnimationDo) {
-            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            self.AnimationDo = false
-            view.endEditing(true)
-            if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
-                showTableToChooseForTextField(Stack: StackViewTR)
-            }
-        }
-        else {
-            if ((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room")) {
-                showTableToChooseForTextField(Stack: StackViewTR)
-            }
-        }
+        
     }
     
     func CheckDateInTable (DateForCheck: CustomDateClass) -> Bool {
