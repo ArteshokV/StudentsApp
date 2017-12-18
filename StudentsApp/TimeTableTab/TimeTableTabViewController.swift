@@ -168,8 +168,11 @@ class TimeTableTabViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    @IBAction func EditButtonPressed(_ sender: UIBarButtonItem) {
+        self.hidesBottomBarWhenPushed = true
+        self.performSegue(withIdentifier: "fromTimetableToEdit", sender: self)
+        self.hidesBottomBarWhenPushed = false
     }
     
     //Получение даты по номеру дня в семестре

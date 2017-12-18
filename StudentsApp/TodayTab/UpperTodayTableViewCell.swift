@@ -22,7 +22,8 @@ class UpperTodayTableViewCell: UITableViewCell {
         self.DateLabel.textColor = customAppLook.mainTextColor
         customAppLook.managedMainLablesContext.append(self.DateLabel)
         
-        DateLabel.text = CustomDateClass.todaysDateString()
+        let cust = CustomDateClass()
+        DateLabel.text = cust.todayStringWithoutWeekDay() //CustomDateClass.todaysDateString()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
