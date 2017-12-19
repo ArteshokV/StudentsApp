@@ -57,7 +57,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Четн" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdz-A2-zwJ">
-                        <rect key="frame" x="220" y="8" width="77" height="21"/>
+                        <rect key="frame" x="220" y="8" width="38.5" height="21"/>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -82,7 +82,6 @@
                     <constraint firstItem="tah-X5-FKV" firstAttribute="top" secondItem="Qch-8i-sjW" secondAttribute="bottom" constant="2" id="m4U-X9-Pe2"/>
                     <constraint firstItem="6pm-iF-jGJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="nvf-P7-vUk"/>
                     <constraint firstItem="0uN-5K-3LR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="87" id="p7R-60-u2S"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Wdz-A2-zwJ" secondAttribute="trailing" constant="38.5" id="ucM-TA-nCw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
