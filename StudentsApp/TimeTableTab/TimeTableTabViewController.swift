@@ -31,6 +31,29 @@ class TimeTableTabViewController: UIViewController {
     var pageOldValue: Int = 0
     
     
+    func CheckButtons (CurrentDate: CustomDateClass) {
+        let calendar = Calendar.current
+        let DateComponent = calendar.dateComponents([.day], from: DateOfBeginOfSemester.currentDate!, to: DateOfEndOfSemester.currentDate!)
+        let NumberOfDaysInSemester = DateComponent.day!
+        let CurrentDayNumberInSemester = GetDayNumberFromDate(Date: CurrentDate)
+        if ((CurrentDayNumberInSemester+7) >= NumberOfDaysInSemester) {
+            NextWeekButton.isEnabled = false
+            NextWeekButton.setTitleColor(appDesign.subTextColor, for: UIControlState.normal)
+        }
+        else {
+            NextWeekButton.isEnabled = true
+            NextWeekButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        }
+        if ((CurrentDayNumberInSemester-7) <= 0) {
+            PreviousWeekButton.isEnabled = false
+            PreviousWeekButton.setTitleColor(appDesign.subTextColor, for: UIControlState.normal)
+        }
+        else {
+            PreviousWeekButton.isEnabled = true
+            PreviousWeekButton.setTitleColor(appDesign.mainTextColor, for: UIControlState.normal)
+        }
+    }
+    
     @IBAction func PageValueChanged(_ sender: UIPageControl) {
         if ((PagesControl.currentPage - pageOldValue) > 0){
             //Промотали вправо
@@ -39,6 +62,7 @@ class TimeTableTabViewController: UIViewController {
             PagesControl.isEnabled = false
             CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
             TodayDate?.switchToNextDay()
+            CheckButtons(CurrentDate: TodayDate!)
         }else if((PagesControl.currentPage - pageOldValue) < 0){
             //Промотали влево
             var currentIndexPath = CollectionOfTables.indexPathsForVisibleItems[0]
@@ -46,6 +70,7 @@ class TimeTableTabViewController: UIViewController {
             PagesControl.isEnabled = false
             CollectionOfTables.scrollToItem(at: currentIndexPath, at: .centeredHorizontally, animated: true)
             TodayDate?.switchToPreviousDay()
+            CheckButtons(CurrentDate: TodayDate!)
         }
     }
     //функция отображения параметров в Label'ы
@@ -66,6 +91,7 @@ class TimeTableTabViewController: UIViewController {
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
         ShowDates(CurrentDate: TodayDate!)
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
+        CheckButtons(CurrentDate: TodayDate!)
     }
     
     
@@ -76,6 +102,7 @@ class TimeTableTabViewController: UIViewController {
         CurrentTimeTable = TimetableModel.getTimetable(Date: CustomDateClass(withString: (TodayDate?.stringFromDate())!))
         ShowDates(CurrentDate: TodayDate!)
         CollectionOfTables.scrollToItem(at: IndexPath(item: GetDayNumberFromDate(Date: TodayDate!), section: 0), at: .centeredHorizontally, animated: false)
+        CheckButtons(CurrentDate: TodayDate!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +158,7 @@ class TimeTableTabViewController: UIViewController {
         WeekNumberLabel.adjustsFontForContentSizeCategory = true
         WeekNumberLabel.minimumScaleFactor = 0.2
         WeekNumberLabel.numberOfLines = 1
+        CheckButtons(CurrentDate: TodayDate!)
     }
 
     func setUpNavigationBars(){
@@ -176,7 +204,7 @@ extension TimeTableTabViewController: UICollectionViewDelegate {
         if(visibleCell.CurrentTimeTable.count != 0){
             visibleCell.TableForClasses.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: true)
         }
-
+        CheckButtons(CurrentDate: TodayDate!)
         PagesControl.isEnabled = true
     }
     
