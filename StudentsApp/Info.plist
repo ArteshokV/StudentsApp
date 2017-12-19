@@ -20,6 +20,35 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>iconTasks</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Задания</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenTasks</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>version</key>
+				<string>3</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>iconSchedule</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Расписание</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenTimetable</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>version</key>
+				<string>3</string>
+			</dict>
+		</dict>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

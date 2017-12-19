@@ -105,7 +105,7 @@ class TaskEditViewController: UIViewController {
        
         
         DateField.text = taskEditObject?.taskDate?.stringFromDate()
-        prioritySegment.selectedSegmentIndex = (taskEditObject?.taskPriority)!
+        prioritySegment.selectedSegmentIndex = Int(taskEditObject!.taskPriority!)
         deleteButton.isHidden = false
             
             let toolbar = UIToolbar()
@@ -233,7 +233,7 @@ class TaskEditViewController: UIViewController {
         }
         
         
-        taskEditObject?.taskPriority = self.prioritySegment.selectedSegmentIndex
+        taskEditObject?.taskPriority = Int16(self.prioritySegment.selectedSegmentIndex)
         
         if (!isEdit) {
             taskEditObject?.taskStatus = 0

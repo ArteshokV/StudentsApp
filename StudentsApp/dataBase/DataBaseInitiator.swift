@@ -116,6 +116,8 @@ class DataBaseInitiator: NSObject {
         for subject in dataStruct.subjects!{
                 //print(DatabaseController.getContext())
                 let Subject:Subjects = NSEntityDescription.insertNewObject(forEntityName: subjectsDatabaseName, into: DatabaseController.getContext()) as! Subjects
+            
+                Subject.idOnRemoteServer = Int64(subject.id)
                 Subject.name = subject.name
             }
             DatabaseController.saveContext()
@@ -125,7 +127,8 @@ class DataBaseInitiator: NSObject {
         for eventData in dataStruct.timeTableEvents!{
                 
                 let event:TimeTable = NSEntityDescription.insertNewObject(forEntityName: timeTableDatabaseName, into: DatabaseController.getContext()) as! TimeTable
-                
+            
+            event.idOnRemoteServer = Int64(eventData.id)
                 event.startTime = eventData.startTime
                 event.endTime = eventData.endTime
                 
@@ -154,6 +157,7 @@ class DataBaseInitiator: NSObject {
                     DatabaseController.saveContext()
                 }
                 else{
+                    //FIXME:: store teachers with ids
                     let teacher:TeacherModel = TeacherModel(Name: (eventData.teacher)!.name, FamilyName: (eventData.teacher?.familyName)!, FatherName: eventData.teacher?.fatherName == nil ? nil : eventData.teacher?.fatherName)
                     teacher.save()
                     event.teacher = teacher.getDataBaseEntity()
@@ -167,7 +171,8 @@ class DataBaseInitiator: NSObject {
         for activity in dataStruct.activities!{
                 
                 let event:Activities = NSEntityDescription.insertNewObject(forEntityName: activitiesDatabaseName, into: DatabaseController.getContext()) as! Activities
-                
+            event.idOnRemoteServer = Int64(activity.id)
+            
                 event.date = CustomDateClass(withString: activity.date).currentDate
                 
                 event.shortName = activity.shortName
@@ -179,14 +184,15 @@ class DataBaseInitiator: NSObject {
         for task in dataStruct.tasks!{
                 
                 let event:Tasks = NSEntityDescription.insertNewObject(forEntityName: tasksDatabaseName, into: DatabaseController.getContext()) as! Tasks
-                
-                event.date = CustomDateClass(withString: task.date).currentDate
+            
+            event.idOnRemoteServer = Int64(task.id!)
+            event.date = CustomDateClass(withString: task.date!).currentDate
                 event.shortName = task.shortName
                 event.descrp = task.description
-                event.priority = (task.priority)
-                event.status = (task.status )
+            event.priority = (task.priority)!
+            event.status = (task.status )!
                 
-                event.subject = getSubjectBy(Name: task.subject)
+            event.subject = getSubjectBy(Name: task.subject!)
             }
         
             DatabaseController.saveContext()

@@ -221,6 +221,10 @@ class StudyPlaceSelectionViewController: UIViewController {
             UserDefaults.standard.set(university, forKey: "selectedUniversity")
             UserDefaults.standard.set(faculty, forKey: "selectedFaculty")
             UserDefaults.standard.set(group, forKey: "selectedGroup")
+            
+            
+            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "lastSyncDate")
+            
         }catch{
             print("Unable to encode selectedJson")
         }
