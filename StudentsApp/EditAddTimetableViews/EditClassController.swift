@@ -434,6 +434,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         PeriodicStartDate.inputView = customViewForDatePicker
         PeriodicStartDate.tintColor = UIColor.clear
         datePickerInSubview.minimumDate = DateOfBeginOfSemester.currentDate
+        datePickerInSubview.maximumDate = DateOfEndOfSemester.currentDate?.addingTimeInterval(-WeekInterval)
         if (PeriodicStartDate.text != "") {
             datePickerInSubview.setDate(PeriodicStartDateValue.currentDate!, animated: false)
         }
@@ -457,6 +458,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         datePickerInSubview.datePickerMode = UIDatePickerMode.date
         PeriodicEndDate.inputView = customViewForDatePicker
         PeriodicEndDate.tintColor = UIColor.clear
+        datePickerInSubview.minimumDate = DateOfBeginOfSemester.currentDate
         datePickerInSubview.maximumDate = DateOfEndOfSemester.currentDate
         if (PeriodicEndDate.text != "") {
             datePickerInSubview.setDate(PeriodicEndDateValue.currentDate!, animated: false)
