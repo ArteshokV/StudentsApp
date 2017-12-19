@@ -532,13 +532,13 @@ extension TasksTabViewController: UITableViewDataSource {
             
             
             switch section {
-            case 2:
+            case 0:
                 header.mainHeaderLabel?.text = "Высокий приоритет"
                 break
             case 1:
                 header.mainHeaderLabel?.text = "Средний приоритет"
                 break
-            case 0:
+            case 2:
                 header.mainHeaderLabel?.text = "Низкий приоритет"
                 break
             default:
