@@ -51,9 +51,17 @@ class SyncController: NSObject {
         
         network.doSync(withCompletition: {(respons)
             in
-            
+            print("Printing respons data here: ")
+            let encodeddata = try! encoder.encode(respons)
+            print(String(data: encodeddata, encoding: .utf8)!)
         }, dataToSend: String(data: encodeddata, encoding: .utf8)!)
     }
+    
+}
+
+struct syncReturnDataStruct: Codable {
+    var returnedDueToNewIDs:syncArraysSet?
+    var returnedToSync:syncArraysSet?
     
 }
 

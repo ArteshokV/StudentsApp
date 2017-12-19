@@ -73,7 +73,7 @@ struct timeTableEvent: Codable {
 }
 
 class NetworkClass: NSObject {
-    let apiAdress = "46.188.72.4:8112/stdApp" //"172.20.10.11:8080/SSA"  "46.188.72.4:8112/stdApp" "192.168.0.190:8080/SSA"
+    let apiAdress = "192.168.0.190:8080/SSA" //"172.20.10.11:8080/SSA"  "46.188.72.4:8112/stdApp" "192.168.0.190:8080/SSA"
     let network = LowNetworkClass()
     
     func getUniversities(withCompletition: @escaping ([studyUnit]?) -> ()) {
@@ -114,10 +114,10 @@ class NetworkClass: NSObject {
         })
     }
         
-    func doSync(withCompletition: @escaping (initalDataResponse?) -> (), dataToSend:String?) {
+    func doSync(withCompletition: @escaping (syncReturnDataStruct?) -> (), dataToSend:String?) {
             print("Starting sync")
             let urlString = "http://\(apiAdress)/api/sync"
-            network.sendDataWith(URL: urlString, type: initalDataResponse.self, andCompletitionBlock: {responseStruct in
+            network.sendDataWith(URL: urlString, type: syncReturnDataStruct.self, andCompletitionBlock: {responseStruct in
                 DispatchQueue.main.async {
                     withCompletition(responseStruct)
                 }
