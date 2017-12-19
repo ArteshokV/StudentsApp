@@ -28,6 +28,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
     private var FiveMinutesInterval: TimeInterval = 5*60
     private var OneDayInterval: TimeInterval = 60*60*24
     private var AnimationDo: Bool = false
+    private var letChooseTable: Bool = true
     var ClassTempModel: TimetableModel! //= TimetableModel()
     private var SubjectTempModel: SubjectModel = SubjectModel()
     private var TeacherTempModel: TeacherModel = TeacherModel()
@@ -142,7 +143,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         let userInfo: NSDictionary = notification.userInfo! as NSDictionary
         if let keyboardFrame: CGRect = (userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as? NSValue)?.cgRectValue {
             self.KeyHeight = keyboardFrame.height
-            if (((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room"))&&(!AnimationDo)) {
+            if (((TextChoosingMode == "Teacher")||(TextChoosingMode == "Room"))&&(letChooseTable)) {
                 showTableToChooseForTextField(Stack: StackViewTR)
             }
             //print("C \(self.KeyHeight)")
@@ -448,6 +449,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
+        letChooseTable = false
     }
     
     @IBAction func ChoosePeriodicEndDate(_ sender: Any) {
@@ -470,6 +472,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         }
         ArrayOfCustomDates = Array()
         TableForDates.reloadData()
+        letChooseTable = false
     }
     
     @IBAction func ChooseEndTime(_ sender: Any) {
@@ -495,6 +498,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             EndTime.text = dateFormatterForTime.string(from: (EndTimeInDate.currentDate)!)
         }
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangeEndField), for: UIControlEvents.valueChanged)
+        letChooseTable = false
     }
     
     @IBAction func ChooseBeginTime(_ sender: UITextField) {
@@ -520,6 +524,7 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             BeginTime.text = dateFormatterForTime.string(from: (BeginTimeInDate.currentDate)!)
         }
         datePickerInSubview.addTarget(self, action: #selector(EditClassController.ChangeBeginField), for: UIControlEvents.valueChanged)
+        letChooseTable = false
     }
     
     
@@ -549,11 +554,13 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
             ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         }
+        letChooseTable = true
         view.endEditing(true)
         if (AnimationDo) {
-            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            
             self.AnimationDo = false
             ScrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+            ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
     
@@ -758,10 +765,10 @@ class EditClassController: UIViewController, UIScrollViewDelegate {
         TableToChoose.isHidden = true
         RegularityCustomView.isHidden = true
         
-        EndTime.placeholder = "Конец"
-        BeginTime.placeholder = "Начало"
-        TeacherField.placeholder = "Преподаватель"
-        ClassRoomField.placeholder = "Ауд"
+        EndTime.attributedPlaceholder = NSAttributedString(string: "Конец", attributes: [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor])
+        BeginTime.attributedPlaceholder = NSAttributedString(string: "Начало", attributes: [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor])
+        TeacherField.attributedPlaceholder = NSAttributedString(string: "Преподаватель", attributes: [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor])
+        ClassRoomField.attributedPlaceholder = NSAttributedString(string: "Ауд", attributes: [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor])
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
