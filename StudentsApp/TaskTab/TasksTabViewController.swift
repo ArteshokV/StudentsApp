@@ -28,6 +28,8 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
     var counterp = 0
     var showDone = false
     var counterDone = 0
+    
+    var emptyTable = false
    // var defaultColorDoneButton:UIColor = UIColor.clear
      // переменная для выбота типа сортировки
     var taskParametr: String!
@@ -108,6 +110,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             TasksAtDayArray = TaskModel.getTasksGroupedByDate(forDoneTasks: showDone)
             TasksAtSubjectArray = TaskModel.getTasksGroupedBySubject(forDoneTasks: showDone)
             TasksAtPriorityArray = TaskModel.getTasksGroupedByPriority(forDoneTasks: showDone)
+            
         }
         
         if(changesController == activitiesFetchController){
@@ -244,7 +247,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         taskTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         if (taskTable.numberOfSections != 0) {
-        taskTable.scrollToRow(at: index, at: .top, animated: true)
+        //taskTable.scrollToRow(at: index, at: .top, animated: true)
         }
     }
     
@@ -252,11 +255,9 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         switch activitiesSegment.selectedSegmentIndex {
         case 0:
             activitiesParametr = "subject"
-            print ("\(activitiesParametr)")
             break
         case 1:
             activitiesParametr = "time"
-            print ("\(activitiesParametr)")
             break
         default:
             activitiesParametr = "time"
@@ -268,7 +269,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         }
         activitiesTable.reloadData()
         let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        activitiesTable.scrollToRow(at: index, at: .top, animated: true)
+        //activitiesTable.scrollToRow(at: index, at: .top, animated: true)
     }
     
     
@@ -385,14 +386,14 @@ extension TasksTabViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { // Получим количество секций
         if (tableView == taskTable) { // для вывода заданий
             if taskParametr == "time" {
-            return TasksAtDayArray.count
+                return TasksAtDayArray.count == 0 ? 1 : TasksAtDayArray.count
         }
         
             else { if taskParametr == "subject" {
-                return TasksAtSubjectArray.count
+                return TasksAtDayArray.count == 0 ? 1 : TasksAtSubjectArray.count
             }
                   else { if taskParametr == "priority" {
-                return TasksAtPriorityArray.count - 1
+                return 3
                 }
                     else { return 0 }
                 }
@@ -422,16 +423,16 @@ extension TasksTabViewController: UITableViewDataSource {
         
       if (tableView == taskTable) {  // для вывода заданий
         if taskParametr == "time" {
-        return TasksAtDayArray[section].count
+        return TasksAtDayArray.count == 0 ? 0 : TasksAtDayArray[section].count
         }
        else {
         if taskParametr == "subject" {
            
-            return TasksAtSubjectArray[section].count
+            return TasksAtDayArray.count == 0 ? 0 : TasksAtSubjectArray[section].count
         }
         else {
             if taskParametr == "priority" {
-                return TasksAtPriorityArray[section].count
+                return TasksAtDayArray.count == 0 ? 0 : TasksAtPriorityArray[section].count
             }
             else {return 0}
         }
@@ -458,16 +459,21 @@ extension TasksTabViewController: UITableViewDataSource {
      
         if (tableView == taskTable) { // для вывода заданий
         if taskParametr == "time" { // Вывод данных для сортировки заданий по дате
-             cell.initWithTask(model: TasksAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
+            
+            cell.initWithTask(model: TasksAtDayArray[indexPath.section][indexPath.row], forSortingType: "Сроки")
             
         }
         
         if taskParametr == "subject" { // Вывод данных для сортировки заданий по предметам
+            
             cell.initWithTask(model: TasksAtSubjectArray[indexPath.section][indexPath.row], forSortingType: "Предметы")
+            
         }
         
         if taskParametr == "priority" { // Вывод данных для сортировки заданий по приоритету
+            
             cell.initWithTask(model: TasksAtPriorityArray[indexPath.section][indexPath.row], forSortingType: "Приоритет")
+            
         }
         }
  
@@ -501,6 +507,10 @@ extension TasksTabViewController: UITableViewDataSource {
         switch taskParametr {
         case "time":
             let todayD = CustomDateClass()
+            
+            if (TasksAtDayArray.count == 0) {
+                header.mainHeaderLabel?.text = "Пусто"
+            } else {
             if (showDone == false) {
             if (TasksAtDayArray[section][0].taskDate! >= todayD) {
             header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
@@ -508,13 +518,20 @@ extension TasksTabViewController: UITableViewDataSource {
             else {
                header.mainHeaderLabel?.text = (TasksAtDayArray[section][0].taskDate?.stringFromDate())!
             }
+            }
+            
             break
         case "subject":
-            print("\(TasksAtSubjectArray[section][0].taskSubject!)")
+            if (TasksAtDayArray.count == 0) {
+                header.mainHeaderLabel?.text = "Пусто"
+            } else {
             header.mainHeaderLabel?.text = TasksAtSubjectArray[section][0].taskSubject! == "" ? "Дополнительно" : TasksAtSubjectArray[section][0].taskSubject!
-            break
+            }
+                break
         case "priority":
-            switch TasksAtPriorityArray[section][0].taskPriority! {
+            
+            
+            switch section {
             case 2:
                 header.mainHeaderLabel?.text = "Высокий приоритет"
                 break
@@ -528,6 +545,7 @@ extension TasksTabViewController: UITableViewDataSource {
                 header.mainHeaderLabel?.text = " "
                 break
             }
+           
         default:
             header.mainHeaderLabel?.text = " "
             break
