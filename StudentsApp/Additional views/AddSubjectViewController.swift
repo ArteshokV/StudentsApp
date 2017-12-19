@@ -19,6 +19,10 @@ class AddSubjectViewController: UIViewController {
         super.viewDidLoad()
         appDesign.initBackground(ofView: self.view)
         enterSubjectLabel.textColor = appDesign.mainTextColor
+        let barsColor = appDesign.tabBarColor.withAlphaComponent(1)
+        self.navigationController?.navigationBar.barTintColor = barsColor
+        self.navigationController?.navigationBar.tintColor = appDesign.subTextColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: appDesign.mainTextColor]
         // Do any additional setup after loading the view.
     }
 
@@ -48,6 +52,7 @@ class AddSubjectViewController: UIViewController {
         subject.subjectImage = nil
         // FIXME: Save methods
          */
+        
         SubjectModel.getOrCreateSubjectWith(Name: enterSubjectTextField.text!)
         
         view.endEditing(true)
