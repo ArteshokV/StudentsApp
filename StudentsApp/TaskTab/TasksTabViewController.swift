@@ -206,10 +206,10 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
         
         taskTable.reloadData()
         
-        if (taskTable.numberOfSections != 0) {
+        /*if (taskTable.numberOfSections != 0) {
             let index = IndexPath.init(row: 0, section: 0)
             taskTable.scrollToRow(at: index, at: .top, animated: true)
-        }
+        }*/
     }
     
     @IBAction func addTaskButtonTouch(_ sender: Any) {
@@ -245,10 +245,10 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             updateData()
         }
         taskTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
-        if (taskTable.numberOfSections != 0) {
+        //let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+       // if (taskTable.numberOfSections != 0) {
         //taskTable.scrollToRow(at: index, at: .top, animated: true)
-        }
+        //}
     }
     
     @IBAction func activitiesSegmentChanged(_ sender: Any) {
@@ -268,7 +268,7 @@ class TasksTabViewController: UIViewController, NSFetchedResultsControllerDelega
             updateData()
         }
         activitiesTable.reloadData()
-        let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
+        //let index = IndexPath.init(row: 0, section: 0) //Прокрутка таблицы вверх при переключении
         //activitiesTable.scrollToRow(at: index, at: .top, animated: true)
     }
     
