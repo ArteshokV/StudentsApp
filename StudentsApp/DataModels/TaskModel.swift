@@ -38,6 +38,24 @@ class TaskModel: NSObject {
         return returnArray
     }
     
+    static func getTaskForRemoteIDAssigment(SortName:String, Subject:String, Description:String) -> TaskModel? {
+        
+        var ret: TaskModel? = nil
+        let selectionCondition = "(shortName == %@) AND (descrp == %@)"
+        let predicate = NSPredicate(format: selectionCondition, SortName, Description)
+        let fetchRequest:NSFetchRequest<Tasks> = Tasks.fetchRequest()
+        fetchRequest.predicate = predicate
+        let requestResults = try! DatabaseController.getContext().fetch(fetchRequest)
+        for task in requestResults {
+            if task.subject?.name == Subject {
+                ret = TaskModel(withDatabaseObject: task)
+            }
+            
+        }
+        
+        return ret
+    }
+    
     static func getTasksForToday() -> Array<TaskModel>{
         //Получаем список заданий
         var returnArray: Array<TaskModel> = Array()

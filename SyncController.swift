@@ -51,9 +51,49 @@ class SyncController: NSObject {
         
         network.doSync(withCompletition: {(respons)
             in
+            // Print response
             print("Printing respons data here: ")
             let encodeddata = try! encoder.encode(respons)
             print(String(data: encodeddata, encoding: .utf8)!)
+            
+            // Proccess response
+            if respons?.returnedDueToNewIDs != nil {
+                print("Proccessing returned due to new id...")
+                let returnedDueToNewIds = respons!.returnedDueToNewIDs
+                
+                if ((returnedDueToNewIds!.tasks!.count) > 0) {
+                    print("Proccessing tasks in returnedDueToNewIds...")
+                    for tas in returnedDueToNewIds!.tasks! {
+                        let taskModel = TaskModel.getTaskForRemoteIDAssigment(SortName: tas.shortName!, Subject: tas.subject!, Description: tas.description!)
+                        if taskModel != nil {
+                            taskModel?.idOnServer = tas.id
+                            if (taskModel?.save())! {
+                                print("Saved taskModel with new on-server id)")
+                            }else{
+                                print("Could't save taskModel with new on-serve id(")
+                            }
+                        }else{
+                            print("Got nil taskModel while prossesing tasks in returnedDueToNewIds.")
+                        }
+                    }
+                }
+                else{
+                    print("No tasks in returnedDueToNewIds.")
+                }
+                
+            }else{
+                print("No returned due to new ids.")
+                
+            }
+            
+            if respons?.returnedToSync != nil {
+                print("Proccessing returned to sync...")
+                
+            }else{
+                print("No returned to sync.")
+                
+            }
+            
         }, dataToSend: String(data: encodeddata, encoding: .utf8)!)
     }
     
