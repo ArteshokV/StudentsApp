@@ -89,6 +89,7 @@ class SubjectsTabTableViewCell: UITableViewCell {
         self.RightCoverImage.backgroundColor = UIColor.clear
         
         self.BlurViewRight.alpha = 1
+        self.BlurViewLeft.alpha = 1
         
         self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? bookImage
         self.LeftNameLabel.text = subjectLeftModel?.subjectName
@@ -101,14 +102,16 @@ class SubjectsTabTableViewCell: UITableViewCell {
         self.subjectRightModel = nil
         
         self.BlurViewRight.alpha = 1
+        self.BlurViewLeft.alpha = 1
         
         self.LeftCoverImage.image = subjectLeftModel?.subjectImage ?? bookImage
         self.LeftNameLabel.text = subjectLeftModel?.subjectName
         
-        self.RightCoverImage.image = nil
-        self.RightCoverImage.backgroundColor = UIColor.cyan
+        self.RightCoverImage.image = #imageLiteral(resourceName: "addTaskIcon")
+        //self.RightCoverImage.backgroundColor = UIColor.cyan
         self.LeftCoverImage.backgroundColor = UIColor.clear
-        self.RightNameLabel.text = "Добавить"
+        self.RightNameLabel.text = ""
+        self.BlurViewRight.alpha = 0
     }
     
     func initRowWithAddButton(){
@@ -117,9 +120,11 @@ class SubjectsTabTableViewCell: UITableViewCell {
         
         self.BlurViewRight.alpha = 0
         
-        self.LeftCoverImage.backgroundColor = UIColor.cyan
-        self.LeftCoverImage.image = nil
-        self.LeftNameLabel.text = "Добавить"
+        //self.LeftCoverImage.backgroundColor = UIColor.cyan
+        self.LeftCoverImage.image = #imageLiteral(resourceName: "addTaskIcon")
+        self.LeftNameLabel.text = ""
+        self.BlurViewLeft.alpha = 0
+        
         
         self.RightCoverImage.backgroundColor = UIColor.clear
         self.RightCoverImage.image = nil
