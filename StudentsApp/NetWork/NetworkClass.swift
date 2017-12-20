@@ -73,7 +73,7 @@ struct timeTableEvent: Codable {
 }
 
 class NetworkClass: NSObject {
-    let apiAdress = "172.20.10.11:8080/SSA" //"172.20.10.11:8080/SSA"  "46.188.72.4:8112/stdApp" "192.168.0.190:8080/SSA"
+    let apiAdress = "192.168.0.190:8080/SSA" //"172.20.10.11:8080/SSA"  "46.188.72.4:8112/stdApp" "192.168.0.190:8080/SSA"
     let network = LowNetworkClass()
     
     func getUniversities(withCompletition: @escaping ([studyUnit]?) -> ()) {
