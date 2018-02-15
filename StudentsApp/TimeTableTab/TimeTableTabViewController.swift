@@ -119,6 +119,19 @@ class TimeTableTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TodayDate = CustomDateClass()
+        //Чтобы работало, когда заходишь на экран после конца семестра
+        let calendar = Calendar.current
+        let DateComponent = calendar.dateComponents([.day], from: DateOfBeginOfSemester.currentDate!, to: DateOfEndOfSemester.currentDate!)
+        let NumberOfDaysInSemester = DateComponent.day!
+        let CurrentDayNumberInSemester = GetDayNumberFromDate(Date: TodayDate!)
+        print(CurrentDayNumberInSemester)
+        print(NumberOfDaysInSemester)
+        print(DateOfEndOfSemester.stringFromDate())
+        if ((CurrentDayNumberInSemester+7) >= NumberOfDaysInSemester) {
+            TodayDate = CustomDateClass(withday: DateOfEndOfSemester.dayInt! - 1, month: DateOfEndOfSemester.monthInt!, year: 2017)
+        }
+        //До сюда
+        
         CollectionOfTables.register(UINib(nibName: "TimeTableCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: TimeTableCollectionCellIdentifier)
         CollectionOfTables.translatesAutoresizingMaskIntoConstraints = false
         CollectionOfTables.clipsToBounds = true
